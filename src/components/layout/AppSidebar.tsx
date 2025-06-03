@@ -10,7 +10,7 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarFooter,
-  SidebarTrigger,
+  // SidebarTrigger, // No longer needed here for mobile sheet if PageHeader handles it
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Bot, Cpu } from 'lucide-react';
@@ -30,14 +30,9 @@ export default function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader className="p-4 flex items-center gap-2 justify-between">
-        <Link href="/" className="flex items-center gap-2 text-lg font-semibold font-headline text-sidebar-foreground hover:text-sidebar-primary transition-colors">
-          <Bot className="w-7 h-7 text-sidebar-primary" />
-          <span className="group-data-[collapsible=icon]:hidden">Himalaya Public School</span>
-        </Link>
-        <div className="md:hidden">
-          <SidebarTrigger />
-        </div>
+      <SidebarHeader className="p-4 h-16 flex items-center justify-end border-b">
+        {/* School logo and name are now in PageHeader */}
+        {/* Mobile SidebarTrigger is also handled by PageHeader */}
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
