@@ -14,82 +14,94 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <AppSidebar />
       <SidebarInset className="flex flex-col">
         <PageHeader />
-        <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
+        <main className="flex-1 overflow-y-auto">
           {children}
         </main>
-        <footer className="m-4 p-6 md:p-8 rounded-lg text-foreground/90">
-          <div className="container mx-auto px-0">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+        {/* Updated Footer - Target for image matching */}
+        <footer className="bg-background text-primary-foreground/90 py-10 md:py-16">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
               {/* Column 1: School Info */}
               <div className="space-y-3">
                 <Link href="/" className="flex items-center gap-2 mb-3">
-                  <School className="w-8 h-8 text-primary" />
-                  <h3 className="text-xl font-bold text-foreground">Himalaya Public School</h3>
+                  <School className="w-10 h-10 text-primary" />
+                  <h3 className="text-2xl font-bold text-primary-foreground">Himalaya Public School</h3>
                 </Link>
                 <p className="text-sm leading-relaxed">
-                  Dedicated to providing the best possible education, fostering growth and development in a safe, nurturing environment
+                  Our school is dedicated to providing the best possible education for our students, and we are proud to offer a range of programs that are designed to help them grow and develop in a safe and nurturing environment
                 </p>
               </div>
 
               {/* Column 2: Information */}
               <div className="space-y-3">
-                <h4 className="text-lg font-semibold mb-4 text-foreground">Information</h4>
-                <ul className="space-y-2 text-sm">
-                  <li><Link href="/" className="hover:text-primary transition-colors">About Himalaya</Link></li>
-                  <li><Link href="/admissions" className="hover:text-primary transition-colors">Admissions</Link></li>
-                  <li><Link href="/faculty" className="hover:text-primary transition-colors">Our Faculty</Link></li>
-                  <li><Link href="/school-life" className="hover:text-primary transition-colors">School Life</Link></li>
-                  <li><Link href="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
+                <h4 className="text-xl font-semibold mb-4 text-primary-foreground">Information</h4>
+                <ul className="space-y-2.5 text-sm">
+                  <li><Link href="/" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> About Himalaya</Link></li>
+                  <li><Link href="/admissions" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> Admissions</Link></li>
+                  <li><Link href="/faculty" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> Our Faculty</Link></li>
+                  <li><Link href="/school-life" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> School Life</Link></li>
+                  <li><Link href="/contact" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> Contact Us</Link></li>
                 </ul>
               </div>
 
               {/* Column 3: Resources */}
               <div className="space-y-3">
-                <h4 className="text-lg font-semibold mb-4 text-foreground">Resources</h4>
-                <ul className="space-y-2 text-sm">
-                  <li><Link href="/resources" className="hover:text-primary transition-colors">Downloads</Link></li>
-                  <li><Link href="/ai-assistant" className="hover:text-primary transition-colors">AI Assistant / FAQ</Link></li>
-                  <li><Link href="/school-life#news" className="hover:text-primary transition-colors">News & Events</Link></li>
+                <h4 className="text-xl font-semibold mb-4 text-primary-foreground">Resources</h4>
+                <ul className="space-y-2.5 text-sm">
+                  <li><Link href="/resources" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> Downloads</Link></li>
+                  <li><Link href="/ai-assistant" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> AI Assistant / FAQ</Link></li>
+                  <li><Link href="/school-life#news" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> News & Events</Link></li>
                 </ul>
                 <Link
                   href="/contact"
-                  className="mt-4 inline-flex items-center bg-accent text-accent-foreground py-2.5 px-4 rounded-md hover:bg-accent/90 transition-colors text-sm font-medium shadow-md"
+                  className="mt-4 inline-flex items-center bg-accent text-accent-foreground py-3 px-5 rounded-lg hover:bg-accent/90 transition-colors text-sm font-medium shadow-md"
                 >
-                  <Mail className="w-4 h-4 mr-2 shrink-0" /> Complaint & Suggestion
+                  <Mail className="w-5 h-5 mr-2.5 shrink-0" /> Complaint & Suggestion Box
                 </Link>
               </div>
 
               {/* Column 4: Contact */}
               <div className="space-y-3">
-                <h4 className="text-lg font-semibold mb-4 text-foreground">Get in Touch</h4>
-                <address className="not-italic text-sm space-y-2.5">
+                <h4 className="text-xl font-semibold mb-4 text-primary-foreground">Contact</h4>
+                <address className="not-italic text-sm space-y-3">
                   <p className="flex items-start">
-                    <MapPin className="w-4 h-4 mr-2.5 mt-0.5 shrink-0 text-primary" />
-                    <span>123 Education Lane, Knowledge City, KC 12345, India</span>
+                    <MapPin className="w-5 h-5 mr-2.5 mt-0.5 shrink-0 text-primary" />
+                    <span>Himalaya Public School <br />123 Education Lane, Knowledge City, KC 12345, India</span>
                   </p>
                   <p className="flex items-center">
-                    <Phone className="w-4 h-4 mr-2.5 shrink-0 text-primary" />
+                    <Phone className="w-5 h-5 mr-2.5 shrink-0 text-primary" />
                     <span>+91 (123) 456-7890</span>
                   </p>
                   <p className="flex items-center">
-                    <Mail className="w-4 h-4 mr-2.5 shrink-0 text-primary" />
+                    <Mail className="w-5 h-5 mr-2.5 shrink-0 text-primary" />
                     <span>info@himalayaschool.edu</span>
                   </p>
                 </address>
-                <div className="flex space-x-4 pt-3">
-                  <Link href="#" aria-label="Facebook" className="text-primary-foreground hover:text-primary transition-colors"><Facebook className="w-7 h-7" /></Link>
-                  <Link href="#" aria-label="Instagram" className="text-primary-foreground hover:text-primary transition-colors"><Instagram className="w-7 h-7" /></Link>
-                  <Link href="#" aria-label="LinkedIn" className="text-primary-foreground hover:text-primary transition-colors"><Linkedin className="w-7 h-7" /></Link>
+                <div className="flex space-x-3 pt-3">
+                  <Link href="#" aria-label="Facebook" className="p-2.5 bg-accent/80 rounded-full hover:bg-accent transition-colors">
+                    <Facebook className="w-5 h-5 text-primary-foreground" />
+                  </Link>
+                  <Link href="#" aria-label="LinkedIn" className="p-2.5 bg-accent/80 rounded-full hover:bg-accent transition-colors">
+                    <Linkedin className="w-5 h-5 text-primary-foreground" />
+                  </Link>
+                  <Link href="#" aria-label="Instagram" className="p-2.5 bg-primary/80 rounded-full hover:bg-primary transition-colors">
+                    <Instagram className="w-5 h-5 text-primary-foreground" />
+                  </Link>
+                  {/* Add other icons if needed, e.g., YouTube from image - using Instagram icon as placeholder */}
+                   <Link href="#" aria-label="Youtube" className="p-2.5 bg-secondary/80 rounded-full hover:bg-secondary transition-colors">
+                    {/* Using Instagram icon as placeholder for a generic "video" or "media" icon if YouTube not in Lucide */}
+                    <Instagram className="w-5 h-5 text-primary-foreground" /> 
+                  </Link>
                 </div>
               </div>
             </div>
 
             {/* Bottom Bar */}
-            <div className="border-t border-border/20 pt-6 mt-6 flex flex-col md:flex-row justify-between items-center text-sm text-foreground/70">
-              <p className="mb-2 md:mb-0">Himalaya Public School All rights reserved © {new Date().getFullYear()}</p>
-              <div className="space-x-4">
+            <div className="border-t border-border/20 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center text-sm text-primary-foreground/70">
+              <p className="mb-2 md:mb-0">© {new Date().getFullYear()} Himalaya Public School All rights reserved</p>
+              <div className="space-x-6">
                 <Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
-                <Link href="#" className="hover:text-primary transition-colors">Terms & Conditions</Link>
+                <Link href="#" className="hover:text-primary transition-colors">Terms &amp; Conditions</Link>
               </div>
             </div>
           </div>
