@@ -36,7 +36,6 @@ export default function SchoolInfoChatbot() {
       let errorMessage = "An error occurred while trying to get information. Please try again later.";
       if (e instanceof Error) {
         // Check for specific Genkit/Gemini error messages if needed
-        // For now, a generic message based on e.message might be too technical
       }
       setError(errorMessage);
     }
@@ -44,8 +43,8 @@ export default function SchoolInfoChatbot() {
   };
 
   return (
-    <Card className="shadow-lg bg-card w-full">
-      <CardHeader>
+    <Card className="flex flex-col h-full w-full shadow-none border-0 rounded-none bg-card">
+      <CardHeader className="border-b">
         <CardTitle className="flex items-center gap-2 text-xl text-primary">
           <BrainCircuit className="w-6 h-6" />
           Ask About Our School
@@ -54,7 +53,7 @@ export default function SchoolInfoChatbot() {
           Have a question about Himalaya Public School? Ask our AI assistant!
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex-grow overflow-y-auto p-6 space-y-4">
         <form onSubmit={handleAskQuestion} className="space-y-4">
           <div>
             <Input

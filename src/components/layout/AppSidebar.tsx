@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from 'next/link';
@@ -8,12 +9,13 @@ import {
   SidebarContent,
   SidebarMenu,
   SidebarMenuItem,
-  SidebarMenuButton,
   SidebarFooter,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Landmark } from 'lucide-react'; // Added Landmark for school icon
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import SchoolInfoChatbot from '@/components/ai/SchoolInfoChatbot';
+import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Landmark, MessageSquare } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'School Overview', icon: Home },
@@ -56,8 +58,22 @@ export default function AppSidebar() {
           ))}
         </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter className="p-4 group-data-[collapsible=icon]:hidden">
-        <p className="text-xs text-sidebar-foreground/70">
+      <SidebarFooter className="p-2 flex flex-col gap-2">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button
+              variant="ghost"
+              className="w-full justify-start group-data-[collapsible=icon]:justify-center text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
+            >
+              <MessageSquare className="w-5 h-5" />
+              <span className="group-data-[collapsible=icon]:hidden ml-3">AI Assistant</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-[400px] sm:w-[500px] p-0 flex flex-col bg-background">
+             <SchoolInfoChatbot />
+          </SheetContent>
+        </Sheet>
+        <p className="text-xs text-sidebar-foreground/70 group-data-[collapsible=icon]:hidden px-2">
           Inspiring Futures, Building Character.
         </p>
       </SidebarFooter>

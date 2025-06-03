@@ -1,11 +1,10 @@
+
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Zap, Eye, BookOpen as HistoryIcon } from 'lucide-react';
-import SchoolInfoChatbot from '@/components/ai/SchoolInfoChatbot';
-
 
 export default function HomePage() {
   return (
@@ -108,12 +107,6 @@ export default function HomePage() {
               </Button>
             </CardContent>
           </Card>
-        </div>
-      </SectionWrapper>
-
-      <SectionWrapper title="Ask Our AI Assistant" className="bg-background">
-        <div className="max-w-2xl mx-auto">
-          <SchoolInfoChatbot />
         </div>
       </SectionWrapper>
     </div>

@@ -1,93 +1,94 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 40 33% 96%; /* Light Beige #F7F5F2 */
-    --foreground: 30 15% 25%; /* Dark Brown #4A413C */
+    --background: 0 10% 8%; /* Very Dark Desaturated Red/Brown */
+    --foreground: 20 20% 95%; /* Light Warm Grey */
 
-    --card: 40 33% 99%; /* Very Light Cream #FCFAF8 */
-    --card-foreground: 30 15% 25%; /* Dark Brown */
+    --card: 0 10% 12%; /* Slightly Lighter Dark */
+    --card-foreground: 20 20% 95%; /* Light Warm Grey */
 
-    --popover: 40 33% 99%; /* Very Light Cream */
-    --popover-foreground: 30 15% 25%; /* Dark Brown */
+    --popover: 0 10% 12%; /* Slightly Lighter Dark */
+    --popover-foreground: 20 20% 95%; /* Light Warm Grey */
 
-    --primary: 150 30% 35%; /* Muted Forest Green #3E6B4F */
-    --primary-foreground: 40 33% 98%; /* Off-white #FBF8F6 */
+    --primary: 0 60% 35%; /* Dark Red */
+    --primary-foreground: 0 0% 95%; /* Off-white */
 
-    --secondary: 150 25% 88%; /* Lighter Muted Green #D5E3DB */
-    --secondary-foreground: 150 30% 30%; /* Darker Green #355C44 */
+    --secondary: 25 70% 40%; /* Dark Orange */
+    --secondary-foreground: 25 0% 95%; /* Off-white for orange contrast */
 
-    --muted: 40 33% 92%; /* Slightly darker Beige #F0EBE5 */
-    --muted-foreground: 30 15% 45%; /* Muted Brown #827871 */
+    --muted: 0 10% 20%; /* Darker Grey */
+    --muted-foreground: 20 15% 65%; /* Muted Warm Grey */
 
-    --accent: 20 60% 55%; /* Warm Terracotta #D98C6B */
-    --accent-foreground: 30 15% 15%; /* Very Dark Brown #332D29 */
+    --accent: 15 80% 55%; /* Brighter Orange/Red */
+    --accent-foreground: 0 0% 98%; /* Very Light for contrast */
 
-    --destructive: 0 70% 55%; /* Desaturated Red #D95C5C */
+    --destructive: 0 70% 50%; /* Standard Red */
     --destructive-foreground: 0 0% 98%; /* Almost White */
 
-    --border: 40 30% 85%; /* Beige Border #E0D8D0 */
-    --input: 40 33% 98%; /* Off-white Input #FBF8F6 */
-    --ring: 150 30% 40%; /* Primary Green for rings #4A7A5A */
+    --border: 0 20% 25%; /* Dark Reddish Border */
+    --input: 0 15% 15%; /* Dark Input Background */
+    --ring: 15 80% 60%; /* Brighter Orange Ring */
 
-    --chart-1: 20 70% 60%; /* Terracotta variant */
-    --chart-2: 150 35% 50%; /* Green variant */
-    --chart-3: 30 20% 40%; /* Brown variant */
-    --chart-4: 45 50% 60%; /* Muted Yellow/Gold variant */
-    --chart-5: 160 25% 65%; /* Lighter Green variant */
+    --chart-1: 15 70% 60%; /* Orange variant */
+    --chart-2: 0 55% 50%; /* Red variant */
+    --chart-3: 20 30% 40%; /* Brown variant */
+    --chart-4: 30 60% 60%; /* Muted Gold/Orange variant */
+    --chart-5: 5 45% 65%; /* Lighter Red/Orange variant */
     --radius: 0.5rem;
 
     /* Sidebar specific theme */
-    --sidebar-background: 150 30% 28%; /* Darker Forest Green #31573F */
-    --sidebar-foreground: 40 30% 90%; /* Light Beige text #EDE8E3 */
-    --sidebar-primary: 20 60% 60%; /* Terracotta for active items #DEA085 */
-    --sidebar-primary-foreground: 30 15% 15%; /* Very Dark Brown text on Terracotta */
-    --sidebar-accent: 150 30% 38%; /* Hover color, mid-tone Green #457053 */
-    --sidebar-accent-foreground: 40 30% 95%; /* Very Light Beige text on hover #F5F2EF */
-    --sidebar-border: 150 30% 40%; /* Mid-tone Green border #4A7A5A */
-    --sidebar-ring: 20 60% 60%; /* Terracotta ring */
+    --sidebar-background: 0 30% 12%; /* Darker Red/Brown */
+    --sidebar-foreground: 20 20% 85%; /* Light Warm Grey Text */
+    --sidebar-primary: 15 80% 55%; /* Brighter Orange for active items */
+    --sidebar-primary-foreground: 0 0% 10%; /* Dark Text on Orange */
+    --sidebar-accent: 0 40% 22%; /* Hover color, mid-tone Red */
+    --sidebar-accent-foreground: 20 20% 90%; /* Light text on hover */
+    --sidebar-border: 0 30% 18%; /* Mid-tone Red border */
+    --sidebar-ring: 15 80% 55%; /* Orange ring */
   }
 
   .dark {
-    --background: 30 10% 10%; /* Very Dark Brown #1C1A19 */
-    --foreground: 40 25% 85%; /* Light Beige text #E0D8D0 */
+    --background: 0 10% 8%; /* Very Dark Desaturated Red/Brown */
+    --foreground: 20 20% 95%; /* Light Warm Grey */
 
-    --card: 30 10% 15%; /* Slightly lighter Dark Brown for cards #2B2826 */
-    --card-foreground: 40 25% 85%;
+    --card: 0 10% 12%; /* Slightly Lighter Dark */
+    --card-foreground: 20 20% 95%; /* Light Warm Grey */
 
-    --popover: 30 10% 15%;
-    --popover-foreground: 40 25% 85%;
+    --popover: 0 10% 12%; /* Slightly Lighter Dark */
+    --popover-foreground: 20 20% 95%; /* Light Warm Grey */
 
-    --primary: 150 30% 55%; /* Lighter Forest Green #70A885 */
-    --primary-foreground: 150 25% 15%; /* Dark Green text on primary #1E3025 */
+    --primary: 0 60% 35%; /* Dark Red */
+    --primary-foreground: 0 0% 95%; /* Off-white */
 
-    --secondary: 30 10% 20%; /* Darker secondary Brown #383432 */
-    --secondary-foreground: 40 25% 85%;
+    --secondary: 25 70% 40%; /* Dark Orange */
+    --secondary-foreground: 25 0% 95%; /* Off-white for orange contrast */
 
-    --muted: 30 10% 18%; /* Dark Muted Brown #322F2D */
-    --muted-foreground: 40 25% 65%; /* Muted Beige text #B5AFAF */
+    --muted: 0 10% 20%; /* Darker Grey */
+    --muted-foreground: 20 15% 65%; /* Muted Warm Grey */
 
-    --accent: 20 60% 65%; /* Brighter Terracotta #E0A289 */
-    --accent-foreground: 30 10% 10%; /* Very Dark Brown on Terracotta */
+    --accent: 15 80% 55%; /* Brighter Orange/Red */
+    --accent-foreground: 0 0% 98%; /* Very Light for contrast */
 
-    --destructive: 0 60% 60%; /* Brighter Red #E57373 */
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 70% 50%; /* Standard Red */
+    --destructive-foreground: 0 0% 98%; /* Almost White */
 
-    --border: 30 10% 25%; /* Dark Brown border #423E3B */
-    --input: 30 10% 18%; /* Darker input background */
-    --ring: 150 30% 60%; /* Lighter Green for rings #80B292 */
+    --border: 0 20% 25%; /* Dark Reddish Border */
+    --input: 0 15% 15%; /* Dark Input Background */
+    --ring: 15 80% 60%; /* Brighter Orange Ring */
 
-    /* Sidebar specific theme for dark mode */
-    --sidebar-background: 30 10% 8%; /* Even darker Brown #171514 */
-    --sidebar-foreground: 40 25% 80%; /* Muted Beige text #D6CCC2 */
-    --sidebar-primary: 20 60% 65%; /* Brighter Terracotta #E0A289 */
-    --sidebar-primary-foreground: 30 10% 10%; /* Very Dark Brown */
-    --sidebar-accent: 30 10% 15%; /* Dark Brown for hover #2B2826 */
-    --sidebar-accent-foreground: 40 25% 90%; /* Light Beige text #EDE8E3 */
-    --sidebar-border: 30 10% 18%; /* Dark Muted Brown border #322F2D */
-    --sidebar-ring: 20 60% 65%; /* Brighter Terracotta ring */
+    /* Sidebar specific theme for dark mode (same as default for this theme) */
+    --sidebar-background: 0 30% 12%; /* Darker Red/Brown */
+    --sidebar-foreground: 20 20% 85%; /* Light Warm Grey Text */
+    --sidebar-primary: 15 80% 55%; /* Brighter Orange for active items */
+    --sidebar-primary-foreground: 0 0% 10%; /* Dark Text on Orange */
+    --sidebar-accent: 0 40% 22%; /* Hover color, mid-tone Red */
+    --sidebar-accent-foreground: 20 20% 90%; /* Light text on hover */
+    --sidebar-border: 0 30% 18%; /* Mid-tone Red border */
+    --sidebar-ring: 15 80% 55%; /* Orange ring */
   }
 }
 
