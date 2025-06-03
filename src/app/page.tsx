@@ -8,7 +8,7 @@ import { GraduationCap, Activity, Users, FileText, Users2, Camera, ArrowRight } 
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-red-600 via-orange-500 to-slate-900">
       {/* Hero Section */}
       <section className="relative w-full h-[70vh] md:h-[80vh] flex items-center justify-center text-center text-white overflow-hidden">
         <Image
@@ -50,14 +50,14 @@ export default function HomePage() {
       </section>
 
       {/* Discover Himalaya Section */}
-      <SectionWrapper title="Discover Himalaya" className="bg-background text-foreground py-12 md:py-20" id="discover">
+      <SectionWrapper title="Discover Himalaya" className="bg-background/80 backdrop-blur-sm text-foreground py-12 md:py-20" id="discover">
         <p className="text-center text-lg md:text-xl text-foreground/80 mb-12 max-w-3xl mx-auto leading-relaxed">
           Himalaya Public School is more than just an educational institution; it's a vibrant community dedicated to fostering intellectual curiosity, critical thinking, and a lifelong love for learning. We provide a balanced education that prepares students not only for academic success but also for the challenges and opportunities of the modern world.
         </p>
       </SectionWrapper>
 
       {/* Why Choose Us Section */}
-      <SectionWrapper title="Why Choose Himalaya?" className="bg-card text-card-foreground py-12 md:py-20">
+      <SectionWrapper title="Why Choose Himalaya?" className="bg-card/80 backdrop-blur-sm text-card-foreground py-12 md:py-20">
         <div className="grid md:grid-cols-3 gap-8">
           <Card className="shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-background/50">
             <CardHeader className="items-center text-center">
@@ -96,7 +96,7 @@ export default function HomePage() {
       </SectionWrapper>
 
       {/* Explore Our School Section */}
-      <SectionWrapper title="Explore Our School" className="bg-background text-foreground py-12 md:py-20">
+      <SectionWrapper title="Explore Our School" className="bg-background/80 backdrop-blur-sm text-foreground py-12 md:py-20">
         <div className="grid md:grid-cols-3 gap-8">
           {[
             { title: "Admissions Process", href: "/admissions", icon: FileText, description: "Learn about our application process and key dates.", dataAiHint: "admission documents" },
@@ -128,7 +128,7 @@ export default function HomePage() {
       </SectionWrapper>
 
       {/* Get Started CTA Section */}
-      <SectionWrapper className="bg-primary text-primary-foreground py-16 md:py-24">
+      <SectionWrapper className="bg-primary/90 backdrop-blur-sm text-primary-foreground py-16 md:py-24">
         <div className="text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Join the Himalaya Family?</h2>
           <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-primary-foreground/90">
@@ -138,7 +138,7 @@ export default function HomePage() {
             <Button
               asChild
               size="lg"
-              variant="secondary" // Use secondary (orange) for good contrast on primary (red) bg
+              variant="secondary" 
               className="px-10 py-6 text-lg md:text-xl font-semibold shadow-lg hover:scale-105 transition-transform duration-300 w-full sm:w-auto"
             >
               <Link href="/contact">Contact Admissions</Link>
@@ -146,7 +146,7 @@ export default function HomePage() {
             <Button
               asChild
               size="lg"
-              variant="outline" // Outline will use foreground/background relationship for contrast
+              variant="outline" 
               className="px-10 py-6 text-lg md:text-xl font-semibold shadow-lg hover:scale-105 transition-transform duration-300 bg-primary-foreground text-primary hover:bg-primary-foreground/90 w-full sm:w-auto"
             >
               <Link href="/admissions">View Application Steps</Link>
