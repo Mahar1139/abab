@@ -29,9 +29,10 @@ export default function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader className="p-4 h-16 flex items-center justify-end border-b">
-        {/* School logo and name are now in PageHeader */}
-        {/* Mobile SidebarTrigger is also handled by PageHeader */}
+      <SidebarHeader className="p-4 flex items-center justify-center border-b">
+        <h2 className="text-lg font-bold text-sidebar-foreground group-data-[collapsible=icon]:hidden text-center">
+          Himalaya Public School
+        </h2>
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
