@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import AppSidebar from './AppSidebar';
 import PageHeader from '../shared/PageHeader';
-import { School, ChevronRight, Mail, MapPin, Phone, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { School, Mail, MapPin, Phone, Facebook, Instagram, Linkedin } from 'lucide-react';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -27,7 +27,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <h3 className="text-xl font-bold text-foreground">Himalaya Public School</h3>
                 </Link>
                 <p className="text-sm leading-relaxed">
-                  Dedicated to providing the best possible education, fostering growth and development in a safe, nurturing environment.
+                  Dedicated to providing the best possible education, fostering growth and development in a safe, nurturing environment
                 </p>
               </div>
 
@@ -35,11 +35,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <div className="space-y-3">
                 <h4 className="text-lg font-semibold text-foreground mb-4">Information</h4>
                 <ul className="space-y-2 text-sm">
-                  <li><Link href="/" className="hover:text-primary transition-colors flex items-center"><ChevronRight className="w-4 h-4 mr-1 shrink-0" /> About Himalaya</Link></li>
-                  <li><Link href="/admissions" className="hover:text-primary transition-colors flex items-center"><ChevronRight className="w-4 h-4 mr-1 shrink-0" /> Admissions</Link></li>
-                  <li><Link href="/faculty" className="hover:text-primary transition-colors flex items-center"><ChevronRight className="w-4 h-4 mr-1 shrink-0" /> Our Faculty</Link></li>
-                  <li><Link href="/school-life" className="hover:text-primary transition-colors flex items-center"><ChevronRight className="w-4 h-4 mr-1 shrink-0" /> School Life</Link></li>
-                  <li><Link href="/contact" className="hover:text-primary transition-colors flex items-center"><ChevronRight className="w-4 h-4 mr-1 shrink-0" /> Contact Us</Link></li>
+                  <li><Link href="/" className="hover:text-primary transition-colors">About Himalaya</Link></li>
+                  <li><Link href="/admissions" className="hover:text-primary transition-colors">Admissions</Link></li>
+                  <li><Link href="/faculty" className="hover:text-primary transition-colors">Our Faculty</Link></li>
+                  <li><Link href="/school-life" className="hover:text-primary transition-colors">School Life</Link></li>
+                  <li><Link href="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
                 </ul>
               </div>
 
@@ -47,9 +47,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <div className="space-y-3">
                 <h4 className="text-lg font-semibold text-foreground mb-4">Resources</h4>
                 <ul className="space-y-2 text-sm">
-                  <li><Link href="/resources" className="hover:text-primary transition-colors flex items-center"><ChevronRight className="w-4 h-4 mr-1 shrink-0" /> Downloads</Link></li>
-                  <li><Link href="/ai-assistant" className="hover:text-primary transition-colors flex items-center"><ChevronRight className="w-4 h-4 mr-1 shrink-0" /> AI Assistant / FAQ</Link></li>
-                  <li><Link href="/school-life#news" className="hover:text-primary transition-colors flex items-center"><ChevronRight className="w-4 h-4 mr-1 shrink-0" /> News & Events</Link></li>
+                  <li><Link href="/resources" className="hover:text-primary transition-colors">Downloads</Link></li>
+                  <li><Link href="/ai-assistant" className="hover:text-primary transition-colors">AI Assistant / FAQ</Link></li>
+                  <li><Link href="/school-life#news" className="hover:text-primary transition-colors">News & Events</Link></li>
                 </ul>
                 <Link 
                   href="/contact" 
@@ -86,7 +86,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
             {/* Bottom Bar */}
             <div className="border-t border-border/20 pt-6 mt-6 flex flex-col md:flex-row justify-between items-center text-sm text-foreground/70">
-              <p className="mb-2 md:mb-0">&copy; {new Date().getFullYear()} Himalaya Public School. All rights reserved.</p>
+              <p className="mb-2 md:mb-0">&copy; {new Date().getFullYear()} Himalaya Public School All rights reserved</p>
               <div className="space-x-4">
                 <Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
                 <Link href="#" className="hover:text-primary transition-colors">Terms & Conditions</Link>
