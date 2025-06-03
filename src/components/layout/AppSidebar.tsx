@@ -10,10 +10,9 @@ import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarFooter,
-  // SidebarTrigger, // No longer needed here for mobile sheet if PageHeader handles it
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Bot, Cpu } from 'lucide-react';
+import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Cpu } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'School Overview', icon: Home },
@@ -52,8 +51,11 @@ export default function AppSidebar() {
           ))}
         </SidebarMenu>
       </SidebarContent>
-      <SidebarFooter className="p-2 flex flex-col gap-2">
-        <p className="text-xs text-sidebar-foreground/70 group-data-[collapsible=icon]:hidden px-2">
+      <SidebarFooter className="p-4 flex flex-col gap-1 items-center border-t">
+        <p className="text-sm font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden text-center">
+          Himalaya Public School
+        </p>
+        <p className="text-xs text-sidebar-foreground/70 group-data-[collapsible=icon]:hidden text-center">
           Inspiring Futures, Building Character.
         </p>
       </SidebarFooter>
