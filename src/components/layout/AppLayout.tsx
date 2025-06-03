@@ -17,14 +17,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <main className="flex-1 overflow-y-auto">
           {children}
         </main>
-        {/* Updated Footer - Target for image matching */}
-        <footer className="bg-background text-primary-foreground/90 py-10 md:py-16">
+        <footer className="bg-background py-10 md:py-16 text-foreground">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
               {/* Column 1: School Info */}
               <div className="space-y-3">
                 <Link href="/" className="flex items-center gap-2 mb-3">
-                  <School className="w-10 h-10 text-primary" />
+                  <School className="w-10 h-10 text-primary" /> {/* Primary (red) icon here is fine for logo */}
                   <h3 className="text-2xl font-bold text-primary-foreground">Himalaya Public School</h3>
                 </Link>
                 <p className="text-sm leading-relaxed">
@@ -36,11 +35,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <div className="space-y-3">
                 <h4 className="text-xl font-semibold mb-4 text-primary-foreground">Information</h4>
                 <ul className="space-y-2.5 text-sm">
-                  <li><Link href="/" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> About Himalaya</Link></li>
-                  <li><Link href="/admissions" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> Admissions</Link></li>
-                  <li><Link href="/faculty" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> Our Faculty</Link></li>
-                  <li><Link href="/school-life" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> School Life</Link></li>
-                  <li><Link href="/contact" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> Contact Us</Link></li>
+                  <li><Link href="/" className="hover:text-accent transition-colors flex items-center"><span className="text-accent mr-2">&gt;</span> About Himalaya</Link></li>
+                  <li><Link href="/admissions" className="hover:text-accent transition-colors flex items-center"><span className="text-accent mr-2">&gt;</span> Admissions</Link></li>
+                  <li><Link href="/faculty" className="hover:text-accent transition-colors flex items-center"><span className="text-accent mr-2">&gt;</span> Our Faculty</Link></li>
+                  <li><Link href="/school-life" className="hover:text-accent transition-colors flex items-center"><span className="text-accent mr-2">&gt;</span> School Life</Link></li>
+                  <li><Link href="/contact" className="hover:text-accent transition-colors flex items-center"><span className="text-accent mr-2">&gt;</span> Contact Us</Link></li>
                 </ul>
               </div>
 
@@ -48,9 +47,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
               <div className="space-y-3">
                 <h4 className="text-xl font-semibold mb-4 text-primary-foreground">Resources</h4>
                 <ul className="space-y-2.5 text-sm">
-                  <li><Link href="/resources" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> Downloads</Link></li>
-                  <li><Link href="/ai-assistant" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> AI Assistant / FAQ</Link></li>
-                  <li><Link href="/school-life#news" className="hover:text-primary transition-colors flex items-center"><span className="text-primary mr-2">&gt;</span> News & Events</Link></li>
+                  <li><Link href="/resources" className="hover:text-accent transition-colors flex items-center"><span className="text-accent mr-2">&gt;</span> Downloads</Link></li>
+                  <li><Link href="/ai-assistant" className="hover:text-accent transition-colors flex items-center"><span className="text-accent mr-2">&gt;</span> AI Assistant / FAQ</Link></li>
+                  <li><Link href="/school-life#news" className="hover:text-accent transition-colors flex items-center"><span className="text-accent mr-2">&gt;</span> News & Events</Link></li>
                 </ul>
                 <Link
                   href="/contact"
@@ -65,15 +64,15 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                 <h4 className="text-xl font-semibold mb-4 text-primary-foreground">Contact</h4>
                 <address className="not-italic text-sm space-y-3">
                   <p className="flex items-start">
-                    <MapPin className="w-5 h-5 mr-2.5 mt-0.5 shrink-0 text-primary" />
+                    <MapPin className="w-5 h-5 mr-2.5 mt-0.5 shrink-0 text-accent" />
                     <span>Himalaya Public School <br />123 Education Lane, Knowledge City, KC 12345, India</span>
                   </p>
                   <p className="flex items-center">
-                    <Phone className="w-5 h-5 mr-2.5 shrink-0 text-primary" />
+                    <Phone className="w-5 h-5 mr-2.5 shrink-0 text-accent" />
                     <span>+91 (123) 456-7890</span>
                   </p>
                   <p className="flex items-center">
-                    <Mail className="w-5 h-5 mr-2.5 shrink-0 text-primary" />
+                    <Mail className="w-5 h-5 mr-2.5 shrink-0 text-accent" />
                     <span>info@himalayaschool.edu</span>
                   </p>
                 </address>
@@ -81,27 +80,25 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <Link href="#" aria-label="Facebook" className="p-2.5 bg-accent/80 rounded-full hover:bg-accent transition-colors">
                     <Facebook className="w-5 h-5 text-primary-foreground" />
                   </Link>
-                  <Link href="#" aria-label="LinkedIn" className="p-2.5 bg-accent/80 rounded-full hover:bg-accent transition-colors">
+                  <Link href="#" aria-label="LinkedIn" className="p-2.5 bg-primary/80 rounded-full hover:bg-primary transition-colors"> {/* Using primary (red) for LinkedIn as a distinct color */}
                     <Linkedin className="w-5 h-5 text-primary-foreground" />
                   </Link>
-                  <Link href="#" aria-label="Instagram" className="p-2.5 bg-primary/80 rounded-full hover:bg-primary transition-colors">
+                  <Link href="#" aria-label="Instagram" className="p-2.5 bg-secondary/80 rounded-full hover:bg-secondary transition-colors"> {/* Using secondary (orange) for Instagram */}
                     <Instagram className="w-5 h-5 text-primary-foreground" />
                   </Link>
-                  {/* Add other icons if needed, e.g., YouTube from image - using Instagram icon as placeholder */}
-                   <Link href="#" aria-label="Youtube" className="p-2.5 bg-secondary/80 rounded-full hover:bg-secondary transition-colors">
-                    {/* Using Instagram icon as placeholder for a generic "video" or "media" icon if YouTube not in Lucide */}
-                    <Instagram className="w-5 h-5 text-primary-foreground" /> 
+                  <Link href="#" aria-label="Youtube" className="p-2.5 bg-destructive/80 rounded-full hover:bg-destructive transition-colors"> {/* Example: Using destructive for YouTube if needed */}
+                     <Instagram className="w-5 h-5 text-primary-foreground" /> {/* Placeholder, ideally YouTube icon if available/needed */}
                   </Link>
                 </div>
               </div>
             </div>
 
             {/* Bottom Bar */}
-            <div className="border-t border-border/20 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center text-sm text-primary-foreground/70">
+            <div className="border-t border-border/20 pt-8 mt-8 flex flex-col md:flex-row justify-between items-center text-sm text-foreground/80">
               <p className="mb-2 md:mb-0">© {new Date().getFullYear()} Himalaya Public School All rights reserved</p>
               <div className="space-x-6">
-                <Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
-                <Link href="#" className="hover:text-primary transition-colors">Terms &amp; Conditions</Link>
+                <Link href="#" className="hover:text-accent transition-colors">Privacy Policy</Link>
+                <Link href="#" className="hover:text-accent transition-colors">Terms &amp; Conditions</Link>
               </div>
             </div>
           </div>

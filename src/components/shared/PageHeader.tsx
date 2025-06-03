@@ -42,7 +42,7 @@ export default function PageHeader() {
           <SidebarTrigger />
         </div>
         <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-foreground hover:text-primary transition-colors">
-          <Bot className="h-7 w-7 text-primary" />
+          <Bot className="h-7 w-7 text-accent" /> {/* Changed from text-primary to text-accent */}
           <span className="font-headline hidden sm:inline">Himalaya Public School</span>
         </Link>
       </div>
@@ -54,4 +54,3 @@ export default function PageHeader() {
     </header>
   );
 }
-
