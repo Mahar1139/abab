@@ -1,3 +1,4 @@
+
 "use client";
 
 import React from 'react';
@@ -15,7 +16,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {children}
         </main>
         <footer className="p-4 text-center text-sm text-muted-foreground border-t">
-          © {new Date().getFullYear()} Himalaya Public School. All rights reserved.
+          Himalaya Public School All rights reserved © {new Date().getFullYear()}
         </footer>
       </SidebarInset>
     </SidebarProvider>
