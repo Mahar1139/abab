@@ -17,8 +17,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
           {children}
         </main>
-        <footer className="bg-background text-foreground/90 border-t border-border/20">
-          <div className="container mx-auto px-4 py-10 md:py-16">
+        <footer className="bg-background text-foreground/90 border border-border/20 rounded-lg m-4 p-6 md:p-8">
+          <div className="container mx-auto px-0"> {/* Adjusted px-4 to px-0 as padding is on footer now */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
               {/* Column 1: School Info */}
               <div className="space-y-3">
@@ -51,8 +51,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <li><Link href="/ai-assistant" className="hover:text-primary transition-colors">AI Assistant / FAQ</Link></li>
                   <li><Link href="/school-life#news" className="hover:text-primary transition-colors">News & Events</Link></li>
                 </ul>
-                <Link 
-                  href="/contact" 
+                <Link
+                  href="/contact"
                   className="mt-4 inline-flex items-center bg-accent text-accent-foreground py-2.5 px-4 rounded-md hover:bg-accent/90 transition-colors text-sm font-medium shadow-md"
                 >
                   <Mail className="w-4 h-4 mr-2 shrink-0" /> Complaint & Suggestion
@@ -77,9 +77,9 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   </p>
                 </address>
                 <div className="flex space-x-4 pt-3">
-                  <Link href="#" aria-label="Facebook" className="text-primary-foreground hover:text-primary transition-colors"><Facebook className="w-6 h-6" /></Link>
-                  <Link href="#" aria-label="Instagram" className="text-primary-foreground hover:text-primary transition-colors"><Instagram className="w-6 h-6" /></Link>
-                  <Link href="#" aria-label="LinkedIn" className="text-primary-foreground hover:text-primary transition-colors"><Linkedin className="w-6 h-6" /></Link>
+                  <Link href="#" aria-label="Facebook" className="text-primary-foreground hover:text-primary transition-colors"><Facebook className="w-7 h-7" /></Link>
+                  <Link href="#" aria-label="Instagram" className="text-primary-foreground hover:text-primary transition-colors"><Instagram className="w-7 h-7" /></Link>
+                  <Link href="#" aria-label="LinkedIn" className="text-primary-foreground hover:text-primary transition-colors"><Linkedin className="w-7 h-7" /></Link>
                 </div>
               </div>
             </div>
