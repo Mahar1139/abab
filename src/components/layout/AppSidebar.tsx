@@ -12,7 +12,7 @@ import {
   SidebarFooter,
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Cpu } from 'lucide-react';
+import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Cpu, School } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'School Overview', icon: Home },
@@ -29,10 +29,13 @@ export default function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader className="p-4 flex items-center justify-center border-b">
-        <h2 className="text-lg font-bold text-sidebar-foreground group-data-[collapsible=icon]:hidden text-center">
-          Himalaya Public School
-        </h2>
+      <SidebarHeader className="p-4 flex flex-col items-center justify-center border-b">
+        <div className="flex items-center gap-2 group-data-[collapsible=icon]:hidden mb-2">
+          <School className="w-6 h-6 text-sidebar-primary" />
+          <h2 className="text-lg font-bold text-sidebar-foreground text-center">
+            Himalaya Public School
+          </h2>
+        </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
