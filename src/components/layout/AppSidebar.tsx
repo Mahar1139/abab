@@ -29,12 +29,15 @@ export default function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader className="p-4 flex flex-col items-center justify-center border-b">
-        <div className="flex items-center gap-2 group-data-[collapsible=icon]:hidden mb-2">
+      <SidebarHeader className="p-4 flex items-center justify-center border-b group-data-[collapsible=icon]:py-2">
+        <div className="flex items-center gap-2 group-data-[collapsible=icon]:hidden">
           <School className="w-6 h-6 text-sidebar-primary" />
-          <h2 className="text-lg font-bold text-sidebar-foreground text-center">
+          <h2 className="text-lg font-bold text-sidebar-foreground">
             Himalaya Public School
           </h2>
+        </div>
+        <div className="hidden group-data-[collapsible=icon]:flex">
+           <School className="w-6 h-6 text-sidebar-primary" />
         </div>
       </SidebarHeader>
       <SidebarContent>
@@ -56,11 +59,8 @@ export default function AppSidebar() {
         </SidebarMenu>
       </SidebarContent>
       <SidebarFooter className="p-4 flex flex-col gap-1 items-center border-t">
-        <p className="text-sm font-semibold text-sidebar-foreground group-data-[collapsible=icon]:hidden text-center">
-          Himalaya Public School
-        </p>
         <p className="text-xs text-sidebar-foreground/70 group-data-[collapsible=icon]:hidden text-center">
-          Inspiring Futures, Building Character.
+          Himalaya Public School All rights reserved.
         </p>
       </SidebarFooter>
     </Sidebar>
