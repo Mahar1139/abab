@@ -17,14 +17,14 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <main className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
           {children}
         </main>
-        <footer className="bg-card text-card-foreground border border-border rounded-lg m-4 p-6 md:p-8">
-          <div className="container mx-auto px-0"> {/* Padding is on footer now */}
+        <footer className="m-4 p-6 md:p-8 rounded-lg text-foreground/90">
+          <div className="container mx-auto px-0">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
               {/* Column 1: School Info */}
               <div className="space-y-3">
                 <Link href="/" className="flex items-center gap-2 mb-3">
                   <School className="w-8 h-8 text-primary" />
-                  <h3 className="text-xl font-bold">Himalaya Public School</h3>
+                  <h3 className="text-xl font-bold text-foreground">Himalaya Public School</h3>
                 </Link>
                 <p className="text-sm leading-relaxed">
                   Dedicated to providing the best possible education, fostering growth and development in a safe, nurturing environment
@@ -33,7 +33,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
               {/* Column 2: Information */}
               <div className="space-y-3">
-                <h4 className="text-lg font-semibold mb-4">Information</h4>
+                <h4 className="text-lg font-semibold mb-4 text-foreground">Information</h4>
                 <ul className="space-y-2 text-sm">
                   <li><Link href="/" className="hover:text-primary transition-colors">About Himalaya</Link></li>
                   <li><Link href="/admissions" className="hover:text-primary transition-colors">Admissions</Link></li>
@@ -45,7 +45,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
               {/* Column 3: Resources */}
               <div className="space-y-3">
-                <h4 className="text-lg font-semibold mb-4">Resources</h4>
+                <h4 className="text-lg font-semibold mb-4 text-foreground">Resources</h4>
                 <ul className="space-y-2 text-sm">
                   <li><Link href="/resources" className="hover:text-primary transition-colors">Downloads</Link></li>
                   <li><Link href="/ai-assistant" className="hover:text-primary transition-colors">AI Assistant / FAQ</Link></li>
@@ -61,7 +61,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
               {/* Column 4: Contact */}
               <div className="space-y-3">
-                <h4 className="text-lg font-semibold mb-4">Get in Touch</h4>
+                <h4 className="text-lg font-semibold mb-4 text-foreground">Get in Touch</h4>
                 <address className="not-italic text-sm space-y-2.5">
                   <p className="flex items-start">
                     <MapPin className="w-4 h-4 mr-2.5 mt-0.5 shrink-0 text-primary" />
@@ -85,7 +85,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
             </div>
 
             {/* Bottom Bar */}
-            <div className="border-t border-border/20 pt-6 mt-6 flex flex-col md:flex-row justify-between items-center text-sm text-card-foreground/70">
+            <div className="border-t border-border/20 pt-6 mt-6 flex flex-col md:flex-row justify-between items-center text-sm text-foreground/70">
               <p className="mb-2 md:mb-0">Himalaya Public School All rights reserved © {new Date().getFullYear()}</p>
               <div className="space-x-4">
                 <Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
