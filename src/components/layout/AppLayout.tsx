@@ -17,7 +17,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <main className="flex-1 overflow-y-auto">
           {children}
         </main>
-        <footer className="bg-background py-10 md:py-16 text-foreground">
+        <footer className="bg-card py-10 md:py-16 text-foreground">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
               {/* Column 1: School Info */}
@@ -83,7 +83,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <Link href="#" aria-label="LinkedIn" className="p-2.5 bg-accent rounded-full hover:bg-accent/90 transition-colors">
                     <Linkedin className="w-5 h-5 text-primary-foreground" />
                   </Link>
-                  <Link href="#" aria-label="Instagram" className="p-2.5 bg-muted rounded-full hover:bg-muted/80 transition-colors">
+                  <Link href="#" aria-label="Instagram" className="p-2.5 bg-sidebar-accent rounded-full hover:bg-sidebar-accent/90 transition-colors">
                     <Instagram className="w-5 h-5 text-primary-foreground" />
                   </Link>
                 </div>
