@@ -3,7 +3,7 @@
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
-import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, BrainCircuit } from 'lucide-react';
+import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Cpu } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'School Overview', icon: Home },
@@ -12,7 +12,7 @@ const navItems = [
   { href: '/school-life', label: 'School Life', icon: ImageIcon },
   { href: '/resources', label: 'Resources', icon: FolderOpen },
   { href: '/contact', label: 'Contact & Support', icon: Mail },
-  { href: '/ai-assistant', label: 'AI Assistant', icon: BrainCircuit },
+  { href: '/ai-assistant', label: 'AI Assistant', icon: Cpu },
 ];
 
 export default function PageHeader() {
@@ -45,4 +45,3 @@ export default function PageHeader() {
     </header>
   );
 }
-
