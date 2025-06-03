@@ -32,7 +32,7 @@ export default function AppSidebar() {
       <SidebarHeader className="p-4 flex items-center gap-2 justify-between">
         <Link href="/" className="flex items-center gap-2 text-lg font-semibold font-headline text-sidebar-foreground hover:text-sidebar-primary transition-colors">
           <Landmark className="w-7 h-7 text-sidebar-primary" />
-          <span className="group-data-[collapsible=icon]:hidden">Himalaya School</span>
+          <span className="group-data-[collapsible=icon]:hidden">Himalaya Public School</span>
         </Link>
         <div className="md:hidden">
           <SidebarTrigger />

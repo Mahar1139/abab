@@ -4,90 +4,90 @@
 
 @layer base {
   :root {
-    --background: 202 71% 95%; /* Light Blue #EBF5FB */
-    --foreground: 205 60% 20%; /* Dark Blue for text */
+    --background: 40 33% 96%; /* Light Beige #F7F5F2 */
+    --foreground: 30 15% 25%; /* Dark Brown #4A413C */
 
-    --card: 0 0% 100%; /* White cards */
-    --card-foreground: 205 60% 20%;
+    --card: 40 33% 99%; /* Very Light Cream #FCFAF8 */
+    --card-foreground: 30 15% 25%; /* Dark Brown */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 205 60% 20%;
+    --popover: 40 33% 99%; /* Very Light Cream */
+    --popover-foreground: 30 15% 25%; /* Dark Brown */
 
-    --primary: 205 62% 28%; /* Deep Blue #1A5276 */
-    --primary-foreground: 0 0% 98%; /* Almost white for text on primary */
+    --primary: 150 30% 35%; /* Muted Forest Green #3E6B4F */
+    --primary-foreground: 40 33% 98%; /* Off-white #FBF8F6 */
 
-    --secondary: 202 71% 88%; /* Lighter shade of background blue */
-    --secondary-foreground: 205 62% 28%; /* Primary color for text on secondary */
+    --secondary: 150 25% 88%; /* Lighter Muted Green #D5E3DB */
+    --secondary-foreground: 150 30% 30%; /* Darker Green #355C44 */
 
-    --muted: 202 71% 92%; /* Subtly darker than background */
-    --muted-foreground: 205 60% 45%; /* Muted text color */
+    --muted: 40 33% 92%; /* Slightly darker Beige #F0EBE5 */
+    --muted-foreground: 30 15% 45%; /* Muted Brown #827871 */
 
-    --accent: 48 87% 44%; /* Gold #D4AC0D */
-    --accent-foreground: 0 0% 10%; /* Dark text for contrast on Gold */
+    --accent: 20 60% 55%; /* Warm Terracotta #D98C6B */
+    --accent-foreground: 30 15% 15%; /* Very Dark Brown #332D29 */
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 70% 55%; /* Desaturated Red #D95C5C */
+    --destructive-foreground: 0 0% 98%; /* Almost White */
 
-    --border: 202 71% 85%; /* Border derived from background */
-    --input: 0 0% 100%; /* White input background */
-    --ring: 205 62% 28%; /* Primary color for rings */
+    --border: 40 30% 85%; /* Beige Border #E0D8D0 */
+    --input: 40 33% 98%; /* Off-white Input #FBF8F6 */
+    --ring: 150 30% 40%; /* Primary Green for rings #4A7A5A */
 
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --chart-1: 20 70% 60%; /* Terracotta variant */
+    --chart-2: 150 35% 50%; /* Green variant */
+    --chart-3: 30 20% 40%; /* Brown variant */
+    --chart-4: 45 50% 60%; /* Muted Yellow/Gold variant */
+    --chart-5: 160 25% 65%; /* Lighter Green variant */
     --radius: 0.5rem;
 
     /* Sidebar specific theme */
-    --sidebar-background: 205 62% 22%; /* Darker Deep Blue */
-    --sidebar-foreground: 202 71% 90%; /* Light text */
-    --sidebar-primary: 48 87% 50%; /* Gold for active items */
-    --sidebar-primary-foreground: 0 0% 10%; /* Dark text on Gold */
-    --sidebar-accent: 205 62% 32%; /* Hover color, lighter than bg */
-    --sidebar-accent-foreground: 0 0% 98%; /* Light text on hover */
-    --sidebar-border: 205 62% 35%;
-    --sidebar-ring: 48 87% 50%;
+    --sidebar-background: 150 30% 28%; /* Darker Forest Green #31573F */
+    --sidebar-foreground: 40 30% 90%; /* Light Beige text #EDE8E3 */
+    --sidebar-primary: 20 60% 60%; /* Terracotta for active items #DEA085 */
+    --sidebar-primary-foreground: 30 15% 15%; /* Very Dark Brown text on Terracotta */
+    --sidebar-accent: 150 30% 38%; /* Hover color, mid-tone Green #457053 */
+    --sidebar-accent-foreground: 40 30% 95%; /* Very Light Beige text on hover #F5F2EF */
+    --sidebar-border: 150 30% 40%; /* Mid-tone Green border #4A7A5A */
+    --sidebar-ring: 20 60% 60%; /* Terracotta ring */
   }
 
   .dark {
-    --background: 205 40% 8%; /* Very dark blue */
-    --foreground: 202 71% 85%; /* Light blueish-gray text */
+    --background: 30 10% 10%; /* Very Dark Brown #1C1A19 */
+    --foreground: 40 25% 85%; /* Light Beige text #E0D8D0 */
 
-    --card: 205 40% 12%; /* Slightly lighter dark blue for cards */
-    --card-foreground: 202 71% 85%;
+    --card: 30 10% 15%; /* Slightly lighter Dark Brown for cards #2B2826 */
+    --card-foreground: 40 25% 85%;
 
-    --popover: 205 40% 12%;
-    --popover-foreground: 202 71% 85%;
+    --popover: 30 10% 15%;
+    --popover-foreground: 40 25% 85%;
 
-    --primary: 205 62% 55%; /* Lighter version of Deep Blue */
-    --primary-foreground: 205 40% 10%; /* Dark text on primary */
+    --primary: 150 30% 55%; /* Lighter Forest Green #70A885 */
+    --primary-foreground: 150 25% 15%; /* Dark Green text on primary #1E3025 */
 
-    --secondary: 205 40% 18%; /* Darker secondary */
-    --secondary-foreground: 202 71% 85%;
+    --secondary: 30 10% 20%; /* Darker secondary Brown #383432 */
+    --secondary-foreground: 40 25% 85%;
 
-    --muted: 205 40% 15%;
-    --muted-foreground: 202 71% 65%;
+    --muted: 30 10% 18%; /* Dark Muted Brown #322F2D */
+    --muted-foreground: 40 25% 65%; /* Muted Beige text #B5AFAF */
 
-    --accent: 48 87% 58%; /* Brighter Gold */
-    --accent-foreground: 205 40% 8%; /* Dark text on Gold */
+    --accent: 20 60% 65%; /* Brighter Terracotta #E0A289 */
+    --accent-foreground: 30 10% 10%; /* Very Dark Brown on Terracotta */
 
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 0 60% 60%; /* Brighter Red #E57373 */
     --destructive-foreground: 0 0% 98%;
 
-    --border: 205 40% 25%;
-    --input: 205 40% 15%; /* Darker input background */
-    --ring: 205 62% 55%;
+    --border: 30 10% 25%; /* Dark Brown border #423E3B */
+    --input: 30 10% 18%; /* Darker input background */
+    --ring: 150 30% 60%; /* Lighter Green for rings #80B292 */
 
     /* Sidebar specific theme for dark mode */
-    --sidebar-background: 205 40% 5%; /* Even darker */
-    --sidebar-foreground: 202 71% 80%;
-    --sidebar-primary: 48 87% 58%; /* Gold */
-    --sidebar-primary-foreground: 205 40% 8%;
-    --sidebar-accent: 205 40% 15%;
-    --sidebar-accent-foreground: 202 71% 90%;
-    --sidebar-border: 205 40% 18%;
-    --sidebar-ring: 48 87% 58%;
+    --sidebar-background: 30 10% 8%; /* Even darker Brown #171514 */
+    --sidebar-foreground: 40 25% 80%; /* Muted Beige text #D6CCC2 */
+    --sidebar-primary: 20 60% 65%; /* Brighter Terracotta #E0A289 */
+    --sidebar-primary-foreground: 30 10% 10%; /* Very Dark Brown */
+    --sidebar-accent: 30 10% 15%; /* Dark Brown for hover #2B2826 */
+    --sidebar-accent-foreground: 40 25% 90%; /* Light Beige text #EDE8E3 */
+    --sidebar-border: 30 10% 18%; /* Dark Muted Brown border #322F2D */
+    --sidebar-ring: 20 60% 65%; /* Brighter Terracotta ring */
   }
 }
 
