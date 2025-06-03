@@ -77,16 +77,16 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   </p>
                 </address>
                 <div className="flex space-x-4 pt-3">
-                  <Link href="#" aria-label="Facebook" className="text-foreground/70 hover:text-primary transition-colors"><Facebook className="w-5 h-5" /></Link>
-                  <Link href="#" aria-label="Instagram" className="text-foreground/70 hover:text-primary transition-colors"><Instagram className="w-5 h-5" /></Link>
-                  <Link href="#" aria-label="LinkedIn" className="text-foreground/70 hover:text-primary transition-colors"><Linkedin className="w-5 h-5" /></Link>
+                  <Link href="#" aria-label="Facebook" className="text-primary-foreground hover:text-primary transition-colors"><Facebook className="w-6 h-6" /></Link>
+                  <Link href="#" aria-label="Instagram" className="text-primary-foreground hover:text-primary transition-colors"><Instagram className="w-6 h-6" /></Link>
+                  <Link href="#" aria-label="LinkedIn" className="text-primary-foreground hover:text-primary transition-colors"><Linkedin className="w-6 h-6" /></Link>
                 </div>
               </div>
             </div>
 
             {/* Bottom Bar */}
             <div className="border-t border-border/20 pt-6 mt-6 flex flex-col md:flex-row justify-between items-center text-sm text-foreground/70">
-              <p className="mb-2 md:mb-0">&copy; {new Date().getFullYear()} Himalaya Public School All rights reserved</p>
+              <p className="mb-2 md:mb-0">Himalaya Public School All rights reserved © {new Date().getFullYear()}</p>
               <div className="space-x-4">
                 <Link href="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
                 <Link href="#" className="hover:text-primary transition-colors">Terms & Conditions</Link>
