@@ -3,7 +3,7 @@
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
-import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, MessageSquare } from 'lucide-react';
+import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, BrainCircuit } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'School Overview', icon: Home },
@@ -12,18 +12,22 @@ const navItems = [
   { href: '/school-life', label: 'School Life', icon: ImageIcon },
   { href: '/resources', label: 'Resources', icon: FolderOpen },
   { href: '/contact', label: 'Contact & Support', icon: Mail },
-  { href: '/ai-assistant', label: 'AI Assistant', icon: MessageSquare },
+  { href: '/ai-assistant', label: 'AI Assistant', icon: BrainCircuit },
 ];
 
 export default function PageHeader() {
   const pathname = usePathname();
-  const currentNavItem = navItems.find(item => pathname.startsWith(item.href) && (item.href === '/' || pathname !== '/'));
   
   let pageTitle = "Himalaya Public School";
   if (pathname === '/') {
     pageTitle = navItems.find(item => item.href === '/')?.label || "School Overview";
   } else {
-    const matchedItem = navItems.find(item => item.href !== '/' && pathname.startsWith(item.href));
+    // Find the item whose href is the longest prefix of the current pathname
+    const matchedItem = navItems
+      .filter(item => item.href !== '/') // Exclude the homepage for prefix matching
+      .filter(item => pathname.startsWith(item.href))
+      .sort((a, b) => b.href.length - a.href.length)[0]; // Get the longest match
+
     if (matchedItem) {
       pageTitle = matchedItem.label;
     }
@@ -41,3 +45,4 @@ export default function PageHeader() {
     </header>
   );
 }
+

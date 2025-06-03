@@ -13,7 +13,7 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Landmark, MessageSquare } from 'lucide-react';
+import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Brain, BrainCircuit } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'School Overview', icon: Home },
@@ -22,7 +22,7 @@ const navItems = [
   { href: '/school-life', label: 'School Life', icon: ImageIcon },
   { href: '/resources', label: 'Resources', icon: FolderOpen },
   { href: '/contact', label: 'Contact & Support', icon: Mail },
-  { href: '/ai-assistant', label: 'AI Assistant', icon: MessageSquare },
+  { href: '/ai-assistant', label: 'AI Assistant', icon: BrainCircuit },
 ];
 
 export default function AppSidebar() {
@@ -32,7 +32,7 @@ export default function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarHeader className="p-4 flex items-center gap-2 justify-between">
         <Link href="/" className="flex items-center gap-2 text-lg font-semibold font-headline text-sidebar-foreground hover:text-sidebar-primary transition-colors">
-          <Landmark className="w-7 h-7 text-sidebar-primary" />
+          <Brain className="w-7 h-7 text-sidebar-primary" />
           <span className="group-data-[collapsible=icon]:hidden">Himalaya Public School</span>
         </Link>
         <div className="md:hidden">
@@ -65,3 +65,4 @@ export default function AppSidebar() {
     </Sidebar>
   );
 }
+
