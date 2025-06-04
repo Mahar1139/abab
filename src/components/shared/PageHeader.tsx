@@ -4,7 +4,7 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
-import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Cpu, Bot, School, Code2, Laptop } from 'lucide-react';
+import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Cpu, Bot, School, Code2, Laptop, FileQuestion } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'School Overview', icon: Home },
@@ -15,6 +15,7 @@ const navItems = [
   { href: '/coding-classes', label: 'Coding Classes', icon: Code2 },
   { href: '/robotics-classes', label: 'Robotics Classes', icon: Bot },
   { href: '/computer-classes', label: 'Computer Classes', icon: Laptop },
+  { href: '/quiz', label: 'Quiz', icon: FileQuestion },
   { href: '/contact', label: 'Contact & Support', icon: Mail },
   { href: '/ai-assistant', label: 'AI Assistant', icon: Cpu },
 ];
@@ -45,7 +46,7 @@ export default function PageHeader() {
           <SidebarTrigger />
         </div>
         <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-foreground hover:text-accent transition-colors">
-          <School className="h-7 w-7 text-accent" /> {/* Changed from Bot to School, and text-primary to text-accent */}
+          <School className="h-7 w-7 text-accent" />
           <span className="font-headline hidden sm:inline">Himalaya Public School</span>
         </Link>
       </div>
