@@ -22,18 +22,18 @@ export default function HomePage() {
         />
         <div className="absolute inset-0 bg-black/60 z-10" />
         <div className="relative z-20 p-4 md:p-8 max-w-4xl mx-auto">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">
+          <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold mb-4 sm:mb-6 drop-shadow-lg">
             Empowering Minds, Shaping Futures at Himalaya Public School
           </h1>
-          <p className="text-lg md:text-xl mb-8 text-gray-200 drop-shadow-md max-w-2xl mx-auto">
+          <p className="text-md sm:text-lg md:text-xl mb-6 sm:mb-8 text-gray-200 drop-shadow-md max-w-2xl mx-auto">
             Discover a nurturing environment where academic excellence and holistic development go hand in hand.
           </p>
-          <div className="space-x-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
             <Button
               asChild
               size="lg"
               variant="default"
-              className="px-8 py-6 text-lg md:text-xl font-semibold shadow-lg hover:scale-105 transition-transform duration-300"
+              className="w-full sm:w-auto px-8 py-6 text-lg font-semibold shadow-lg hover:scale-105 transition-transform duration-300"
             >
               <Link href="/admissions">Apply Now</Link>
             </Button>
@@ -41,7 +41,7 @@ export default function HomePage() {
               asChild
               size="lg"
               variant="secondary"
-              className="px-8 py-6 text-lg md:text-xl font-semibold shadow-lg hover:scale-105 transition-transform duration-300"
+              className="w-full sm:w-auto px-8 py-6 text-lg font-semibold shadow-lg hover:scale-105 transition-transform duration-300"
             >
               <Link href="#discover">Learn More</Link>
             </Button>
@@ -134,7 +134,7 @@ export default function HomePage() {
           <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto text-primary-foreground/90">
             We invite you to explore our campus, meet our community, and see how Himalaya Public School can be the perfect place for your child's educational journey.
           </p>
-          <div className="space-x-0 sm:space-x-4 space-y-4 sm:space-y-0 flex flex-col sm:flex-row items-center justify-center">
+          <div className="space-y-4 sm:space-y-0 sm:space-x-4 flex flex-col sm:flex-row items-center justify-center">
             <Button
               asChild
               size="lg"
