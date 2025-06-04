@@ -36,17 +36,18 @@ const topics = [
 const baseDifficulties = ["Beginner", "Easy", "Normal", "Hard", "Extreme"];
 const legendSubCategoriesMap: Record<string, string[]> = {
   "Space Exploration": ["Legend - SpaceX/Aerospace", "Legend - General Advanced"],
-  "Biology": ["Legend - NEET", "Legend - General Advanced"],
-  "Physics": ["Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Legend - General Advanced"],
-  "Chemistry": ["Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - General Advanced"],
+  "Biology": ["Normal - NEET", "Legend - NEET", "Legend - General Advanced"],
+  "Physics": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Legend - General Advanced"],
+  "Chemistry": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - General Advanced"],
   "Mathematics": ["Legend - JEE Mains", "Legend - JEE Advanced", "Legend - General Advanced"],
-  "default": ["Legend - General Advanced"]
+  "default": ["Legend - General Advanced"] // For topics not explicitly mapped, only offer general legend
 };
 
 const getDifficultyOptionsForTopic = (topic: string | null): string[] => {
   if (!topic) return [...baseDifficulties, ...legendSubCategoriesMap.default];
-  const legendOptions = legendSubCategoriesMap[topic] || legendSubCategoriesMap.default;
-  return [...baseDifficulties, ...new Set(legendOptions)]; // Use Set to avoid duplicates if "Legend - General Advanced" is in base
+  // Combine base difficulties with topic-specific legend/normal styles
+  const topicSpecificOptions = legendSubCategoriesMap[topic] || legendSubCategoriesMap.default;
+  return [...baseDifficulties, ...new Set(topicSpecificOptions)]; // Use Set to avoid duplicates
 };
 
 
@@ -166,6 +167,16 @@ export default function QuizPage() {
     return <div className="flex justify-center items-center h-screen"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>;
   }
 
+  const formatDifficultyLabel = (level: string): string => {
+    if (level.startsWith("Legend - ")) {
+      return `Legend: ${level.substring("Legend - ".length)}`;
+    }
+    if (level.startsWith("Normal - ")) {
+      return `Normal (${level.substring("Normal - ".length)} Style)`;
+    }
+    return level;
+  };
+
   return (
     <div className="container mx-auto py-8">
       <SectionWrapper title="AI Quiz Challenge">
@@ -177,7 +188,7 @@ export default function QuizPage() {
             </div>
             {quizState !== "selecting_topic_difficulty" && selectedTopic && selectedDifficulty && (
               <CardDescription className="text-md">
-                Topic: <span className="font-semibold text-secondary">{selectedTopic}</span> | Difficulty: <span className="font-semibold text-secondary">{selectedDifficulty.replace("Legend - ", "Legend: ")}</span>
+                Topic: <span className="font-semibold text-secondary">{selectedTopic}</span> | Difficulty: <span className="font-semibold text-secondary">{formatDifficultyLabel(selectedDifficulty)}</span>
               </CardDescription>
             )}
           </CardHeader>
@@ -210,7 +221,7 @@ export default function QuizPage() {
                       <SelectContent>
                         {currentDifficultyOptions.map(level => (
                           <SelectItem key={level} value={level} className="text-lg py-2">
-                            {level.startsWith("Legend - ") ? `Legend: ${level.substring("Legend - ".length)}` : level}
+                            {formatDifficultyLabel(level)}
                           </SelectItem>
                         ))}
                       </SelectContent>

@@ -13,7 +13,7 @@ import {z} from 'genkit';
 
 const GenerateQuizQuestionInputSchema = z.object({
   topic: z.string().describe('The subject or topic for the quiz question (e.g., Biology, Space Exploration, History).'),
-  difficulty: z.string().describe('The desired difficulty level. This can be general (e.g., Beginner, Easy, Normal, Hard, Extreme) or specific for Legend level (e.g., "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Legend - General Advanced").'),
+  difficulty: z.string().describe('The desired difficulty level. This can be general (e.g., Beginner, Easy, Normal, Hard, Extreme) or specific for Legend or Normal competitive styles (e.g., "Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Legend - General Advanced").'),
   previousQuestionTexts: z.array(z.string()).optional().describe('An array of question texts already asked in this session to avoid direct repetition.'),
 });
 export type GenerateQuizQuestionInput = z.infer<typeof GenerateQuizQuestionInputSchema>;
@@ -22,7 +22,7 @@ const GenerateQuizQuestionOutputSchema = z.object({
   questionText: z.string().describe('The text of the generated quiz question.'),
   options: z.array(z.string()).length(4).describe('An array of exactly four unique answer options.'),
   correctAnswer: z.string().describe('The correct answer from the provided options.'),
-  source: z.string().describe('A brief description of the question\'s origin, type, or the specific sub-topic it covers (e.g., "Basic Cell Biology", "Inspired by NEET Physics syllabus", "General World War II History", "JEE Advanced-style Question (Physics based)").'),
+  source: z.string().describe('A brief description of the question\'s origin, type, or the specific sub-topic it covers (e.g., "Basic Cell Biology", "Inspired by NEET Physics syllabus (Normal Difficulty)", "General World War II History", "JEE Advanced-style Question (Physics based)").'),
 });
 export type GenerateQuizQuestionOutput = z.infer<typeof GenerateQuizQuestionOutputSchema>;
 
@@ -40,7 +40,7 @@ You MUST provide:
 1.  A clear and concise question text.
 2.  Exactly four unique answer options.
 3.  One of these options MUST be the correct answer.
-4.  A brief "source" or "type" for the question that reflects its origin, topic, and difficulty (e.g., "Beginner Biology", "Hard Space Exploration", "JEE Mains-style Question (Physics based)").
+4.  A brief "source" or "type" for the question that reflects its origin, topic, and difficulty.
 
 Topic: {{{topic}}}
 Difficulty: {{{difficulty}}}
@@ -58,8 +58,10 @@ Consider the difficulty level "{{difficulty}}" when formulating the question and
 - If difficulty is "Normal": Generate a standard curriculum-level question from "{{topic}}", requiring recall and some understanding. Source should be "Normal {{{topic}}}".
 - If difficulty is "Hard": Generate a question on more complex applications of concepts from "{{topic}}", requiring deeper understanding and analysis. Source should be "Hard {{{topic}}}".
 - If difficulty is "Extreme": Generate a very challenging question from "{{topic}}", possibly involving multiple concepts, nuanced details, or tricky distractors. Source should be "Extreme {{{topic}}}".
+- If difficulty is "Normal - NEET":
+  For topic "{{topic}}", generate a question of "Normal" difficulty in the style and format of NEET (National Eligibility cum Entrance Test - India) for medical entrance. Focus on Biology, Physics, or Chemistry as appropriate for NEET. The question must be a single correct multiple-choice question. The source should be "NEET-style Question (Normal Difficulty, {{topic}} based)". The questions should be inspired by the type of concepts tested in previous NEET papers and reference materials like MTG books, focusing on core understanding suitable for a normal difficulty assessment.
 - If difficulty is "Legend - NEET":
-  For topic "{{topic}}", generate a question similar in style and complexity to NEET (National Eligibility cum Entrance Test - India) for medical entrance. Focus on Biology, Physics, or Chemistry as appropriate for NEET. The question must be a single correct multiple-choice question. The source should be "NEET-style Question ({{topic}} based)".
+  For topic "{{topic}}", generate a question similar in style and complexity to NEET (National Eligibility cum Entrance Test - India) for medical entrance. Focus on Biology, Physics, or Chemistry as appropriate for NEET. The question must be a single correct multiple-choice question. The source should be "NEET-style Question (Legend Difficulty, {{topic}} based)".
 - If difficulty is "Legend - JEE Mains":
   For topic "{{topic}}", generate a question similar in style and complexity to JEE Mains (India) for engineering entrance. Focus on Physics, Chemistry, or Mathematics as appropriate for JEE Mains. The question must be a single correct multiple-choice question, often testing application of concepts. The source should be "JEE Mains-style Question ({{topic}} based)".
 - If difficulty is "Legend - JEE Advanced":
@@ -67,10 +69,10 @@ Consider the difficulty level "{{difficulty}}" when formulating the question and
 - If difficulty is "Legend - SpaceX/Aerospace":
   For topic "{{topic}}", generate a challenging question related to modern rocketry, aerospace engineering, orbital mechanics, or complex space missions. This is most relevant if topic is Space Exploration or Physics. The source should be "Advanced Aerospace/SpaceX-style Question ({{topic}} based)".
 - If difficulty is "Legend - General Advanced" (or if it's just "Legend" and the topic/difficulty combination isn't one of the specific exam styles above):
-  For the given "{{topic}}", generate an exceptionally challenging question that tests deep expertise. The source should be "Advanced {{{topic}}} Question".
+  For the given "{{topic}}", generate an exceptionally challenging question that tests deep expertise. The source should be "Advanced {{{topic}}} Question (Legend Difficulty)".
 
-For ALL "Legend" categories, ensure the question is significantly difficult, options include plausible and challenging distractors, and the question is well-posed.
-If a specific "Legend" style (like NEET or JEE) is requested for a topic where it's not highly relevant (e.g., "Legend - NEET" for "History"), try to make an advanced question for that topic and use "Advanced {{{topic}}} Question" as the source, or default to "Legend - General Advanced" for that topic.
+For ALL "Legend" and "Normal - NEET" categories, ensure the question is appropriately challenging, options include plausible and challenging distractors, and the question is well-posed.
+If a specific style (like NEET or JEE) is requested for a topic where it's not highly relevant (e.g., "Legend - NEET" for "History"), try to make an advanced question for that topic and use "Advanced {{{topic}}} Question" as the source, or default to the general advanced/legend setting for that topic.
 
 Ensure the correct answer is clearly one of the four options provided.
 Ensure all four options are plausible for the given question and difficulty.
@@ -102,7 +104,9 @@ const generateQuizQuestionFlow = ai.defineFlow(
     
     if (!output.options || output.options.length !== 4) {
         console.error("AI generated an invalid number of options.", output);
-        throw new Error("AI generated an invalid number of options. Expected 4.");
+        // Attempt to provide a fallback or throw a more specific error.
+        // For now, re-throwing a generic error or a specific one.
+        throw new Error("AI generated an invalid number of options. Expected 4 distinct options.");
     }
 
     if (!output.options.includes(output.correctAnswer)) {
@@ -111,6 +115,8 @@ const generateQuizQuestionFlow = ai.defineFlow(
         // This is a pragmatic fallback, but ideally the AI should always follow instructions.
         // Log this event for monitoring.
         output.correctAnswer = output.options[0]; 
+        // Consider if you want to throw an error here instead, or if this fallback is acceptable.
+        // For a better user experience, a retry or a more graceful failure message might be good.
     }
     return output;
   }
