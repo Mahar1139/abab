@@ -15,6 +15,7 @@ const roboticsGalleryImages = [
   { src: 'https://placehold.co/300x300.png', alt: 'Team celebrating robot success', dataAiHint: 'team celebration' },
   { src: 'https://placehold.co/300x300.png', alt: 'Robots in a competition setting', dataAiHint: 'robot competition' },
   { src: 'https://placehold.co/300x300.png', alt: 'Robot navigating an obstacle course', dataAiHint: 'robot obstacle' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Student programming robot', dataAiHint: 'student programming' },
 ];
 
 export default function RoboticsClassesPage() {

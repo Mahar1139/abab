@@ -15,6 +15,7 @@ const computerGalleryImages = [
   { src: 'https://placehold.co/300x300.png', alt: 'Teacher assisting student at PC', dataAiHint: 'teacher student' },
   { src: 'https://placehold.co/300x300.png', alt: 'Students working on a group project on computer', dataAiHint: 'group project' },
   { src: 'https://placehold.co/300x300.png', alt: 'Concept of cybersecurity shield', dataAiHint: 'cybersecurity concept' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Student learning presentation software', dataAiHint: 'student presentation software' },
 ];
 
 export default function ComputerClassesPage() {

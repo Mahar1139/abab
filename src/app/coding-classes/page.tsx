@@ -15,6 +15,7 @@ const codingGalleryImages = [
   { src: 'https://placehold.co/300x300.png', alt: 'Teacher explaining code to students', dataAiHint: 'teacher students' },
   { src: 'https://placehold.co/300x300.png', alt: 'Group of girls coding', dataAiHint: 'girls coding' },
   { src: 'https://placehold.co/300x300.png', alt: 'Diverse students in coding class', dataAiHint: 'diverse students' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Student debugging code', dataAiHint: 'student debugging' },
 ];
 
 export default function CodingClassesPage() {
