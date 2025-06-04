@@ -78,7 +78,7 @@
     --destructive: 0 60% 50%; /* Slightly brighter Red for dark mode */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 225 30% 25%; /* Muted dark blue for borders */
+    --border: 225 30% 30%; /* Muted dark blue for borders - Made slightly Lighter */
     --input: 225 35% 22%; /* Slightly lighter dark blue for input fields */
     --ring: 0 75% 60%; /* Red for focus rings in dark mode */
 
