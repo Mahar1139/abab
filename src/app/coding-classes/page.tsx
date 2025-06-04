@@ -5,6 +5,17 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle, Code2 } from 'lucide-react';
+import ClassGallery from '@/components/classes/ClassGallery';
+
+const codingGalleryImages = [
+  { src: 'https://placehold.co/300x300.png', alt: 'Students collaborating on code', dataAiHint: 'students collaborating' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Student presenting coding project', dataAiHint: 'student presentation' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Close-up of code on a screen', dataAiHint: 'code screen' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Happy student with laptop', dataAiHint: 'student laptop' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Teacher explaining code to students', dataAiHint: 'teacher students' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Group of girls coding', dataAiHint: 'girls coding' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Diverse students in coding class', dataAiHint: 'diverse students' },
+];
 
 export default function CodingClassesPage() {
   return (
@@ -65,8 +76,9 @@ export default function CodingClassesPage() {
             </div>
           </div>
         </Card>
-        
       </SectionWrapper>
+
+      <ClassGallery images={codingGalleryImages} galleryTitle="Coding Class Moments" />
     </div>
   );
 }

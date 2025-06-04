@@ -5,6 +5,17 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle, Bot } from 'lucide-react';
+import ClassGallery from '@/components/classes/ClassGallery';
+
+const roboticsGalleryImages = [
+  { src: 'https://placehold.co/300x300.png', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Students testing a robot', dataAiHint: 'students robot' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Team celebrating robot success', dataAiHint: 'team celebration' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Robots in a competition setting', dataAiHint: 'robot competition' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Robot navigating an obstacle course', dataAiHint: 'robot obstacle' },
+];
 
 export default function RoboticsClassesPage() {
   return (
@@ -65,8 +76,9 @@ export default function RoboticsClassesPage() {
             </div>
           </div>
         </Card>
-        
       </SectionWrapper>
+
+      <ClassGallery images={roboticsGalleryImages} galleryTitle="Robotics Workshop Snapshots" />
     </div>
   );
 }

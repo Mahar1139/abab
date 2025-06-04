@@ -5,6 +5,17 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle, Laptop } from 'lucide-react';
+import ClassGallery from '@/components/classes/ClassGallery';
+
+const computerGalleryImages = [
+  { src: 'https://placehold.co/300x300.png', alt: 'Student learning on a computer', dataAiHint: 'student computer' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Creating digital art on a tablet', dataAiHint: 'digital art' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Interface of video editing software', dataAiHint: 'video editing' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Students researching online', dataAiHint: 'students research' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Teacher assisting student at PC', dataAiHint: 'teacher student' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Students working on a group project on computer', dataAiHint: 'group project' },
+  { src: 'https://placehold.co/300x300.png', alt: 'Concept of cybersecurity shield', dataAiHint: 'cybersecurity concept' },
+];
 
 export default function ComputerClassesPage() {
   return (
@@ -67,6 +78,8 @@ export default function ComputerClassesPage() {
         </Card>
         
       </SectionWrapper>
+
+      <ClassGallery images={computerGalleryImages} galleryTitle="Digital Literacy in Action" />
     </div>
   );
 }
