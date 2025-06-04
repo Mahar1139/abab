@@ -23,7 +23,7 @@ const navItems = [
   { href: '/coding-classes', label: 'Coding Classes', icon: Code2 },
   { href: '/robotics-classes', label: 'Robotics Classes', icon: Bot },
   { href: '/computer-classes', label: 'Computer Classes', icon: Laptop },
-  { href: '/quiz', label: 'Quiz', icon: Brain },
+  { href: '/quiz', label: 'AI Quiz Challenge', icon: Brain },
   { href: '/contact', label: 'Contact & Support', icon: Mail },
   { href: '/ai-assistant', label: 'AI Assistant', icon: Cpu },
 ];
