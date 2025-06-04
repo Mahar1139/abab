@@ -12,8 +12,8 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const GenerateQuizQuestionInputSchema = z.object({
-  topic: z.string().describe('The subject or topic for the quiz question (e.g., Biology, Space Exploration, History).'),
-  difficulty: z.string().describe('The desired difficulty level. This can be general (e.g., Beginner, Easy, Normal, Hard, Extreme) or specific for Legend or Normal competitive styles (e.g., "Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Legend - General Advanced").'),
+  topic: z.string().describe('The subject or topic for the quiz question (e.g., Biology, Space Exploration, Quantitative Aptitude).'),
+  difficulty: z.string().describe('The desired difficulty level. This can be general (e.g., Beginner, Easy, Normal, Hard, Extreme) or specific for competitive styles (e.g., "Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced").'),
   previousQuestionTexts: z.array(z.string()).optional().describe('An array of question texts already asked in this session to avoid direct repetition.'),
 });
 export type GenerateQuizQuestionInput = z.infer<typeof GenerateQuizQuestionInputSchema>;
@@ -22,7 +22,7 @@ const GenerateQuizQuestionOutputSchema = z.object({
   questionText: z.string().describe('The text of the generated quiz question.'),
   options: z.array(z.string()).length(4).describe('An array of exactly four unique answer options.'),
   correctAnswer: z.string().describe('The correct answer from the provided options.'),
-  source: z.string().describe('A brief description of the question\'s origin, type, or the specific sub-topic it covers (e.g., "Basic Cell Biology", "Inspired by NEET Physics syllabus (Normal Difficulty)", "General World War II History", "JEE Advanced-style Question (Physics based)").'),
+  source: z.string().describe('A brief description of the question\'s origin, type, or the specific sub-topic it covers (e.g., "Basic Cell Biology", "Inspired by NEET Physics syllabus (Normal Difficulty)", "SBI PO Prelims-style (Quantitative Aptitude)").'),
 });
 export type GenerateQuizQuestionOutput = z.infer<typeof GenerateQuizQuestionOutputSchema>;
 
@@ -58,21 +58,30 @@ Consider the difficulty level "{{difficulty}}" when formulating the question and
 - If difficulty is "Normal": Generate a standard curriculum-level question from "{{topic}}", requiring recall and some understanding. Source should be "Normal {{{topic}}}".
 - If difficulty is "Hard": Generate a question on more complex applications of concepts from "{{topic}}", requiring deeper understanding and analysis. Source should be "Hard {{{topic}}}".
 - If difficulty is "Extreme": Generate a very challenging question from "{{topic}}", possibly involving multiple concepts, nuanced details, or tricky distractors. Source should be "Extreme {{{topic}}}".
+
 - If difficulty is "Normal - NEET":
-  For topic "{{topic}}", generate a question of "Normal" difficulty in the style and format of NEET (National Eligibility cum Entrance Test - India) for medical entrance. Focus on Biology, Physics, or Chemistry as appropriate for NEET. The question must be a single correct multiple-choice question. The source should be "NEET-style Question (Normal Difficulty, {{topic}} based)". The questions should be inspired by the type of concepts tested in previous NEET papers and reference materials like MTG books, focusing on core understanding suitable for a normal difficulty assessment.
+  For topic "{{topic}}" (expected to be Biology, Physics, or Chemistry), generate a question of "Normal" difficulty in the style and format of NEET (National Eligibility cum Entrance Test - India) for medical entrance. The question must be a single correct multiple-choice question. The source should be "NEET-style Question (Normal Difficulty, {{topic}} based)". The questions should be inspired by the type of concepts tested in previous NEET papers and reference materials like MTG books, focusing on core understanding suitable for a normal difficulty assessment.
 - If difficulty is "Legend - NEET":
-  For topic "{{topic}}", generate a question similar in style and complexity to NEET (National Eligibility cum Entrance Test - India) for medical entrance. Focus on Biology, Physics, or Chemistry as appropriate for NEET. The question must be a single correct multiple-choice question. The source should be "NEET-style Question (Legend Difficulty, {{topic}} based)".
+  For topic "{{topic}}" (expected to be Biology, Physics, or Chemistry), generate a question similar in style and complexity to NEET. The question must be a single correct multiple-choice question. The source should be "NEET-style Question (Legend Difficulty, {{topic}} based)". Ensure plausible and challenging distractors.
+
 - If difficulty is "Legend - JEE Mains":
-  For topic "{{topic}}", generate a question similar in style and complexity to JEE Mains (India) for engineering entrance. Focus on Physics, Chemistry, or Mathematics as appropriate for JEE Mains. The question must be a single correct multiple-choice question, often testing application of concepts. The source should be "JEE Mains-style Question ({{topic}} based)".
+  For topic "{{topic}}" (expected to be Physics, Chemistry, or Mathematics), generate a question similar in style and complexity to JEE Mains (India) for engineering entrance. The question must be a single correct multiple-choice question, often testing application of concepts. The source should be "JEE Mains-style Question ({{topic}} based)".
 - If difficulty is "Legend - JEE Advanced":
-  For topic "{{topic}}", generate a question similar in style and complexity to JEE Advanced (India). Focus on Physics, Chemistry, or Mathematics as appropriate for JEE Advanced. These questions are typically more challenging, may require combining multiple concepts or deeper analytical skills. Ensure it's a single correct MCQ with four options. The source should be "JEE Advanced-style Question ({{topic}} based)".
+  For topic "{{topic}}" (expected to be Physics, Chemistry, or Mathematics), generate a question similar in style and complexity to JEE Advanced (India). These questions are typically more challenging, may require combining multiple concepts or deeper analytical skills. Ensure it's a single correct MCQ with four options. The source should be "JEE Advanced-style Question ({{topic}} based)".
+
 - If difficulty is "Legend - SpaceX/Aerospace":
-  For topic "{{topic}}", generate a challenging question related to modern rocketry, aerospace engineering, orbital mechanics, or complex space missions. This is most relevant if topic is Space Exploration or Physics. The source should be "Advanced Aerospace/SpaceX-style Question ({{topic}} based)".
+  For topic "{{topic}}" (most relevant if topic is Space Exploration or Physics), generate a challenging question related to modern rocketry, aerospace engineering, orbital mechanics, or complex space missions. The source should be "Advanced Aerospace/SpaceX-style Question ({{topic}} based)".
+
+- If difficulty is "Normal - SBI PO Prelims":
+  For topic "{{topic}}" (e.g., Quantitative Aptitude, Reasoning Ability, English Language, Banking & Financial Awareness), generate a question of "Normal" difficulty in the style of SBI PO (State Bank of India Probationary Officer) Preliminary exams. Questions should be inspired by common patterns in previous year papers and standard preparation books (e.g., quant problems, logical reasoning puzzles, grammar/vocabulary questions, basic banking terms). The source should be "SBI PO Prelims-style Question ({{topic}} based)".
+- If difficulty is "Legend - SBI PO Mains":
+  For topic "{{topic}}" (e.g., Quantitative Aptitude, Reasoning Ability, English Language, Banking & Financial Awareness), generate a more complex question in the style of SBI PO Mains exams. This might include data interpretation sets (for quant), complex puzzles (for reasoning), advanced reading comprehension (for English), or in-depth banking knowledge. Ensure it is a single MCQ. The source should be "SBI PO Mains-style Question ({{topic}} based)".
+
 - If difficulty is "Legend - General Advanced" (or if it's just "Legend" and the topic/difficulty combination isn't one of the specific exam styles above):
   For the given "{{topic}}", generate an exceptionally challenging question that tests deep expertise. The source should be "Advanced {{{topic}}} Question (Legend Difficulty)".
 
-For ALL "Legend" and "Normal - NEET" categories, ensure the question is appropriately challenging, options include plausible and challenging distractors, and the question is well-posed.
-If a specific style (like NEET or JEE) is requested for a topic where it's not highly relevant (e.g., "Legend - NEET" for "History"), try to make an advanced question for that topic and use "Advanced {{{topic}}} Question" as the source, or default to the general advanced/legend setting for that topic.
+For ALL "Legend", "Normal - NEET", and "SBI PO" categories, ensure the question is appropriately challenging, options include plausible and challenging distractors, and the question is well-posed.
+If a specific style (like NEET or SBI PO) is requested for a topic where it's not highly relevant (e.g., "Legend - NEET" for "History", or "Normal - SBI PO Prelims" for "Arts"), try to make an advanced/normal question for that topic and use "Advanced {{{topic}}} Question" or "Normal {{{topic}}} Question" as the source, or default to the general advanced/legend/normal setting for that topic.
 
 Ensure the correct answer is clearly one of the four options provided.
 Ensure all four options are plausible for the given question and difficulty.
@@ -103,22 +112,18 @@ const generateQuizQuestionFlow = ai.defineFlow(
     }
     
     if (!output.options || output.options.length !== 4) {
-        console.error("AI generated an invalid number of options.", output);
+        console.error("AI generated an invalid number of options. Output was:", JSON.stringify(output));
         // Attempt to provide a fallback or throw a more specific error.
-        // For now, re-throwing a generic error or a specific one.
-        throw new Error("AI generated an invalid number of options. Expected 4 distinct options.");
+        throw new Error(`AI generated an invalid number of options (${output.options?.length || 0}). Expected 4 distinct options. Please try a different topic/difficulty or try again.`);
     }
 
     if (!output.options.includes(output.correctAnswer)) {
-        console.error("AI generated a correct answer that is not in the options list.", output);
+        console.error("AI generated a correct answer that is not in the options list. Output was:", JSON.stringify(output));
         // Fallback: Make the first option correct if AI fails to include correctAnswer in options
         // This is a pragmatic fallback, but ideally the AI should always follow instructions.
-        // Log this event for monitoring.
         output.correctAnswer = output.options[0]; 
-        // Consider if you want to throw an error here instead, or if this fallback is acceptable.
-        // For a better user experience, a retry or a more graceful failure message might be good.
+        console.warn("Fallback applied: Correct answer set to the first option due to AI error.");
     }
     return output;
   }
 );
-

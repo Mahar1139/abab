@@ -30,24 +30,40 @@ interface UserAnswer {
 
 const topics = [
   "General Knowledge", "Science", "Space Exploration", "Biology", "Physics", 
-  "Chemistry", "History", "Geography", "Mathematics", "Literature", "Arts", "Computer Science"
+  "Chemistry", "History", "Geography", "Mathematics", "Literature", "Arts", "Computer Science",
+  "Quantitative Aptitude", "Reasoning Ability", "English Language", "Banking & Financial Awareness"
 ];
 
 const baseDifficulties = ["Beginner", "Easy", "Normal", "Hard", "Extreme"];
-const legendSubCategoriesMap: Record<string, string[]> = {
+
+// Defines specific competitive styles for topics.
+// Keys are topics, values are arrays of difficulty strings (e.g., "Normal - NEET", "Legend - JEE Mains").
+const competitiveStylesMap: Record<string, string[]> = {
   "Space Exploration": ["Legend - SpaceX/Aerospace", "Legend - General Advanced"],
   "Biology": ["Normal - NEET", "Legend - NEET", "Legend - General Advanced"],
   "Physics": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Legend - General Advanced"],
   "Chemistry": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - General Advanced"],
-  "Mathematics": ["Legend - JEE Mains", "Legend - JEE Advanced", "Legend - General Advanced"],
-  "default": ["Legend - General Advanced"] // For topics not explicitly mapped, only offer general legend
+  "Mathematics": ["Legend - JEE Mains", "Legend - JEE Advanced", "Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "Quantitative Aptitude": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "Reasoning Ability": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "English Language": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "Banking & Financial Awareness": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "default": ["Legend - General Advanced"] // Fallback for topics not explicitly mapped
 };
 
 const getDifficultyOptionsForTopic = (topic: string | null): string[] => {
-  if (!topic) return [...baseDifficulties, ...legendSubCategoriesMap.default];
-  // Combine base difficulties with topic-specific legend/normal styles
-  const topicSpecificOptions = legendSubCategoriesMap[topic] || legendSubCategoriesMap.default;
-  return [...baseDifficulties, ...new Set(topicSpecificOptions)]; // Use Set to avoid duplicates
+  if (!topic) return [...baseDifficulties, ...competitiveStylesMap.default];
+  
+  const topicSpecificStyles = competitiveStylesMap[topic] || competitiveStylesMap.default;
+  // Combine base difficulties with topic-specific competitive styles. Use Set to avoid duplicates.
+  return [...new Set([...baseDifficulties, ...topicSpecificStyles])].sort((a, b) => {
+    // Custom sort: base difficulties first, then competitive styles
+    const isABase = baseDifficulties.includes(a);
+    const isBBase = baseDifficulties.includes(b);
+    if (isABase && !isBBase) return -1;
+    if (!isABase && isBBase) return 1;
+    return a.localeCompare(b); // Alphabetical for same-type difficulties
+  });
 };
 
 
@@ -353,4 +369,3 @@ export default function QuizPage() {
     </div>
   );
 }
-
