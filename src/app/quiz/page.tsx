@@ -13,7 +13,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { generateQuizQuestion, type GenerateQuizQuestionOutput, type GenerateQuizQuestionInput } from "@/ai/flows/generate-quiz-question-flow";
 import { Brain, CheckCircle, XCircle, Award, RotateCcw, Loader2, Info } from "lucide-react";
 
-type QuizState = "selecting_topic" | "selecting_difficulty" | "in_progress" | "finished";
+type QuizState = "selecting_topic_difficulty" | "in_progress" | "finished";
 
 interface GeneratedQuestion extends GenerateQuizQuestionOutput {
   id: string; // Unique ID for the question in the current session
@@ -32,7 +32,23 @@ const topics = [
   "General Knowledge", "Science", "Space Exploration", "Biology", "Physics", 
   "Chemistry", "History", "Geography", "Mathematics", "Literature", "Arts", "Computer Science"
 ];
-const difficulties = ["Beginner", "Easy", "Normal", "Hard", "Extreme", "Legend"];
+
+const baseDifficulties = ["Beginner", "Easy", "Normal", "Hard", "Extreme"];
+const legendSubCategoriesMap: Record<string, string[]> = {
+  "Space Exploration": ["Legend - SpaceX/Aerospace", "Legend - General Advanced"],
+  "Biology": ["Legend - NEET", "Legend - General Advanced"],
+  "Physics": ["Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Legend - General Advanced"],
+  "Chemistry": ["Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - General Advanced"],
+  "Mathematics": ["Legend - JEE Mains", "Legend - JEE Advanced", "Legend - General Advanced"],
+  "default": ["Legend - General Advanced"]
+};
+
+const getDifficultyOptionsForTopic = (topic: string | null): string[] => {
+  if (!topic) return [...baseDifficulties, ...legendSubCategoriesMap.default];
+  const legendOptions = legendSubCategoriesMap[topic] || legendSubCategoriesMap.default;
+  return [...baseDifficulties, ...new Set(legendOptions)]; // Use Set to avoid duplicates if "Legend - General Advanced" is in base
+};
+
 
 const COLORS = {
   correct: 'hsl(var(--chart-5))', // Green
@@ -40,12 +56,13 @@ const COLORS = {
 };
 
 export default function QuizPage() {
-  const [quizState, setQuizState] = useState<QuizState>("selecting_topic");
+  const [quizState, setQuizState] = useState<QuizState>("selecting_topic_difficulty");
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
+  const [currentDifficultyOptions, setCurrentDifficultyOptions] = useState<string[]>(getDifficultyOptionsForTopic(null));
   
   const [currentQuestion, setCurrentQuestion] = useState<GeneratedQuestion | null>(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // Relative to current session
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
@@ -57,10 +74,16 @@ export default function QuizPage() {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    setCurrentDifficultyOptions(getDifficultyOptionsForTopic(selectedTopic));
+    setSelectedDifficulty(null); // Reset difficulty when topic changes
+  }, [selectedTopic]);
+
   const resetQuiz = () => {
-    setQuizState("selecting_topic");
+    setQuizState("selecting_topic_difficulty");
     setSelectedTopic(null);
     setSelectedDifficulty(null);
+    setCurrentDifficultyOptions(getDifficultyOptionsForTopic(null));
     setCurrentQuestion(null);
     setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
@@ -73,14 +96,14 @@ export default function QuizPage() {
     if (!selectedTopic || !selectedDifficulty) return;
     setIsLoadingQuestion(true);
     setError(null);
-    setCurrentQuestion(null); // Clear previous question while loading
+    setCurrentQuestion(null);
 
     try {
       const previousQuestionTexts = userAnswers.map(ua => ua.questionText);
       const input: GenerateQuizQuestionInput = { 
         topic: selectedTopic, 
         difficulty: selectedDifficulty,
-        previousQuestionTexts: previousQuestionTexts.slice(-5) // Send last 5 to avoid immediate repeats
+        previousQuestionTexts: previousQuestionTexts.slice(-5) 
       };
       const result = await generateQuizQuestion(input);
       if (result.questionText && result.options && result.correctAnswer) {
@@ -91,7 +114,6 @@ export default function QuizPage() {
     } catch (e) {
       console.error("Error fetching question:", e);
       setError(e instanceof Error ? e.message : "Failed to fetch question. The AI might be busy or the request is invalid. Try adjusting topic/difficulty or try again later.");
-      // Offer to go back if question fetching fails repeatedly.
     }
     setIsLoadingQuestion(false);
   };
@@ -127,9 +149,7 @@ export default function QuizPage() {
 
     setSelectedAnswer(null);
     
-    // For this dynamic quiz, we might not have a fixed number of questions.
-    // Let's aim for 5 questions per session for now, or user can end early.
-    if (userAnswers.length < 4) { // 0-indexed, so this is for 5 questions
+    if (userAnswers.length < 4) { 
       setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       fetchNextQuestion();
     } else {
@@ -155,46 +175,51 @@ export default function QuizPage() {
               <Brain className="w-10 h-10 text-primary" />
               <CardTitle className="text-3xl text-primary">Test Your Knowledge!</CardTitle>
             </div>
-            {quizState !== "selecting_topic" && quizState !== "selecting_difficulty" && selectedTopic && selectedDifficulty && (
+            {quizState !== "selecting_topic_difficulty" && selectedTopic && selectedDifficulty && (
               <CardDescription className="text-md">
-                Topic: <span className="font-semibold text-secondary">{selectedTopic}</span> | Difficulty: <span className="font-semibold text-secondary">{selectedDifficulty}</span>
+                Topic: <span className="font-semibold text-secondary">{selectedTopic}</span> | Difficulty: <span className="font-semibold text-secondary">{selectedDifficulty.replace("Legend - ", "Legend: ")}</span>
               </CardDescription>
             )}
           </CardHeader>
           <CardContent className="min-h-[400px]">
-            {quizState === "selecting_topic" && (
-              <div className="space-y-6 text-center max-w-md mx-auto">
-                <h3 className="text-2xl font-semibold text-foreground">Select a Topic</h3>
-                <Select onValueChange={(value) => { setSelectedTopic(value); setQuizState("selecting_difficulty"); }}>
-                  <SelectTrigger className="w-full py-3 text-lg">
-                    <SelectValue placeholder="Choose a topic..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {topics.map(topic => (
-                      <SelectItem key={topic} value={topic} className="text-lg py-2">{topic}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <p className="text-muted-foreground">Choose a category to test your knowledge in.</p>
-              </div>
-            )}
+            {quizState === "selecting_topic_difficulty" && (
+              <div className="space-y-6 max-w-lg mx-auto">
+                <h3 className="text-2xl font-semibold text-foreground text-center">Configure Your Quiz</h3>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="topic-select" className="text-lg">1. Select a Topic</Label>
+                  <Select onValueChange={setSelectedTopic} value={selectedTopic ?? undefined}>
+                    <SelectTrigger id="topic-select" className="w-full py-3 text-lg">
+                      <SelectValue placeholder="Choose a topic..." />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {topics.map(topic => (
+                        <SelectItem key={topic} value={topic} className="text-lg py-2">{topic}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
 
-            {quizState === "selecting_difficulty" && selectedTopic && (
-              <div className="space-y-6 text-center max-w-md mx-auto">
-                <h3 className="text-2xl font-semibold text-foreground">Select Difficulty for {selectedTopic}</h3>
-                <Select onValueChange={setSelectedDifficulty}>
-                  <SelectTrigger className="w-full py-3 text-lg">
-                    <SelectValue placeholder="Choose a difficulty level..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {difficulties.map(level => (
-                      <SelectItem key={level} value={level} className="text-lg py-2">{level}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <div className="flex gap-4 justify-center">
-                   <Button variant="outline" onClick={() => {setQuizState("selecting_topic"); setSelectedTopic(null); setSelectedDifficulty(null);}}>Back to Topics</Button>
-                   <Button size="lg" onClick={handleStartQuiz} disabled={!selectedDifficulty}>
+                {selectedTopic && (
+                  <div className="space-y-2">
+                    <Label htmlFor="difficulty-select" className="text-lg">2. Select Difficulty for {selectedTopic}</Label>
+                    <Select onValueChange={setSelectedDifficulty} value={selectedDifficulty ?? undefined} disabled={!selectedTopic}>
+                      <SelectTrigger id="difficulty-select" className="w-full py-3 text-lg">
+                        <SelectValue placeholder="Choose a difficulty level..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {currentDifficultyOptions.map(level => (
+                          <SelectItem key={level} value={level} className="text-lg py-2">
+                            {level.startsWith("Legend - ") ? `Legend: ${level.substring("Legend - ".length)}` : level}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                )}
+                
+                <div className="flex justify-center pt-4">
+                   <Button size="lg" onClick={handleStartQuiz} disabled={!selectedTopic || !selectedDifficulty}>
                     Start Quiz <Award className="ml-2 h-5 w-5" />
                   </Button>
                 </div>
@@ -208,14 +233,14 @@ export default function QuizPage() {
               </div>
             )}
 
-            {error && (quizState === "in_progress" || quizState === "selecting_difficulty") && (
+            {error && (quizState === "in_progress" || quizState === "selecting_topic_difficulty") && (
               <Alert variant="destructive" className="my-4">
                 <XCircle className="h-5 w-5" />
                 <AlertTitle>Error Generating Question</AlertTitle>
                 <AlertDescription>
                   {error}
                   <div className="mt-4 flex gap-2">
-                    <Button onClick={fetchNextQuestion} variant="outline" size="sm" disabled={isLoadingQuestion}>
+                    <Button onClick={fetchNextQuestion} variant="outline" size="sm" disabled={isLoadingQuestion || !selectedTopic || !selectedDifficulty}>
                       {isLoadingQuestion ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null} Try Again
                     </Button>
                     <Button onClick={resetQuiz} variant="secondary" size="sm">Change Topic/Difficulty</Button>
@@ -223,7 +248,6 @@ export default function QuizPage() {
                 </AlertDescription>
               </Alert>
             )}
-
 
             {!isLoadingQuestion && !error && quizState === "in_progress" && currentQuestion && (
               <div className="space-y-6">
@@ -318,3 +342,4 @@ export default function QuizPage() {
     </div>
   );
 }
+
