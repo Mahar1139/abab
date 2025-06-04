@@ -12,7 +12,7 @@ import {
   SidebarFooter,
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Cpu, School } from 'lucide-react';
+import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Cpu, School, Code2, Bot, Laptop } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'School Overview', icon: Home },
@@ -20,6 +20,9 @@ const navItems = [
   { href: '/faculty', label: 'Faculty Directory', icon: Users },
   { href: '/school-life', label: 'School Life', icon: ImageIcon },
   { href: '/resources', label: 'Resources', icon: FolderOpen },
+  { href: '/coding-classes', label: 'Coding Classes', icon: Code2 },
+  { href: '/robotics-classes', label: 'Robotics Classes', icon: Bot },
+  { href: '/computer-classes', label: 'Computer Classes', icon: Laptop },
   { href: '/contact', label: 'Contact & Support', icon: Mail },
   { href: '/ai-assistant', label: 'AI Assistant', icon: Cpu },
 ];
