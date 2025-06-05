@@ -128,7 +128,7 @@ export default function QuizPage() {
       let displayError = "An unexpected error occurred while generating the question. Please try again.";
       if (e instanceof Error) {
         if (e.message.includes("503") || e.message.toLowerCase().includes("overloaded") || e.message.toLowerCase().includes("model is overloaded")) {
-          displayError = "The AI model is currently experiencing high demand and is temporarily unavailable. Please wait a few moments and try again. If the problem persists, you can also try changing the topic or difficulty.";
+          displayError = "The Himalaya Public School server is busy try again later this is because lots of people are using the Quiz_AI so it is due to some overload the server can handle only 5000 peoples you can wait a minute and Try Again";
         } else if (e.message.toLowerCase().includes("api key")) {
           displayError = "There seems to be an issue with the AI configuration (e.g., API key). Please check the setup.";
         } else if (e.message.toLowerCase().includes("invalid number of options") || e.message.toLowerCase().includes("correct answer that is not in the options list")) {
