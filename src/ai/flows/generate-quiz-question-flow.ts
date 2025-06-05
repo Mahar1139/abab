@@ -73,9 +73,9 @@ Consider the difficulty level "{{difficulty}}" when formulating the question and
   For topic "{{topic}}" (most relevant if topic is Space Exploration or Physics), generate a challenging question related to modern rocketry, aerospace engineering, orbital mechanics, or complex space missions. The source should be "Advanced Aerospace/SpaceX-style Question ({{topic}} based)".
 
 - If difficulty is "Normal - SBI PO Prelims":
-  For topic "{{topic}}" (e.g., Quantitative Aptitude, Reasoning Ability, English Language, Banking & Financial Awareness), generate a question of "Normal" difficulty in the style of SBI PO (State Bank of India Probationary Officer) Preliminary exams. Questions should be inspired by common patterns in previous year papers and standard preparation books (e.g., quant problems, logical reasoning puzzles, grammar/vocabulary questions, basic banking terms). The source should be "SBI PO Prelims-style Question ({{topic}} based)".
+  For topic "{{topic}}" (e.g., Quantitative Aptitude, Reasoning Ability, English Language, Banking & Financial Awareness), generate a question of "Normal" difficulty in the style of SBI PO (State Bank of India Probationary Officer) Preliminary exams. Your primary reference for question style, topics, and difficulty should be **previous year question papers for SBI PO Preliminary exams and widely recognized SBI PO preparation books** (such as those by Arihant, Disha, or R.S. Aggarwal for quantitative aptitude/reasoning, or S.P. Bakshi for English, or standard banking awareness guides). Generate typical questions seen in these sources, like quant problems, logical reasoning puzzles, grammar/vocabulary questions, or basic banking terms. The source should be "SBI PO Prelims-style Question ({{topic}} based)".
 - If difficulty is "Legend - SBI PO Mains":
-  For topic "{{topic}}" (e.g., Quantitative Aptitude, Reasoning Ability, English Language, Banking & Financial Awareness), generate a more complex question in the style of SBI PO Mains exams. This might include data interpretation sets (for quant), complex puzzles (for reasoning), advanced reading comprehension (for English), or in-depth banking knowledge. Ensure it is a single MCQ. The source should be "SBI PO Mains-style Question ({{topic}} based)".
+  For topic "{{topic}}" (e.g., Quantitative Aptitude, Reasoning Ability, English Language, Banking & Financial Awareness), generate a more complex question in the style of SBI PO Mains exams. Your primary reference for question style, topics, and complexity should be **previous year question papers for SBI PO Mains exams and advanced-level SBI PO preparation books**. These questions are typically more challenging, often involving data interpretation sets (for quantitative aptitude), complex logical reasoning puzzles, advanced reading comprehension passages (for English), or in-depth banking and financial awareness. Ensure it's a single correct MCQ with four challenging options. The source should be "SBI PO Mains-style Question ({{topic}} based)".
 
 - If difficulty is "Legend - General Advanced" (or if it's just "Legend" and the topic/difficulty combination isn't one of the specific exam styles above):
   For the given "{{topic}}", generate an exceptionally challenging question that tests deep expertise. The source should be "Advanced {{{topic}}} Question (Legend Difficulty)".
@@ -113,17 +113,14 @@ const generateQuizQuestionFlow = ai.defineFlow(
     
     if (!output.options || output.options.length !== 4) {
         console.error("AI generated an invalid number of options. Output was:", JSON.stringify(output));
-        // Attempt to provide a fallback or throw a more specific error.
         throw new Error(`AI generated an invalid number of options (${output.options?.length || 0}). Expected 4 distinct options. Please try a different topic/difficulty or try again.`);
     }
 
     if (!output.options.includes(output.correctAnswer)) {
         console.error("AI generated a correct answer that is not in the options list. Output was:", JSON.stringify(output));
-        // Fallback: Make the first option correct if AI fails to include correctAnswer in options
-        // This is a pragmatic fallback, but ideally the AI should always follow instructions.
-        output.correctAnswer = output.options[0]; 
-        console.warn("Fallback applied: Correct answer set to the first option due to AI error.");
+        throw new Error(`AI generated a correct answer ("${output.correctAnswer}") that is not present in the provided options: [${output.options.join(", ")}]. Please try again or select a different topic/difficulty.`);
     }
     return output;
   }
 );
+
