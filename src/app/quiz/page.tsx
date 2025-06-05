@@ -126,11 +126,24 @@ export default function QuizPage() {
       if (result.questionText && result.options && result.correctAnswer) {
         setCurrentQuestion({ ...result, id: `q_${Date.now()}_${currentQuestionIndex}` });
       } else {
-        throw new Error("AI failed to generate a valid question structure.");
+        throw new Error("AI failed to generate a valid question structure. The response might be incomplete or malformed.");
       }
     } catch (e) {
       console.error("Error fetching question:", e);
-      setError(e instanceof Error ? e.message : "Failed to fetch question. The AI might be busy or the request is invalid. Try adjusting topic/difficulty or try again later.");
+      let displayError = "An unexpected error occurred while generating the question. Please try again.";
+      if (e instanceof Error) {
+        if (e.message.includes("503") || e.message.toLowerCase().includes("overloaded") || e.message.toLowerCase().includes("model is overloaded")) {
+          displayError = "The AI model is currently experiencing high demand and is temporarily unavailable. Please wait a few moments and try again. If the problem persists, you can also try changing the topic or difficulty.";
+        } else if (e.message.toLowerCase().includes("api key")) {
+          displayError = "There seems to be an issue with the AI configuration (e.g., API key). Please check the setup.";
+        } else if (e.message.toLowerCase().includes("invalid number of options") || e.message.toLowerCase().includes("correct answer that is not in the options list")) {
+            displayError = e.message; // Use the specific error message from the flow
+        } else {
+            // For other types of errors, provide a general message but also log the specific one.
+            displayError = `An error occurred: ${e.message}. Please try adjusting topic/difficulty or try again later.`;
+        }
+      }
+      setError(displayError);
     }
     setIsLoadingQuestion(false);
   };
@@ -369,3 +382,4 @@ export default function QuizPage() {
     </div>
   );
 }
+
