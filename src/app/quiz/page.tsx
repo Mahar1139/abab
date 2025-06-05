@@ -30,8 +30,7 @@ interface UserAnswer {
 
 const topics = [
   "General Knowledge", "Science", "Space Exploration", "Biology", "Physics", 
-  "Chemistry", "History", "Geography", "Mathematics", "Literature", "Arts", "Computer Science",
-  "Quantitative Aptitude", "Reasoning Ability", "English Language", "Banking & Financial Awareness"
+  "Chemistry", "History", "Geography", "Mathematics", "Literature", "Arts", "Computer Science"
 ];
 
 const baseDifficulties = ["Beginner", "Easy", "Normal", "Hard", "Extreme"];
@@ -43,11 +42,7 @@ const competitiveStylesMap: Record<string, string[]> = {
   "Biology": ["Normal - NEET", "Legend - NEET", "Legend - General Advanced"],
   "Physics": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Legend - General Advanced"],
   "Chemistry": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - General Advanced"],
-  "Mathematics": ["Legend - JEE Mains", "Legend - JEE Advanced", "Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
-  "Quantitative Aptitude": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
-  "Reasoning Ability": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
-  "English Language": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
-  "Banking & Financial Awareness": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "Mathematics": ["Legend - JEE Mains", "Legend - JEE Advanced", "Legend - General Advanced"],
   "default": ["Legend - General Advanced"] // Fallback for topics not explicitly mapped
 };
 

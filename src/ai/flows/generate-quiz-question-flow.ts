@@ -12,8 +12,8 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const GenerateQuizQuestionInputSchema = z.object({
-  topic: z.string().describe('The subject or topic for the quiz question (e.g., Biology, Space Exploration, Quantitative Aptitude).'),
-  difficulty: z.string().describe('The desired difficulty level. This can be general (e.g., Beginner, Easy, Normal, Hard, Extreme) or specific for competitive styles (e.g., "Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced").'),
+  topic: z.string().describe('The subject or topic for the quiz question (e.g., Biology, Space Exploration).'),
+  difficulty: z.string().describe('The desired difficulty level. This can be general (e.g., Beginner, Easy, Normal, Hard, Extreme) or specific for competitive styles (e.g., "Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Legend - General Advanced").'),
   previousQuestionTexts: z.array(z.string()).optional().describe('An array of question texts already asked in this session to avoid direct repetition.'),
 });
 export type GenerateQuizQuestionInput = z.infer<typeof GenerateQuizQuestionInputSchema>;
@@ -22,7 +22,7 @@ const GenerateQuizQuestionOutputSchema = z.object({
   questionText: z.string().describe('The text of the generated quiz question.'),
   options: z.array(z.string()).length(4).describe('An array of exactly four unique answer options.'),
   correctAnswer: z.string().describe('The correct answer from the provided options.'),
-  source: z.string().describe('A brief description of the question\'s origin, type, or the specific sub-topic it covers (e.g., "Basic Cell Biology", "Inspired by NEET Physics syllabus (Normal Difficulty)", "SBI PO Prelims-style (Quantitative Aptitude)").'),
+  source: z.string().describe('A brief description of the question\'s origin, type, or the specific sub-topic it covers (e.g., "Basic Cell Biology", "Inspired by NEET Physics syllabus (Normal Difficulty)").'),
 });
 export type GenerateQuizQuestionOutput = z.infer<typeof GenerateQuizQuestionOutputSchema>;
 
@@ -72,16 +72,11 @@ Consider the difficulty level "{{difficulty}}" when formulating the question and
 - If difficulty is "Legend - SpaceX/Aerospace":
   For topic "{{topic}}" (most relevant if topic is Space Exploration or Physics), generate a challenging question related to modern rocketry, aerospace engineering, orbital mechanics, or complex space missions. The source should be "Advanced Aerospace/SpaceX-style Question ({{topic}} based)".
 
-- If difficulty is "Normal - SBI PO Prelims":
-  For topic "{{topic}}" (e.g., Quantitative Aptitude, Reasoning Ability, English Language, Banking & Financial Awareness), generate a question of "Normal" difficulty in the style of SBI PO (State Bank of India Probationary Officer) Preliminary exams. Your primary reference for question style, topics, and difficulty should be **previous year question papers for SBI PO Preliminary exams and widely recognized SBI PO preparation books** (such as those by Arihant, Disha, or R.S. Aggarwal for quantitative aptitude/reasoning, or S.P. Bakshi for English, or standard banking awareness guides). Generate typical questions seen in these sources, like quant problems, logical reasoning puzzles, grammar/vocabulary questions, or basic banking terms. The source should be "SBI PO Prelims-style Question ({{topic}} based)".
-- If difficulty is "Legend - SBI PO Mains":
-  For topic "{{topic}}" (e.g., Quantitative Aptitude, Reasoning Ability, English Language, Banking & Financial Awareness), generate a more complex question in the style of SBI PO Mains exams. Your primary reference for question style, topics, and complexity should be **previous year question papers for SBI PO Mains exams and advanced-level SBI PO preparation books**. These questions are typically more challenging, often involving data interpretation sets (for quantitative aptitude), complex logical reasoning puzzles, advanced reading comprehension passages (for English), or in-depth banking and financial awareness. Ensure it's a single correct MCQ with four challenging options. The source should be "SBI PO Mains-style Question ({{topic}} based)".
-
 - If difficulty is "Legend - General Advanced" (or if it's just "Legend" and the topic/difficulty combination isn't one of the specific exam styles above):
   For the given "{{topic}}", generate an exceptionally challenging question that tests deep expertise. The source should be "Advanced {{{topic}}} Question (Legend Difficulty)".
 
-For ALL "Legend", "Normal - NEET", and "SBI PO" categories, ensure the question is appropriately challenging, options include plausible and challenging distractors, and the question is well-posed.
-If a specific style (like NEET or SBI PO) is requested for a topic where it's not highly relevant (e.g., "Legend - NEET" for "History", or "Normal - SBI PO Prelims" for "Arts"), try to make an advanced/normal question for that topic and use "Advanced {{{topic}}} Question" or "Normal {{{topic}}} Question" as the source, or default to the general advanced/legend/normal setting for that topic.
+For ALL "Legend" and "Normal - NEET" categories, ensure the question is appropriately challenging, options include plausible and challenging distractors, and the question is well-posed.
+If a specific style (like NEET) is requested for a topic where it's not highly relevant (e.g., "Legend - NEET" for "History"), try to make an advanced/normal question for that topic and use "Advanced {{{topic}}} Question" or "Normal {{{topic}}} Question" as the source, or default to the general advanced/legend/normal setting for that topic.
 
 Ensure the correct answer is clearly one of the four options provided.
 Ensure all four options are plausible for the given question and difficulty.
