@@ -20,7 +20,7 @@ const suggestedQuestions = [
 ];
 
 const TEACHER_CONDUIT_PROMPT = "11x11";
-const ANIMATION_DELAY = 20; // ms per character
+const ANIMATION_DELAY = 10; // ms per character
 
 export default function SchoolInfoChatbot() {
   const [question, setQuestion] = useState('');
