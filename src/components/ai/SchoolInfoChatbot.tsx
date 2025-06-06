@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, type FormEvent, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -17,15 +18,26 @@ const suggestedQuestions = [
   "What are the core values of the school?"
 ];
 
+const TEACHER_CONDUIT_PROMPT = "11x11";
+
 export default function SchoolInfoChatbot() {
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isAutoSubmitting, setIsAutoSubmitting] = useState(false);
+  const router = useRouter();
 
   const fetchAnswer = async (currentQuestion: string) => {
     if (!currentQuestion.trim()) return;
+
+    if (currentQuestion.trim().toLowerCase() === TEACHER_CONDUIT_PROMPT) {
+      router.push('/teacher-conduit');
+      setIsLoading(false);
+      setIsAutoSubmitting(false);
+      setQuestion(''); // Clear the prompt after redirection
+      return;
+    }
 
     setIsLoading(true);
     setError(null);
@@ -43,7 +55,9 @@ export default function SchoolInfoChatbot() {
       console.error("Error fetching school information:", e);
       let errorMessage = "An error occurred while trying to get information. Please try again later.";
       if (e instanceof Error) {
-        // Check for specific Genkit/Gemini error messages if needed
+        if (e.message.includes("503") || e.message.toLowerCase().includes("overloaded")) {
+          errorMessage = "The AI model is currently busy. Please try again in a few moments.";
+        }
       }
       setError(errorMessage);
     }
@@ -58,7 +72,7 @@ export default function SchoolInfoChatbot() {
 
   const handleSuggestedQuestionClick = (suggestedQ: string) => {
     setQuestion(suggestedQ);
-    setIsAutoSubmitting(true); // Indicate that we are auto-submitting
+    setIsAutoSubmitting(true); 
   };
 
   useEffect(() => {
@@ -77,6 +91,7 @@ export default function SchoolInfoChatbot() {
         </CardTitle>
         <CardDescription>
           Have a question about Himalaya Public School or need general help? Ask away!
+          (Teachers: try prompt "11x11" for a special tool.)
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-grow overflow-y-auto p-6 space-y-4">
@@ -87,7 +102,7 @@ export default function SchoolInfoChatbot() {
               value={question}
               onChange={(e) => {
                 setQuestion(e.target.value);
-                if (isAutoSubmitting) setIsAutoSubmitting(false); // Stop auto-submit if user types
+                if (isAutoSubmitting) setIsAutoSubmitting(false); 
               }}
               placeholder="e.g., What is the school's mission?"
               className="w-full"
@@ -147,4 +162,3 @@ export default function SchoolInfoChatbot() {
     </Card>
   );
 }
-
