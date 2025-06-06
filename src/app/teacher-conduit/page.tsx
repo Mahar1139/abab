@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, type FormEvent } from 'react';
-import { useRouter } from 'next/navigation'; // For potential future use, not strictly needed for "11x11" access
+import { useRouter } from 'next/navigation';
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, BookOpen, Lightbulb, AlertCircle, PencilLine } from "lucide-react";
+import { Loader2, BookOpen, Lightbulb, AlertCircle, PencilLine, LogOut } from "lucide-react";
 import { generateTeacherMaterial, type TeacherConduitInput, type TeacherConduitOutput } from "@/ai/flows/teacher-conduit-flow";
 
 const classes = [
@@ -30,6 +30,7 @@ const subjects = [
 ];
 
 export default function TeacherConduitPage() {
+  const router = useRouter();
   const [classLevel, setClassLevel] = useState<string>("");
   const [subject, setSubject] = useState<string>("");
   const [chapterInfo, setChapterInfo] = useState<string>("");
@@ -76,6 +77,10 @@ export default function TeacherConduitPage() {
       setError(errorMessage);
     }
     setIsLoading(false);
+  };
+
+  const handleExit = () => {
+    router.push('/ai-assistant');
   };
 
   return (
@@ -153,17 +158,22 @@ export default function TeacherConduitPage() {
                  </p>
               </div>
               
-              <Button type="submit" disabled={isLoading || !classLevel || !subject || !chapterInfo} className="w-full text-lg py-3">
-                {isLoading ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    {userQuestion.trim() ? "Getting Answer..." : "Suggesting Q&A..."}
-                  </>
-                ) : (
-                  userQuestion.trim() ? "Get Answer" : "Suggest NCERT Questions & Answers" 
-                )} 
-                 <Lightbulb className="ml-2 h-5 w-5" />
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button type="submit" disabled={isLoading || !classLevel || !subject || !chapterInfo} className="w-full text-lg py-3 flex-1">
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      {userQuestion.trim() ? "Getting Answer..." : "Suggesting Q&A..."}
+                    </>
+                  ) : (
+                    userQuestion.trim() ? "Get Answer" : "Suggest NCERT Questions & Answers" 
+                  )} 
+                   <Lightbulb className="ml-2 h-5 w-5" />
+                </Button>
+                <Button type="button" variant="outline" onClick={handleExit} className="w-full sm:w-auto text-lg py-3">
+                   <LogOut className="mr-2 h-5 w-5" /> Exit Teacher Conduit
+                </Button>
+              </div>
             </form>
 
             {error && (
@@ -192,3 +202,4 @@ export default function TeacherConduitPage() {
     </div>
   );
 }
+

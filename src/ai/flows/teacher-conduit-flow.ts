@@ -38,28 +38,30 @@ Class: {{{classLevel}}}
 Subject: {{{subject}}}
 Chapter: {{{chapterInfo}}}
 
-Your task is to provide educational material based on the NCERT syllabus for the given parameters.
+Your task is to provide educational material based on the NCERT syllabus for the given parameters. Ensure all answers are appropriate for the specified "{{classLevel}}", using language and depth suitable for students at that level.
 
 {{#if userQuestion}}
 The teacher has asked the following specific question:
 "{{{userQuestion}}}"
 
-Please provide a clear, concise, and accurate answer to this question. The answer should be comprehensive enough for a teacher to use for explanations or to derive teaching points. Ensure the answer is strictly based on NCERT content for the specified class, subject, and chapter.
+Please provide a clear, concise, and accurate answer to this question. The answer should be comprehensive enough for a teacher to use for explanations or to derive teaching points. Ensure the answer is strictly based on NCERT content and appropriate for the specified class, subject, and chapter.
 {{else}}
 The teacher has not asked a specific question. In this case, please generate 3-5 relevant NCERT-based questions that a teacher could ask their students for the specified class, subject, and chapter. For each question, also provide a detailed and accurate NCERT-based answer.
 
-Present the questions and answers clearly. For example:
+**IMPORTANT FORMATTING FOR SUGGESTED Q&A:**
+Present the questions and answers as a single block of **plain text**. DO NOT use JSON, markdown lists, or any array structures in the output. Each question MUST start with "Question X:" (e.g., "Question 1:", "Question 2:") and its corresponding answer MUST start with "Answer X:" (e.g., "Answer 1:", "Answer 2:"). Each question and its answer should be clearly separated. Ensure the complexity and depth of the answers are appropriate for the "{{classLevel}}".
 
-Question 1: [Full Text of Question 1]
-Answer 1: [Detailed NCERT-based Answer to Question 1]
+For example (ensure actual content is NCERT based and class-appropriate):
+Question 1: What is matter? Give some examples.
+Answer 1: Matter is anything that has mass and takes up space. For {{classLevel}}, some examples are a book, water, air, and a pencil.
 
-Question 2: [Full Text of Question 2]
-Answer 2: [Detailed NCERT-based Answer to Question 2]
+Question 2: What are the states of matter?
+Answer 2: For {{classLevel}}, the main states of matter are solid (like ice), liquid (like water), and gas (like air). Solids have a fixed shape, liquids take the shape of their container, and gases spread out to fill any space.
 
 ...and so on for 3 to 5 questions.
 {{/if}}
 
-Ensure all information provided is accurate and aligns with the NCERT curriculum.
+Ensure all information provided is accurate and aligns with the NCERT curriculum and the student's class level.
   `,
   config: {
     safetySettings: [
@@ -85,3 +87,4 @@ const teacherConduitFlow = ai.defineFlow(
     return output;
   }
 );
+
