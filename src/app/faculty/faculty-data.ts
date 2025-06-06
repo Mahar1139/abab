@@ -1,9 +1,10 @@
+
 import type { FacultyMember } from '@/types';
 
 export const facultyMembers: FacultyMember[] = [
   {
     id: '1',
-    name: 'Dr. Anjali Sharma',
+    name: 'Suman Bisht',
     title: 'Principal, PhD in Education',
     bio: 'Dr. Sharma has over 20 years of experience in educational leadership and curriculum development. She is passionate about fostering an inclusive and innovative learning environment.',
     imageUrl: 'https://placehold.co/150x150.png',
@@ -50,3 +51,4 @@ export const facultyMembers: FacultyMember[] = [
     dataAiHint: 'portrait professional'
   }
 ];
+
