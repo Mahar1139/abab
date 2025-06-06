@@ -7,6 +7,13 @@ import AppLayout from '@/components/layout/AppLayout';
 export const metadata: Metadata = {
   title: 'Himalaya Public School Hub',
   description: 'Welcome to Himalaya Public School',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', type: 'image/x-icon', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png', sizes: '32x32' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({
