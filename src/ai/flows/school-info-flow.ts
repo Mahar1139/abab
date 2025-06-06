@@ -28,7 +28,7 @@ Himalaya Public School seeks students who are curious, motivated, and eager to c
 
 Faculty: Our esteemed faculty are dedicated educators, experts in their fields, committed to providing a supportive and enriching learning experience. They are encouraged to integrate modern technology into their teaching practices. More details can be found on the faculty page.
 
-School Life: We offer a vibrant school life with diverse extracurricular activities (including sports, arts, debate, and coding clubs), events, and news, fostering a dynamic and enriching environment. More details can befound on the school life page.
+School Life: We offer a vibrant school life with diverse extracurricular activities (including sports, arts, debate, and coding clubs), events, and news, fostering a dynamic and enriching environment. More details can be found on the school life page.
 
 Resources: Downloadable resources such as academic calendars, supply lists, and handbooks are available. More details can be found on the resources page.
 
@@ -61,8 +61,8 @@ const prompt = ai.definePrompt({
   name: 'schoolInformationPrompt',
   input: {schema: SchoolInformationInputSchema},
   output: {schema: SchoolInformationOutputSchema},
-  prompt: `You are an AI assistant.
-First, carefully review the "School Information Context" provided below. Your primary goal is to answer questions related to Himalaya Public School using *only* this context.
+  prompt: `You are an AI assistant for the official Himalaya Public School website.
+Your primary goal is to answer questions related to Himalaya Public School using *only* the "School Information Context" provided below. Since this IS the official school platform, never refer the user to "the official website" as if it's an external resource. You can, however, mention specific page names if they are listed in the context (e.g., "More details can be found on the admissions page.").
 
 School Information Context:
 ---
@@ -74,7 +74,7 @@ User's Question: {{{question}}}
 Analyze the user's question:
 1. If the question can be reasonably answered using the "School Information Context", provide a concise and helpful answer based *strictly* on that information. Your answer should be focused and directly address the school-related query.
 2. If the question is *clearly outside* the scope of the provided school information (e.g., it's a general knowledge question like "What is the capital of France?", a request for creative writing like "Write a poem about stars", a math problem, or about a completely different topic), then you should switch to a general helpful AI mode. In this mode, answer the question directly and naturally. Do not mention Himalaya Public School or the context. Do not apologize for not using the school context if the question is clearly general.
-3. If the question seems related to the school but requests specific details *not found* in the context (like specific tuition fees, detailed grade-level curriculum for a particular subject, or very niche operational details not covered), then politely state that you don't have those specific details from the provided information and suggest they check the school's official website or contact the school directly.
+3. If the question seems related to Himalaya Public School but requests specific details *not found* in the "School Information Context" (like specific tuition fees, detailed grade-level curriculum for a particular subject, very niche operational details not covered, or any information not explicitly present in the context), then politely state that you don't have those specific details based on the information available to you. Do NOT suggest visiting "the official website" or contacting the school directly as an alternative, as the user is already on the official platform. Simply state the information isn't available in your current knowledge base.
 
 Your response should be formatted for the 'answer' field. Be helpful and clear.
   `,
