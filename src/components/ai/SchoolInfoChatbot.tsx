@@ -44,7 +44,7 @@ export default function SchoolInfoChatbot() {
   const [isAnimatingTextAfter, setIsAnimatingTextAfter] = useState(false);
 
   const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const answerEndRef = useRef<HTMLDivElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
 
   // Effect to parse rawAnswer and kick off animation sequence
   useEffect(() => {
@@ -156,8 +156,10 @@ export default function SchoolInfoChatbot() {
   }, [isAnimatingTextAfter, textAfter, animatedTextAfter]);
   
   useEffect(() => {
-    if (answerEndRef.current) {
-        answerEndRef.current.scrollIntoView({ behavior: "auto", block: "end" });
+    if (chatContainerRef.current) {
+      // Scroll to the bottom of the chat container
+      // Using "auto" behavior for more immediate scroll during animation
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   }, [animatedTextBefore, animatedCode, animatedTextAfter, isLoading, error, rawAnswer]);
 
@@ -214,6 +216,7 @@ export default function SchoolInfoChatbot() {
     if (isAutoSubmitting && question && !isLoading) { 
       fetchAnswer(question);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAutoSubmitting, question, isLoading]);
 
 
@@ -229,7 +232,7 @@ export default function SchoolInfoChatbot() {
           (Teachers: try prompt "11x11" for a special tool.)
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex-grow overflow-y-auto p-6 space-y-4">
+      <CardContent ref={chatContainerRef} className="flex-grow overflow-y-auto overflow-x-hidden p-6 space-y-4">
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Input
@@ -310,8 +313,8 @@ export default function SchoolInfoChatbot() {
             </div>
           </div>
         )}
-        <div ref={answerEndRef} />
       </CardContent>
     </Card>
   );
 }
+
