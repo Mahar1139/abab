@@ -11,7 +11,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const TeacherConduitInputSchema = z.object({
+const TeacherConduitInputSchema = z.object({
   classLevel: z.string().describe('The class level (e.g., "Class 9", "LKG", "Class 12").'),
   subject: z.string().describe('The subject (e.g., "Mathematics", "Science", "English").'),
   chapterInfo: z.string().describe('The chapter name and/or number (e.g., "Chapter 1: Matter in Our Surroundings").'),
@@ -19,7 +19,7 @@ export const TeacherConduitInputSchema = z.object({
 });
 export type TeacherConduitInput = z.infer<typeof TeacherConduitInputSchema>;
 
-export const TeacherConduitOutputSchema = z.object({
+const TeacherConduitOutputSchema = z.object({
   generatedContent: z.string().describe("The AI-generated answer to the teacher's question, or a list of suggested NCERT-based questions and answers for the specified chapter. If suggesting questions, format them clearly with questions and their corresponding answers."),
 });
 export type TeacherConduitOutput = z.infer<typeof TeacherConduitOutputSchema>;
