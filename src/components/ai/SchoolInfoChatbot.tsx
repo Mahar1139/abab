@@ -10,7 +10,7 @@ import { Loader2, BrainCircuit, HelpCircle, StopCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 
-const suggestedQuestions = [
+const initialSuggestedQuestions = [
   "What is the school's mission?",
   "Tell me about the extracurricular activities.",
   "What are the office hours?",
@@ -20,7 +20,16 @@ const suggestedQuestions = [
 ];
 
 const TEACHER_CONDUIT_PROMPT = "11x11";
-const ANIMATION_DELAY = 10; // ms per character
+
+// Helper function to shuffle an array
+function shuffleArray<T>(array: T[]): T[] {
+  const newArray = [...array];
+  for (let i = newArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+  }
+  return newArray;
+}
 
 export default function SchoolInfoChatbot() {
   const [question, setQuestion] = useState('');
@@ -43,11 +52,16 @@ export default function SchoolInfoChatbot() {
   const [isAnimatingCode, setIsAnimatingCode] = useState(false);
   const [isAnimatingTextAfter, setIsAnimatingTextAfter] = useState(false);
 
+  const [currentAnimationDelay, setCurrentAnimationDelay] = useState(10); // Default delay
+
   const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const latestAnswerRef = useRef<HTMLDivElement>(null);
 
-  // Effect to parse rawAnswer and kick off animation sequence
+  const [displaySuggestedQuestions, setDisplaySuggestedQuestions] = useState(() => shuffleArray([...initialSuggestedQuestions]));
+
+
+  // Effect to parse rawAnswer, set animation delay, and kick off animation sequence
   useEffect(() => {
     if (animationTimeoutRef.current) {
       clearTimeout(animationTimeoutRef.current);
@@ -60,6 +74,15 @@ export default function SchoolInfoChatbot() {
     setIsAnimatingTextAfter(false);
 
     if (rawAnswer) {
+      // Determine animation speed
+      let delay = 10; // Default medium speed
+      if (rawAnswer.length > 500) {
+        delay = 5; // Faster for long answers
+      } else if (rawAnswer.length < 150) {
+        delay = 15; // Slower for very short answers
+      }
+      setCurrentAnimationDelay(delay);
+
       const codeBlockRegex = /```(\w*)\n?([\s\S]*?)```/;
       const match = rawAnswer.match(codeBlockRegex);
 
@@ -103,7 +126,7 @@ export default function SchoolInfoChatbot() {
       if (animatedTextBefore.length < textBefore.length) {
         animationTimeoutRef.current = setTimeout(() => {
           setAnimatedTextBefore(textBefore.substring(0, animatedTextBefore.length + 1));
-        }, ANIMATION_DELAY);
+        }, currentAnimationDelay);
       } else { 
         setIsAnimatingTextBefore(false);
         if (codeContent) {
@@ -119,14 +142,14 @@ export default function SchoolInfoChatbot() {
       }
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAnimatingTextBefore, textBefore, animatedTextBefore, codeContent, textAfter]);
+  }, [isAnimatingTextBefore, textBefore, animatedTextBefore, codeContent, textAfter, currentAnimationDelay]);
 
   useEffect(() => {
     if (isAnimatingCode && codeContent) {
       if (animatedCode.length < codeContent.length) {
         animationTimeoutRef.current = setTimeout(() => {
           setAnimatedCode(codeContent.substring(0, animatedCode.length + 1));
-        }, ANIMATION_DELAY);
+        }, currentAnimationDelay);
       } else { 
         setIsAnimatingCode(false);
         if (textAfter && textAfter.trim().length > 0) {
@@ -140,14 +163,14 @@ export default function SchoolInfoChatbot() {
        }
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAnimatingCode, codeContent, animatedCode, textAfter]);
+  }, [isAnimatingCode, codeContent, animatedCode, textAfter, currentAnimationDelay]);
 
   useEffect(() => {
     if (isAnimatingTextAfter && textAfter) {
       if (animatedTextAfter.length < textAfter.length) {
         animationTimeoutRef.current = setTimeout(() => {
           setAnimatedTextAfter(textAfter.substring(0, animatedTextAfter.length + 1));
-        }, ANIMATION_DELAY);
+        }, currentAnimationDelay);
       } else { 
         setIsAnimatingTextAfter(false);
       }
@@ -158,7 +181,7 @@ export default function SchoolInfoChatbot() {
        }
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAnimatingTextAfter, textAfter, animatedTextAfter]);
+  }, [isAnimatingTextAfter, textAfter, animatedTextAfter, currentAnimationDelay]);
   
   useEffect(() => {
     if (latestAnswerRef.current) {
@@ -172,11 +195,9 @@ export default function SchoolInfoChatbot() {
       if (animationTimeoutRef.current) {
         clearTimeout(animationTimeoutRef.current);
       }
-      // Reset animation states to ensure a clean break if user navigates away
       setIsAnimatingTextBefore(false);
       setIsAnimatingCode(false);
       setIsAnimatingTextAfter(false);
-      // No need to setRawAnswer(null) here, as new mount will initialize it.
     };
   }, []);
 
@@ -227,6 +248,7 @@ export default function SchoolInfoChatbot() {
   const handleSuggestedQuestionClick = (suggestedQ: string) => {
     setQuestion(suggestedQ);
     setIsAutoSubmitting(true); 
+    setDisplaySuggestedQuestions(shuffleArray([...initialSuggestedQuestions]));
   };
 
   useEffect(() => {
@@ -245,7 +267,6 @@ export default function SchoolInfoChatbot() {
     setIsAnimatingTextBefore(false);
     setIsAnimatingCode(false);
     setIsAnimatingTextAfter(false);
-    // The partially rendered content will remain.
   };
 
 
@@ -306,7 +327,7 @@ export default function SchoolInfoChatbot() {
             Not sure what to ask? Try one of these:
             </h4>
           <div className="flex flex-wrap gap-2">
-            {suggestedQuestions.map((sq, index) => (
+            {displaySuggestedQuestions.map((sq, index) => (
               <Button
                 key={index}
                 variant="outline"
