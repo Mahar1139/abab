@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Loader2, BrainCircuit, HelpCircle } from 'lucide-react';
+import { Loader2, BrainCircuit, HelpCircle, StopCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 
@@ -45,6 +45,7 @@ export default function SchoolInfoChatbot() {
 
   const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const latestAnswerRef = useRef<HTMLDivElement>(null);
 
   // Effect to parse rawAnswer and kick off animation sequence
   useEffect(() => {
@@ -79,11 +80,11 @@ export default function SchoolInfoChatbot() {
       setCodeContent(cc_full);
       setTextAfter(ta_full || null);
 
-      if (tb_full && tb_full.length > 0) {
+      if (tb_full && tb_full.trim().length > 0) {
         setIsAnimatingTextBefore(true);
       } else if (cc_full) {
         setIsAnimatingCode(true);
-      } else if (ta_full && ta_full.length > 0) {
+      } else if (ta_full && ta_full.trim().length > 0) {
         setIsAnimatingTextAfter(true);
       } else if (rawAnswer) { 
         setIsAnimatingTextBefore(true); 
@@ -94,6 +95,7 @@ export default function SchoolInfoChatbot() {
       setCodeLanguage(null);
       setTextAfter(null);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rawAnswer]);
 
   useEffect(() => {
@@ -106,7 +108,7 @@ export default function SchoolInfoChatbot() {
         setIsAnimatingTextBefore(false);
         if (codeContent) {
           setIsAnimatingCode(true); 
-        } else if (textAfter) {
+        } else if (textAfter && textAfter.trim().length > 0) {
           setIsAnimatingTextAfter(true); 
         }
       }
@@ -116,6 +118,7 @@ export default function SchoolInfoChatbot() {
         clearTimeout(animationTimeoutRef.current);
       }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAnimatingTextBefore, textBefore, animatedTextBefore, codeContent, textAfter]);
 
   useEffect(() => {
@@ -126,7 +129,7 @@ export default function SchoolInfoChatbot() {
         }, ANIMATION_DELAY);
       } else { 
         setIsAnimatingCode(false);
-        if (textAfter) {
+        if (textAfter && textAfter.trim().length > 0) {
           setIsAnimatingTextAfter(true); 
         }
       }
@@ -136,6 +139,7 @@ export default function SchoolInfoChatbot() {
         clearTimeout(animationTimeoutRef.current);
        }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAnimatingCode, codeContent, animatedCode, textAfter]);
 
   useEffect(() => {
@@ -153,15 +157,28 @@ export default function SchoolInfoChatbot() {
         clearTimeout(animationTimeoutRef.current);
        }
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAnimatingTextAfter, textAfter, animatedTextAfter]);
   
   useEffect(() => {
-    if (chatContainerRef.current) {
-      // Scroll to the bottom of the chat container
-      // Using "auto" behavior for more immediate scroll during animation
-      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    if (latestAnswerRef.current) {
+      latestAnswerRef.current.scrollIntoView({ behavior: "auto", block: "end" });
     }
-  }, [animatedTextBefore, animatedCode, animatedTextAfter, isLoading, error, rawAnswer]);
+  }, [animatedTextBefore, animatedCode, animatedTextAfter]);
+
+  // Cleanup on component unmount (e.g., navigation)
+  useEffect(() => {
+    return () => {
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+      // Reset animation states to ensure a clean break if user navigates away
+      setIsAnimatingTextBefore(false);
+      setIsAnimatingCode(false);
+      setIsAnimatingTextAfter(false);
+      // No need to setRawAnswer(null) here, as new mount will initialize it.
+    };
+  }, []);
 
 
   const fetchAnswer = async (currentQuestion: string) => {
@@ -219,6 +236,18 @@ export default function SchoolInfoChatbot() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAutoSubmitting, question, isLoading]);
 
+  const isAnyAnimationActive = isAnimatingTextBefore || isAnimatingCode || isAnimatingTextAfter;
+
+  const handleBreakResponse = () => {
+    if (animationTimeoutRef.current) {
+      clearTimeout(animationTimeoutRef.current);
+    }
+    setIsAnimatingTextBefore(false);
+    setIsAnimatingCode(false);
+    setIsAnimatingTextAfter(false);
+    // The partially rendered content will remain.
+  };
+
 
   return (
     <Card className="flex flex-col h-full w-full shadow-none border-0 rounded-none bg-card">
@@ -232,7 +261,10 @@ export default function SchoolInfoChatbot() {
           (Teachers: try prompt "11x11" for a special tool.)
         </CardDescription>
       </CardHeader>
-      <CardContent ref={chatContainerRef} className="flex-grow overflow-y-auto overflow-x-hidden p-6 space-y-4">
+      <CardContent 
+        ref={chatContainerRef} 
+        className="flex-grow overflow-y-auto overflow-x-hidden p-6 space-y-4"
+      >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Input
@@ -244,20 +276,28 @@ export default function SchoolInfoChatbot() {
               }}
               placeholder="e.g., What is the school's mission?"
               className="w-full"
-              disabled={isLoading}
+              disabled={isLoading || isAnyAnimationActive}
               aria-label="Your question about the school"
             />
           </div>
-          <Button type="submit" disabled={isLoading || !question.trim()} className="w-full sm:w-auto">
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                {isAutoSubmitting ? 'Asking...' : 'Getting Answer...'}
-              </>
-            ) : (
-              'Get Answer'
+          <div className="flex flex-col sm:flex-row gap-2 items-center">
+            <Button type="submit" disabled={isLoading || !question.trim() || isAnyAnimationActive} className="w-full sm:w-auto">
+              {isLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  {isAutoSubmitting ? 'Asking...' : 'Getting Answer...'}
+                </>
+              ) : (
+                'Get Answer'
+              )}
+            </Button>
+            {isAnyAnimationActive && !isLoading && (
+              <Button variant="outline" size="sm" onClick={handleBreakResponse} className="w-full sm:w-auto">
+                <StopCircle className="mr-2 h-4 w-4" />
+                Break Response
+              </Button>
             )}
-          </Button>
+          </div>
         </form>
 
         <div className="mt-6">
@@ -272,7 +312,7 @@ export default function SchoolInfoChatbot() {
                 variant="outline"
                 size="sm"
                 onClick={() => handleSuggestedQuestionClick(sq)}
-                disabled={isLoading}
+                disabled={isLoading || isAnyAnimationActive}
                 className="text-xs"
               >
                 {sq}
@@ -296,13 +336,13 @@ export default function SchoolInfoChatbot() {
         )}
         
         {(rawAnswer !== null && !isLoading && !error) && (
-          <div className="mt-6">
+          <div className="mt-6" ref={latestAnswerRef}>
             <h4 className="font-semibold mb-2 text-lg text-foreground">Answer:</h4>
             <div className="p-4 bg-secondary/10 rounded-md text-foreground/90 leading-relaxed prose max-w-none dark:prose-invert prose-p:my-2 prose-pre:bg-card prose-pre:shadow-md prose-code:font-code">
               {animatedTextBefore && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextBefore}</div>}
               
-              {animatedCode && (codeContent || animatedCode.length > 0) && (
-                 <pre>
+              { (codeContent || animatedCode.length > 0) && (
+                 <pre className="overflow-x-auto">
                   <code className={codeLanguage ? `language-${codeLanguage}` : 'language-plaintext'}>
                     {animatedCode}
                   </code>
