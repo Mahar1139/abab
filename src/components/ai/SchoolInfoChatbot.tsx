@@ -15,6 +15,7 @@ const suggestedQuestions = [
   "Tell me about the extracurricular activities.",
   "What are the office hours?",
   "Write a Python function to calculate factorial.",
+  "Make a simple text adventure game in Python.",
   "What are the core values of the school?"
 ];
 
@@ -29,65 +30,137 @@ export default function SchoolInfoChatbot() {
   const [isAutoSubmitting, setIsAutoSubmitting] = useState(false);
   const router = useRouter();
 
-  // State for parsed content and animation
-  const [displayText, setDisplayText] = useState<string | null>(null);
+  const [textBefore, setTextBefore] = useState<string | null>(null);
   const [codeContent, setCodeContent] = useState<string | null>(null);
   const [codeLanguage, setCodeLanguage] = useState<string | null>(null);
+  const [textAfter, setTextAfter] = useState<string | null>(null);
+
+  const [animatedTextBefore, setAnimatedTextBefore] = useState<string>('');
   const [animatedCode, setAnimatedCode] = useState<string>('');
-  const [textAfterCode, setTextAfterCode] = useState<string | null>(null);
-  const [isAnimating, setIsAnimating] = useState<boolean>(false);
+  const [animatedTextAfter, setAnimatedTextAfter] = useState<string>('');
+
+  const [isAnimatingTextBefore, setIsAnimatingTextBefore] = useState(false);
+  const [isAnimatingCode, setIsAnimatingCode] = useState(false);
+  const [isAnimatingTextAfter, setIsAnimatingTextAfter] = useState(false);
 
   const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const answerEndRef = useRef<HTMLDivElement>(null);
 
+  // Effect to parse rawAnswer and kick off animation sequence
   useEffect(() => {
-    if (rawAnswer) {
-      // Reset states before parsing new answer
-      setDisplayText(null);
-      setCodeContent(null);
-      setCodeLanguage(null);
-      setAnimatedCode('');
-      setTextAfterCode(null);
-      setIsAnimating(false);
-      if (animationTimeoutRef.current) {
-        clearTimeout(animationTimeoutRef.current);
-      }
+    if (animationTimeoutRef.current) {
+      clearTimeout(animationTimeoutRef.current);
+    }
+    setAnimatedTextBefore('');
+    setAnimatedCode('');
+    setAnimatedTextAfter('');
+    setIsAnimatingTextBefore(false);
+    setIsAnimatingCode(false);
+    setIsAnimatingTextAfter(false);
 
+    if (rawAnswer) {
       const codeBlockRegex = /```(\w*)\n?([\s\S]*?)```/;
       const match = rawAnswer.match(codeBlockRegex);
 
-      if (match) {
-        setDisplayText(rawAnswer.substring(0, match.index));
-        setCodeLanguage(match[1] || 'plaintext');
-        setCodeContent(match[2]);
-        setTextAfterCode(rawAnswer.substring(match.index + match[0].length));
-        setIsAnimating(true);
-      } else {
-        setDisplayText(rawAnswer);
+      let tb_full = rawAnswer;
+      let cc_full: string | null = null;
+      let cl_full: string | null = null;
+      let ta_full: string | null = null;
+
+      if (match && match.index !== undefined) {
+        tb_full = rawAnswer.substring(0, match.index);
+        cl_full = match[1] || 'plaintext';
+        cc_full = match[2];
+        ta_full = rawAnswer.substring(match.index + match[0].length);
       }
+      
+      setTextBefore(tb_full || null);
+      setCodeLanguage(cl_full);
+      setCodeContent(cc_full);
+      setTextAfter(ta_full || null);
+
+      if (tb_full && tb_full.length > 0) {
+        setIsAnimatingTextBefore(true);
+      } else if (cc_full) {
+        setIsAnimatingCode(true);
+      } else if (ta_full && ta_full.length > 0) {
+        setIsAnimatingTextAfter(true);
+      } else if (rawAnswer) { // Handle case where rawAnswer is just simple text (no code blocks)
+        setIsAnimatingTextBefore(true); // Animate rawAnswer as textBefore
+      }
+    } else {
+      setTextBefore(null);
+      setCodeContent(null);
+      setCodeLanguage(null);
+      setTextAfter(null);
     }
   }, [rawAnswer]);
 
+  // Effect for animating text BEFORE code (or the whole answer if no code)
   useEffect(() => {
-    if (isAnimating && codeContent) {
+    if (isAnimatingTextBefore && textBefore) {
+      if (animatedTextBefore.length < textBefore.length) {
+        animationTimeoutRef.current = setTimeout(() => {
+          setAnimatedTextBefore(textBefore.substring(0, animatedTextBefore.length + 1));
+        }, ANIMATION_DELAY);
+      } else { // Animation of textBefore done
+        setIsAnimatingTextBefore(false);
+        if (codeContent) {
+          setIsAnimatingCode(true); // Start code animation
+        } else if (textAfter) {
+          setIsAnimatingTextAfter(true); // Start textAfter animation
+        }
+      }
+    }
+    return () => { 
+      if (animationTimeoutRef.current && (isAnimatingTextBefore || (textBefore && animatedTextBefore.length < textBefore.length) ) ) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+    };
+  }, [isAnimatingTextBefore, textBefore, animatedTextBefore, codeContent, textAfter]);
+
+  // Effect for animating CODE
+  useEffect(() => {
+    if (isAnimatingCode && codeContent) {
       if (animatedCode.length < codeContent.length) {
         animationTimeoutRef.current = setTimeout(() => {
           setAnimatedCode(codeContent.substring(0, animatedCode.length + 1));
         }, ANIMATION_DELAY);
-      } else {
-        setIsAnimating(false); // Animation finished
+      } else { // Animation of code done
+        setIsAnimatingCode(false);
+        if (textAfter) {
+          setIsAnimatingTextAfter(true); // Start textAfter animation
+        }
       }
     }
-    return () => {
-      if (animationTimeoutRef.current) {
+     return () => { 
+       if (animationTimeoutRef.current && (isAnimatingCode || (codeContent && animatedCode.length < codeContent.length))) {
         clearTimeout(animationTimeoutRef.current);
-      }
+       }
     };
-  }, [isAnimating, codeContent, animatedCode]);
+  }, [isAnimatingCode, codeContent, animatedCode, textAfter]);
+
+  // Effect for animating text AFTER code
+  useEffect(() => {
+    if (isAnimatingTextAfter && textAfter) {
+      if (animatedTextAfter.length < textAfter.length) {
+        animationTimeoutRef.current = setTimeout(() => {
+          setAnimatedTextAfter(textAfter.substring(0, animatedTextAfter.length + 1));
+        }, ANIMATION_DELAY);
+      } else { // Animation of textAfter done
+        setIsAnimatingTextAfter(false);
+      }
+    }
+     return () => { 
+       if (animationTimeoutRef.current && (isAnimatingTextAfter || (textAfter && animatedTextAfter.length < textAfter.length))) {
+        clearTimeout(animationTimeoutRef.current);
+       }
+    };
+  }, [isAnimatingTextAfter, textAfter, animatedTextAfter]);
   
   useEffect(() => {
     answerEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [displayText, animatedCode, textAfterCode, isLoading, error]);
+  }, [animatedTextBefore, animatedCode, animatedTextAfter, isLoading, error]);
 
 
   const fetchAnswer = async (currentQuestion: string) => {
@@ -103,20 +176,12 @@ export default function SchoolInfoChatbot() {
 
     setIsLoading(true);
     setError(null);
-    setRawAnswer(null); // Clear previous answer parts
-    setDisplayText(null);
-    setCodeContent(null);
-    setAnimatedCode('');
-    setTextAfterCode(null);
-    if (animationTimeoutRef.current) {
-      clearTimeout(animationTimeoutRef.current);
-    }
-
+    setRawAnswer(null); 
 
     try {
       const input: SchoolInformationInput = { question: currentQuestion };
       const result: SchoolInformationOutput = await getSchoolInformation(input);
-      if (result.answer) {
+      if (result.answer !== undefined && result.answer !== null) { // Check for undefined or null explicitly
         setRawAnswer(result.answer);
       } else {
         setError("The AI didn't provide an answer. Please try rephrasing your question.");
@@ -130,6 +195,7 @@ export default function SchoolInfoChatbot() {
         }
       }
       setError(errorMessage);
+      setRawAnswer(null); // Ensure rawAnswer is null on error
     }
     setIsLoading(false);
     setIsAutoSubmitting(false);
@@ -146,10 +212,10 @@ export default function SchoolInfoChatbot() {
   };
 
   useEffect(() => {
-    if (isAutoSubmitting && question && !isLoading) { // Ensure not to trigger if already loading
+    if (isAutoSubmitting && question && !isLoading) { 
       fetchAnswer(question);
     }
-  }, [isAutoSubmitting, question, isLoading]); // Added isLoading to dependency
+  }, [isAutoSubmitting, question, isLoading]);
 
 
   return (
@@ -226,22 +292,22 @@ export default function SchoolInfoChatbot() {
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
-
-        {((displayText || codeContent || textAfterCode) && !isLoading && !error) && (
+        
+        {(rawAnswer !== null && !isLoading && !error) && (
           <div className="mt-6">
             <h4 className="font-semibold mb-2 text-lg text-foreground">Answer:</h4>
             <div className="p-4 bg-secondary/10 rounded-md text-foreground/90 leading-relaxed prose max-w-none dark:prose-invert prose-p:my-2 prose-pre:bg-card prose-pre:shadow-md prose-code:font-code">
-              {displayText && <div style={{ whiteSpace: 'pre-line' }}>{displayText}</div>}
+              {animatedTextBefore && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextBefore}</div>}
               
-              {(codeContent || (animatedCode && animatedCode.length > 0)) && (
-                 <pre> {/* Let prose handle pre styling, or add specific classes like "bg-muted p-4 rounded-md overflow-x-auto my-2 shadow" if needed */}
+              {animatedCode && (codeContent || animatedCode.length > 0) && (
+                 <pre>
                   <code className={codeLanguage ? `language-${codeLanguage}` : 'language-plaintext'}>
                     {animatedCode}
                   </code>
                 </pre>
               )}
               
-              {textAfterCode && <div style={{ whiteSpace: 'pre-line' }}>{textAfterCode}</div>}
+              {animatedTextAfter && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextAfter}</div>}
             </div>
           </div>
         )}
@@ -250,4 +316,3 @@ export default function SchoolInfoChatbot() {
     </Card>
   );
 }
-

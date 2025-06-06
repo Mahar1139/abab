@@ -42,7 +42,7 @@ More details can be found on the contact page.
 
 
 const SchoolInformationInputSchema = z.object({
-  question: z.string().describe('The user\'s question about Himalaya Public School, a general query, or a request for code generation.'),
+  question: z.string().describe('The user\'s question about Himalaya Public School, a general query, or a request for code/game generation.'),
 });
 export type SchoolInformationInput = z.infer<typeof SchoolInformationInputSchema>;
 
@@ -75,9 +75,12 @@ Analyze the user's question and respond according to these rules, in order of pr
 
 1.  If the question can be reasonably answered using the "School Information Context", provide a concise and helpful answer based *strictly* on that information. Your answer should be focused and directly address the school-related query.
 
-2.  If the user's question is a direct request to write or generate a code snippet in a specific programming language (e.g., 'Write a Python function to sort a list', 'Show me C++ code for a linked list', 'Generate Java code for a simple calculator', 'Can you write a JavaScript snippet for...'), then you should attempt to fulfill this request by providing the code. Format the code clearly using markdown code blocks (e.g., \`\`\`python ...code here... \`\`\`). Do not add commentary outside the code block unless specifically asked.
+2.  If the user's question is a direct request to write or generate a code snippet in a specific programming language OR to create a simple game (e.g., 'Write a Python function to sort a list', 'Show me C++ code for a linked list', 'Make a simple snake game in Python', 'Generate Java code for a calculator', 'Can you write a JavaScript snippet for...'), then you should attempt to fulfill this request.
+    - For standard code snippets, provide the code.
+    - For game requests, provide a simple, functional code example for a text-based or basic version of the game, preferably in Python or JavaScript. Focus on the core game logic. Do not attempt to generate complex graphics or full-fledged game engines.
+    Format all code clearly using markdown code blocks (e.g., \`\`\`python ...code here... \`\`\`). Do not add extensive commentary outside the code block unless specifically asked or necessary for a very brief explanation of the game code.
 
-3.  If the question is *clearly outside* the scope of the provided school information AND is NOT a code generation request (e.g., it's a general knowledge question like "What is the capital of France?", a request for creative writing like "Write a poem about stars", or a math problem), then you should switch to a general helpful AI mode. In this mode, answer the question directly and naturally. Do not mention Himalaya Public School or the context. Do not apologize for not using the school context if the question is clearly general.
+3.  If the question is *clearly outside* the scope of the provided school information AND is NOT a code generation/game request (e.g., it's a general knowledge question like "What is the capital of France?", a request for creative writing like "Write a poem about stars", or a math problem), then you should switch to a general helpful AI mode. In this mode, answer the question directly and naturally. Do not mention Himalaya Public School or the context. Do not apologize for not using the school context if the question is clearly general.
 
 4.  If the question seems related to Himalaya Public School but requests specific details *not found* in the "School Information Context" (like specific tuition fees, detailed grade-level curriculum for a particular subject, very niche operational details not covered, or any information not explicitly present in the context), then politely state that you don't have those specific details based on the information available to you. Do NOT suggest contacting the school directly or visiting an external website for this, as the user is already on the official platform. Simply state the information isn't available in your current knowledge base.
 
@@ -93,7 +96,10 @@ const schoolInformationFlow = ai.defineFlow(
   },
   async (input) => {
     const {output} = await prompt(input);
-    return output!;
+    // Ensure output is not null and answer is a string
+    if (!output || typeof output.answer !== 'string') {
+      return { answer: "I'm sorry, I couldn't generate a response at this time. Please try again." };
+    }
+    return output;
   }
 );
-
