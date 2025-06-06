@@ -30,41 +30,46 @@ interface UserAnswer {
 
 const topics = [
   "General Knowledge", "Science", "Space Exploration", "Biology", "Physics", 
-  "Chemistry", "History", "Geography", "Mathematics", "Literature", "Arts", "Computer Science"
+  "Chemistry", "History", "Geography", "Mathematics", "Literature", "Arts", "Computer Science",
+  "Quantitative Aptitude", "Reasoning Ability", "English Language", "Banking & Financial Awareness"
 ];
 
 const baseDifficulties = ["Beginner", "Easy", "Normal", "Hard", "Extreme"];
 
-// Defines specific competitive styles for topics.
-// Keys are topics, values are arrays of difficulty strings (e.g., "Normal - NEET", "Legend - JEE Mains").
 const competitiveStylesMap: Record<string, string[]> = {
   "Space Exploration": ["Legend - SpaceX/Aerospace", "Legend - General Advanced"],
   "Biology": ["Normal - NEET", "Legend - NEET", "Legend - General Advanced"],
   "Physics": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Legend - General Advanced"],
   "Chemistry": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - General Advanced"],
-  "Mathematics": ["Legend - JEE Mains", "Legend - JEE Advanced", "Legend - General Advanced"],
-  "default": ["Legend - General Advanced"] // Fallback for topics not explicitly mapped
+  "Mathematics": [
+    "Legend - JEE Mains", "Legend - JEE Advanced", 
+    "Normal - SBI PO Prelims", "Legend - SBI PO Mains", 
+    "Legend - General Advanced"
+  ],
+  "Quantitative Aptitude": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "Reasoning Ability": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "English Language": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "Banking & Financial Awareness": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "default": ["Legend - General Advanced"] 
 };
 
 const getDifficultyOptionsForTopic = (topic: string | null): string[] => {
   if (!topic) return [...baseDifficulties, ...competitiveStylesMap.default];
   
   const topicSpecificStyles = competitiveStylesMap[topic] || competitiveStylesMap.default;
-  // Combine base difficulties with topic-specific competitive styles. Use Set to avoid duplicates.
   return [...new Set([...baseDifficulties, ...topicSpecificStyles])].sort((a, b) => {
-    // Custom sort: base difficulties first, then competitive styles
     const isABase = baseDifficulties.includes(a);
     const isBBase = baseDifficulties.includes(b);
     if (isABase && !isBBase) return -1;
     if (!isABase && isBBase) return 1;
-    return a.localeCompare(b); // Alphabetical for same-type difficulties
+    return a.localeCompare(b); 
   });
 };
 
 
 const COLORS = {
-  correct: 'hsl(var(--chart-5))', // Green
-  incorrect: 'hsl(var(--chart-1))', // Red
+  correct: 'hsl(var(--chart-5))', 
+  incorrect: 'hsl(var(--chart-1))', 
 };
 
 export default function QuizPage() {
@@ -88,7 +93,7 @@ export default function QuizPage() {
 
   useEffect(() => {
     setCurrentDifficultyOptions(getDifficultyOptionsForTopic(selectedTopic));
-    setSelectedDifficulty(null); // Reset difficulty when topic changes
+    setSelectedDifficulty(null); 
   }, [selectedTopic]);
 
   const resetQuiz = () => {
@@ -132,9 +137,8 @@ export default function QuizPage() {
         } else if (e.message.toLowerCase().includes("api key")) {
           displayError = "There seems to be an issue with the AI configuration (e.g., API key). Please check the setup.";
         } else if (e.message.toLowerCase().includes("invalid number of options") || e.message.toLowerCase().includes("correct answer that is not in the options list")) {
-            displayError = e.message; // Use the specific error message from the flow
+            displayError = e.message; 
         } else {
-            // For other types of errors, provide a general message but also log the specific one.
             displayError = `An error occurred: ${e.message}. Please try adjusting topic/difficulty or try again later.`;
         }
       }

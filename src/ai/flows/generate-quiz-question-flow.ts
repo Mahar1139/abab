@@ -12,8 +12,8 @@ import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
 const GenerateQuizQuestionInputSchema = z.object({
-  topic: z.string().describe('The subject or topic for the quiz question (e.g., Biology, Space Exploration).'),
-  difficulty: z.string().describe('The desired difficulty level. This can be general (e.g., Beginner, Easy, Normal, Hard, Extreme) or specific for competitive styles (e.g., "Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Legend - General Advanced").'),
+  topic: z.string().describe('The subject or topic for the quiz question (e.g., Biology, Space Exploration, Quantitative Aptitude).'),
+  difficulty: z.string().describe('The desired difficulty level. This can be general (e.g., Beginner, Easy, Normal, Hard, Extreme) or specific for competitive styles (e.g., "Normal - NEET", "Legend - JEE Mains", "Normal - SBI PO Prelims").'),
   previousQuestionTexts: z.array(z.string()).optional().describe('An array of question texts already asked in this session to avoid direct repetition.'),
 });
 export type GenerateQuizQuestionInput = z.infer<typeof GenerateQuizQuestionInputSchema>;
@@ -22,7 +22,7 @@ const GenerateQuizQuestionOutputSchema = z.object({
   questionText: z.string().describe('The text of the generated quiz question.'),
   options: z.array(z.string()).length(4).describe('An array of exactly four unique answer options.'),
   correctAnswer: z.string().describe('The correct answer from the provided options. This MUST be the exact text of one of the strings in the "options" array.'),
-  source: z.string().describe('A brief description of the question\'s origin, type, or the specific sub-topic it covers (e.g., "Basic Cell Biology", "Inspired by NEET Physics syllabus (Normal Difficulty)").'),
+  source: z.string().describe('A brief description of the question\'s origin, type, or the specific sub-topic it covers (e.g., "Basic Cell Biology", "Inspired by NEET Physics syllabus (Normal Difficulty)", "SBI PO Prelims style (Quantitative Aptitude)").'),
 });
 export type GenerateQuizQuestionOutput = z.infer<typeof GenerateQuizQuestionOutputSchema>;
 
@@ -69,14 +69,19 @@ Consider the difficulty level "{{difficulty}}" when formulating the question and
 - If difficulty is "Legend - JEE Advanced":
   For topic "{{topic}}" (expected to be Physics, Chemistry, or Mathematics), generate a question similar in style and complexity to JEE Advanced (India). These questions are typically more challenging, may require combining multiple concepts or deeper analytical skills. Ensure it's a single correct MCQ with four options. The source should be "JEE Advanced-style Question ({{topic}} based)".
 
+- If difficulty is "Normal - SBI PO Prelims":
+  For topic "{{topic}}" (expected to be Mathematics, Quantitative Aptitude, Reasoning Ability, or English Language), generate a question of "Normal" difficulty in the style and format of SBI PO (State Bank of India Probationary Officer) Preliminary Exam. The question must be a single correct multiple-choice question. The source should be "SBI PO Prelims-style Question ({{topic}} based)". The questions should be inspired by the type of concepts tested in previous year SBI PO Prelims question papers and patterns found in well-known SBI PO preparation books (e.g., books by R.S. Aggarwal, Arun Sharma, or Arihant publications for conceptual style). Focus on core understanding suitable for a preliminary exam.
+- If difficulty is "Legend - SBI PO Mains":
+  For topic "{{topic}}" (expected to be Mathematics, Quantitative Aptitude, Reasoning Ability, English Language, or Banking & Financial Awareness), generate a question similar in style and complexity to the SBI PO Mains Exam. The question must be a single correct multiple-choice question, potentially involving data interpretation, critical reasoning, or deeper application of concepts. The source should be "SBI PO Mains-style Question ({{topic}} based)". Ensure plausible and challenging distractors. Questions should be inspired by previous year SBI PO Mains papers and advanced concepts covered in top-tier preparation books for the Mains level.
+
 - If difficulty is "Legend - SpaceX/Aerospace":
   For topic "{{topic}}" (most relevant if topic is Space Exploration or Physics), generate a challenging question related to modern rocketry, aerospace engineering, orbital mechanics, or complex space missions. The source should be "Advanced Aerospace/SpaceX-style Question ({{topic}} based)".
 
 - If difficulty is "Legend - General Advanced" (or if it's just "Legend" and the topic/difficulty combination isn't one of the specific exam styles above):
   For the given "{{topic}}", generate an exceptionally challenging question that tests deep expertise. The source should be "Advanced {{{topic}}} Question (Legend Difficulty)".
 
-For ALL "Legend" and "Normal - NEET" categories, ensure the question is appropriately challenging, options include plausible and challenging distractors, and the question is well-posed.
-If a specific style (like NEET) is requested for a topic where it's not highly relevant (e.g., "Legend - NEET" for "History"), try to make an advanced/normal question for that topic and use "Advanced {{{topic}}} Question" or "Normal {{{topic}}} Question" as the source, or default to the general advanced/legend/normal setting for that topic.
+For ALL "Legend", "Normal - NEET", "Normal - SBI PO Prelims", and "Legend - SBI PO Mains" categories, ensure the question is appropriately challenging, options include plausible and challenging distractors, and the question is well-posed.
+If a specific style (like NEET or SBI PO) is requested for a topic where it's not highly relevant (e.g., "Legend - NEET" for "History"), try to make an advanced/normal question for that topic and use "Advanced {{{topic}}} Question" or "Normal {{{topic}}} Question" as the source, or default to the general advanced/legend/normal setting for that topic.
 
 CRITICAL INSTRUCTION FOR 'correctAnswer' FIELD:
 The 'correctAnswer' field in the output JSON MUST be the exact full text of the correct option string from the 'options' array.
@@ -112,15 +117,11 @@ const generateQuizQuestionFlow = ai.defineFlow(
     
     if (!output.options || output.options.length !== 4) {
         console.error("AI generated an invalid number of options. Output was:", JSON.stringify(output));
-        // Attempt to provide a more user-friendly message or even a fallback if possible,
-        // though in this case, re-prompting the user is the safest.
         throw new Error(`AI generated an invalid number of options (${output.options?.length || 0}). Expected 4 distinct options. Please try a different topic/difficulty or try again.`);
     }
 
     if (!output.options.includes(output.correctAnswer)) {
         console.error("AI generated a correct answer that is not in the options list. Output was:", JSON.stringify(output));
-        // Log the problematic output for debugging.
-        // The error message already guides the user to retry or change topic/difficulty.
         throw new Error(`AI generated a correct answer ("${output.correctAnswer}") that is not present in the provided options: [${output.options.join(", ")}]. Please try again or select a different topic/difficulty.`);
     }
     return output;
