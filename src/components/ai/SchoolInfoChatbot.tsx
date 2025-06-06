@@ -85,8 +85,8 @@ export default function SchoolInfoChatbot() {
         setIsAnimatingCode(true);
       } else if (ta_full && ta_full.length > 0) {
         setIsAnimatingTextAfter(true);
-      } else if (rawAnswer) { // Handle case where rawAnswer is just simple text (no code blocks)
-        setIsAnimatingTextBefore(true); // Animate rawAnswer as textBefore
+      } else if (rawAnswer) { 
+        setIsAnimatingTextBefore(true); 
       }
     } else {
       setTextBefore(null);
@@ -96,19 +96,18 @@ export default function SchoolInfoChatbot() {
     }
   }, [rawAnswer]);
 
-  // Effect for animating text BEFORE code (or the whole answer if no code)
   useEffect(() => {
     if (isAnimatingTextBefore && textBefore) {
       if (animatedTextBefore.length < textBefore.length) {
         animationTimeoutRef.current = setTimeout(() => {
           setAnimatedTextBefore(textBefore.substring(0, animatedTextBefore.length + 1));
         }, ANIMATION_DELAY);
-      } else { // Animation of textBefore done
+      } else { 
         setIsAnimatingTextBefore(false);
         if (codeContent) {
-          setIsAnimatingCode(true); // Start code animation
+          setIsAnimatingCode(true); 
         } else if (textAfter) {
-          setIsAnimatingTextAfter(true); // Start textAfter animation
+          setIsAnimatingTextAfter(true); 
         }
       }
     }
@@ -119,17 +118,16 @@ export default function SchoolInfoChatbot() {
     };
   }, [isAnimatingTextBefore, textBefore, animatedTextBefore, codeContent, textAfter]);
 
-  // Effect for animating CODE
   useEffect(() => {
     if (isAnimatingCode && codeContent) {
       if (animatedCode.length < codeContent.length) {
         animationTimeoutRef.current = setTimeout(() => {
           setAnimatedCode(codeContent.substring(0, animatedCode.length + 1));
         }, ANIMATION_DELAY);
-      } else { // Animation of code done
+      } else { 
         setIsAnimatingCode(false);
         if (textAfter) {
-          setIsAnimatingTextAfter(true); // Start textAfter animation
+          setIsAnimatingTextAfter(true); 
         }
       }
     }
@@ -140,14 +138,13 @@ export default function SchoolInfoChatbot() {
     };
   }, [isAnimatingCode, codeContent, animatedCode, textAfter]);
 
-  // Effect for animating text AFTER code
   useEffect(() => {
     if (isAnimatingTextAfter && textAfter) {
       if (animatedTextAfter.length < textAfter.length) {
         animationTimeoutRef.current = setTimeout(() => {
           setAnimatedTextAfter(textAfter.substring(0, animatedTextAfter.length + 1));
         }, ANIMATION_DELAY);
-      } else { // Animation of textAfter done
+      } else { 
         setIsAnimatingTextAfter(false);
       }
     }
@@ -159,8 +156,10 @@ export default function SchoolInfoChatbot() {
   }, [isAnimatingTextAfter, textAfter, animatedTextAfter]);
   
   useEffect(() => {
-    answerEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [animatedTextBefore, animatedCode, animatedTextAfter, isLoading, error]);
+    if (answerEndRef.current) {
+        answerEndRef.current.scrollIntoView({ behavior: "auto", block: "end" });
+    }
+  }, [animatedTextBefore, animatedCode, animatedTextAfter, isLoading, error, rawAnswer]);
 
 
   const fetchAnswer = async (currentQuestion: string) => {
@@ -181,7 +180,7 @@ export default function SchoolInfoChatbot() {
     try {
       const input: SchoolInformationInput = { question: currentQuestion };
       const result: SchoolInformationOutput = await getSchoolInformation(input);
-      if (result.answer !== undefined && result.answer !== null) { // Check for undefined or null explicitly
+      if (result.answer !== undefined && result.answer !== null) { 
         setRawAnswer(result.answer);
       } else {
         setError("The AI didn't provide an answer. Please try rephrasing your question.");
@@ -195,7 +194,7 @@ export default function SchoolInfoChatbot() {
         }
       }
       setError(errorMessage);
-      setRawAnswer(null); // Ensure rawAnswer is null on error
+      setRawAnswer(null); 
     }
     setIsLoading(false);
     setIsAutoSubmitting(false);
