@@ -42,6 +42,11 @@ You MUST provide:
 3.  One of these options MUST be the correct answer.
 4.  A brief "source" or "type" for the question that reflects its origin, topic, and difficulty.
 
+**Formatting Options Correctly:**
+- For questions that require an answer in a specific mathematical or structured format (e.g., ratios like "X:Y:Z", algebraic expressions, coordinates, percentages, units of measurement), ensure that ALL FOUR options provided are in that SAME format.
+- For example, if the question asks for a new ratio of investments like "A, B, and C invested in a business in the ratio 5:6:8...", the options should be ratios like "60:69:88", "50:60:70", etc., NOT single numbers unless the question specifically asks for a single numerical component of a ratio.
+- The options should be plausible distractors and the correct answer must be one of them.
+
 Topic: {{{topic}}}
 Difficulty: {{{difficulty}}}
 
