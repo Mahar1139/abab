@@ -204,7 +204,6 @@ export default function SchoolInfoChatbot() {
   }, [isAnimatingTextAfter, textAfter, animatedTextAfter, currentAnimationDelay, scrollToBottom]);
   
   useEffect(() => {
-    // Scroll for initial loading, error, or when a new answer is set (before animation starts)
     if (isLoading || error || (rawAnswer && !isAnyAnimationActive && animatedTextBefore === '' && animatedCode === '' && animatedTextAfter === '')) {
       scrollToBottom();
     }
@@ -316,7 +315,7 @@ export default function SchoolInfoChatbot() {
         <CardDescription>
           {isUnrestrictedMode 
             ? "You're in unrestricted mode. Ask anything! Click 'Exit Unrestricted Mode' to return."
-            : "Ask about Himalaya Public School, request code, or try general queries. Use '11x11' for Teacher Conduit, '#10x10' for unrestricted AI."}
+            : ""}
         </CardDescription>
       </CardHeader>
       <CardContent 
@@ -387,7 +386,6 @@ export default function SchoolInfoChatbot() {
           </div>
         )}
         
-        {/* This div acts as a target for initial scrolling if needed, but primary scroll is handled by scrollToBottom */}
         <div id="latest-answer-marker"> 
           {isLoading && (
             <div className="flex items-center justify-center text-muted-foreground mt-6">
