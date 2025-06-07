@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Loader2, BrainCircuit, HelpCircle, StopCircle } from 'lucide-react';
+import { Loader2, BrainCircuit, HelpCircle, StopCircle, Zap, ArrowLeftCircle } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 
@@ -20,6 +20,7 @@ const initialSuggestedQuestions = [
 ];
 
 const TEACHER_CONDUIT_PROMPT = "11x11";
+const UNRESTRICTED_MODE_PROMPT = "#10x10";
 
 // Helper function to shuffle an array
 function shuffleArray<T>(array: T[]): T[] {
@@ -37,6 +38,7 @@ export default function SchoolInfoChatbot() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isAutoSubmitting, setIsAutoSubmitting] = useState(false);
+  const [isUnrestrictedMode, setIsUnrestrictedMode] = useState(false);
   const router = useRouter();
 
   const [textBefore, setTextBefore] = useState<string | null>(null);
@@ -60,8 +62,6 @@ export default function SchoolInfoChatbot() {
 
   const [displaySuggestedQuestions, setDisplaySuggestedQuestions] = useState(() => shuffleArray([...initialSuggestedQuestions]));
 
-
-  // Effect to parse rawAnswer, set animation delay, and kick off animation sequence
   useEffect(() => {
     if (animationTimeoutRef.current) {
       clearTimeout(animationTimeoutRef.current);
@@ -74,12 +74,11 @@ export default function SchoolInfoChatbot() {
     setIsAnimatingTextAfter(false);
 
     if (rawAnswer) {
-      // Determine animation speed
-      let delay = 10; // Default medium speed
+      let delay = 15; // Slower for very short answers
       if (rawAnswer.length > 500) {
         delay = 5; // Faster for long answers
-      } else if (rawAnswer.length < 150) {
-        delay = 15; // Slower for very short answers
+      } else if (rawAnswer.length >= 150) {
+        delay = 10; // Medium speed
       }
       setCurrentAnimationDelay(delay);
 
@@ -189,7 +188,6 @@ export default function SchoolInfoChatbot() {
     }
   }, [animatedTextBefore, animatedCode, animatedTextAfter]);
 
-  // Cleanup on component unmount (e.g., navigation)
   useEffect(() => {
     return () => {
       if (animationTimeoutRef.current) {
@@ -202,23 +200,17 @@ export default function SchoolInfoChatbot() {
   }, []);
 
 
-  const fetchAnswer = async (currentQuestion: string) => {
+  const fetchAnswer = async (currentQuestion: string, unrestricted: boolean) => {
     if (!currentQuestion.trim()) return;
-
-    if (currentQuestion.trim().toLowerCase() === TEACHER_CONDUIT_PROMPT) {
-      router.push('/teacher-conduit');
-      setIsLoading(false);
-      setIsAutoSubmitting(false);
-      setQuestion(''); 
-      return;
-    }
-
     setIsLoading(true);
     setError(null);
     setRawAnswer(null); 
 
     try {
-      const input: SchoolInformationInput = { question: currentQuestion };
+      const input: SchoolInformationInput = { 
+        question: currentQuestion,
+        unrestrictedMode: unrestricted
+      };
       const result: SchoolInformationOutput = await getSchoolInformation(input);
       if (result.answer !== undefined && result.answer !== null) { 
         setRawAnswer(result.answer);
@@ -242,7 +234,29 @@ export default function SchoolInfoChatbot() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetchAnswer(question);
+    const currentQ = question.trim();
+
+    if (currentQ.toLowerCase() === TEACHER_CONDUIT_PROMPT) {
+      router.push('/teacher-conduit');
+      setQuestion(''); 
+      return;
+    }
+
+    if (currentQ.toLowerCase() === UNRESTRICTED_MODE_PROMPT) {
+      setIsUnrestrictedMode(true);
+      setQuestion('');
+      setRawAnswer(null); // Clear previous answer
+      setError(null);
+      return;
+    }
+    fetchAnswer(currentQ, isUnrestrictedMode);
+  };
+  
+  const handleExitUnrestrictedMode = () => {
+    setIsUnrestrictedMode(false);
+    setRawAnswer(null);
+    setError(null);
+    setQuestion(''); // Optionally clear the question
   };
 
   const handleSuggestedQuestionClick = (suggestedQ: string) => {
@@ -253,10 +267,18 @@ export default function SchoolInfoChatbot() {
 
   useEffect(() => {
     if (isAutoSubmitting && question && !isLoading) { 
-      fetchAnswer(question);
+      if (question.trim().toLowerCase() === UNRESTRICTED_MODE_PROMPT) {
+        setIsUnrestrictedMode(true);
+        setQuestion('');
+        setRawAnswer(null);
+        setError(null);
+        setIsAutoSubmitting(false);
+      } else {
+        fetchAnswer(question, isUnrestrictedMode);
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAutoSubmitting, question, isLoading]);
+  }, [isAutoSubmitting, question, isLoading, isUnrestrictedMode]);
 
   const isAnyAnimationActive = isAnimatingTextBefore || isAnimatingCode || isAnimatingTextAfter;
 
@@ -274,12 +296,13 @@ export default function SchoolInfoChatbot() {
     <Card className="flex flex-col h-full w-full shadow-none border-0 rounded-none bg-card">
       <CardHeader className="border-b">
         <CardTitle className="flex items-center gap-2 text-xl text-primary">
-          <BrainCircuit className="w-6 h-6" />
-          Ask Our AI Assistant
+          {isUnrestrictedMode ? <Zap className="w-6 h-6 text-orange-500" /> : <BrainCircuit className="w-6 h-6" />}
+          {isUnrestrictedMode ? "Unrestricted AI Mode" : "Ask Our AI Assistant"}
         </CardTitle>
         <CardDescription>
-          Have a question about Himalaya Public School or need general help? Ask away!
-          (Teachers: try prompt "11x11" for a special tool.)
+          {isUnrestrictedMode 
+            ? "You're in unrestricted mode. Ask anything! Click 'Exit Unrestricted Mode' to return."
+            : "Have a question about Himalaya Public School or need general help? Ask away! (Teachers: try prompt \"11x11\". For general Q&A try \"#10x10\".)"}
         </CardDescription>
       </CardHeader>
       <CardContent 
@@ -295,10 +318,10 @@ export default function SchoolInfoChatbot() {
                 setQuestion(e.target.value);
                 if (isAutoSubmitting) setIsAutoSubmitting(false); 
               }}
-              placeholder="e.g., What is the school's mission?"
+              placeholder={isUnrestrictedMode ? "Ask any general question..." : "e.g., What is the school's mission?"}
               className="w-full"
               disabled={isLoading || isAnyAnimationActive}
-              aria-label="Your question about the school"
+              aria-label="Your question"
             />
           </div>
           <div className="flex flex-col sm:flex-row gap-2 items-center">
@@ -318,29 +341,37 @@ export default function SchoolInfoChatbot() {
                 Break Response
               </Button>
             )}
+            {isUnrestrictedMode && !isLoading && !isAnyAnimationActive && (
+              <Button variant="outline" size="sm" onClick={handleExitUnrestrictedMode} className="w-full sm:w-auto text-orange-600 border-orange-500 hover:bg-orange-50">
+                <ArrowLeftCircle className="mr-2 h-4 w-4" />
+                Exit Unrestricted Mode
+              </Button>
+            )}
           </div>
         </form>
 
-        <div className="mt-6">
-          <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center">
-            <HelpCircle className="w-4 h-4 mr-2"/>
-            Not sure what to ask? Try one of these:
-            </h4>
-          <div className="flex flex-wrap gap-2">
-            {displaySuggestedQuestions.map((sq, index) => (
-              <Button
-                key={index}
-                variant="outline"
-                size="sm"
-                onClick={() => handleSuggestedQuestionClick(sq)}
-                disabled={isLoading || isAnyAnimationActive}
-                className="text-xs"
-              >
-                {sq}
-              </Button>
-            ))}
+        {!isUnrestrictedMode && (
+          <div className="mt-6">
+            <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center">
+              <HelpCircle className="w-4 h-4 mr-2"/>
+              Not sure what to ask? Try one of these:
+              </h4>
+            <div className="flex flex-wrap gap-2">
+              {displaySuggestedQuestions.map((sq, index) => (
+                <Button
+                  key={index}
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleSuggestedQuestionClick(sq)}
+                  disabled={isLoading || isAnyAnimationActive}
+                  className="text-xs"
+                >
+                  {sq}
+                </Button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
         
         {isLoading && (
           <div className="mt-6 flex items-center justify-center text-muted-foreground">

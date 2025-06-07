@@ -43,6 +43,7 @@ More details can be found on the contact page.
 
 const SchoolInformationInputSchema = z.object({
   question: z.string().describe('The user\'s question about Himalaya Public School, a general query, or a request for code/game generation.'),
+  unrestrictedMode: z.boolean().optional().describe('If true, the AI should answer any question without school-specific restrictions or context, acting as a general knowledge AI.')
 });
 export type SchoolInformationInput = z.infer<typeof SchoolInformationInputSchema>;
 
@@ -61,7 +62,12 @@ const prompt = ai.definePrompt({
   name: 'schoolInformationPrompt',
   input: {schema: SchoolInformationInputSchema},
   output: {schema: SchoolInformationOutputSchema},
-  prompt: `You are an AI assistant for the official Himalaya Public School website.
+  prompt: `{{#if unrestrictedMode}}
+You are a general knowledge AI assistant. Your goal is to provide comprehensive and accurate answers to any question the user asks, without any context related to a specific school or organization.
+User's Question: {{{question}}}
+Provide your answer directly. If it's a request for code, provide the code formatted in markdown.
+{{else}}
+You are an AI assistant for the official Himalaya Public School website.
 Your primary goal is to assist users. Since this IS the official school platform, never refer the user to "the official website" as if it's an external resource. You can, however, mention specific page names if they are listed in the context (e.g., "More details can be found on the admissions page.").
 
 School Information Context:
@@ -85,6 +91,7 @@ Analyze the user's question and respond according to these rules, in order of pr
 4.  If the question seems related to Himalaya Public School but requests specific details *not found* in the "School Information Context" (like specific tuition fees, detailed grade-level curriculum for a particular subject, very niche operational details not covered, or any information not explicitly present in the context), then politely state that you don't have those specific details based on the information available to you. Do NOT suggest contacting the school directly or visiting an external website for this, as the user is already on the official platform. Simply state the information isn't available in your current knowledge base.
 
 Your response should be formatted for the 'answer' field. Be helpful and clear.
+{{/if}}
   `,
 });
 
@@ -103,3 +110,4 @@ const schoolInformationFlow = ai.defineFlow(
     return output;
   }
 );
+
