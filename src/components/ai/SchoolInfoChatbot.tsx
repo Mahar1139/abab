@@ -288,7 +288,8 @@ export default function SchoolInfoChatbot() {
         fetchAnswer(question, isUnrestrictedMode);
       }
     }
-  }, [isAutoSubmitting, question, isLoading, isUnrestrictedMode]); // Removed fetchAnswer from deps as it's stable due to useCallback or being defined in scope
+  // eslint-disable-next-line react-hooks/exhaustive-deps 
+  }, [isAutoSubmitting, question, isLoading, isUnrestrictedMode]); 
 
 
   const handleBreakResponse = () => {
@@ -315,12 +316,12 @@ export default function SchoolInfoChatbot() {
         <CardDescription>
           {isUnrestrictedMode 
             ? "You're in unrestricted mode. Ask anything! Click 'Exit Unrestricted Mode' to return."
-            : "Have a question about Himalaya Public School or need general help? Ask away! (Teachers: try prompt \"11x11\". For general Q&A try \"#10x10\".)"}
+            : "Ask about Himalaya Public School, request code, or try general queries. Use '11x11' for Teacher Conduit, '#10x10' for unrestricted AI."}
         </CardDescription>
       </CardHeader>
       <CardContent 
         ref={chatContainerRef} 
-        className="flex-grow overflow-y-auto overflow-x-hidden p-6 space-y-4" // overflow-x-hidden is key for right side
+        className="flex-grow overflow-y-auto overflow-x-hidden p-6 space-y-4" 
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
