@@ -47,8 +47,15 @@ const SchoolInformationInputSchema = z.object({
 });
 export type SchoolInformationInput = z.infer<typeof SchoolInformationInputSchema>;
 
+// This is the output schema for the prompt object internally
+const InternalPromptOutputSchema = z.object({
+  answer: z.string().describe("The AI's response. If blocked due to safety, it will be 'SAFETY_BLOCKED_BY_AI_INTERNAL_FLAG'."),
+});
+
+// This is the actual output schema for the exported flow function
 const SchoolInformationOutputSchema = z.object({
-  answer: z.string().describe('The AI-generated answer to the user\'s question, which might include formatted code if requested.'),
+  answer: z.string().nullable().describe('The AI-generated answer to the user\'s question, or a user-friendly message if blocked.'),
+  safetyBlocked: z.boolean().describe('True if the response was blocked due to safety concerns.'),
 });
 export type SchoolInformationOutput = z.infer<typeof SchoolInformationOutputSchema>;
 
@@ -58,14 +65,19 @@ export async function getSchoolInformation(
   return schoolInformationFlow(input);
 }
 
+const SAFETY_BLOCK_FLAG = "SAFETY_BLOCKED_BY_AI_INTERNAL_FLAG";
+
 const prompt = ai.definePrompt({
   name: 'schoolInformationPrompt',
   input: {schema: SchoolInformationInputSchema},
-  output: {schema: SchoolInformationOutputSchema},
+  output: {schema: InternalPromptOutputSchema}, // Internal prompt uses this
   prompt: `{{#if unrestrictedMode}}
 You are a general knowledge AI assistant. Your goal is to provide comprehensive and accurate answers to any question the user asks, without any context related to a specific school or organization.
 User's Question: {{{question}}}
-Provide your answer directly. If it's a request for code, provide the code formatted in markdown.
+
+IMPORTANT SAFETY RULE: If the user's question is abusive, harmful, clearly inappropriate, or if you cannot answer it due to safety guidelines or content policies, your entire response for the 'answer' field MUST be the exact string "${SAFETY_BLOCK_FLAG}". Do not add any other text or explanation.
+
+Otherwise, provide your answer directly. If it's a request for code, provide the code formatted in markdown.
 {{else}}
 You are an AI assistant for the official Himalaya Public School website.
 Your primary goal is to assist users. Since this IS the official school platform, never refer the user to "the official website" as if it's an external resource. You can, however, mention specific page names if they are listed in the context (e.g., "More details can be found on the admissions page.").
@@ -77,7 +89,9 @@ ${schoolContext}
 
 User's Question: {{{question}}}
 
-Analyze the user's question and respond according to these rules, in order of preference:
+IMPORTANT SAFETY RULE: If the user's question is abusive, harmful, clearly inappropriate (even if school-related), or if you cannot answer it due to safety guidelines or content policies, your entire response for the 'answer' field MUST be the exact string "${SAFETY_BLOCK_FLAG}". Do not add any other text or explanation.
+
+Analyze the user's question and respond according to these rules, in order of preference (if not safety blocked):
 
 1.  If the question can be reasonably answered using the "School Information Context", provide a concise and helpful answer based *strictly* on that information. Your answer should be focused and directly address the school-related query.
 
@@ -99,15 +113,32 @@ const schoolInformationFlow = ai.defineFlow(
   {
     name: 'schoolInformationFlow',
     inputSchema: SchoolInformationInputSchema,
-    outputSchema: SchoolInformationOutputSchema,
+    outputSchema: SchoolInformationOutputSchema, // Flow uses the final output schema
   },
   async (input) => {
-    const {output} = await prompt(input);
-    // Ensure output is not null and answer is a string
-    if (!output || typeof output.answer !== 'string') {
-      return { answer: "I'm sorry, I couldn't generate a response at this time. Please try again." };
+    const llmCallResult = await prompt(input); // This uses the internal prompt schema
+
+    if (llmCallResult.output && llmCallResult.output.answer === SAFETY_BLOCK_FLAG) {
+      return {
+        answer: "Your query could not be processed due to content guidelines. Further interaction is temporarily disabled.",
+        safetyBlocked: true,
+      };
     }
-    return output;
+    
+    if (llmCallResult.output && typeof llmCallResult.output.answer === 'string') {
+      return {
+        answer: llmCallResult.output.answer,
+        safetyBlocked: false,
+      };
+    }
+
+    // Fallback if the LLM output structure is not as expected but not a safety block
+    console.error("AI response structure was not as expected:", llmCallResult);
+    return {
+      answer: "I'm sorry, I couldn't generate a response at this time. Please try again.",
+      safetyBlocked: false, // Not explicitly a safety block from our flag
+    };
   }
 );
 
+    

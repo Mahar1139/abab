@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Loader2, BrainCircuit, HelpCircle, StopCircle, Zap, ArrowLeftCircle } from 'lucide-react';
+import { Loader2, BrainCircuit, HelpCircle, StopCircle, Zap, ArrowLeftCircle, ShieldBan, Timer } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 
@@ -21,8 +21,9 @@ const initialSuggestedQuestions = [
 
 const TEACHER_CONDUIT_PROMPT = "11x11";
 const UNRESTRICTED_MODE_PROMPT = "#10x10";
+const LOCAL_STORAGE_STRIKE_COUNT_KEY = "hps_abuseStrikeCount";
+const LOCAL_STORAGE_COOLDOWN_END_TIME_KEY = "hps_cooldownEndTime";
 
-// Helper function to shuffle an array
 function shuffleArray<T>(array: T[]): T[] {
   const newArray = [...array];
   for (let i = newArray.length - 1; i > 0; i--) {
@@ -30,6 +31,17 @@ function shuffleArray<T>(array: T[]): T[] {
     [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
   }
   return newArray;
+}
+
+function formatRemainingTime(ms: number): string {
+  if (ms <= 0) return "0s";
+  const totalSeconds = Math.ceil(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  if (minutes > 0) {
+    return `${minutes}m ${seconds}s`;
+  }
+  return `${seconds}s`;
 }
 
 export default function SchoolInfoChatbot() {
@@ -61,7 +73,72 @@ export default function SchoolInfoChatbot() {
   
   const [displaySuggestedQuestions, setDisplaySuggestedQuestions] = useState(() => shuffleArray([...initialSuggestedQuestions]));
 
+  const [abuseStrikeCount, setAbuseStrikeCount] = useState<number>(0);
+  const [cooldownEndTime, setCooldownEndTime] = useState<number | null>(null);
+  const [remainingCooldownTime, setRemainingCooldownTime] = useState<string | null>(null);
+  const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);
+
   const isAnyAnimationActive = isAnimatingTextBefore || isAnimatingCode || isAnimatingTextAfter;
+  const isOnCooldown = cooldownEndTime !== null && Date.now() < cooldownEndTime;
+
+  // Load cooldown state from localStorage on mount
+  useEffect(() => {
+    const storedStrikes = localStorage.getItem(LOCAL_STORAGE_STRIKE_COUNT_KEY);
+    const storedCooldownEnd = localStorage.getItem(LOCAL_STORAGE_COOLDOWN_END_TIME_KEY);
+
+    if (storedStrikes) {
+      setAbuseStrikeCount(parseInt(storedStrikes, 10));
+    }
+    if (storedCooldownEnd) {
+      const endTime = parseInt(storedCooldownEnd, 10);
+      if (endTime > Date.now()) {
+        setCooldownEndTime(endTime);
+      } else {
+        // Clear expired cooldown from storage
+        localStorage.removeItem(LOCAL_STORAGE_STRIKE_COUNT_KEY);
+        localStorage.removeItem(LOCAL_STORAGE_COOLDOWN_END_TIME_KEY);
+        setAbuseStrikeCount(0);
+      }
+    }
+  }, []);
+
+  // Update localStorage when cooldown state changes
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_STRIKE_COUNT_KEY, abuseStrikeCount.toString());
+    if (cooldownEndTime) {
+      localStorage.setItem(LOCAL_STORAGE_COOLDOWN_END_TIME_KEY, cooldownEndTime.toString());
+    } else {
+      localStorage.removeItem(LOCAL_STORAGE_COOLDOWN_END_TIME_KEY);
+    }
+  }, [abuseStrikeCount, cooldownEndTime]);
+
+  // Cooldown timer effect
+  useEffect(() => {
+    if (cooldownTimerRef.current) {
+      clearInterval(cooldownTimerRef.current);
+    }
+    if (isOnCooldown && cooldownEndTime) {
+      const updateTimer = () => {
+        const timeLeft = cooldownEndTime - Date.now();
+        if (timeLeft <= 0) {
+          setCooldownEndTime(null);
+          setRemainingCooldownTime(null);
+          setAbuseStrikeCount(0); // Reset strikes after cooldown
+          localStorage.removeItem(LOCAL_STORAGE_STRIKE_COUNT_KEY);
+          localStorage.removeItem(LOCAL_STORAGE_COOLDOWN_END_TIME_KEY);
+          if (cooldownTimerRef.current) clearInterval(cooldownTimerRef.current);
+        } else {
+          setRemainingCooldownTime(formatRemainingTime(timeLeft));
+        }
+      };
+      updateTimer(); // Initial call
+      cooldownTimerRef.current = setInterval(updateTimer, 1000);
+    }
+    return () => {
+      if (cooldownTimerRef.current) clearInterval(cooldownTimerRef.current);
+    };
+  }, [isOnCooldown, cooldownEndTime]);
+
 
   const scrollToBottom = useCallback(() => {
     if (chatContainerRef.current) {
@@ -211,7 +288,7 @@ export default function SchoolInfoChatbot() {
 
 
   const fetchAnswer = async (currentQuestion: string, unrestricted: boolean) => {
-    if (!currentQuestion.trim()) return;
+    if (!currentQuestion.trim() || isOnCooldown) return;
     setIsLoading(true);
     setError(null);
     setRawAnswer(null); 
@@ -222,7 +299,19 @@ export default function SchoolInfoChatbot() {
         unrestrictedMode: unrestricted
       };
       const result: SchoolInformationOutput = await getSchoolInformation(input);
-      if (result.answer !== undefined && result.answer !== null) { 
+      
+      if (result.safetyBlocked) {
+        const newStrikeCount = abuseStrikeCount + 1;
+        setAbuseStrikeCount(newStrikeCount);
+
+        let cooldownDurationMs = 60000; // 1 minute for the first strike
+        if (newStrikeCount > 1) {
+          cooldownDurationMs = (1 + (newStrikeCount - 1) * 5) * 60000;
+        }
+        const newCooldownEndTime = Date.now() + cooldownDurationMs;
+        setCooldownEndTime(newCooldownEndTime);
+        setRawAnswer(result.answer || "Your query was blocked."); // Display the message from flow
+      } else if (result.answer !== undefined && result.answer !== null) { 
         setRawAnswer(result.answer);
       } else {
         setError("The AI didn't provide an answer. Please try rephrasing your question.");
@@ -244,6 +333,7 @@ export default function SchoolInfoChatbot() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (isOnCooldown) return;
     const currentQ = question.trim();
 
     if (currentQ.toLowerCase() === TEACHER_CONDUIT_PROMPT) {
@@ -270,13 +360,14 @@ export default function SchoolInfoChatbot() {
   };
 
   const handleSuggestedQuestionClick = (suggestedQ: string) => {
+    if (isOnCooldown) return;
     setQuestion(suggestedQ);
     setIsAutoSubmitting(true); 
     setDisplaySuggestedQuestions(shuffleArray([...initialSuggestedQuestions]));
   };
 
   useEffect(() => {
-    if (isAutoSubmitting && question && !isLoading) { 
+    if (isAutoSubmitting && question && !isLoading && !isOnCooldown) { 
       if (question.trim().toLowerCase() === UNRESTRICTED_MODE_PROMPT) {
         setIsUnrestrictedMode(true);
         setQuestion('');
@@ -288,7 +379,7 @@ export default function SchoolInfoChatbot() {
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, [isAutoSubmitting, question, isLoading, isUnrestrictedMode]); 
+  }, [isAutoSubmitting, question, isLoading, isUnrestrictedMode, isOnCooldown]); 
 
 
   const handleBreakResponse = () => {
@@ -304,17 +395,32 @@ export default function SchoolInfoChatbot() {
     setIsAnimatingTextAfter(false);
   };
 
+  // Effect to stop animation if navigating away (component unmount or route change)
+  useEffect(() => {
+    const handleRouteChange = () => {
+      handleBreakResponse(); // Stop animation
+    };
+    router.events?.on('routeChangeStart', handleRouteChange); // Next.js 12/13 might need different event
+    return () => {
+      router.events?.off('routeChangeStart', handleRouteChange);
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router.events]);
+
 
   return (
     <Card className="flex flex-col h-full w-full shadow-none border-0 rounded-none bg-card">
       <CardHeader className="border-b">
         <CardTitle className="flex items-center gap-2 text-xl text-primary">
           {isUnrestrictedMode ? <Zap className="w-6 h-6 text-orange-500" /> : <BrainCircuit className="w-6 h-6" />}
-          {isUnrestrictedMode ? "Unrestricted AI Mode" : "Ask Our AI Assistant"}
+          {isUnrestrictedMode ? "Unrestricted AI Mode" : "AI Assistant"}
         </CardTitle>
         <CardDescription>
           {isUnrestrictedMode 
-            ? "You're in unrestricted mode. Ask anything! Click 'Exit Unrestricted Mode' to return."
+            ? "You're in unrestricted mode. Ask anything!"
             : ""}
         </CardDescription>
       </CardHeader>
@@ -331,14 +437,14 @@ export default function SchoolInfoChatbot() {
                 setQuestion(e.target.value);
                 if (isAutoSubmitting) setIsAutoSubmitting(false); 
               }}
-              placeholder={isUnrestrictedMode ? "Ask any general question..." : "e.g., What is the school's mission?"}
+              placeholder={isUnrestrictedMode ? "Ask any general question..." : "Ask about Himalaya Public School..."}
               className="w-full"
-              disabled={isLoading || isAnyAnimationActive}
+              disabled={isLoading || isAnyAnimationActive || isOnCooldown}
               aria-label="Your question"
             />
           </div>
           <div className="flex flex-col sm:flex-row gap-2 items-center">
-            <Button type="submit" disabled={isLoading || !question.trim() || isAnyAnimationActive} className="w-full sm:w-auto">
+            <Button type="submit" disabled={isLoading || !question.trim() || isAnyAnimationActive || isOnCooldown} className="w-full sm:w-auto">
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -354,7 +460,7 @@ export default function SchoolInfoChatbot() {
                 Break Response
               </Button>
             )}
-            {isUnrestrictedMode && !isLoading && !isAnyAnimationActive && (
+            {isUnrestrictedMode && !isLoading && !isAnyAnimationActive && !isOnCooldown && (
               <Button variant="outline" size="sm" onClick={handleExitUnrestrictedMode} className="w-full sm:w-auto text-orange-600 border-orange-500 hover:bg-orange-50">
                 <ArrowLeftCircle className="mr-2 h-4 w-4" />
                 Exit Unrestricted Mode
@@ -363,7 +469,18 @@ export default function SchoolInfoChatbot() {
           </div>
         </form>
 
-        {!isUnrestrictedMode && (
+        {isOnCooldown && remainingCooldownTime && (
+          <Alert variant="destructive" className="mt-4">
+            <ShieldBan className="h-5 w-5" />
+            <AlertTitle>Interaction Temporarily Disabled</AlertTitle>
+            <AlertDescription>
+              Due to content policy, further interaction is paused. Please wait: 
+              <strong className="ml-1 tabular-nums">{remainingCooldownTime}</strong>.
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {!isUnrestrictedMode && !isOnCooldown && (
           <div className="mt-6">
             <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center">
               <HelpCircle className="w-4 h-4 mr-2"/>
@@ -376,7 +493,7 @@ export default function SchoolInfoChatbot() {
                   variant="outline"
                   size="sm"
                   onClick={() => handleSuggestedQuestionClick(sq)}
-                  disabled={isLoading || isAnyAnimationActive}
+                  disabled={isLoading || isAnyAnimationActive || isOnCooldown}
                   className="text-xs"
                 >
                   {sq}
@@ -393,7 +510,7 @@ export default function SchoolInfoChatbot() {
               Thinking...
             </div>
           )}
-          {error && !isLoading && (
+          {error && !isLoading && !isOnCooldown && (
             <Alert variant="destructive" className="mt-6">
               <AlertTitle>Error</AlertTitle>
               <AlertDescription>{error}</AlertDescription>
@@ -423,3 +540,4 @@ export default function SchoolInfoChatbot() {
   );
 }
 
+    
