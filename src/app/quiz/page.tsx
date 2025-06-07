@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from 'next/image';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,22 +11,32 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { generateQuizQuestion, type GenerateQuizQuestionOutput, type GenerateQuizQuestionInput } from "@/ai/flows/generate-quiz-question-flow";
-import { Brain, CheckCircle, XCircle, Award, RotateCcw, Loader2, Info } from "lucide-react";
+import { explainQuizAnswer, type ExplainQuizAnswerInput, type ExplainQuizAnswerOutput } from "@/ai/flows/explain-quiz-answer-flow";
+import { Brain, CheckCircle, XCircle, Award, RotateCcw, Loader2, Info, HelpCircle, Lightbulb } from "lucide-react";
 
 type QuizState = "selecting_topic_difficulty" | "in_progress" | "finished";
 
 interface GeneratedQuestion extends GenerateQuizQuestionOutput {
-  id: string; // Unique ID for the question in the current session
+  id: string; 
 }
 
 interface UserAnswer {
   questionId: string;
   questionText: string;
+  options: string[]; 
   selectedAnswer: string;
   correctAnswer: string;
   isCorrect: boolean;
   source: string;
+  topic: string; 
+  difficulty: string; 
+}
+
+interface QuestionExplanation extends ExplainQuizAnswerOutput {
+  isLoading: boolean;
+  error?: string | null;
 }
 
 const topics = [
@@ -66,7 +77,6 @@ const getDifficultyOptionsForTopic = (topic: string | null): string[] => {
   });
 };
 
-
 const COLORS = {
   correct: 'hsl(var(--chart-5))', 
   incorrect: 'hsl(var(--chart-1))', 
@@ -79,13 +89,14 @@ export default function QuizPage() {
   const [currentDifficultyOptions, setCurrentDifficultyOptions] = useState<string[]>(getDifficultyOptionsForTopic(null));
   
   const [currentQuestion, setCurrentQuestion] = useState<GeneratedQuestion | null>(null);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
   const [isLoadingQuestion, setIsLoadingQuestion] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
+  const [questionExplanations, setQuestionExplanations] = useState<Record<string, QuestionExplanation>>({});
+
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
@@ -102,11 +113,11 @@ export default function QuizPage() {
     setSelectedDifficulty(null);
     setCurrentDifficultyOptions(getDifficultyOptionsForTopic(null));
     setCurrentQuestion(null);
-    setCurrentQuestionIndex(0);
     setSelectedAnswer(null);
     setScore(0);
     setUserAnswers([]);
     setError(null);
+    setQuestionExplanations({});
   };
 
   const fetchNextQuestion = async () => {
@@ -124,7 +135,7 @@ export default function QuizPage() {
       };
       const result = await generateQuizQuestion(input);
       if (result.questionText && result.options && result.correctAnswer) {
-        setCurrentQuestion({ ...result, id: `q_${Date.now()}_${currentQuestionIndex}` });
+        setCurrentQuestion({ ...result, id: `q_${Date.now()}_${userAnswers.length}` });
       } else {
         throw new Error("AI failed to generate a valid question structure. The response might be incomplete or malformed.");
       }
@@ -133,13 +144,13 @@ export default function QuizPage() {
       let displayError = "An unexpected error occurred while generating the question. Please try again.";
       if (e instanceof Error) {
         if (e.message.includes("503") || e.message.toLowerCase().includes("overloaded") || e.message.toLowerCase().includes("model is overloaded")) {
-          displayError = "The Himalaya Public School server is busy try again later this is because lots of people are using the Quiz_AI so it is due to some overload the server can handle only 5000 peoples you can wait a minute and Try Again";
+          displayError = "The AI model is currently busy. Please try again in a few moments.";
         } else if (e.message.toLowerCase().includes("api key")) {
-          displayError = "There seems to be an issue with the AI configuration (e.g., API key). Please check the setup.";
+          displayError = "There's an issue with the AI configuration. Please contact support.";
         } else if (e.message.toLowerCase().includes("invalid number of options") || e.message.toLowerCase().includes("correct answer that is not in the options list")) {
             displayError = e.message; 
         } else {
-            displayError = `An error occurred: ${e.message}. Please try adjusting topic/difficulty or try again later.`;
+            displayError = `An error occurred: ${e.message}. Try adjusting topic/difficulty or try again.`;
         }
       }
       setError(displayError);
@@ -150,14 +161,14 @@ export default function QuizPage() {
   const handleStartQuiz = () => {
     if (!selectedTopic || !selectedDifficulty) return;
     setQuizState("in_progress");
-    setCurrentQuestionIndex(0);
     setScore(0);
     setUserAnswers([]);
+    setQuestionExplanations({});
     fetchNextQuestion();
   };
 
   const handleSubmitAnswer = () => {
-    if (!selectedAnswer || !currentQuestion) return;
+    if (!selectedAnswer || !currentQuestion || !selectedTopic || !selectedDifficulty) return;
 
     const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
     if (isCorrect) {
@@ -169,20 +180,63 @@ export default function QuizPage() {
       {
         questionId: currentQuestion.id,
         questionText: currentQuestion.questionText,
+        options: currentQuestion.options,
         selectedAnswer,
         correctAnswer: currentQuestion.correctAnswer,
         isCorrect,
         source: currentQuestion.source || "N/A",
+        topic: selectedTopic, 
+        difficulty: selectedDifficulty, 
       },
     ]);
 
     setSelectedAnswer(null);
     
     if (userAnswers.length < 4) { 
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
       fetchNextQuestion();
     } else {
       setQuizState("finished");
+    }
+  };
+  
+  const fetchExplanation = async (answer: UserAnswer) => {
+    if (questionExplanations[answer.questionId]?.explanationText) return; // Already fetched
+
+    setQuestionExplanations(prev => ({
+      ...prev,
+      [answer.questionId]: { ...prev[answer.questionId], isLoading: true, error: null }
+    }));
+
+    try {
+      const input: ExplainQuizAnswerInput = {
+        questionText: answer.questionText,
+        options: answer.options,
+        correctAnswer: answer.correctAnswer,
+        userSelectedAnswer: answer.selectedAnswer,
+        topic: answer.topic,
+        difficulty: answer.difficulty,
+      };
+      const explanationResult = await explainQuizAnswer(input);
+      setQuestionExplanations(prev => ({
+        ...prev,
+        [answer.questionId]: { 
+          explanationText: explanationResult.explanationText, 
+          generatedImageUri: explanationResult.generatedImageUri,
+          isLoading: false 
+        }
+      }));
+    } catch (e) {
+      console.error("Error fetching explanation:", e);
+      let errorMsg = "Failed to load explanation.";
+      if (e instanceof Error) errorMsg = e.message;
+      setQuestionExplanations(prev => ({
+        ...prev,
+        [answer.questionId]: { 
+          ...(prev[answer.questionId] || { explanationText: '', isLoading: false }), // Keep existing if any
+          isLoading: false, 
+          error: errorMsg 
+        }
+      }));
     }
   };
   
@@ -319,7 +373,7 @@ export default function QuizPage() {
                 <div className="text-center p-6 bg-secondary/20 rounded-lg">
                   <h3 className="text-2xl font-bold text-primary mb-2">Your Score: {score} / {userAnswers.length}</h3>
                   <p className="text-lg text-foreground/80">
-                    {score > userAnswers.length / 2 ? "Great job!" : (userAnswers.length > 0 ? "Keep learning and try again!" : "No questions answered.")}
+                    {userAnswers.length > 0 ? (score > userAnswers.length / 2 ? "Great job!" : "Keep learning and try again!") : "No questions answered."}
                   </p>
                 </div>
 
@@ -348,23 +402,67 @@ export default function QuizPage() {
                 {userAnswers.length > 0 && (
                   <div>
                     <h4 className="text-xl font-semibold mb-4 text-primary">Review Your Answers:</h4>
-                    <ul className="space-y-4">
+                    <Accordion type="single" collapsible className="w-full space-y-4">
                       {userAnswers.map((answer, index) => (
-                        <li key={answer.questionId} className="p-4 border rounded-md bg-card shadow-sm">
-                          <p className="font-medium text-foreground/90 mb-1">{index + 1}. {answer.questionText}</p>
-                          <p className={`text-sm ${answer.isCorrect ? 'text-green-500' : 'text-red-500'}`}>
-                            Your answer: {answer.selectedAnswer} 
-                            {answer.isCorrect ? <CheckCircle className="inline ml-2 h-4 w-4" /> : <XCircle className="inline ml-2 h-4 w-4" />}
-                          </p>
-                          {!answer.isCorrect && (
-                            <p className="text-sm text-blue-500">Correct answer: {answer.correctAnswer}</p>
-                          )}
-                          <p className="text-xs text-muted-foreground mt-2 flex items-center">
-                            <Info className="w-3 h-3 mr-1.5"/> Source/Type: {answer.source}
-                          </p>
-                        </li>
+                        <Card key={answer.questionId} className="bg-card shadow-sm">
+                          <div className="p-4">
+                            <p className="font-medium text-foreground/90 mb-1">{index + 1}. {answer.questionText}</p>
+                            <p className={`text-sm ${answer.isCorrect ? 'text-green-500' : 'text-red-500'}`}>
+                              Your answer: {answer.selectedAnswer} 
+                              {answer.isCorrect ? <CheckCircle className="inline ml-2 h-4 w-4" /> : <XCircle className="inline ml-2 h-4 w-4" />}
+                            </p>
+                            {!answer.isCorrect && (
+                              <p className="text-sm text-blue-500">Correct answer: {answer.correctAnswer}</p>
+                            )}
+                            <p className="text-xs text-muted-foreground mt-2 flex items-center">
+                              <Info className="w-3 h-3 mr-1.5"/> Source/Type: {answer.source}
+                            </p>
+                          </div>
+                          <AccordionItem value={answer.questionId} className="border-t">
+                            <AccordionTrigger 
+                              onClick={() => fetchExplanation(answer)}
+                              className="px-4 py-3 text-sm text-accent hover:underline flex items-center"
+                              disabled={questionExplanations[answer.questionId]?.isLoading}
+                            >
+                              {questionExplanations[answer.questionId]?.isLoading ? (
+                                <>
+                                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loading Explanation...
+                                </>
+                              ) : (
+                                <>
+                                  <Lightbulb className="mr-2 h-4 w-4" /> Why this answer?
+                                </>
+                              )}
+                            </AccordionTrigger>
+                            <AccordionContent className="px-4 pb-4">
+                              {questionExplanations[answer.questionId]?.error && (
+                                <Alert variant="destructive" className="mt-2">
+                                  <XCircle className="h-5 w-5" />
+                                  <AlertTitle>Error Loading Explanation</AlertTitle>
+                                  <AlertDescription>{questionExplanations[answer.questionId]?.error}</AlertDescription>
+                                </Alert>
+                              )}
+                              {questionExplanations[answer.questionId]?.explanationText && (
+                                <div className="prose dark:prose-invert max-w-none text-sm mt-2 space-y-3">
+                                  <p className="whitespace-pre-line">{questionExplanations[answer.questionId]?.explanationText}</p>
+                                  {questionExplanations[answer.questionId]?.generatedImageUri && (
+                                    <div className="mt-3 border rounded-md overflow-hidden">
+                                      <Image 
+                                        src={questionExplanations[answer.questionId]?.generatedImageUri!} 
+                                        alt="Explanation visual aid" 
+                                        width={400} 
+                                        height={300} 
+                                        className="mx-auto object-contain"
+                                      />
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Card>
                       ))}
-                    </ul>
+                    </Accordion>
                   </div>
                 )}
 
@@ -381,4 +479,3 @@ export default function QuizPage() {
     </div>
   );
 }
-

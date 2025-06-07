@@ -7,3 +7,4 @@ import '@/ai/flows/suggest-admission-questions.ts';
 import '@/ai/flows/school-info-flow.ts';
 import '@/ai/flows/generate-quiz-question-flow.ts';
 import '@/ai/flows/teacher-conduit-flow.ts';
+import '@/ai/flows/explain-quiz-answer-flow.ts';
