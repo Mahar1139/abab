@@ -62,6 +62,21 @@ export default function SchoolInfoChatbot() {
 
   const [displaySuggestedQuestions, setDisplaySuggestedQuestions] = useState(() => shuffleArray([...initialSuggestedQuestions]));
 
+  const isAnyAnimationActive = isAnimatingTextBefore || isAnimatingCode || isAnimatingTextAfter;
+
+  // Cleanup animation on component unmount or when navigating away
+  useEffect(() => {
+    return () => {
+      if (animationTimeoutRef.current) {
+        clearTimeout(animationTimeoutRef.current);
+      }
+      setIsAnimatingTextBefore(false);
+      setIsAnimatingCode(false);
+      setIsAnimatingTextAfter(false);
+    };
+  }, []);
+
+  // Reset and parse answer for animation
   useEffect(() => {
     if (animationTimeoutRef.current) {
       clearTimeout(animationTimeoutRef.current);
@@ -74,11 +89,11 @@ export default function SchoolInfoChatbot() {
     setIsAnimatingTextAfter(false);
 
     if (rawAnswer) {
-      let delay = 15; // Slower for very short answers
+      let delay = 15; 
       if (rawAnswer.length > 500) {
-        delay = 5; // Faster for long answers
+        delay = 5; 
       } else if (rawAnswer.length >= 150) {
-        delay = 10; // Medium speed
+        delay = 10; 
       }
       setCurrentAnimationDelay(delay);
 
@@ -120,6 +135,7 @@ export default function SchoolInfoChatbot() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rawAnswer]);
 
+  // Animate textBefore
   useEffect(() => {
     if (isAnimatingTextBefore && textBefore) {
       if (animatedTextBefore.length < textBefore.length) {
@@ -136,13 +152,14 @@ export default function SchoolInfoChatbot() {
       }
     }
     return () => { 
-      if (animationTimeoutRef.current && (isAnimatingTextBefore || (textBefore && animatedTextBefore.length < textBefore.length) ) ) {
+      if (animationTimeoutRef.current && isAnimatingTextBefore ) {
         clearTimeout(animationTimeoutRef.current);
       }
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAnimatingTextBefore, textBefore, animatedTextBefore, codeContent, textAfter, currentAnimationDelay]);
 
+  // Animate codeContent
   useEffect(() => {
     if (isAnimatingCode && codeContent) {
       if (animatedCode.length < codeContent.length) {
@@ -157,13 +174,14 @@ export default function SchoolInfoChatbot() {
       }
     }
      return () => { 
-       if (animationTimeoutRef.current && (isAnimatingCode || (codeContent && animatedCode.length < codeContent.length))) {
+       if (animationTimeoutRef.current && isAnimatingCode ) {
         clearTimeout(animationTimeoutRef.current);
        }
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAnimatingCode, codeContent, animatedCode, textAfter, currentAnimationDelay]);
 
+  // Animate textAfter
   useEffect(() => {
     if (isAnimatingTextAfter && textAfter) {
       if (animatedTextAfter.length < textAfter.length) {
@@ -175,29 +193,22 @@ export default function SchoolInfoChatbot() {
       }
     }
      return () => { 
-       if (animationTimeoutRef.current && (isAnimatingTextAfter || (textAfter && animatedTextAfter.length < textAfter.length))) {
+       if (animationTimeoutRef.current && isAnimatingTextAfter ) {
         clearTimeout(animationTimeoutRef.current);
        }
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAnimatingTextAfter, textAfter, animatedTextAfter, currentAnimationDelay]);
   
+  // Scroll to bottom of chat
   useEffect(() => {
-    if (latestAnswerRef.current) {
-      latestAnswerRef.current.scrollIntoView({ behavior: "auto", block: "end" });
+    if (latestAnswerRef.current && (isLoading || error || rawAnswer)) {
+        latestAnswerRef.current.scrollIntoView({ behavior: "auto", block: "end" });
+    } else if (isLoading || error || rawAnswer) { 
+        // Fallback scroll for the main container if latestAnswerRef isn't ready/available
+        chatContainerRef.current?.scrollTo({ top: chatContainerRef.current.scrollHeight, behavior: 'auto' });
     }
-  }, [animatedTextBefore, animatedCode, animatedTextAfter]);
-
-  useEffect(() => {
-    return () => {
-      if (animationTimeoutRef.current) {
-        clearTimeout(animationTimeoutRef.current);
-      }
-      setIsAnimatingTextBefore(false);
-      setIsAnimatingCode(false);
-      setIsAnimatingTextAfter(false);
-    };
-  }, []);
+  }, [animatedTextBefore, animatedCode, animatedTextAfter, isLoading, error, rawAnswer]);
 
 
   const fetchAnswer = async (currentQuestion: string, unrestricted: boolean) => {
@@ -245,7 +256,7 @@ export default function SchoolInfoChatbot() {
     if (currentQ.toLowerCase() === UNRESTRICTED_MODE_PROMPT) {
       setIsUnrestrictedMode(true);
       setQuestion('');
-      setRawAnswer(null); // Clear previous answer
+      setRawAnswer(null); 
       setError(null);
       return;
     }
@@ -256,7 +267,7 @@ export default function SchoolInfoChatbot() {
     setIsUnrestrictedMode(false);
     setRawAnswer(null);
     setError(null);
-    setQuestion(''); // Optionally clear the question
+    setQuestion(''); 
   };
 
   const handleSuggestedQuestionClick = (suggestedQ: string) => {
@@ -280,12 +291,16 @@ export default function SchoolInfoChatbot() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAutoSubmitting, question, isLoading, isUnrestrictedMode]);
 
-  const isAnyAnimationActive = isAnimatingTextBefore || isAnimatingCode || isAnimatingTextAfter;
 
   const handleBreakResponse = () => {
     if (animationTimeoutRef.current) {
       clearTimeout(animationTimeoutRef.current);
     }
+    // Set animated content to its current state to stop further animation
+    if (isAnimatingTextBefore && textBefore) setAnimatedTextBefore(textBefore.substring(0, animatedTextBefore.length));
+    if (isAnimatingCode && codeContent) setAnimatedCode(codeContent.substring(0, animatedCode.length));
+    if (isAnimatingTextAfter && textAfter) setAnimatedTextAfter(textAfter.substring(0, animatedTextAfter.length));
+    
     setIsAnimatingTextBefore(false);
     setIsAnimatingCode(false);
     setIsAnimatingTextAfter(false);
@@ -373,36 +388,38 @@ export default function SchoolInfoChatbot() {
           </div>
         )}
         
-        {isLoading && (
-          <div className="mt-6 flex items-center justify-center text-muted-foreground">
-            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-            Thinking...
-          </div>
-        )}
-
-        {error && !isLoading && (
-          <Alert variant="destructive" className="mt-6">
-            <AlertTitle>Error</AlertTitle>
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
-        
-        {(rawAnswer !== null && !isLoading && !error) && (
+        {(isLoading || error || rawAnswer !== null) && (
           <div className="mt-6" ref={latestAnswerRef}>
-            <h4 className="font-semibold mb-2 text-lg text-foreground">Answer:</h4>
-            <div className="p-4 bg-secondary/10 rounded-md text-foreground/90 leading-relaxed prose max-w-none dark:prose-invert prose-p:my-2 prose-pre:bg-card prose-pre:shadow-md prose-code:font-code">
-              {animatedTextBefore && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextBefore}</div>}
-              
-              { (codeContent || animatedCode.length > 0) && (
-                 <pre className="overflow-x-auto">
-                  <code className={codeLanguage ? `language-${codeLanguage}` : 'language-plaintext'}>
-                    {animatedCode}
-                  </code>
-                </pre>
-              )}
-              
-              {animatedTextAfter && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextAfter}</div>}
-            </div>
+            {isLoading && (
+              <div className="flex items-center justify-center text-muted-foreground">
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                Thinking...
+              </div>
+            )}
+            {error && !isLoading && (
+              <Alert variant="destructive">
+                <AlertTitle>Error</AlertTitle>
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            )}
+            {(rawAnswer !== null && !isLoading && !error) && (
+              <>
+                <h4 className="font-semibold mb-2 text-lg text-foreground">Answer:</h4>
+                <div className="p-4 bg-secondary/10 rounded-md text-foreground/90 leading-relaxed prose max-w-none dark:prose-invert prose-p:my-2 prose-pre:bg-card prose-pre:shadow-md prose-code:font-code">
+                  {animatedTextBefore && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextBefore}</div>}
+                  
+                  { (codeContent || animatedCode.length > 0) && (
+                    <pre className="overflow-x-auto">
+                      <code className={codeLanguage ? `language-${codeLanguage}` : 'language-plaintext'}>
+                        {animatedCode}
+                      </code>
+                    </pre>
+                  )}
+                  
+                  {animatedTextAfter && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextAfter}</div>}
+                </div>
+              </>
+            )}
           </div>
         )}
       </CardContent>
