@@ -9,7 +9,7 @@
  */
 
 import {ai} from '@/ai/genkit';
-import {z} from 'genkit';
+import {z}from 'genkit';
 
 const GenerateQuizQuestionInputSchema = z.object({
   topic: z.string().describe('The subject or topic for the quiz question (e.g., Biology, Space Exploration, Quantitative Aptitude).'),
@@ -46,6 +46,9 @@ You MUST provide:
 - For questions that require an answer in a specific mathematical or structured format (e.g., ratios like "X:Y:Z", algebraic expressions, coordinates, percentages, units of measurement), ensure that ALL FOUR options provided are in that SAME format.
 - For example, if the question asks for a new ratio of investments like "A, B, and C invested in a business in the ratio 5:6:8...", the options should be ratios like "60:69:88", "50:60:70", etc., NOT single numbers unless the question specifically asks for a single numerical component of a ratio.
 - The options should be plausible distractors and the correct answer must be one of them.
+
+**Accuracy and Reasoning:**
+For all questions, especially those involving logical deduction, multi-step calculations, or reasoning puzzles (like family relations, directions, seating arrangements), ensure your designated 'correctAnswer' is unambiguously and verifiably correct based on the 'questionText'. Double-check your internal reasoning process before finalizing the output. If there is any ambiguity in the question or the deduction of the answer, please try to rephrase the question or generate a different one to ensure clarity and correctness. Your goal is to be a reliable source of well-posed questions with accurate answers.
 
 Topic: {{{topic}}}
 Difficulty: {{{difficulty}}}
