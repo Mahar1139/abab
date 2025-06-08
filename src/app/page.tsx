@@ -16,13 +16,24 @@ const initialPlanesConfig = [
 ];
 
 const CHAKRA_DIAMETER_VH = 15;
-const ELEMENT_TRANSITION_DURATION = 700; // General duration for plane fade/scale
-const TEXT_FADE_SCALE_DURATION = 700;
+const TEXT_FADE_SCALE_DURATION = 700; // General duration for text
+const CHAKRA_TRANSITION_DURATION = 700; // Duration for chakra fade
+
+// Animation timings for planes
+const ANIM_DURATION_PLANE_ENTER_OVERSHOOT = 600; // ms
+const ANIM_DURATION_PLANE_ENTER_SETTLE = 400;   // ms
+const ANIM_DURATION_PLANE_EXIT = 700;          // ms
 
 export default function HomePage() {
-  const [planes, setPlanes] = useState(
-    initialPlanesConfig.map(p => ({ ...p, currentTransform: p.initialTransform, currentOpacity: p.initialOpacity }))
-  );
+  const initialPlanesState = initialPlanesConfig.map(p => ({
+    ...p,
+    currentTransform: p.initialTransform,
+    currentOpacity: p.initialOpacity,
+    currentTransitionDurationMs: ANIM_DURATION_PLANE_ENTER_OVERSHOOT, // Default for initial part of entry
+    currentTransitionTimingFunction: 'ease-out', // Default for initial part of entry
+  }));
+
+  const [planes, setPlanes] = useState(initialPlanesState);
   const [animationContainerVisible, setAnimationContainerVisible] = useState(true);
   const [chakraOpacity, setChakraOpacity] = useState(0);
   const [textOpacity, setTextOpacity] = useState(0);
@@ -32,13 +43,17 @@ export default function HomePage() {
     const timeouts: NodeJS.Timeout[] = [];
 
     // Timings
-    const saffronEnterTime = 100;
-    const whiteEnterTime = saffronEnterTime + ELEMENT_TRANSITION_DURATION / 2;
-    const greenEnterTime = whiteEnterTime + ELEMENT_TRANSITION_DURATION / 2;
+    const saffronEnterOvershootTime = 100;
+    const saffronEnterSettleTime = saffronEnterOvershootTime + ANIM_DURATION_PLANE_ENTER_OVERSHOOT;
 
-    const chakraFadeInStartTime = whiteEnterTime;
+    const whiteEnterOvershootTime = saffronEnterSettleTime + ANIM_DURATION_PLANE_ENTER_SETTLE;
+    const whiteEnterSettleTime = whiteEnterOvershootTime + ANIM_DURATION_PLANE_ENTER_OVERSHOOT;
+
+    const greenEnterOvershootTime = whiteEnterSettleTime + ANIM_DURATION_PLANE_ENTER_SETTLE;
+    const greenEnterSettleTime = greenEnterOvershootTime + ANIM_DURATION_PLANE_ENTER_OVERSHOOT;
     
-    const flagFullyFormedTime = greenEnterTime + ELEMENT_TRANSITION_DURATION;
+    const chakraFadeInStartTime = whiteEnterOvershootTime; // Chakra fades in as white plane starts entering
+    const flagFullyFormedTime = greenEnterSettleTime + ANIM_DURATION_PLANE_ENTER_SETTLE;
     
     const textFadeInStartTime = flagFullyFormedTime + 300;
     const textVisiblePauseDuration = 2500;
@@ -46,43 +61,92 @@ export default function HomePage() {
 
     const flagExitDelayAfterText = 500;
     const exitStartTime = textFadeOutStartTime + TEXT_FADE_SCALE_DURATION + flagExitDelayAfterText;
-    
-    // Stage 1: Planes Enter (Fade & Scale)
-    timeouts.push(setTimeout(() => {
-      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'saffron' ? { ...p, currentTransform: p.finalTransform, currentOpacity: p.finalOpacity } : p));
-    }, saffronEnterTime));
-    
-    timeouts.push(setTimeout(() => {
-      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'white' ? { ...p, currentTransform: p.finalTransform, currentOpacity: p.finalOpacity } : p));
-      setChakraOpacity(1); // Chakra fades in with white
-    }, whiteEnterTime));
-    
-    timeouts.push(setTimeout(() => {
-      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'green' ? { ...p, currentTransform: p.finalTransform, currentOpacity: p.finalOpacity } : p));
-    }, greenEnterTime));
+    const overallAnimationEndTime = exitStartTime + ANIM_DURATION_PLANE_EXIT + 300;
 
-    // Stage 2: Text Appears
-    timeouts.push(setTimeout(() => {
+    // --- Saffron Plane Animation ---
+    timeouts.push(setTimeout(() => { // Overshoot
+      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'saffron' ? {
+        ...p,
+        currentOpacity: p.finalOpacity,
+        currentTransform: 'scaleY(1.05)',
+        currentTransitionDurationMs: ANIM_DURATION_PLANE_ENTER_OVERSHOOT,
+        currentTransitionTimingFunction: 'ease-out',
+      } : p));
+    }, saffronEnterOvershootTime));
+    timeouts.push(setTimeout(() => { // Settle
+      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'saffron' ? {
+        ...p,
+        currentTransform: p.finalTransform,
+        currentTransitionDurationMs: ANIM_DURATION_PLANE_ENTER_SETTLE,
+        currentTransitionTimingFunction: 'cubic-bezier(0.68, -0.55, 0.27, 1.55)', // Bouncy settle
+      } : p));
+    }, saffronEnterSettleTime));
+
+    // --- White Plane Animation & Chakra Fade-In ---
+    timeouts.push(setTimeout(() => { // Overshoot
+      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'white' ? {
+        ...p,
+        currentOpacity: p.finalOpacity,
+        currentTransform: 'scaleY(1.05)',
+        currentTransitionDurationMs: ANIM_DURATION_PLANE_ENTER_OVERSHOOT,
+        currentTransitionTimingFunction: 'ease-out',
+      } : p));
+      setChakraOpacity(1); // Chakra fades in with white plane
+    }, whiteEnterOvershootTime));
+    timeouts.push(setTimeout(() => { // Settle
+      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'white' ? {
+        ...p,
+        currentTransform: p.finalTransform,
+        currentTransitionDurationMs: ANIM_DURATION_PLANE_ENTER_SETTLE,
+        currentTransitionTimingFunction: 'cubic-bezier(0.68, -0.55, 0.27, 1.55)',
+      } : p));
+    }, whiteEnterSettleTime));
+
+    // --- Green Plane Animation ---
+    timeouts.push(setTimeout(() => { // Overshoot
+      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'green' ? {
+        ...p,
+        currentOpacity: p.finalOpacity,
+        currentTransform: 'scaleY(1.05)',
+        currentTransitionDurationMs: ANIM_DURATION_PLANE_ENTER_OVERSHOOT,
+        currentTransitionTimingFunction: 'ease-out',
+      } : p));
+    }, greenEnterOvershootTime));
+    timeouts.push(setTimeout(() => { // Settle
+      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'green' ? {
+        ...p,
+        currentTransform: p.finalTransform,
+        currentTransitionDurationMs: ANIM_DURATION_PLANE_ENTER_SETTLE,
+        currentTransitionTimingFunction: 'cubic-bezier(0.68, -0.55, 0.27, 1.55)',
+      } : p));
+    }, greenEnterSettleTime));
+
+    // --- Text Animation ---
+    timeouts.push(setTimeout(() => { // Fade In Text
       setTextOpacity(1);
       setTextScale(1);
     }, textFadeInStartTime));
-
-    // Stage 3: Text Fades Out
-    timeouts.push(setTimeout(() => {
+    timeouts.push(setTimeout(() => { // Fade Out Text
       setTextOpacity(0);
       setTextScale(0.9);
     }, textFadeOutStartTime));
     
-    // Stage 4: Planes & Chakra Exit (Fade Out)
+    // --- Exit Animation for Flag & Chakra ---
     timeouts.push(setTimeout(() => {
-      setPlanes(prevPlanes => prevPlanes.map(p => ({ ...p, currentOpacity: 0 })));
-      setChakraOpacity(0);
+      setPlanes(prevPlanes => prevPlanes.map(p => ({
+        ...p,
+        currentOpacity: 0,
+        currentTransform: 'scaleY(0)', // Shrink vertically
+        currentTransitionDurationMs: ANIM_DURATION_PLANE_EXIT,
+        currentTransitionTimingFunction: 'ease-in',
+      })));
+      setChakraOpacity(0); // Chakra fades out
     }, exitStartTime));
 
-    // Stage 5: Hide the animation container
+    // --- Hide Animation Container ---
     timeouts.push(setTimeout(() => {
       setAnimationContainerVisible(false);
-    }, exitStartTime + ELEMENT_TRANSITION_DURATION + 300)); // Overall end
+    }, overallAnimationEndTime));
 
     return () => {
       timeouts.forEach(clearTimeout);
@@ -97,11 +161,12 @@ export default function HomePage() {
           {planes.map(plane => (
             <div
               key={plane.id}
-              className={`absolute left-0 w-full h-1/3 ${plane.color} ${plane.topClass} origin-center transition-all ease-in-out`}
+              className={`absolute left-0 w-full h-1/3 ${plane.color} ${plane.topClass} origin-center transition-all`}
               style={{ 
                 transform: plane.currentTransform,
                 opacity: plane.currentOpacity,
-                transitionDuration: `${ELEMENT_TRANSITION_DURATION}ms` 
+                transitionDuration: `${plane.currentTransitionDurationMs}ms`,
+                transitionTimingFunction: plane.currentTransitionTimingFunction,
               }}
             />
           ))}
@@ -112,7 +177,7 @@ export default function HomePage() {
               width: `${CHAKRA_DIAMETER_VH}vh`,
               height: `${CHAKRA_DIAMETER_VH}vh`,
               opacity: chakraOpacity,
-              transitionDuration: `${ELEMENT_TRANSITION_DURATION}ms`,
+              transitionDuration: `${CHAKRA_TRANSITION_DURATION}ms`,
               zIndex: 101, 
             }}
           />
