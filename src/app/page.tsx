@@ -9,55 +9,96 @@ import SectionWrapper from '@/components/shared/SectionWrapper';
 import { GraduationCap, Activity, Users, FileText, Users2, Camera, ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-const PLANE_WIDTH = "250px";
-const PLANE_HEIGHT = "60px";
-const ANIMATION_DURATION = 1800; // ms for each plane to cross
-const STAGGER_DELAY = 500; // ms between each plane launch
+const ANIMATION_DURATION = 800; // ms for each plane to slide
+const STAGGER_DELAY = 300; // ms between each plane
+const TEXT_FADE_DURATION = 500; // ms
+const DISPLAY_DURATION = 2000; // ms for text and full flag display
 
-interface FlyingColorBand {
+interface AnimatedElement {
   id: string;
-  bgColor: string; // Tailwind CSS class
-  x: string; // translateX value
-  y: string; // top position
   opacity: number;
+  transform: string;
+  width: string;
+  height: string;
+  top: string;
+  bgColor: string;
   transitionDuration: string;
-  rotation?: string; // Optional rotation for a bit more dynamic feel
+  zIndex: number;
+}
+
+interface TextElement {
+  opacity: number;
+  transform: string;
+  transitionDuration: string;
 }
 
 export default function HomePage() {
   const [animationContainerVisible, setAnimationContainerVisible] = useState(true);
-  const [flyingBands, setFlyingBands] = useState<FlyingColorBand[]>([]);
+  const [saffronPlane, setSaffronPlane] = useState<AnimatedElement>({
+    id: 'saffron-plane', opacity: 1, transform: 'translateX(-100%)', width: '100vw', height: '33.34vh', top: '0%', bgColor: 'bg-orange-500', transitionDuration: `${ANIMATION_DURATION}ms`, zIndex: 30,
+  });
+  const [whitePlane, setWhitePlane] = useState<AnimatedElement>({
+    id: 'white-plane', opacity: 1, transform: 'translateX(-100%)', width: '100vw', height: '33.34vh', top: '33.33vh', bgColor: 'bg-white', transitionDuration: `${ANIMATION_DURATION}ms`, zIndex: 20,
+  });
+  const [greenPlane, setGreenPlane] = useState<AnimatedElement>({
+    id: 'green-plane', opacity: 1, transform: 'translateX(-100%)', width: '100vw', height: '33.34vh', top: '66.66vh', bgColor: 'bg-green-600', transitionDuration: `${ANIMATION_DURATION}ms`, zIndex: 10,
+  });
+  const [chakra, setChakra] = useState<TextElement>({
+    opacity: 0, transform: 'scale(0.5)', transitionDuration: `${TEXT_FADE_DURATION}ms`,
+  });
+  const [independenceText, setIndependenceText] = useState<TextElement>({
+    opacity: 0, transform: 'scale(0.8) translateY(20px)', transitionDuration: `${TEXT_FADE_DURATION}ms`,
+  });
 
   useEffect(() => {
-    const initialBands: FlyingColorBand[] = [
-      { id: 'saffron-band', bgColor: 'bg-orange-500', x: `-${PLANE_WIDTH}`, y: '25%', opacity: 0, transitionDuration: `${ANIMATION_DURATION}ms`, rotation: '-5deg' },
-      { id: 'white-band', bgColor: 'bg-white', x: `-${PLANE_WIDTH}`, y: '50%', opacity: 0, transitionDuration: `${ANIMATION_DURATION}ms`, rotation: '-5deg' },
-      { id: 'green-band', bgColor: 'bg-green-600', x: `-${PLANE_WIDTH}`, y: '75%', opacity: 0, transitionDuration: `${ANIMATION_DURATION}ms`, rotation: '-5deg' },
-    ];
-    setFlyingBands(initialBands);
-
     const timeouts: NodeJS.Timeout[] = [];
 
-    initialBands.forEach((band, index) => {
-      const launchDelay = index * STAGGER_DELAY;
+    // Phase 1: Planes slide in
+    timeouts.push(setTimeout(() => {
+      setSaffronPlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
+    }, STAGGER_DELAY));
 
-      // Launch plane
-      timeouts.push(setTimeout(() => {
-        setFlyingBands(prev => prev.map(b => b.id === band.id ? { ...b, x: '110vw', opacity: 1 } : b));
-        
-        // After the band has crossed, make it disappear fully
-        timeouts.push(setTimeout(() => {
-            setFlyingBands(prev => prev.map(b => b.id === band.id ? { ...b, opacity: 0 } : b));
-        }, ANIMATION_DURATION + 200)); // Ensure it's off screen before fading completely if needed
+    timeouts.push(setTimeout(() => {
+      setWhitePlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
+      setChakra(prev => ({ ...prev, opacity: 1, transform: 'scale(1)' }));
+    }, STAGGER_DELAY * 2));
 
-      }, launchDelay));
-    });
+    timeouts.push(setTimeout(() => {
+      setGreenPlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
+    }, STAGGER_DELAY * 3));
 
-    // Hide the animation container after all animations are done
-    const totalAnimationTime = (initialBands.length - 1) * STAGGER_DELAY + ANIMATION_DURATION + 500; // Extra buffer
+    // Phase 2: Display text
+    const textAppearDelay = STAGGER_DELAY * 3 + ANIMATION_DURATION;
+    timeouts.push(setTimeout(() => {
+      setIndependenceText(prev => ({ ...prev, opacity: 1, transform: 'scale(1) translateY(0)' }));
+    }, textAppearDelay));
+
+    // Phase 3: Text fades out
+    const textFadeOutDelay = textAppearDelay + DISPLAY_DURATION;
+    timeouts.push(setTimeout(() => {
+      setIndependenceText(prev => ({ ...prev, opacity: 0, transform: 'scale(0.8) translateY(20px)' }));
+    }, textFadeOutDelay));
+
+    // Phase 4: Planes slide out
+    const planesOutStartDelay = textFadeOutDelay + TEXT_FADE_DURATION + STAGGER_DELAY;
+    timeouts.push(setTimeout(() => {
+      setSaffronPlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
+    }, planesOutStartDelay));
+
+    timeouts.push(setTimeout(() => {
+      setWhitePlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
+      setChakra(prev => ({ ...prev, opacity: 0, transform: 'scale(0.5)' }));
+    }, planesOutStartDelay + STAGGER_DELAY));
+
+    timeouts.push(setTimeout(() => {
+      setGreenPlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
+    }, planesOutStartDelay + STAGGER_DELAY * 2));
+
+    // Phase 5: Hide animation container
+    const hideContainerDelay = planesOutStartDelay + STAGGER_DELAY * 2 + ANIMATION_DURATION;
     timeouts.push(setTimeout(() => {
       setAnimationContainerVisible(false);
-    }, totalAnimationTime));
+    }, hideContainerDelay));
 
     return () => {
       timeouts.forEach(clearTimeout);
@@ -68,26 +109,53 @@ export default function HomePage() {
   return (
     <>
       {animationContainerVisible && (
-        <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden bg-sky-300/20 dark:bg-sky-900/20">
-          {flyingBands.map(band => (
+        <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden bg-transparent">
+          {[saffronPlane, whitePlane, greenPlane].map(plane => (
             <div
-              key={band.id}
-              className={`absolute ${band.bgColor} rounded-lg shadow-xl`} // Added rounded-lg and shadow-xl
+              key={plane.id}
+              className={`absolute ${plane.bgColor}`}
               style={{
-                left: 0, 
-                top: band.y,
-                width: PLANE_WIDTH,
-                height: PLANE_HEIGHT,
-                opacity: band.opacity,
-                transform: `translateX(${band.x}) translateY(-50%) rotate(${band.rotation || '0deg'})`,
-                transition: `transform ${band.transitionDuration} cubic-bezier(0.25, 1, 0.5, 1), opacity ${band.transitionDuration} ease-out`,
+                opacity: plane.opacity,
+                transform: plane.transform,
+                width: plane.width,
+                height: plane.height,
+                top: plane.top,
+                left: 0,
+                zIndex: plane.zIndex,
+                transition: `transform ${plane.transitionDuration} cubic-bezier(0.25, 1, 0.5, 1), opacity ${plane.transitionDuration} ease-out`,
                 willChange: 'transform, opacity',
               }}
             />
           ))}
+          {/* Ashoka Chakra */}
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-900 rounded-full"
+            style={{
+              width: 'min(15vh, 15vw)',
+              height: 'min(15vh, 15vw)',
+              opacity: chakra.opacity,
+              transform: chakra.transform,
+              transition: `opacity ${chakra.transitionDuration} ease-in-out, transform ${chakra.transitionDuration} ease-in-out`,
+              zIndex: 25, // Above white, below saffron if overlap
+            }}
+          />
+          {/* Independence Day Text */}
+          <div
+            className="absolute bottom-[15%] left-1/2 -translate-x-1/2 text-center"
+            style={{
+              opacity: independenceText.opacity,
+              transform: independenceText.transform,
+              transition: `opacity ${independenceText.transitionDuration} ease-in-out, transform ${independenceText.transitionDuration} ease-in-out`,
+              zIndex: 40, // Highest
+            }}
+          >
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>
+              Happy Independence Day
+            </h1>
+          </div>
         </div>
       )}
-      <div className="flex flex-col min-h-screen bg-gradient-to-br from-red-600 via-orange-500 to-slate-900">
+      <div className="flex flex-col min-h-screen">
         {/* Hero Section */}
         <section className="relative w-full h-[70vh] md:h-[80vh] flex items-center justify-center text-center text-white overflow-hidden">
           <Image
@@ -236,3 +304,4 @@ export default function HomePage() {
     </>
   );
 }
+
