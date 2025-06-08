@@ -6,85 +6,55 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import SectionWrapper from '@/components/shared/SectionWrapper';
-import { GraduationCap, Activity, Users, FileText, Users2, Camera, ArrowRight, Send } from 'lucide-react';
+import { GraduationCap, Activity, Users, FileText, Users2, Camera, ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
-const PLANE_ANIMATION_DURATION = 1800; // ms for plane to cross screen
-const TRAIL_DRAW_DURATION = 1600; // ms for trail to draw
-const TRAIL_FADE_DURATION = 300; // ms for trail to fade
-const PLANE_STAGGER = 600; // ms between each plane launch
+const PLANE_WIDTH = "250px";
+const PLANE_HEIGHT = "60px";
+const ANIMATION_DURATION = 1800; // ms for each plane to cross
+const STAGGER_DELAY = 500; // ms between each plane launch
 
-interface AnimatedPlane {
+interface FlyingColorBand {
   id: string;
-  x: string;
-  y: string;
+  bgColor: string; // Tailwind CSS class
+  x: string; // translateX value
+  y: string; // top position
   opacity: number;
-  rotation: string;
   transitionDuration: string;
-  iconColor: string;
-}
-
-interface AnimatedTrail {
-  id: string;
-  width: string;
-  opacity: number;
-  bgColor: string;
-  top: string;
-  height: string;
-  transitionDuration: string;
+  rotation?: string; // Optional rotation for a bit more dynamic feel
 }
 
 export default function HomePage() {
   const [animationContainerVisible, setAnimationContainerVisible] = useState(true);
-  const [planes, setPlanes] = useState<AnimatedPlane[]>([]);
-  const [trails, setTrails] = useState<AnimatedTrail[]>([]);
+  const [flyingBands, setFlyingBands] = useState<FlyingColorBand[]>([]);
 
   useEffect(() => {
-    const initialPlanes: AnimatedPlane[] = [
-      { id: 'plane1', x: '-100%', y: '20%', opacity: 0, rotation: '-15deg', transitionDuration: `${PLANE_ANIMATION_DURATION}ms`, iconColor: 'text-gray-700 dark:text-gray-300' },
-      { id: 'plane2', x: '-100%', y: '45%', opacity: 0, rotation: '-15deg', transitionDuration: `${PLANE_ANIMATION_DURATION}ms`, iconColor: 'text-gray-700 dark:text-gray-300' },
-      { id: 'plane3', x: '-100%', y: '70%', opacity: 0, rotation: '-15deg', transitionDuration: `${PLANE_ANIMATION_DURATION}ms`, iconColor: 'text-gray-700 dark:text-gray-300' },
+    const initialBands: FlyingColorBand[] = [
+      { id: 'saffron-band', bgColor: 'bg-orange-500', x: `-${PLANE_WIDTH}`, y: '25%', opacity: 0, transitionDuration: `${ANIMATION_DURATION}ms`, rotation: '-5deg' },
+      { id: 'white-band', bgColor: 'bg-white', x: `-${PLANE_WIDTH}`, y: '50%', opacity: 0, transitionDuration: `${ANIMATION_DURATION}ms`, rotation: '-5deg' },
+      { id: 'green-band', bgColor: 'bg-green-600', x: `-${PLANE_WIDTH}`, y: '75%', opacity: 0, transitionDuration: `${ANIMATION_DURATION}ms`, rotation: '-5deg' },
     ];
-
-    // If plane.y represents its center, and trail height is 8px,
-    // trail top should be plane.y - 4px for vertical centering.
-    const initialTrails: AnimatedTrail[] = [
-      { id: 'trail1', width: '0%', opacity: 0, bgColor: 'bg-orange-500', top: 'calc(20% - 4px)', height: '8px', transitionDuration: `${TRAIL_DRAW_DURATION}ms` },
-      { id: 'trail2', width: '0%', opacity: 0, bgColor: 'bg-white', top: 'calc(45% - 4px)', height: '8px', transitionDuration: `${TRAIL_DRAW_DURATION}ms` },
-      { id: 'trail3', width: '0%', opacity: 0, bgColor: 'bg-green-600', top: 'calc(70% - 4px)', height: '8px', transitionDuration: `${TRAIL_DRAW_DURATION}ms` },
-    ];
-    
-    setPlanes(initialPlanes);
-    setTrails(initialTrails);
+    setFlyingBands(initialBands);
 
     const timeouts: NodeJS.Timeout[] = [];
 
-    initialPlanes.forEach((plane, index) => {
-      const launchDelay = index * PLANE_STAGGER;
+    initialBands.forEach((band, index) => {
+      const launchDelay = index * STAGGER_DELAY;
 
       // Launch plane
       timeouts.push(setTimeout(() => {
-        setPlanes(prev => prev.map(p => p.id === plane.id ? { ...p, x: '110vw', opacity: 1 } : p));
+        setFlyingBands(prev => prev.map(b => b.id === band.id ? { ...b, x: '110vw', opacity: 1 } : b));
         
-        // Start drawing trail shortly after plane launches
+        // After the band has crossed, make it disappear fully
         timeouts.push(setTimeout(() => {
-          setTrails(prev => prev.map(t => t.id === initialTrails[index].id ? { ...t, width: '100%', opacity: 0.8 } : t));
-        }, 50)); // Trail starts drawing slightly after plane is visible
-
-        // Fade out trail after it's drawn and plane is mostly across
-        timeouts.push(setTimeout(() => {
-          setTrails(prev => prev.map(t => t.id === initialTrails[index].id ? { ...t, opacity: 0, transitionDuration: `${TRAIL_FADE_DURATION}ms` } : t));
-        }, TRAIL_DRAW_DURATION));
-        
-        // Hide plane after it has crossed
-        timeouts.push(setTimeout(() => {
-            setPlanes(prev => prev.map(p => p.id === plane.id ? { ...p, opacity: 0 } : p));
-        }, PLANE_ANIMATION_DURATION));
+            setFlyingBands(prev => prev.map(b => b.id === band.id ? { ...b, opacity: 0 } : b));
+        }, ANIMATION_DURATION + 200)); // Ensure it's off screen before fading completely if needed
 
       }, launchDelay));
     });
 
-    const totalAnimationTime = (initialPlanes.length -1) * PLANE_STAGGER + PLANE_ANIMATION_DURATION + TRAIL_FADE_DURATION + 500; // Extra buffer
+    // Hide the animation container after all animations are done
+    const totalAnimationTime = (initialBands.length - 1) * STAGGER_DELAY + ANIMATION_DURATION + 500; // Extra buffer
     timeouts.push(setTimeout(() => {
       setAnimationContainerVisible(false);
     }, totalAnimationTime));
@@ -98,36 +68,22 @@ export default function HomePage() {
   return (
     <>
       {animationContainerVisible && (
-        <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden bg-sky-300/30 dark:bg-sky-900/30">
-          {trails.map(trail => (
+        <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden bg-sky-300/20 dark:bg-sky-900/20">
+          {flyingBands.map(band => (
             <div
-              key={trail.id}
-              className={`absolute left-0 ${trail.bgColor}`}
+              key={band.id}
+              className={`absolute ${band.bgColor} rounded-lg shadow-xl`} // Added rounded-lg and shadow-xl
               style={{
-                top: trail.top,
-                height: trail.height,
-                width: trail.width,
-                opacity: trail.opacity,
-                transition: `width ${trail.transitionDuration} ease-out, opacity ${trail.transitionDuration} ease-out`,
-                willChange: 'width, opacity',
-              }}
-            />
-          ))}
-          {planes.map(plane => (
-            <div
-              key={plane.id}
-              className={`absolute ${plane.iconColor}`}
-              style={{
-                left: 0, // Initial horizontal position for transform
-                top: plane.y,
-                opacity: plane.opacity,
-                transform: `translateX(${plane.x}) translateY(-50%) rotate(${plane.rotation}) scale(1.5)`, // scale for visibility
-                transition: `transform ${plane.transitionDuration} ease-in-out, opacity ${plane.transitionDuration} ease-in-out`,
+                left: 0, 
+                top: band.y,
+                width: PLANE_WIDTH,
+                height: PLANE_HEIGHT,
+                opacity: band.opacity,
+                transform: `translateX(${band.x}) translateY(-50%) rotate(${band.rotation || '0deg'})`,
+                transition: `transform ${band.transitionDuration} cubic-bezier(0.25, 1, 0.5, 1), opacity ${band.transitionDuration} ease-out`,
                 willChange: 'transform, opacity',
               }}
-            >
-              <Send size={32} /> {/* Adjusted size */}
-            </div>
+            />
           ))}
         </div>
       )}
@@ -280,5 +236,3 @@ export default function HomePage() {
     </>
   );
 }
-
-    
