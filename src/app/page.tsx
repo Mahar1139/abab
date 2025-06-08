@@ -15,38 +15,48 @@ const initialPlanesConfig = [
   { id: 'green', color: 'bg-green-600', transformClass: '-translate-x-full', topClass: 'h-1/3 top-2/3' },
 ];
 
-const CHAKRA_DIAMETER_VH = 15; // Chakra diameter as a percentage of viewport height
-const CHAKRA_FADE_DURATION = 500; // ms
-const PLANE_TRANSITION_DURATION = 700; // ms
+const CHAKRA_DIAMETER_VH = 15; 
+const CHAKRA_FADE_DURATION = 500; 
+const PLANE_TRANSITION_DURATION = 700; 
+const TEXT_FADE_SCALE_DURATION = 700;
+
 
 export default function HomePage() {
   const [planes, setPlanes] = useState(initialPlanesConfig);
   const [animationContainerVisible, setAnimationContainerVisible] = useState(true);
   const [chakraOpacity, setChakraOpacity] = useState(0);
+  const [textOpacity, setTextOpacity] = useState(0);
+  const [textScale, setTextScale] = useState(0.9);
+
 
   useEffect(() => {
     const timeouts: NodeJS.Timeout[] = [];
 
     // Timings
     const saffronEnterTime = 100;
-    const whiteEnterTime = saffronEnterTime + 200; // Stagger entry
-    const greenEnterTime = whiteEnterTime + 200; // Stagger entry
+    const whiteEnterTime = saffronEnterTime + 200;
+    const greenEnterTime = whiteEnterTime + 200;
 
-    const chakraFadeInStartTime = whiteEnterTime + PLANE_TRANSITION_DURATION / 2 - CHAKRA_FADE_DURATION / 2;
+    const chakraFadeInStartTime = whiteEnterTime + PLANE_TRANSITION_DURATION / 3;
+    
+    const flagFullyFormedTime = greenEnterTime + PLANE_TRANSITION_DURATION;
+    
+    const textFadeInStartTime = flagFullyFormedTime + 300;
+    const textVisiblePauseDuration = 2500;
+    const textFadeOutStartTime = textFadeInStartTime + TEXT_FADE_SCALE_DURATION + textVisiblePauseDuration;
 
-    const allPlanesInTime = greenEnterTime + PLANE_TRANSITION_DURATION;
-    const pauseDuration = 1000;
-    const exitStartTime = allPlanesInTime + pauseDuration;
-
+    const flagExitDelayAfterText = 500;
+    const exitStartTime = textFadeOutStartTime + TEXT_FADE_SCALE_DURATION + flagExitDelayAfterText;
+    
     const saffronExitTime = exitStartTime;
-    const whiteExitTime = saffronExitTime + 200; // Stagger exit
-    const greenExitTime = whiteExitTime + 200; // Stagger exit
+    const whiteExitTime = saffronExitTime + 200; 
+    const greenExitTime = whiteExitTime + 200; 
     
     const chakraFadeOutStartTime = whiteExitTime;
 
-    const animationEndTime = greenExitTime + PLANE_TRANSITION_DURATION;
+    const animationEndTime = greenExitTime + PLANE_TRANSITION_DURATION + 300; // Overall end
 
-    // Stage 1: Enter animation
+    // Stage 1: Planes Enter
     timeouts.push(setTimeout(() => {
       setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'saffron' ? { ...p, transformClass: 'translate-x-0' } : p));
     }, saffronEnterTime));
@@ -63,7 +73,19 @@ export default function HomePage() {
       setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'green' ? { ...p, transformClass: 'translate-x-0' } : p));
     }, greenEnterTime));
 
-    // Stage 3: Exit animation
+    // Stage 2: Text Appears
+    timeouts.push(setTimeout(() => {
+      setTextOpacity(1);
+      setTextScale(1);
+    }, textFadeInStartTime));
+
+    // Stage 3: Text Fades Out
+    timeouts.push(setTimeout(() => {
+      setTextOpacity(0);
+      setTextScale(0.9);
+    }, textFadeOutStartTime));
+    
+    // Stage 4: Planes Exit
     timeouts.push(setTimeout(() => {
       setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'saffron' ? { ...p, transformClass: 'translate-x-full' } : p));
     }, saffronExitTime));
@@ -80,7 +102,7 @@ export default function HomePage() {
       setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'green' ? { ...p, transformClass: 'translate-x-full' } : p));
     }, greenExitTime));
 
-    // Stage 4: Hide the animation container
+    // Stage 5: Hide the animation container
     timeouts.push(setTimeout(() => {
       setAnimationContainerVisible(false);
     }, animationEndTime));
@@ -110,9 +132,23 @@ export default function HomePage() {
               height: `${CHAKRA_DIAMETER_VH}vh`,
               opacity: chakraOpacity,
               transitionDuration: `${CHAKRA_FADE_DURATION}ms`,
-              zIndex: 101, // Ensure Chakra is above the white plane
+              zIndex: 101, 
             }}
           />
+          {/* Happy Independence Day Text */}
+          <div
+            className="absolute left-1/2 top-[70%] -translate-x-1/2 -translate-y-1/2 text-center transition-all ease-in-out"
+            style={{
+              opacity: textOpacity,
+              transform: `translate(-50%, -50%) scale(${textScale})`,
+              transitionDuration: `${TEXT_FADE_SCALE_DURATION}ms`,
+              zIndex: 102, 
+            }}
+          >
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>
+              Happy Independence Day
+            </h2>
+          </div>
         </div>
       )}
       <div className="flex flex-col min-h-screen bg-gradient-to-br from-red-600 via-orange-500 to-slate-900">
@@ -122,8 +158,7 @@ export default function HomePage() {
             src="https://placehold.co/1920x1080.png"
             alt="Himalaya Public School Campus"
             fill
-            objectFit="cover"
-            className="z-0"
+            className="z-0 object-cover"
             data-ai-hint="school campus students"
             priority
           />
