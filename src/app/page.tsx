@@ -46,10 +46,12 @@ export default function HomePage() {
       { id: 'plane3', x: '-100%', y: '70%', opacity: 0, rotation: '-15deg', transitionDuration: `${PLANE_ANIMATION_DURATION}ms`, iconColor: 'text-gray-700 dark:text-gray-300' },
     ];
 
+    // If plane.y represents its center, and trail height is 8px,
+    // trail top should be plane.y - 4px for vertical centering.
     const initialTrails: AnimatedTrail[] = [
-      { id: 'trail1', width: '0%', opacity: 0, bgColor: 'bg-orange-500', top: 'calc(20% + 12px)', height: '8px', transitionDuration: `${TRAIL_DRAW_DURATION}ms` },
-      { id: 'trail2', width: '0%', opacity: 0, bgColor: 'bg-white', top: 'calc(45% + 12px)', height: '8px', transitionDuration: `${TRAIL_DRAW_DURATION}ms` },
-      { id: 'trail3', width: '0%', opacity: 0, bgColor: 'bg-green-600', top: 'calc(70% + 12px)', height: '8px', transitionDuration: `${TRAIL_DRAW_DURATION}ms` },
+      { id: 'trail1', width: '0%', opacity: 0, bgColor: 'bg-orange-500', top: 'calc(20% - 4px)', height: '8px', transitionDuration: `${TRAIL_DRAW_DURATION}ms` },
+      { id: 'trail2', width: '0%', opacity: 0, bgColor: 'bg-white', top: 'calc(45% - 4px)', height: '8px', transitionDuration: `${TRAIL_DRAW_DURATION}ms` },
+      { id: 'trail3', width: '0%', opacity: 0, bgColor: 'bg-green-600', top: 'calc(70% - 4px)', height: '8px', transitionDuration: `${TRAIL_DRAW_DURATION}ms` },
     ];
     
     setPlanes(initialPlanes);
@@ -137,7 +139,7 @@ export default function HomePage() {
             alt="Himalaya Public School Campus"
             fill
             className="z-0 object-cover"
-            data-ai-hint="school campus"
+            data-ai-hint="school campus building"
             priority
           />
           <div className="absolute inset-0 bg-black/60 z-10" />
