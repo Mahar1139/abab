@@ -127,18 +127,45 @@ export default function HomePage() {
               }}
             />
           ))}
-          {/* Ashoka Chakra */}
+          {/* Ashoka Chakra SVG */}
           <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-900 rounded-full"
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
             style={{
               width: 'min(15vh, 15vw)',
               height: 'min(15vh, 15vw)',
               opacity: chakra.opacity,
               transform: chakra.transform,
               transition: `opacity ${chakra.transitionDuration} ease-in-out, transform ${chakra.transitionDuration} ease-in-out`,
-              zIndex: 25, // Above white, below saffron if overlap
+              zIndex: 25,
             }}
-          />
+          >
+            <svg
+              width="100%"
+              height="100%"
+              viewBox="0 0 100 100"
+              xmlns="http://www.w3.org/2000/svg"
+              className="text-blue-900 fill-current" // text-blue-900 provides the color
+            >
+              {/* Outer circle of the Chakra */}
+              <circle cx="50" cy="50" r="48" fill="transparent" stroke="currentColor" strokeWidth="3" />
+              {/* 24 spokes */}
+              {Array.from({ length: 24 }).map((_, i) => (
+                <line
+                  key={`spoke-${i}`}
+                  x1="50"
+                  y1="50"
+                  x2="50"
+                  y2="8" // Length of the spoke, adjust as needed
+                  stroke="currentColor"
+                  strokeWidth="3" // Thickness of the spoke
+                  transform={`rotate(${(i * 360) / 24}, 50, 50)`}
+                />
+              ))}
+              {/* Optional: Central hub of the Chakra */}
+              {/* <circle cx="50" cy="50" r="5" fill="currentColor" /> */}
+            </svg>
+          </div>
+          
           {/* Independence Day Text */}
           <div
             className="absolute bottom-[15%] left-1/2 -translate-x-1/2 text-center"
