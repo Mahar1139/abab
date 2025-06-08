@@ -10,36 +10,35 @@ import { GraduationCap, Activity, Users, FileText, Users2, Camera, ArrowRight } 
 import { useState, useEffect } from 'react';
 
 const initialPlanesConfig = [
-  { id: 'saffron', color: 'bg-orange-500', transformClass: '-translate-x-full', topClass: 'top-0' },
-  { id: 'white', color: 'bg-white', transformClass: '-translate-x-full', topClass: 'h-1/3 top-1/3' },
-  { id: 'green', color: 'bg-green-600', transformClass: '-translate-x-full', topClass: 'h-1/3 top-2/3' },
+  { id: 'saffron', color: 'bg-orange-500', initialTransform: 'scaleY(0)', finalTransform: 'scaleY(1)', topClass: 'top-0', initialOpacity: 0, finalOpacity: 1 },
+  { id: 'white', color: 'bg-white', initialTransform: 'scaleY(0)', finalTransform: 'scaleY(1)', topClass: 'h-1/3 top-1/3', initialOpacity: 0, finalOpacity: 1 },
+  { id: 'green', color: 'bg-green-600', initialTransform: 'scaleY(0)', finalTransform: 'scaleY(1)', topClass: 'h-1/3 top-2/3', initialOpacity: 0, finalOpacity: 1 },
 ];
 
-const CHAKRA_DIAMETER_VH = 15; 
-const CHAKRA_FADE_DURATION = 500; 
-const PLANE_TRANSITION_DURATION = 700; 
+const CHAKRA_DIAMETER_VH = 15;
+const ELEMENT_TRANSITION_DURATION = 700; // General duration for plane fade/scale
 const TEXT_FADE_SCALE_DURATION = 700;
 
-
 export default function HomePage() {
-  const [planes, setPlanes] = useState(initialPlanesConfig);
+  const [planes, setPlanes] = useState(
+    initialPlanesConfig.map(p => ({ ...p, currentTransform: p.initialTransform, currentOpacity: p.initialOpacity }))
+  );
   const [animationContainerVisible, setAnimationContainerVisible] = useState(true);
   const [chakraOpacity, setChakraOpacity] = useState(0);
   const [textOpacity, setTextOpacity] = useState(0);
   const [textScale, setTextScale] = useState(0.9);
-
 
   useEffect(() => {
     const timeouts: NodeJS.Timeout[] = [];
 
     // Timings
     const saffronEnterTime = 100;
-    const whiteEnterTime = saffronEnterTime + 200;
-    const greenEnterTime = whiteEnterTime + 200;
+    const whiteEnterTime = saffronEnterTime + ELEMENT_TRANSITION_DURATION / 2;
+    const greenEnterTime = whiteEnterTime + ELEMENT_TRANSITION_DURATION / 2;
 
-    const chakraFadeInStartTime = whiteEnterTime + PLANE_TRANSITION_DURATION / 3;
+    const chakraFadeInStartTime = whiteEnterTime;
     
-    const flagFullyFormedTime = greenEnterTime + PLANE_TRANSITION_DURATION;
+    const flagFullyFormedTime = greenEnterTime + ELEMENT_TRANSITION_DURATION;
     
     const textFadeInStartTime = flagFullyFormedTime + 300;
     const textVisiblePauseDuration = 2500;
@@ -48,29 +47,18 @@ export default function HomePage() {
     const flagExitDelayAfterText = 500;
     const exitStartTime = textFadeOutStartTime + TEXT_FADE_SCALE_DURATION + flagExitDelayAfterText;
     
-    const saffronExitTime = exitStartTime;
-    const whiteExitTime = saffronExitTime + 200; 
-    const greenExitTime = whiteExitTime + 200; 
-    
-    const chakraFadeOutStartTime = whiteExitTime;
-
-    const animationEndTime = greenExitTime + PLANE_TRANSITION_DURATION + 300; // Overall end
-
-    // Stage 1: Planes Enter
+    // Stage 1: Planes Enter (Fade & Scale)
     timeouts.push(setTimeout(() => {
-      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'saffron' ? { ...p, transformClass: 'translate-x-0' } : p));
+      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'saffron' ? { ...p, currentTransform: p.finalTransform, currentOpacity: p.finalOpacity } : p));
     }, saffronEnterTime));
     
     timeouts.push(setTimeout(() => {
-      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'white' ? { ...p, transformClass: 'translate-x-0' } : p));
+      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'white' ? { ...p, currentTransform: p.finalTransform, currentOpacity: p.finalOpacity } : p));
+      setChakraOpacity(1); // Chakra fades in with white
     }, whiteEnterTime));
-
-    timeouts.push(setTimeout(() => {
-      setChakraOpacity(1);
-    }, chakraFadeInStartTime));
     
     timeouts.push(setTimeout(() => {
-      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'green' ? { ...p, transformClass: 'translate-x-0' } : p));
+      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'green' ? { ...p, currentTransform: p.finalTransform, currentOpacity: p.finalOpacity } : p));
     }, greenEnterTime));
 
     // Stage 2: Text Appears
@@ -85,27 +73,16 @@ export default function HomePage() {
       setTextScale(0.9);
     }, textFadeOutStartTime));
     
-    // Stage 4: Planes Exit
+    // Stage 4: Planes & Chakra Exit (Fade Out)
     timeouts.push(setTimeout(() => {
-      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'saffron' ? { ...p, transformClass: 'translate-x-full' } : p));
-    }, saffronExitTime));
-    
-    timeouts.push(setTimeout(() => {
+      setPlanes(prevPlanes => prevPlanes.map(p => ({ ...p, currentOpacity: 0 })));
       setChakraOpacity(0);
-    }, chakraFadeOutStartTime));
-
-    timeouts.push(setTimeout(() => {
-      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'white' ? { ...p, transformClass: 'translate-x-full' } : p));
-    }, whiteExitTime));
-    
-    timeouts.push(setTimeout(() => {
-      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'green' ? { ...p, transformClass: 'translate-x-full' } : p));
-    }, greenExitTime));
+    }, exitStartTime));
 
     // Stage 5: Hide the animation container
     timeouts.push(setTimeout(() => {
       setAnimationContainerVisible(false);
-    }, animationEndTime));
+    }, exitStartTime + ELEMENT_TRANSITION_DURATION + 300)); // Overall end
 
     return () => {
       timeouts.forEach(clearTimeout);
@@ -120,8 +97,12 @@ export default function HomePage() {
           {planes.map(plane => (
             <div
               key={plane.id}
-              className={`absolute left-0 w-full h-1/3 ${plane.color} ${plane.topClass} transition-transform duration-700 ease-in-out ${plane.transformClass}`}
-              style={{ transitionDuration: `${PLANE_TRANSITION_DURATION}ms` }}
+              className={`absolute left-0 w-full h-1/3 ${plane.color} ${plane.topClass} origin-center transition-all ease-in-out`}
+              style={{ 
+                transform: plane.currentTransform,
+                opacity: plane.currentOpacity,
+                transitionDuration: `${ELEMENT_TRANSITION_DURATION}ms` 
+              }}
             />
           ))}
           {/* Ashoka Chakra */}
@@ -131,7 +112,7 @@ export default function HomePage() {
               width: `${CHAKRA_DIAMETER_VH}vh`,
               height: `${CHAKRA_DIAMETER_VH}vh`,
               opacity: chakraOpacity,
-              transitionDuration: `${CHAKRA_FADE_DURATION}ms`,
+              transitionDuration: `${ELEMENT_TRANSITION_DURATION}ms`,
               zIndex: 101, 
             }}
           />
@@ -145,7 +126,7 @@ export default function HomePage() {
               zIndex: 102, 
             }}
           >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white" style={{ textShadow: '0 0 5px rgba(0,0,50,0.7), 0 0 10px rgba(0,0,50,0.5), 0 0 15px rgba(0,0,50,0.3)' }}>
               Happy Independence Day
             </h2>
           </div>
@@ -300,3 +281,5 @@ export default function HomePage() {
     </>
   );
 }
+
+    
