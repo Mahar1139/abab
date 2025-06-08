@@ -1,7 +1,21 @@
 
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { FileText } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { FileText, Download } from "lucide-react";
+
+interface CbseDocument {
+  id: string;
+  title: string;
+  fileUrl: string;
+}
+
+const cbseAffiliationDocuments: CbseDocument[] = Array.from({ length: 12 }, (_, i) => ({
+  id: `cbse-doc-${i + 1}`,
+  title: `CBSE Affiliation Document ${i + 1}`,
+  fileUrl: `/downloads/cbse-affiliation-doc-${i + 1}.pdf`, // Placeholder URL
+}));
 
 export default function MandatoryDisclosurePage() {
   return (
@@ -58,23 +72,36 @@ export default function MandatoryDisclosurePage() {
               Information about the school's grievance redressal officer and committee, along with the process for submitting grievances, will be detailed here.
               (Placeholder: Contact details and procedure)
             </p>
+
+            <h3 className="text-xl font-semibold text-secondary mt-8 mb-4">CBSE Affiliation Documents</h3>
+            <p>
+              Download important documents related to our CBSE affiliation.
+            </p>
+            <div className="not-prose grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+              {cbseAffiliationDocuments.map((doc) => (
+                <Card key={doc.id} className="flex flex-col">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="text-lg text-primary">{doc.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <p className="text-sm text-muted-foreground">
+                      View or download this CBSE affiliation document.
+                    </p>
+                  </CardContent>
+                  <CardContent>
+                    <Button asChild className="w-full">
+                      <Link href={doc.fileUrl} target="_blank" rel="noopener noreferrer">
+                        <Download className="mr-2 h-4 w-4" /> Download PDF
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
             
             <p className="mt-8">
-              Further detailed documents related to our mandatory disclosures can be found in the downloadable PDF section below or by contacting the school administration.
+              Further detailed documents related to our mandatory disclosures can be found in the downloadable PDF section or by contacting the school administration.
             </p>
-            {/* Example: Link to a consolidated disclosure document */}
-            {/* 
-            <div className="mt-6">
-              <a 
-                href="/downloads/mandatory-disclosure-consolidated.pdf" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-              >
-                <Download className="mr-2 h-4 w-4" /> Download Consolidated Disclosure PDF
-              </a>
-            </div> 
-            */}
           </CardContent>
         </Card>
       </SectionWrapper>
