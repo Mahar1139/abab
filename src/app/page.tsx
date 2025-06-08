@@ -10,54 +10,80 @@ import { GraduationCap, Activity, Users, FileText, Users2, Camera, ArrowRight } 
 import { useState, useEffect } from 'react';
 
 const initialPlanesConfig = [
-  { id: 'orange', color: 'bg-orange-500', transformClass: '-translate-x-full', topClass: 'top-0' },
+  { id: 'saffron', color: 'bg-orange-500', transformClass: '-translate-x-full', topClass: 'top-0' },
   { id: 'white', color: 'bg-white', transformClass: '-translate-x-full', topClass: 'h-1/3 top-1/3' },
-  { id: 'green', color: 'bg-green-500', transformClass: '-translate-x-full', topClass: 'h-1/3 top-2/3' },
+  { id: 'green', color: 'bg-green-600', transformClass: '-translate-x-full', topClass: 'h-1/3 top-2/3' },
 ];
+
+const CHAKRA_DIAMETER_VH = 15; // Chakra diameter as a percentage of viewport height
+const CHAKRA_FADE_DURATION = 500; // ms
+const PLANE_TRANSITION_DURATION = 700; // ms
 
 export default function HomePage() {
   const [planes, setPlanes] = useState(initialPlanesConfig);
   const [animationContainerVisible, setAnimationContainerVisible] = useState(true);
+  const [chakraOpacity, setChakraOpacity] = useState(0);
 
   useEffect(() => {
     const timeouts: NodeJS.Timeout[] = [];
 
+    // Timings
+    const saffronEnterTime = 100;
+    const whiteEnterTime = saffronEnterTime + 200; // Stagger entry
+    const greenEnterTime = whiteEnterTime + 200; // Stagger entry
+
+    const chakraFadeInStartTime = whiteEnterTime + PLANE_TRANSITION_DURATION / 2 - CHAKRA_FADE_DURATION / 2;
+
+    const allPlanesInTime = greenEnterTime + PLANE_TRANSITION_DURATION;
+    const pauseDuration = 1000;
+    const exitStartTime = allPlanesInTime + pauseDuration;
+
+    const saffronExitTime = exitStartTime;
+    const whiteExitTime = saffronExitTime + 200; // Stagger exit
+    const greenExitTime = whiteExitTime + 200; // Stagger exit
+    
+    const chakraFadeOutStartTime = whiteExitTime;
+
+    const animationEndTime = greenExitTime + PLANE_TRANSITION_DURATION;
+
     // Stage 1: Enter animation
-    // Orange plane enters
     timeouts.push(setTimeout(() => {
-      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'orange' ? { ...p, transformClass: 'translate-x-0' } : p));
-    }, 100));
-    // White plane enters
+      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'saffron' ? { ...p, transformClass: 'translate-x-0' } : p));
+    }, saffronEnterTime));
+    
     timeouts.push(setTimeout(() => {
       setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'white' ? { ...p, transformClass: 'translate-x-0' } : p));
-    }, 300));
-    // Green plane enters
+    }, whiteEnterTime));
+
+    timeouts.push(setTimeout(() => {
+      setChakraOpacity(1);
+    }, chakraFadeInStartTime));
+    
     timeouts.push(setTimeout(() => {
       setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'green' ? { ...p, transformClass: 'translate-x-0' } : p));
-    }, 500));
-
-    // Stage 2: Pause (all planes are in)
-    const exitStartTime = 1500; // Start exit after 500ms for entry + 1000ms pause
+    }, greenEnterTime));
 
     // Stage 3: Exit animation
-    // Orange plane exits
     timeouts.push(setTimeout(() => {
-      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'orange' ? { ...p, transformClass: 'translate-x-full' } : p));
-    }, exitStartTime));
-    // White plane exits
+      setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'saffron' ? { ...p, transformClass: 'translate-x-full' } : p));
+    }, saffronExitTime));
+    
+    timeouts.push(setTimeout(() => {
+      setChakraOpacity(0);
+    }, chakraFadeOutStartTime));
+
     timeouts.push(setTimeout(() => {
       setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'white' ? { ...p, transformClass: 'translate-x-full' } : p));
-    }, exitStartTime + 200));
-    // Green plane exits
+    }, whiteExitTime));
+    
     timeouts.push(setTimeout(() => {
       setPlanes(prevPlanes => prevPlanes.map(p => p.id === 'green' ? { ...p, transformClass: 'translate-x-full' } : p));
-    }, exitStartTime + 400));
+    }, greenExitTime));
 
-    // Stage 4: Hide the animation container after all animations are complete
-    // (exitStartTime + 400ms for last green plane to start exit + 700ms transition duration)
+    // Stage 4: Hide the animation container
     timeouts.push(setTimeout(() => {
       setAnimationContainerVisible(false);
-    }, exitStartTime + 400 + 700));
+    }, animationEndTime));
 
     return () => {
       timeouts.forEach(clearTimeout);
@@ -68,13 +94,25 @@ export default function HomePage() {
   return (
     <>
       {animationContainerVisible && (
-        <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden"> {/* High z-index container */}
+        <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden">
           {planes.map(plane => (
             <div
               key={plane.id}
               className={`absolute left-0 w-full h-1/3 ${plane.color} ${plane.topClass} transition-transform duration-700 ease-in-out ${plane.transformClass}`}
+              style={{ transitionDuration: `${PLANE_TRANSITION_DURATION}ms` }}
             />
           ))}
+          {/* Ashoka Chakra */}
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-blue-900 rounded-full transition-opacity ease-in-out"
+            style={{
+              width: `${CHAKRA_DIAMETER_VH}vh`,
+              height: `${CHAKRA_DIAMETER_VH}vh`,
+              opacity: chakraOpacity,
+              transitionDuration: `${CHAKRA_FADE_DURATION}ms`,
+              zIndex: 101, // Ensure Chakra is above the white plane
+            }}
+          />
         </div>
       )}
       <div className="flex flex-col min-h-screen bg-gradient-to-br from-red-600 via-orange-500 to-slate-900">
@@ -83,10 +121,10 @@ export default function HomePage() {
           <Image
             src="https://placehold.co/1920x1080.png"
             alt="Himalaya Public School Campus"
-            fill // Changed from layout="fill"
+            fill
             objectFit="cover"
             className="z-0"
-            data-ai-hint="modern school campus students"
+            data-ai-hint="school campus students"
             priority
           />
           <div className="absolute inset-0 bg-black/60 z-10" />
