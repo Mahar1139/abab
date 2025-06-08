@@ -4,7 +4,7 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
-import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Cpu, School, Brain } from 'lucide-react';
+import { Home, BookOpen, Users, Image as ImageIcon, FolderOpen, Mail, Cpu, School, Brain, FileText } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'School Overview', icon: Home },
@@ -14,6 +14,7 @@ const navItems = [
   { href: '/resources', label: 'Resources', icon: FolderOpen },
   { href: '/tech-programs', label: 'Tech Programs', icon: Cpu },
   { href: '/quiz', label: 'AI Quiz Challenge', icon: Brain },
+  { href: '/mandatory-disclosure', label: 'Mandatory Disclosure', icon: FileText },
   { href: '/contact', label: 'Contact & Support', icon: Mail },
   { href: '/ai-assistant', label: 'AI Assistant', icon: Cpu },
 ];
