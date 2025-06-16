@@ -34,7 +34,7 @@ interface TextElement {
 }
 
 export default function HomePage() {
-  const [animationContainerVisible, setAnimationContainerVisible] = useState(true);
+  const [animationContainerVisible, setAnimationContainerVisible] = useState(false); // Default to false
   const [saffronPlane, setSaffronPlane] = useState<AnimatedElement>({
     id: 'saffron-plane', opacity: 1, transform: 'translateX(-100%)', width: '100vw', height: '33.34vh', top: '0%', bgColor: 'bg-orange-500', transitionDuration: `${ANIMATION_DURATION}ms`, zIndex: 30,
   });
@@ -52,64 +52,74 @@ export default function HomePage() {
   });
 
   useEffect(() => {
-    const animationTimeouts: NodeJS.Timeout[] = [];
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth(); // August is 7 (0-indexed)
+    const currentDay = currentDate.getDate();
 
-    // Main timeout to delay the start of the entire animation sequence
-    const startAnimationTimeout = setTimeout(() => {
-      // Phase 1: Planes slide in
-      animationTimeouts.push(setTimeout(() => {
-        setSaffronPlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
-      }, STAGGER_DELAY));
+    // Check if it's August 15th
+    if (currentMonth === 7 && currentDay === 15) {
+      setAnimationContainerVisible(true); // Show the container only on Aug 15th
 
-      animationTimeouts.push(setTimeout(() => {
-        setWhitePlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
-        setChakra(prev => ({ ...prev, opacity: 1, transform: 'scale(1)' }));
-      }, STAGGER_DELAY * 2));
+      const animationTimeouts: NodeJS.Timeout[] = [];
 
-      animationTimeouts.push(setTimeout(() => {
-        setGreenPlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
-      }, STAGGER_DELAY * 3));
+      // Main timeout to delay the start of the entire animation sequence
+      const startAnimationTimeout = setTimeout(() => {
+        // Phase 1: Planes slide in
+        animationTimeouts.push(setTimeout(() => {
+          setSaffronPlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
+        }, STAGGER_DELAY));
 
-      // Phase 2: Display text
-      const textAppearDelay = STAGGER_DELAY * 3 + ANIMATION_DURATION;
-      animationTimeouts.push(setTimeout(() => {
-        setIndependenceText(prev => ({ ...prev, opacity: 1, transform: 'scale(1) translateY(0)' }));
-      }, textAppearDelay));
+        animationTimeouts.push(setTimeout(() => {
+          setWhitePlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
+          setChakra(prev => ({ ...prev, opacity: 1, transform: 'scale(1)' }));
+        }, STAGGER_DELAY * 2));
 
-      // Phase 3: Text fades out
-      const textFadeOutDelay = textAppearDelay + DISPLAY_DURATION;
-      animationTimeouts.push(setTimeout(() => {
-        setIndependenceText(prev => ({ ...prev, opacity: 0, transform: 'scale(0.8) translateY(20px)' }));
-      }, textFadeOutDelay));
+        animationTimeouts.push(setTimeout(() => {
+          setGreenPlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
+        }, STAGGER_DELAY * 3));
 
-      // Phase 4: Planes slide out
-      const planesOutStartDelay = textFadeOutDelay + TEXT_FADE_DURATION + STAGGER_DELAY;
-      animationTimeouts.push(setTimeout(() => {
-        setSaffronPlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
-      }, planesOutStartDelay));
+        // Phase 2: Display text
+        const textAppearDelay = STAGGER_DELAY * 3 + ANIMATION_DURATION;
+        animationTimeouts.push(setTimeout(() => {
+          setIndependenceText(prev => ({ ...prev, opacity: 1, transform: 'scale(1) translateY(0)' }));
+        }, textAppearDelay));
 
-      animationTimeouts.push(setTimeout(() => {
-        setWhitePlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
-        setChakra(prev => ({ ...prev, opacity: 0, transform: 'scale(0.5)' }));
-      }, planesOutStartDelay + STAGGER_DELAY));
+        // Phase 3: Text fades out
+        const textFadeOutDelay = textAppearDelay + DISPLAY_DURATION;
+        animationTimeouts.push(setTimeout(() => {
+          setIndependenceText(prev => ({ ...prev, opacity: 0, transform: 'scale(0.8) translateY(20px)' }));
+        }, textFadeOutDelay));
 
-      animationTimeouts.push(setTimeout(() => {
-        setGreenPlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
-      }, planesOutStartDelay + STAGGER_DELAY * 2));
+        // Phase 4: Planes slide out
+        const planesOutStartDelay = textFadeOutDelay + TEXT_FADE_DURATION + STAGGER_DELAY;
+        animationTimeouts.push(setTimeout(() => {
+          setSaffronPlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
+        }, planesOutStartDelay));
 
-      // Phase 5: Hide animation container
-      const hideContainerDelay = planesOutStartDelay + STAGGER_DELAY * 2 + ANIMATION_DURATION;
-      animationTimeouts.push(setTimeout(() => {
-        setAnimationContainerVisible(false);
-      }, hideContainerDelay));
+        animationTimeouts.push(setTimeout(() => {
+          setWhitePlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
+          setChakra(prev => ({ ...prev, opacity: 0, transform: 'scale(0.5)' }));
+        }, planesOutStartDelay + STAGGER_DELAY));
 
-    }, INITIAL_ANIMATION_DELAY);
+        animationTimeouts.push(setTimeout(() => {
+          setGreenPlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
+        }, planesOutStartDelay + STAGGER_DELAY * 2));
 
-    animationTimeouts.push(startAnimationTimeout); // Add the main start timeout to the list for cleanup
+        // Phase 5: Hide animation container
+        const hideContainerDelay = planesOutStartDelay + STAGGER_DELAY * 2 + ANIMATION_DURATION;
+        animationTimeouts.push(setTimeout(() => {
+          setAnimationContainerVisible(false);
+        }, hideContainerDelay));
 
-    return () => {
-      animationTimeouts.forEach(clearTimeout);
-    };
+      }, INITIAL_ANIMATION_DELAY);
+
+      animationTimeouts.push(startAnimationTimeout);
+
+      return () => {
+        animationTimeouts.forEach(clearTimeout);
+      };
+    }
+    // If not August 15th, animationContainerVisible remains false, so nothing shows.
   }, []);
 
 
