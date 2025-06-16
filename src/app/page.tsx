@@ -13,6 +13,7 @@ const ANIMATION_DURATION = 800; // ms for each plane to slide
 const STAGGER_DELAY = 300; // ms between each plane
 const TEXT_FADE_DURATION = 500; // ms
 const DISPLAY_DURATION = 2000; // ms for text and full flag display
+const INITIAL_ANIMATION_DELAY = 10000; // 10 seconds
 
 interface AnimatedElement {
   id: string;
@@ -51,57 +52,63 @@ export default function HomePage() {
   });
 
   useEffect(() => {
-    const timeouts: NodeJS.Timeout[] = [];
+    const animationTimeouts: NodeJS.Timeout[] = [];
 
-    // Phase 1: Planes slide in
-    timeouts.push(setTimeout(() => {
-      setSaffronPlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
-    }, STAGGER_DELAY));
+    // Main timeout to delay the start of the entire animation sequence
+    const startAnimationTimeout = setTimeout(() => {
+      // Phase 1: Planes slide in
+      animationTimeouts.push(setTimeout(() => {
+        setSaffronPlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
+      }, STAGGER_DELAY));
 
-    timeouts.push(setTimeout(() => {
-      setWhitePlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
-      setChakra(prev => ({ ...prev, opacity: 1, transform: 'scale(1)' }));
-    }, STAGGER_DELAY * 2));
+      animationTimeouts.push(setTimeout(() => {
+        setWhitePlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
+        setChakra(prev => ({ ...prev, opacity: 1, transform: 'scale(1)' }));
+      }, STAGGER_DELAY * 2));
 
-    timeouts.push(setTimeout(() => {
-      setGreenPlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
-    }, STAGGER_DELAY * 3));
+      animationTimeouts.push(setTimeout(() => {
+        setGreenPlane(prev => ({ ...prev, transform: 'translateX(0%)' }));
+      }, STAGGER_DELAY * 3));
 
-    // Phase 2: Display text
-    const textAppearDelay = STAGGER_DELAY * 3 + ANIMATION_DURATION;
-    timeouts.push(setTimeout(() => {
-      setIndependenceText(prev => ({ ...prev, opacity: 1, transform: 'scale(1) translateY(0)' }));
-    }, textAppearDelay));
+      // Phase 2: Display text
+      const textAppearDelay = STAGGER_DELAY * 3 + ANIMATION_DURATION;
+      animationTimeouts.push(setTimeout(() => {
+        setIndependenceText(prev => ({ ...prev, opacity: 1, transform: 'scale(1) translateY(0)' }));
+      }, textAppearDelay));
 
-    // Phase 3: Text fades out
-    const textFadeOutDelay = textAppearDelay + DISPLAY_DURATION;
-    timeouts.push(setTimeout(() => {
-      setIndependenceText(prev => ({ ...prev, opacity: 0, transform: 'scale(0.8) translateY(20px)' }));
-    }, textFadeOutDelay));
+      // Phase 3: Text fades out
+      const textFadeOutDelay = textAppearDelay + DISPLAY_DURATION;
+      animationTimeouts.push(setTimeout(() => {
+        setIndependenceText(prev => ({ ...prev, opacity: 0, transform: 'scale(0.8) translateY(20px)' }));
+      }, textFadeOutDelay));
 
-    // Phase 4: Planes slide out
-    const planesOutStartDelay = textFadeOutDelay + TEXT_FADE_DURATION + STAGGER_DELAY;
-    timeouts.push(setTimeout(() => {
-      setSaffronPlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
-    }, planesOutStartDelay));
+      // Phase 4: Planes slide out
+      const planesOutStartDelay = textFadeOutDelay + TEXT_FADE_DURATION + STAGGER_DELAY;
+      animationTimeouts.push(setTimeout(() => {
+        setSaffronPlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
+      }, planesOutStartDelay));
 
-    timeouts.push(setTimeout(() => {
-      setWhitePlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
-      setChakra(prev => ({ ...prev, opacity: 0, transform: 'scale(0.5)' }));
-    }, planesOutStartDelay + STAGGER_DELAY));
+      animationTimeouts.push(setTimeout(() => {
+        setWhitePlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
+        setChakra(prev => ({ ...prev, opacity: 0, transform: 'scale(0.5)' }));
+      }, planesOutStartDelay + STAGGER_DELAY));
 
-    timeouts.push(setTimeout(() => {
-      setGreenPlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
-    }, planesOutStartDelay + STAGGER_DELAY * 2));
+      animationTimeouts.push(setTimeout(() => {
+        setGreenPlane(prev => ({ ...prev, transform: 'translateX(100%)' }));
+      }, planesOutStartDelay + STAGGER_DELAY * 2));
 
-    // Phase 5: Hide animation container
-    const hideContainerDelay = planesOutStartDelay + STAGGER_DELAY * 2 + ANIMATION_DURATION;
-    timeouts.push(setTimeout(() => {
-      setAnimationContainerVisible(false);
-    }, hideContainerDelay));
+      // Phase 5: Hide animation container
+      const hideContainerDelay = planesOutStartDelay + STAGGER_DELAY * 2 + ANIMATION_DURATION;
+      animationTimeouts.push(setTimeout(() => {
+        setAnimationContainerVisible(false);
+      }, hideContainerDelay));
+
+    }, INITIAL_ANIMATION_DELAY);
+
+    animationTimeouts.push(startAnimationTimeout); // Add the main start timeout to the list for cleanup
 
     return () => {
-      timeouts.forEach(clearTimeout);
+      animationTimeouts.forEach(clearTimeout);
     };
   }, []);
 
@@ -144,36 +151,31 @@ export default function HomePage() {
               height="100%"
               viewBox="0 0 100 100"
               xmlns="http://www.w3.org/2000/svg"
-              className="text-blue-900 fill-current" // text-blue-900 provides the color
+              className="text-blue-900 fill-current" 
             >
-              {/* Outer circle of the Chakra */}
               <circle cx="50" cy="50" r="48" fill="transparent" stroke="currentColor" strokeWidth="3" />
-              {/* 24 spokes */}
               {Array.from({ length: 24 }).map((_, i) => (
                 <line
                   key={`spoke-${i}`}
                   x1="50"
                   y1="50"
                   x2="50"
-                  y2="8" // Length of the spoke, adjust as needed
+                  y2="8" 
                   stroke="currentColor"
-                  strokeWidth="3" // Thickness of the spoke
+                  strokeWidth="3" 
                   transform={`rotate(${(i * 360) / 24}, 50, 50)`}
                 />
               ))}
-              {/* Optional: Central hub of the Chakra */}
-              {/* <circle cx="50" cy="50" r="5" fill="currentColor" /> */}
             </svg>
           </div>
           
-          {/* Independence Day Text */}
           <div
             className="absolute bottom-[15%] left-1/2 -translate-x-1/2 text-center"
             style={{
               opacity: independenceText.opacity,
               transform: independenceText.transform,
               transition: `opacity ${independenceText.transitionDuration} ease-in-out, transform ${independenceText.transitionDuration} ease-in-out`,
-              zIndex: 40, // Highest
+              zIndex: 40, 
             }}
           >
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.7)' }}>
@@ -331,4 +333,3 @@ export default function HomePage() {
     </>
   );
 }
-
