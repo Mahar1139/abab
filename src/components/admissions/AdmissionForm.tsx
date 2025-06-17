@@ -18,10 +18,14 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { submitAdmissionForm, type AdmissionFormState } from "@/app/admissions/actions";
-import { CalendarIcon, Loader2, Award, Info, Copy, LogIn } from "lucide-react";
+import { CalendarIcon, Loader2, Award, Info, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { admissionFormSchema } from "@/lib/schemas/admission-schema"; 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+
+// Firebase imports
+import { GoogleAuthProvider, signInWithPopup, type UserCredential } from "firebase/auth";
+import { auth } from "@/lib/firebase/config"; // We'll create this file
 
 export type AdmissionFormData = z.infer<typeof admissionFormSchema>;
 
@@ -60,10 +64,10 @@ export default function AdmissionFormComponent() {
   const [showCouponInstructions, setShowCouponInstructions] = useState(false);
   const [formSubmittedSuccessfully, setFormSubmittedSuccessfully] = useState(false);
 
-  // New state for login simulation
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulates if user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
   const [stagedFormData, setStagedFormData] = useState<FormData | null>(null);
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
   const form = useForm<AdmissionFormData>({
     resolver: zodResolver(admissionFormSchema),
@@ -93,7 +97,7 @@ export default function AdmissionFormComponent() {
     if (state.status === "success" && state.couponCode) {
       setFormSubmittedSuccessfully(true);
       form.reset(); 
-      setIsLoggedIn(false); // Reset login state for next submission
+      setIsLoggedIn(false); 
       setStagedFormData(null);
     } else if (state.status === "success") {
        toast({
@@ -110,7 +114,6 @@ export default function AdmissionFormComponent() {
         variant: "destructive",
       });
     }
-    // If there are validation errors, keep the login prompt hidden and let user fix form
     if (state.status === "error" && state.errors && Object.keys(state.errors).length > 0) {
       setShowLoginPrompt(false);
     }
@@ -132,14 +135,10 @@ export default function AdmissionFormComponent() {
     prepareAndStageFormData(currentFormData);
 
     if (!isLoggedIn) {
-      // Check form validity before showing login prompt
       form.trigger().then(isValid => {
         if (isValid) {
           setShowLoginPrompt(true);
         } else {
-          // If form is invalid, scroll to first error and let user fix it.
-          // This part relies on standard HTML5 validation focusing or custom scroll logic.
-          // For now, we just prevent the login prompt.
           console.log("Form is invalid, please correct errors before proceeding.");
           toast({
             title: "Invalid Form",
@@ -153,19 +152,46 @@ export default function AdmissionFormComponent() {
     }
   };
 
-  const handleSimulatedLoginAndSubmit = () => {
-    setIsLoggedIn(true);
-    setShowLoginPrompt(false);
-    if (stagedFormData) {
-      formAction(stagedFormData);
-    } else {
-      // This case should ideally not happen if logic is correct
-      // but as a fallback, re-trigger validation and show form
+  const handleGoogleSignInAndSubmit = async () => {
+    setIsSigningIn(true);
+    const provider = new GoogleAuthProvider();
+    try {
+      // Ensure Firebase is initialized (auth should be available from firebase/config)
+      if (!auth) {
+        throw new Error("Firebase auth is not initialized. Please check your Firebase configuration.");
+      }
+      const result: UserCredential = await signInWithPopup(auth, provider);
+      // const user = result.user; // You can use user details if needed
+      console.log("Successfully signed in with Google:", result.user.displayName);
+      
+      setIsLoggedIn(true);
+      setShowLoginPrompt(false);
+      if (stagedFormData) {
+        formAction(stagedFormData);
+      } else {
+        toast({
+          title: "Error",
+          description: "No form data found after login. Please try submitting again.",
+          variant: "destructive",
+        });
+      }
+    } catch (error: any) {
+      console.error("Google Sign-In Error:", error);
+      let errorMessage = "Google Sign-In failed. Please try again.";
+      if (error.code === 'auth/popup-closed-by-user') {
+        errorMessage = "Sign-in popup was closed. Please try again.";
+      } else if (error.code === 'auth/cancelled-popup-request') {
+        errorMessage = "Sign-in request was cancelled. Please try again.";
+      } else if (error.message && error.message.includes("authDomain")) {
+        errorMessage = "Firebase Auth Domain is not configured correctly. Please check your Firebase project setup and ensure the domain is whitelisted if necessary. Also, ensure you've replaced placeholder API keys in src/lib/firebase/config.ts";
+      }
       toast({
-        title: "Error",
-        description: "No form data found. Please try submitting again.",
+        title: "Sign-In Failed",
+        description: errorMessage,
         variant: "destructive",
       });
+    } finally {
+      setIsSigningIn(false);
     }
   };
 
@@ -265,7 +291,6 @@ export default function AdmissionFormComponent() {
                 />
               </PopoverContent>
             </Popover>
-            {/* Hidden input for DOB is handled by FormData constructor if studentDOB is set */}
             {(state.errors?.studentDOB && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.studentDOB[0]}</p>}
             {form.formState.errors.studentDOB && <p className="text-sm text-destructive mt-1">{form.formState.errors.studentDOB.message}</p>}
           </div>
@@ -425,16 +450,23 @@ export default function AdmissionFormComponent() {
         {showLoginPrompt ? (
           <Card className="w-full max-w-md p-6 shadow-lg bg-background border-primary">
             <CardHeader>
-              <CardTitle className="text-center text-primary text-xl">Login or Sign Up to Continue</CardTitle>
+              <CardTitle className="text-center text-primary text-xl">Sign in to Continue</CardTitle>
               <CardDescription className="text-center text-muted-foreground">
-                Please "log in" to submit your application.
+                Please sign in with Google to submit your application.
               </CardDescription>
             </CardHeader>
             <CardContent className="flex flex-col items-center space-y-3">
-              <Button onClick={handleSimulatedLoginAndSubmit} className="w-full text-lg py-3">
-                <LogIn className="mr-2 h-5 w-5" /> Simulate Login & Submit
+              <Button 
+                onClick={handleGoogleSignInAndSubmit} 
+                className="w-full text-lg py-3 bg-red-600 hover:bg-red-700 text-white"
+                disabled={isSigningIn}
+              >
+                {isSigningIn ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : (
+                  <svg className="mr-2 h-5 w-5" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.19,4.73C14.03,4.73 15.69,5.36 16.95,6.45L19.05,4.36C17.04,2.6 14.82,1.5 12.19,1.5C6.92,1.5 3,6.08 3,12C3,17.92 6.92,22.5 12.19,22.5C17.6,22.5 21.28,18.34 21.28,12.43C21.28,11.9 21.35,11.1 21.35,11.1Z"/></svg>
+                )}
+                {isSigningIn ? "Signing in..." : "Sign in with Google"}
               </Button>
-              <Button variant="outline" onClick={() => { setShowLoginPrompt(false); setStagedFormData(null); }} className="w-full">
+              <Button variant="outline" onClick={() => { setShowLoginPrompt(false); setStagedFormData(null); }} className="w-full" disabled={isSigningIn}>
                 Cancel
               </Button>
             </CardContent>
@@ -452,5 +484,3 @@ export default function AdmissionFormComponent() {
     </form>
   );
 }
-
-    
