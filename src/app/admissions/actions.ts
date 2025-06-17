@@ -17,14 +17,11 @@ export async function submitAdmissionForm(
   
   const rawFormData = {
     studentFullName: formData.get("studentFullName"),
-    // For date, it comes as string, need to parse or handle appropriately if sending to backend that expects Date object.
-    // For this example, Zod will parse it if it's in a recognizable format.
-    // However, react-hook-form will pass a Date object if using Shadcn Calendar directly with setValue.
-    // For FormData, it's safer to expect string and parse.
+    // studentDOB is now expected as an ISO string from the hidden input
     studentDOB: formData.get("studentDOB") ? new Date(formData.get("studentDOB") as string) : undefined, 
     studentGender: formData.get("studentGender"),
     applyingForGrade: formData.get("applyingForGrade"),
-    previousSchoolName: formData.get("previousSchoolName") || undefined, // Handle optional fields
+    previousSchoolName: formData.get("previousSchoolName") || undefined, 
     previousSchoolCity: formData.get("previousSchoolCity") || undefined,
 
     parentFullName: formData.get("parentFullName"),
@@ -40,13 +37,14 @@ export async function submitAdmissionForm(
     emergencyContactName: formData.get("emergencyContactName") || undefined,
     emergencyContactPhone: formData.get("emergencyContactPhone") || undefined,
     
-    declaration: formData.get("declaration") === "on" || formData.get("declaration") === "true", // Checkbox value
+    // Checkbox value comes as 'on' or null/undefined. Convert to boolean.
+    declaration: formData.get("declaration") === "on" || formData.get("declaration") === "true", 
   };
   
   const validatedFields = admissionFormSchema.safeParse(rawFormData);
 
   if (!validatedFields.success) {
-    console.log("Validation Errors:", validatedFields.error.flatten().fieldErrors);
+    console.log("Server Validation Errors:", validatedFields.error.flatten().fieldErrors);
     return {
       message: "Validation failed. Please check the form for errors.",
       status: "error",
@@ -55,7 +53,7 @@ export async function submitAdmissionForm(
   }
 
   // In a real application, you would save this data to a database.
-  console.log("Admission Form Submitted:", validatedFields.data);
+  console.log("Admission Form Submitted (Server):", validatedFields.data);
 
   // Simulate network delay
   await new Promise(resolve => setTimeout(resolve, 1000));
@@ -66,3 +64,4 @@ export async function submitAdmissionForm(
     errors: {},
   };
 }
+

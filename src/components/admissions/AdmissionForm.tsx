@@ -2,7 +2,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { useActionState, useFormStatus } from "react"; // Updated import
+import { useActionState } from "react"; // For useActionState
+import { useFormStatus } from "react-dom"; // For useFormStatus
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -78,7 +79,7 @@ const grades = [
 ];
 
 export default function AdmissionFormComponent() {
-  const [state, formAction] = useActionState(submitAdmissionForm, initialState); // Updated hook
+  const [state, formAction] = useActionState(submitAdmissionForm, initialState);
   const { toast } = useToast();
 
   const form = useForm<AdmissionFormData>({
@@ -122,8 +123,20 @@ export default function AdmissionFormComponent() {
     // For field-specific errors, they are handled below directly in the JSX
   }, [state, toast, form]);
 
+  // Helper to get form data for action.ts
+  // Ensures date is passed correctly.
+  const handleFormAction = (formData: FormData) => {
+    const dob = form.getValues("studentDOB");
+    if (dob) {
+      formData.set("studentDOB", dob.toISOString());
+    } else {
+      formData.delete("studentDOB"); // Ensure it's not an empty string if undefined
+    }
+    formAction(formData);
+  };
+
   return (
-    <form action={formAction} className="space-y-8" noValidate>
+    <form action={handleFormAction} className="space-y-8" noValidate>
       {/* Student Information Section */}
       <section className="space-y-6 p-6 border rounded-lg shadow-sm">
         <h3 className="text-xl font-semibold text-secondary border-b pb-2">Student Information</h3>
@@ -161,13 +174,15 @@ export default function AdmissionFormComponent() {
                 />
               </PopoverContent>
             </Popover>
+            {/* Hidden input to carry the date value for FormData, managed by react-hook-form's setValue */}
+            <input type="hidden" name="studentDOB" value={form.watch("studentDOB") ? form.watch("studentDOB")!.toISOString() : ""} />
             {state.errors?.studentDOB && <p className="text-sm text-destructive mt-1">{state.errors.studentDOB[0]}</p>}
           </div>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
             <Label htmlFor="studentGender">Gender</Label>
-            <Select name="studentGender" onValueChange={(value) => form.setValue("studentGender", value, { shouldValidate: true })}>
+            <Select name="studentGender" onValueChange={(value) => form.setValue("studentGender", value, { shouldValidate: true })} value={form.watch("studentGender")}>
               <SelectTrigger id="studentGender"><SelectValue placeholder="Select gender" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="Male">Male</SelectItem>
@@ -179,7 +194,7 @@ export default function AdmissionFormComponent() {
           </div>
           <div>
             <Label htmlFor="applyingForGrade">Applying for Grade</Label>
-            <Select name="applyingForGrade" onValueChange={(value) => form.setValue("applyingForGrade", value, { shouldValidate: true })}>
+            <Select name="applyingForGrade" onValueChange={(value) => form.setValue("applyingForGrade", value, { shouldValidate: true })} value={form.watch("applyingForGrade")}>
               <SelectTrigger id="applyingForGrade"><SelectValue placeholder="Select grade" /></SelectTrigger>
               <SelectContent>
                 {grades.map(grade => <SelectItem key={grade} value={grade}>{grade}</SelectItem>)}
@@ -211,7 +226,7 @@ export default function AdmissionFormComponent() {
           </div>
           <div>
             <Label htmlFor="relationshipToStudent">Relationship to Student</Label>
-            <Select name="relationshipToStudent" onValueChange={(value) => form.setValue("relationshipToStudent", value, { shouldValidate: true })}>
+            <Select name="relationshipToStudent" onValueChange={(value) => form.setValue("relationshipToStudent", value, { shouldValidate: true })} value={form.watch("relationshipToStudent")}>
               <SelectTrigger id="relationshipToStudent"><SelectValue placeholder="Select relationship" /></SelectTrigger>
               <SelectContent>
                 <SelectItem value="Father">Father</SelectItem>
@@ -288,6 +303,7 @@ export default function AdmissionFormComponent() {
             name="declaration" 
             checked={form.watch("declaration")}
             onCheckedChange={(checked) => form.setValue("declaration", checked as boolean, {shouldValidate: true})}
+            aria-invalid={state.errors?.declaration ? "true" : "false"}
           />
           <div className="grid gap-1.5 leading-none">
             <Label htmlFor="declaration" className="font-medium cursor-pointer">
@@ -312,3 +328,4 @@ export default function AdmissionFormComponent() {
     </form>
   );
 }
+
