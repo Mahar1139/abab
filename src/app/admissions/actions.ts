@@ -2,7 +2,7 @@
 "use server";
 
 import { z } from "zod";
-import { admissionFormSchema } from "@/lib/schemas/admission-schema"; // Updated import
+import { admissionFormSchema } from "@/lib/schemas/admission-schema"; 
 
 export type AdmissionFormState = {
   message: string;
@@ -17,7 +17,6 @@ export async function submitAdmissionForm(
   
   const rawFormData = {
     studentFullName: formData.get("studentFullName"),
-    // studentDOB is now expected as an ISO string from the hidden input
     studentDOB: formData.get("studentDOB") ? new Date(formData.get("studentDOB") as string) : undefined, 
     studentGender: formData.get("studentGender"),
     applyingForGrade: formData.get("applyingForGrade"),
@@ -37,7 +36,6 @@ export async function submitAdmissionForm(
     emergencyContactName: formData.get("emergencyContactName") || undefined,
     emergencyContactPhone: formData.get("emergencyContactPhone") || undefined,
     
-    // Checkbox value comes as 'on' or null/undefined. Convert to boolean.
     declaration: formData.get("declaration") === "on" || formData.get("declaration") === "true", 
   };
   
@@ -55,6 +53,19 @@ export async function submitAdmissionForm(
   // In a real application, you would save this data to a database.
   console.log("Admission Form Submitted (Server):", validatedFields.data);
 
+  // Simulate sending a notification to the principal's mobile
+  console.log(
+    `SIMULATING NOTIFICATION TO PRINCIPAL'S MOBILE:
+    New Admission Application Received!
+    Student Name: ${validatedFields.data.studentFullName}
+    Applying for Grade: ${validatedFields.data.applyingForGrade}
+    Parent Name: ${validatedFields.data.parentFullName}
+    Parent Email: ${validatedFields.data.parentEmail}
+    Parent Phone: ${validatedFields.data.parentPhone}
+    Date of Birth: ${validatedFields.data.studentDOB.toLocaleDateString()}
+    --- End of Simulated Notification ---`
+  );
+  
   // Simulate network delay
   await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -64,3 +75,4 @@ export async function submitAdmissionForm(
     errors: {},
   };
 }
+
