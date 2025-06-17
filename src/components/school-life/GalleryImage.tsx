@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import type { SchoolEvent } from '@/types';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,15 +9,14 @@ interface GalleryImageProps {
 
 export default function GalleryImage({ item }: GalleryImageProps) {
   return (
-    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group">
       <CardContent className="p-0">
         <div className="aspect-video relative">
           <Image 
             src={item.imageUrl} 
             alt={item.title} 
-            layout="fill" 
-            objectFit="cover"
-            className="transition-transform duration-300 group-hover:scale-105"
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
             data-ai-hint={item.dataAiHint || "school event"}
           />
         </div>

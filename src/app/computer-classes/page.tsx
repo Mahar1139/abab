@@ -26,16 +26,15 @@ export default function ComputerClassesPage() {
           Our computer classes equip students with vital digital literacy, from fundamental operations to advanced software applications, ensuring they are proficient and confident in today's tech-driven world.
         </p>
         
-        <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card">
+        <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card group">
           <div className="md:flex">
             <div className="md:w-1/2 relative min-h-[300px] md:min-h-[400px]">
               <Image
                 src="https://placehold.co/600x400.png"
                 alt="Students using computers in a classroom setting"
-                layout="fill"
-                objectFit="cover"
+                fill
                 data-ai-hint="students computers classroom"
-                className="transition-transform duration-300 group-hover:scale-105"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </div>
             <div className="md:w-1/2 flex flex-col">

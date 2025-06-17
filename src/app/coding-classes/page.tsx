@@ -26,16 +26,15 @@ export default function CodingClassesPage() {
           Dive into the world of programming and software development. Our coding classes are designed to foster problem-solving skills, creativity, and a deep understanding of technology, preparing students for a future driven by innovation.
         </p>
         
-        <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card">
+        <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card group">
           <div className="md:flex">
             <div className="md:w-1/2 relative min-h-[300px] md:min-h-[400px]">
               <Image
                 src="https://placehold.co/600x400.png"
                 alt="Students learning coding concepts on laptops"
-                layout="fill"
-                objectFit="cover"
+                fill
                 data-ai-hint="students coding laptop"
-                className="transition-transform duration-300 group-hover:scale-105"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </div>
             <div className="md:w-1/2 flex flex-col">

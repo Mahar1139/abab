@@ -26,16 +26,15 @@ export default function RoboticsClassesPage() {
           Step into the exciting field of robotics! Our classes offer hands-on experience in designing, building, and programming robots, nurturing skills in engineering, mechanics, and artificial intelligence.
         </p>
         
-        <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card">
+        <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card group">
           <div className="md:flex">
             <div className="md:w-1/2 relative min-h-[300px] md:min-h-[400px]">
               <Image
                 src="https://placehold.co/600x400.png"
                 alt="Students assembling and programming a robot"
-                layout="fill"
-                objectFit="cover"
+                fill
                 data-ai-hint="students building robot"
-                className="transition-transform duration-300 group-hover:scale-105"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </div>
             <div className="md:w-1/2 flex flex-col">

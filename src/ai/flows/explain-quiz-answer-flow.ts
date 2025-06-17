@@ -104,8 +104,12 @@ const explainQuizAnswerFlow = ai.defineFlow(
           prompt: imageGenerationInstruction,
           config: {
             responseModalities: ['TEXT', 'IMAGE'],
-            // Add safety settings if needed, e.g.,
-            // safetySettings: [{ category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH'}]
+            safetySettings: [ // Added safety settings here
+              { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+              { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+              { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+              { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_MEDIUM_AND_ABOVE' },
+            ]
           },
         });
         

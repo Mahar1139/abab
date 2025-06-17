@@ -49,16 +49,15 @@ export default function TechProgramsPage() {
         </p>
 
         {/* Coding Class Section */}
-        <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card mb-12">
+        <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card mb-12 group">
           <div className="md:flex">
             <div className="md:w-1/2 relative min-h-[300px] md:min-h-[400px]">
               <Image
                 src="https://placehold.co/600x400.png"
                 alt="Students learning coding concepts on laptops"
-                layout="fill"
-                objectFit="cover"
+                fill
                 data-ai-hint="students coding laptop"
-                className="transition-transform duration-300 group-hover:scale-105"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </div>
             <div className="md:w-1/2 flex flex-col">
@@ -103,16 +102,15 @@ export default function TechProgramsPage() {
         <ClassGallery images={codingGalleryImages} galleryTitle="Coding Class Moments" />
 
         {/* Robotics Class Section */}
-        <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card mt-12 mb-12">
+        <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card mt-12 mb-12 group">
           <div className="md:flex">
             <div className="md:w-1/2 relative min-h-[300px] md:min-h-[400px]">
               <Image
                 src="https://placehold.co/600x400.png"
                 alt="Students assembling and programming a robot"
-                layout="fill"
-                objectFit="cover"
+                fill
                 data-ai-hint="students building robot"
-                className="transition-transform duration-300 group-hover:scale-105"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </div>
             <div className="md:w-1/2 flex flex-col">
@@ -157,16 +155,15 @@ export default function TechProgramsPage() {
         <ClassGallery images={roboticsGalleryImages} galleryTitle="Robotics Workshop Snapshots" />
         
         {/* Computer Literacy Section */}
-        <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card mt-12 mb-12">
+        <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card mt-12 mb-12 group">
           <div className="md:flex">
             <div className="md:w-1/2 relative min-h-[300px] md:min-h-[400px]">
               <Image
                 src="https://placehold.co/600x400.png"
                 alt="Students using computers in a classroom setting"
-                layout="fill"
-                objectFit="cover"
+                fill
                 data-ai-hint="students computers classroom"
-                className="transition-transform duration-300 group-hover:scale-105"
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </div>
             <div className="md:w-1/2 flex flex-col">

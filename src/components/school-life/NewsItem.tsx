@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import type { NewsArticle } from '@/types';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,14 +12,13 @@ interface NewsItemProps {
 
 export default function NewsItem({ article }: NewsItemProps) {
   return (
-    <Card className="flex flex-col md:flex-row overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+    <Card className="flex flex-col md:flex-row overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full group">
       <div className="md:w-1/3 relative aspect-video md:aspect-auto">
         <Image 
             src={article.imageUrl} 
             alt={article.title} 
-            layout="fill" 
-            objectFit="cover" 
-            className="transition-transform duration-300 group-hover:scale-105"
+            fill
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
             data-ai-hint={article.dataAiHint || "news event"}
         />
       </div>

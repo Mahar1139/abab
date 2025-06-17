@@ -26,10 +26,9 @@ export default function ClassGallery({ images, galleryTitle = "Glimpses from Our
             <Image
               src={image.src}
               alt={image.alt}
-              layout="fill"
-              objectFit="cover"
+              fill
               data-ai-hint={image.dataAiHint}
-              className="transition-transform duration-300 group-hover:scale-105"
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
             />
           </div>
         ))}

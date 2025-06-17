@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import type { FacultyMember } from '@/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -15,9 +16,9 @@ export default function FacultyCard({ member }: FacultyCardProps) {
           <Image 
             src={member.imageUrl} 
             alt={member.name} 
-            layout="fill" 
-            objectFit="cover" 
+            fill
             data-ai-hint={member.dataAiHint || "portrait professional"}
+            className="object-cover"
           />
         </div>
         <CardTitle className="text-xl md:text-2xl text-primary text-center">{member.name}</CardTitle>
