@@ -5,98 +5,98 @@
 
 @layer base {
   :root {
-    /* Light Theme: Blue Primary, Orange Accent, Red Destructive */
-    --background: 20 33% 97%; /* Very light, slightly warm beige/off-white */
-    --foreground: 240 10% 25%; /* Dark Cool Gray/Almost Black */
+    /* Light Theme: Orange/Red-Orange Backgrounds, Blue Primary, Red-Orange Accent */
+    --background: 30 100% 97%; /* Very pale orange/peach */
+    --foreground: 20 20% 25%; /* Dark grayish brown for good contrast */
 
-    --card: 0 0% 100%; /* White */
-    --card-foreground: 240 10% 25%;
+    --card: 0 0% 100%; /* White cards for clarity */
+    --card-foreground: 20 20% 25%;
 
-    --popover: 0 0% 100%; /* White */
-    --popover-foreground: 240 10% 25%;
+    --popover: 0 0% 100%; /* White popovers */
+    --popover-foreground: 20 20% 25%;
 
-    --primary: 220 70% 50%; /* Vibrant Blue */
+    --primary: 220 70% 50%; /* Vibrant Blue (kept for primary actions) */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 220 40% 92%; /* Pale Blue */
-    --secondary-foreground: 220 70% 40%; /* Darker Blue text on Pale Blue */
+    --secondary: 30 80% 90%; /* Pale orange (for secondary sections) */
+    --secondary-foreground: 30 70% 40%; /* Darker orange text on pale orange */
     
-    --muted: 220 20% 90%; /* Light Cool Gray */
-    --muted-foreground: 220 10% 50%; /* Medium Gray */
+    --muted: 30 50% 92%; /* Light grayish orange */
+    --muted-foreground: 30 20% 50%; /* Medium grayish orange */
 
-    --accent: 25 95% 55%; /* Bright Orange */
-    --accent-foreground: 0 0% 100%; /* White text on Orange */
+    --accent: 15 100% 55%; /* Vibrant Red-Orange */
+    --accent-foreground: 0 0% 100%; /* White text on Red-Orange */
 
     --destructive: 0 80% 55%; /* Bright Red */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 220 20% 85%; /* Light Cool Gray border */
-    --input: 220 30% 94%; /* Slightly darker light grey for input */
-    --ring: 220 70% 60%; /* Brighter version of Primary Blue for focus rings */
+    --border: 30 30% 85%; /* Light orange-gray border */
+    --input: 30 60% 94%; /* Slightly darker light orange-gray for input */
+    --ring: 15 100% 60%; /* Brighter Red-Orange for focus rings */
 
     --chart-1: 220 70% 50%; /* Primary Blue */
-    --chart-2: 25 95% 55%;  /* Accent Orange */
+    --chart-2: 15 100% 55%;  /* Accent Red-Orange */
     --chart-3: 0 80% 55%;   /* Destructive Red */
     --chart-4: 190 70% 50%; /* Cyan/Teal */
     --chart-5: 50 90% 50%;  /* Yellow/Gold */
     --radius: 0.5rem;
 
     /* Sidebar specific theme (Light) */
-    --sidebar-background: 220 30% 96%; /* Very light blue-gray */
-    --sidebar-foreground: 220 25% 30%; /* Darker text for sidebar */
+    --sidebar-background: 25 90% 92%; /* Light orange */
+    --sidebar-foreground: 20 30% 30%; /* Darker text for sidebar */
     --sidebar-primary: 220 70% 50%;    /* Primary Blue for active items */
     --sidebar-primary-foreground: 0 0% 100%; /* White */
-    --sidebar-accent: 25 90% 94%;      /* Very light orange for hover background */
-    --sidebar-accent-foreground: 25 80% 45%; /* Darker orange for hover text */
-    --sidebar-border: 220 20% 85%;
-    --sidebar-ring: 220 70% 60%;
+    --sidebar-accent: 15 85% 95%;      /* Very light red-orange for hover background */
+    --sidebar-accent-foreground: 15 80% 45%; /* Darker red-orange for hover text */
+    --sidebar-border: 25 30% 85%;
+    --sidebar-ring: 15 100% 60%;
   }
 
   .dark {
-    /* Dark Theme: Blue Primary, Orange Accent, Red Destructive */
-    --background: 220 15% 12%; /* Very Dark Desaturated Blue */
-    --foreground: 220 15% 88%; /* Light Grayish Blue Text */
+    /* Dark Theme: Orange/Red-Orange Backgrounds, Blue Primary, Red-Orange Accent */
+    --background: 25 30% 12%; /* Very Dark Desaturated Orange/Brown */
+    --foreground: 30 60% 88%; /* Light Peach Text */
 
-    --card: 220 15% 18%; /* Darker Desaturated Blue for cards */
-    --card-foreground: 220 15% 88%;
+    --card: 25 30% 18%; /* Darker Desaturated Orange/Brown for cards */
+    --card-foreground: 30 60% 88%;
 
-    --popover: 220 10% 15%; /* Darker popover background */
-    --popover-foreground: 220 15% 88%;
+    --popover: 25 25% 15%; /* Darker popover background */
+    --popover-foreground: 30 60% 88%;
 
-    --primary: 215 75% 65%;    /* Brighter Blue for dark mode */
+    --primary: 215 75% 65%;    /* Brighter Blue for dark mode (kept for primary actions) */
     --primary-foreground: 220 20% 10%; /* Very Dark Blue text on Brighter Blue */
 
-    --secondary: 220 20% 22%; /* Dark muted blue for secondary backgrounds */
-    --secondary-foreground: 220 50% 75%; /* Lighter blue text on dark secondary */
+    --secondary: 25 35% 22%; /* Dark muted orange-brown for secondary backgrounds */
+    --secondary-foreground: 30 60% 75%; /* Lighter peach text on dark secondary */
 
-    --muted: 220 15% 28%;   /* Darker muted blue */
-    --muted-foreground: 220 10% 60%; /* Medium-light gray-blue for text */
+    --muted: 25 30% 28%;   /* Darker muted orange-brown */
+    --muted-foreground: 30 25% 60%; /* Medium-light grayish peach for text */
 
-    --accent: 28 100% 60%; /* Vibrant Orange for dark mode */
-    --accent-foreground: 25 80% 5%; /* Very Dark Brown/Black text on Orange */
+    --accent: 15 100% 60%; /* Vibrant Red-Orange for dark mode */
+    --accent-foreground: 15 80% 5%; /* Very Dark Brown/Black text on Red-Orange */
 
     --destructive: 0 80% 65%; /* Brighter Red for dark mode */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 30%; /* Muted dark blue for borders */
-    --input: 220 20% 20%; /* Slightly lighter dark blue for input fields */
-    --ring: 215 75% 70%; /* Even Brighter Blue for focus rings */
+    --border: 25 30% 30%; /* Muted dark orange-brown for borders */
+    --input: 25 35% 20%; /* Slightly lighter dark orange-brown for input fields */
+    --ring: 15 100% 65%; /* Even Brighter Red-Orange for focus rings */
 
     --chart-1: 215 75% 65%;   /* Bright Primary Blue */
-    --chart-2: 28 100% 60%;  /* Bright Accent Orange */
+    --chart-2: 15 100% 60%;  /* Bright Accent Red-Orange */
     --chart-3: 0 80% 65%;  /* Bright Destructive Red */
     --chart-4: 190 60% 60%; /* Lighter Cyan/Teal */
     --chart-5: 50 80% 55%;  /* Brighter Yellow/Gold */
 
     /* Sidebar specific theme (Dark) */
-    --sidebar-background: 220 10% 10%; /* Even darker for sidebar bg */
-    --sidebar-foreground: 220 15% 85%; /* Light text for sidebar */
+    --sidebar-background: 20 45% 16%; /* Dark Reddish-Orange/Brown */
+    --sidebar-foreground: 25 50% 85%; /* Light text for sidebar */
     --sidebar-primary: 215 75% 65%; /* Bright Primary Blue for active items */
     --sidebar-primary-foreground: 220 20% 10%;
-    --sidebar-accent: 28 30% 20%; /* Dark orange tint for hover BG */
-    --sidebar-accent-foreground: 28 100% 65%; /* Bright orange for hover text */
-    --sidebar-border: 220 15% 25%;
-    --sidebar-ring: 215 75% 70%;
+    --sidebar-accent: 15 40% 22%; /* Dark red-orange tint for hover BG */
+    --sidebar-accent-foreground: 15 100% 70%; /* Bright red-orange for hover text */
+    --sidebar-border: 20 30% 28%;
+    --sidebar-ring: 15 100% 65%;
   }
 }
 
