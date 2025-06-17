@@ -55,7 +55,7 @@ export async function submitAdmissionForm(
 
   // Simulate sending a notification to the principal's mobile
   console.log(
-    `SIMULATING NOTIFICATION TO PRINCIPAL'S MOBILE:
+    `SIMULATING NOTIFICATION TO PRINCIPAL'S MOBILE (Target: 9760651947):
     New Admission Application Received!
     Student Name: ${validatedFields.data.studentFullName}
     Applying for Grade: ${validatedFields.data.applyingForGrade}
@@ -75,4 +75,3 @@ export async function submitAdmissionForm(
     errors: {},
   };
 }
-
