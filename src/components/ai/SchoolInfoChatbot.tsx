@@ -149,17 +149,26 @@ export default function SchoolInfoChatbot() {
       });
     }
   }, []);
+  
+  const handleBreakResponse = useCallback(() => {
+    if (animationTimeoutRef.current) {
+      clearTimeout(animationTimeoutRef.current);
+    }
+    if (isAnimatingTextBefore && textBefore) setAnimatedTextBefore(textBefore.substring(0, animatedTextBefore.length));
+    if (isAnimatingCode && codeContent) setAnimatedCode(codeContent.substring(0, animatedCode.length));
+    if (isAnimatingTextAfter && textAfter) setAnimatedTextAfter(textAfter.substring(0, animatedTextAfter.length));
+    
+    setIsAnimatingTextBefore(false);
+    setIsAnimatingCode(false);
+    setIsAnimatingTextAfter(false);
+  }, [isAnimatingTextBefore, textBefore, animatedTextBefore.length, isAnimatingCode, codeContent, animatedCode.length, isAnimatingTextAfter, textAfter, animatedTextAfter.length]);
 
   useEffect(() => {
+    // Cleanup animations on component unmount
     return () => {
-      if (animationTimeoutRef.current) {
-        clearTimeout(animationTimeoutRef.current);
-      }
-      setIsAnimatingTextBefore(false);
-      setIsAnimatingCode(false);
-      setIsAnimatingTextAfter(false);
+      handleBreakResponse();
     };
-  }, []);
+  }, [handleBreakResponse]);
 
   useEffect(() => {
     if (animationTimeoutRef.current) {
@@ -380,35 +389,6 @@ export default function SchoolInfoChatbot() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps 
   }, [isAutoSubmitting, question, isLoading, isUnrestrictedMode, isOnCooldown]); 
-
-
-  const handleBreakResponse = () => {
-    if (animationTimeoutRef.current) {
-      clearTimeout(animationTimeoutRef.current);
-    }
-    if (isAnimatingTextBefore && textBefore) setAnimatedTextBefore(textBefore.substring(0, animatedTextBefore.length));
-    if (isAnimatingCode && codeContent) setAnimatedCode(codeContent.substring(0, animatedCode.length));
-    if (isAnimatingTextAfter && textAfter) setAnimatedTextAfter(textAfter.substring(0, animatedTextAfter.length));
-    
-    setIsAnimatingTextBefore(false);
-    setIsAnimatingCode(false);
-    setIsAnimatingTextAfter(false);
-  };
-
-  // Effect to stop animation if navigating away (component unmount or route change)
-  useEffect(() => {
-    const handleRouteChange = () => {
-      handleBreakResponse(); // Stop animation
-    };
-    router.events?.on('routeChangeStart', handleRouteChange); // Next.js 12/13 might need different event
-    return () => {
-      router.events?.off('routeChangeStart', handleRouteChange);
-      if (animationTimeoutRef.current) {
-        clearTimeout(animationTimeoutRef.current);
-      }
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.events]);
 
 
   return (
