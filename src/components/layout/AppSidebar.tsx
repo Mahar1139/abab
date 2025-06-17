@@ -12,17 +12,37 @@ import {
   SidebarFooter,
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
-import { Home, BookOpen, Users, Image as ImageIcon, Mail, Cpu, School, Brain } from 'lucide-react';
+import { 
+  Home, 
+  BookOpen, 
+  Users, 
+  Image as ImageIcon, 
+  Mail, 
+  Cpu, 
+  School, 
+  Brain,
+  LayoutGrid, // New
+  CalendarDays, // New
+  Award, // New
+  Users2, // New
+  Library, // New
+  Bot // New (for AI Assistant)
+} from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'School Overview', icon: Home },
   { href: '/admissions', label: 'Admissions', icon: BookOpen },
+  { href: '/academic-programs', label: 'Academic Programs', icon: LayoutGrid },
+  { href: '/tech-programs', label: 'Tech Programs', icon: Cpu },
   { href: '/faculty', label: 'Faculty Directory', icon: Users },
   { href: '/school-life', label: 'School Life', icon: ImageIcon },
-  { href: '/tech-programs', label: 'Tech Programs', icon: Cpu },
+  { href: '/events-calendar', label: 'Events Calendar', icon: CalendarDays },
+  { href: '/student-achievements', label: 'Student Achievements', icon: Award },
+  { href: '/library', label: 'Library', icon: Library },
+  { href: '/parent-portal', label: 'Parent Portal', icon: Users2 },
   { href: '/quiz', label: 'AI Quiz Challenge', icon: Brain },
+  { href: '/ai-assistant', label: 'AI Assistant', icon: Bot },
   { href: '/contact', label: 'Contact & Support', icon: Mail },
-  { href: '/ai-assistant', label: 'AI Assistant', icon: Cpu },
 ];
 
 export default function AppSidebar() {
@@ -67,3 +87,4 @@ export default function AppSidebar() {
     </Sidebar>
   );
 }
+

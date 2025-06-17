@@ -4,17 +4,37 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
-import { Home, BookOpen, Users, Image as ImageIcon, Mail, Cpu, School, Brain } from 'lucide-react';
+import { 
+  Home, 
+  BookOpen, 
+  Users, 
+  Image as ImageIcon, 
+  Mail, 
+  Cpu, 
+  School, 
+  Brain,
+  LayoutGrid, 
+  CalendarDays, 
+  Award, 
+  Users2, 
+  Library,
+  Bot
+} from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'School Overview', icon: Home },
   { href: '/admissions', label: 'Admissions', icon: BookOpen },
+  { href: '/academic-programs', label: 'Academic Programs', icon: LayoutGrid },
+  { href: '/tech-programs', label: 'Tech Programs', icon: Cpu },
   { href: '/faculty', label: 'Faculty Directory', icon: Users },
   { href: '/school-life', label: 'School Life', icon: ImageIcon },
-  { href: '/tech-programs', label: 'Tech Programs', icon: Cpu },
+  { href: '/events-calendar', label: 'Events Calendar', icon: CalendarDays },
+  { href: '/student-achievements', label: 'Student Achievements', icon: Award },
+  { href: '/library', label: 'Library', icon: Library },
+  { href: '/parent-portal', label: 'Parent Portal', icon: Users2 },
   { href: '/quiz', label: 'AI Quiz Challenge', icon: Brain },
+  { href: '/ai-assistant', label: 'AI Assistant', icon: Bot },
   { href: '/contact', label: 'Contact & Support', icon: Mail },
-  { href: '/ai-assistant', label: 'AI Assistant', icon: Cpu },
 ];
 
 export default function PageHeader() {
@@ -55,3 +75,4 @@ export default function PageHeader() {
     </header>
   );
 }
+
