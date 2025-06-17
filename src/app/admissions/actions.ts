@@ -4,10 +4,28 @@
 import { z } from "zod";
 import { admissionFormSchema } from "@/lib/schemas/admission-schema"; 
 
+// Helper function to generate a random alphanumeric string
+function generateRandomAlphanumeric(length: number): string {
+  const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+}
+
+// Function to generate a coupon code
+function generateCouponCode(): string {
+  const randomDigit = Math.floor(Math.random() * 10);
+  const randomString = generateRandomAlphanumeric(7);
+  return `#Himalaya_${randomDigit}-${randomString}`;
+}
+
 export type AdmissionFormState = {
   message: string;
   status: "success" | "error" | "idle";
   errors?: Partial<Record<keyof z.infer<typeof admissionFormSchema>, string[]>>;
+  couponCode?: string; // Added for coupon code
 };
 
 export async function submitAdmissionForm(
@@ -66,13 +84,17 @@ export async function submitAdmissionForm(
     --- End of Simulated Notification ---`
   );
   
+  // Generate coupon code
+  const couponCode = generateCouponCode();
+  console.log("Generated Coupon Code:", couponCode);
+
   // Simulate network delay
   await new Promise(resolve => setTimeout(resolve, 1000));
 
   return {
-    message: "Your admission application has been successfully submitted! We will review it and get back to you soon.",
+    message: "Your admission application has been successfully submitted!",
     status: "success",
     errors: {},
+    couponCode: couponCode, // Include coupon code in the success response
   };
 }
-
