@@ -1,12 +1,11 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
-import { useActionState } from "react"; 
-import { useFormStatus } from "react-dom"; 
+import { useEffect, useState, useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import type { z } from "zod"; 
+import type { z } from "zod";
 import { format } from "date-fns";
 
 import { Button } from "@/components/ui/button";
@@ -20,7 +19,7 @@ import { useToast } from "@/hooks/use-toast";
 import { submitAdmissionForm, type AdmissionFormState } from "@/app/admissions/actions";
 import { CalendarIcon, Loader2, Award, Info, Copy } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { admissionFormSchema } from "@/lib/schemas/admission-schema"; 
+import { admissionFormSchema } from "@/lib/schemas/admission-schema";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export type AdmissionFormData = z.infer<typeof admissionFormSchema>;
@@ -35,9 +34,9 @@ const initialState: AdmissionFormState = {
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
-    <Button 
-      type="submit" 
-      disabled={pending} 
+    <Button
+      type="submit"
+      disabled={pending}
       className="w-full md:w-auto text-lg py-3"
     >
       {pending ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
@@ -47,10 +46,10 @@ function SubmitButton() {
 }
 
 const grades = [
-  "Nursery", "LKG", "UKG", 
-  "Class 1", "Class 2", "Class 3", "Class 4", "Class 5", 
-  "Class 6", "Class 7", "Class 8", "Class 9", "Class 10", 
-  "Class 11 Science", "Class 11 Commerce", "Class 11 Arts", 
+  "Nursery", "LKG", "UKG",
+  "Class 1", "Class 2", "Class 3", "Class 4", "Class 5",
+  "Class 6", "Class 7", "Class 8", "Class 9", "Class 10",
+  "Class 11 Science", "Class 11 Commerce", "Class 11 Arts",
   "Class 12 Science", "Class 12 Commerce", "Class 12 Arts"
 ];
 
@@ -85,44 +84,78 @@ export default function AdmissionFormComponent() {
   });
 
   useEffect(() => {
-    if (state.status === "success" && state.couponCode) {
-      setFormSubmittedSuccessfully(true);
-      form.reset(); 
-    } else if (state.status === "success") {
-       toast({
+    if (state.status === "success") {
+      if (state.couponCode) {
+        setFormSubmittedSuccessfully(true);
+      }
+      toast({
         title: "Application Submitted!",
         description: state.message,
       });
       form.reset();
-    } else if (state.status === "error" && state.message && !Object.keys(state.errors || {}).length) {
-       toast({
-        title: "Submission Error",
-        description: state.message,
-        variant: "destructive",
-      });
+    } else if (state.status === "error") {
+      if (state.errors && Object.keys(state.errors).length > 0) {
+        let firstErrorField: keyof AdmissionFormData | null = null;
+        for (const key in state.errors) {
+          const fieldName = key as keyof AdmissionFormData;
+          const message = state.errors[fieldName]?.[0];
+          if (message && form.getFieldState(fieldName) !== undefined) {
+            if (!firstErrorField) firstErrorField = fieldName;
+            form.setError(fieldName, { type: 'server', message });
+          }
+        }
+        if (firstErrorField) {
+           const element = document.getElementById(firstErrorField);
+            if (element) element.focus();
+        }
+        toast({
+          title: "Validation Error",
+          description: state.message && Object.keys(state.errors).length > 0 ? "Please check the highlighted fields." : (state.message || "Please correct the errors highlighted in the form."),
+          variant: "destructive",
+        });
+      } else if (state.message) {
+        toast({
+          title: "Submission Error",
+          description: state.message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: "An unexpected error occurred during submission.",
+          variant: "destructive",
+        });
+      }
     }
-  }, [state, toast, form]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state, toast]);
 
   const handleFormSubmitAttempt = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault(); 
+    event.preventDefault();
     const isValid = await form.trigger();
     if (!isValid) {
-      console.log("Form is invalid, please correct errors before proceeding.");
+      console.log("Client-side validation failed. Errors:", form.formState.errors);
       toast({
         title: "Invalid Form",
         description: "Please correct the errors highlighted in the form.",
         variant: "destructive",
       });
+      const fieldErrors = form.formState.errors;
+      const firstErrorField = Object.keys(fieldErrors)[0] as keyof AdmissionFormData | undefined;
+      if (firstErrorField) {
+        const element = document.getElementById(firstErrorField);
+        if (element) element.focus();
+      }
       return;
     }
-    
+
     const currentFormData = new FormData(event.currentTarget);
     const dob = form.getValues("studentDOB");
     if (dob) {
+      // Ensure DOB is sent as a string that the server action can parse
       currentFormData.set("studentDOB", dob.toISOString());
     } else {
-      // Ensure studentDOB is removed if not set, to avoid sending empty string
-      currentFormData.delete("studentDOB");
+      currentFormData.delete("studentDOB"); // Remove if not set, to avoid sending empty string
     }
     formAction(currentFormData);
   };
@@ -161,7 +194,7 @@ export default function AdmissionFormComponent() {
                 </Button>
             </div>
           </div>
-          
+
           <Button onClick={() => setShowCouponInstructions(true)} variant="outline" className="text-accent border-accent hover:bg-accent/10">
             <Info className="mr-2 h-5 w-5" /> How to use this coupon?
           </Button>
@@ -192,8 +225,7 @@ export default function AdmissionFormComponent() {
           <div>
             <Label htmlFor="studentFullName">Student Full Name</Label>
             <Input id="studentFullName" name="studentFullName" placeholder="e.g., Rohan Kumar" {...form.register("studentFullName")} />
-            {state.errors?.studentFullName && <p className="text-sm text-destructive mt-1">{state.errors.studentFullName[0]}</p>}
-             {form.formState.errors.studentFullName && <p className="text-sm text-destructive mt-1">{form.formState.errors.studentFullName.message}</p>}
+            {form.formState.errors.studentFullName && <p className="text-sm text-destructive mt-1">{form.formState.errors.studentFullName.message}</p>}
           </div>
           <div>
             <Label htmlFor="studentDOBFormInput">Date of Birth</Label>
@@ -220,10 +252,10 @@ export default function AdmissionFormComponent() {
                   captionLayout="dropdown-buttons"
                   fromYear={new Date().getFullYear() - 20}
                   toYear={new Date().getFullYear() -2}
+                  disabled={(date) => date > new Date(new Date().setFullYear(new Date().getFullYear() - 2)) || date < new Date(new Date().setFullYear(new Date().getFullYear() - 20))}
                 />
               </PopoverContent>
             </Popover>
-            {state.errors?.studentDOB && <p className="text-sm text-destructive mt-1">{state.errors.studentDOB[0]}</p>}
             {form.formState.errors.studentDOB && <p className="text-sm text-destructive mt-1">{form.formState.errors.studentDOB.message}</p>}
           </div>
         </div>
@@ -238,7 +270,6 @@ export default function AdmissionFormComponent() {
                 <SelectItem value="Other">Other</SelectItem>
               </SelectContent>
             </Select>
-            {state.errors?.studentGender && <p className="text-sm text-destructive mt-1">{state.errors.studentGender[0]}</p>}
             {form.formState.errors.studentGender && <p className="text-sm text-destructive mt-1">{form.formState.errors.studentGender.message}</p>}
           </div>
           <div>
@@ -249,7 +280,6 @@ export default function AdmissionFormComponent() {
                 {grades.map(grade => <SelectItem key={grade} value={grade}>{grade}</SelectItem>)}
               </SelectContent>
             </Select>
-            {state.errors?.applyingForGrade && <p className="text-sm text-destructive mt-1">{state.errors.applyingForGrade[0]}</p>}
             {form.formState.errors.applyingForGrade && <p className="text-sm text-destructive mt-1">{form.formState.errors.applyingForGrade.message}</p>}
           </div>
         </div>
@@ -257,10 +287,12 @@ export default function AdmissionFormComponent() {
           <div>
             <Label htmlFor="previousSchoolName">Previous School Name (if applicable)</Label>
             <Input id="previousSchoolName" name="previousSchoolName" placeholder="e.g., Sunshine Academy" {...form.register("previousSchoolName")} />
+            {form.formState.errors.previousSchoolName && <p className="text-sm text-destructive mt-1">{form.formState.errors.previousSchoolName.message}</p>}
           </div>
           <div>
             <Label htmlFor="previousSchoolCity">Previous School City (if applicable)</Label>
             <Input id="previousSchoolCity" name="previousSchoolCity" placeholder="e.g., Delhi" {...form.register("previousSchoolCity")} />
+            {form.formState.errors.previousSchoolCity && <p className="text-sm text-destructive mt-1">{form.formState.errors.previousSchoolCity.message}</p>}
           </div>
         </div>
       </section>
@@ -272,8 +304,7 @@ export default function AdmissionFormComponent() {
           <div>
             <Label htmlFor="parentFullName">Parent/Guardian Full Name</Label>
             <Input id="parentFullName" name="parentFullName" placeholder="e.g., Anita Sharma" {...form.register("parentFullName")} />
-            {state.errors?.parentFullName && <p className="text-sm text-destructive mt-1">{state.errors.parentFullName[0]}</p>}
-             {form.formState.errors.parentFullName && <p className="text-sm text-destructive mt-1">{form.formState.errors.parentFullName.message}</p>}
+            {form.formState.errors.parentFullName && <p className="text-sm text-destructive mt-1">{form.formState.errors.parentFullName.message}</p>}
           </div>
           <div>
             <Label htmlFor="relationshipToStudent">Relationship to Student</Label>
@@ -285,51 +316,45 @@ export default function AdmissionFormComponent() {
                 <SelectItem value="Guardian">Guardian</SelectItem>
               </SelectContent>
             </Select>
-            {state.errors?.relationshipToStudent && <p className="text-sm text-destructive mt-1">{state.errors.relationshipToStudent[0]}</p>}
-             {form.formState.errors.relationshipToStudent && <p className="text-sm text-destructive mt-1">{form.formState.errors.relationshipToStudent.message}</p>}
+            {form.formState.errors.relationshipToStudent && <p className="text-sm text-destructive mt-1">{form.formState.errors.relationshipToStudent.message}</p>}
           </div>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
             <Label htmlFor="parentEmail">Email Address</Label>
             <Input id="parentEmail" name="parentEmail" type="email" placeholder="e.g., anita.sharma@example.com" {...form.register("parentEmail")} />
-            {state.errors?.parentEmail && <p className="text-sm text-destructive mt-1">{state.errors.parentEmail[0]}</p>}
-             {form.formState.errors.parentEmail && <p className="text-sm text-destructive mt-1">{form.formState.errors.parentEmail.message}</p>}
+            {form.formState.errors.parentEmail && <p className="text-sm text-destructive mt-1">{form.formState.errors.parentEmail.message}</p>}
           </div>
           <div>
             <Label htmlFor="parentPhone">Phone Number</Label>
             <Input id="parentPhone" name="parentPhone" type="tel" placeholder="e.g., 9876543210" {...form.register("parentPhone")} />
-            {state.errors?.parentPhone && <p className="text-sm text-destructive mt-1">{state.errors.parentPhone[0]}</p>}
-             {form.formState.errors.parentPhone && <p className="text-sm text-destructive mt-1">{form.formState.errors.parentPhone.message}</p>}
+            {form.formState.errors.parentPhone && <p className="text-sm text-destructive mt-1">{form.formState.errors.parentPhone.message}</p>}
           </div>
         </div>
         <div>
           <Label htmlFor="addressLine1">Address Line 1</Label>
           <Input id="addressLine1" name="addressLine1" placeholder="House No., Street Name" {...form.register("addressLine1")} />
-          {state.errors?.addressLine1 && <p className="text-sm text-destructive mt-1">{state.errors.addressLine1[0]}</p>}
-           {form.formState.errors.addressLine1 && <p className="text-sm text-destructive mt-1">{form.formState.errors.addressLine1.message}</p>}
+          {form.formState.errors.addressLine1 && <p className="text-sm text-destructive mt-1">{form.formState.errors.addressLine1.message}</p>}
         </div>
         <div>
           <Label htmlFor="addressLine2">Address Line 2 (Optional)</Label>
           <Input id="addressLine2" name="addressLine2" placeholder="Apartment, Suite, etc." {...form.register("addressLine2")} />
+          {form.formState.errors.addressLine2 && <p className="text-sm text-destructive mt-1">{form.formState.errors.addressLine2.message}</p>}
         </div>
         <div className="grid md:grid-cols-3 gap-6">
           <div>
             <Label htmlFor="city">City</Label>
             <Input id="city" name="city" placeholder="e.g., Mumbai" {...form.register("city")} />
-            {state.errors?.city && <p className="text-sm text-destructive mt-1">{state.errors.city[0]}</p>}
             {form.formState.errors.city && <p className="text-sm text-destructive mt-1">{form.formState.errors.city.message}</p>}
           </div>
           <div>
             <Label htmlFor="state">State/Province</Label>
             <Input id="state" name="state" placeholder="e.g., Maharashtra" {...form.register("state")} />
-            {state.errors?.state && <p className="text-sm text-destructive mt-1">{state.errors.state[0]}</p>}
             {form.formState.errors.state && <p className="text-sm text-destructive mt-1">{form.formState.errors.state.message}</p>}
           </div>
           <div>
             <Label htmlFor="zipCode">Zip/Postal Code</Label>
             <Input id="zipCode" name="zipCode" placeholder="e.g., 400001" {...form.register("zipCode")} />
-            {state.errors?.zipCode && <p className="text-sm text-destructive mt-1">{state.errors.zipCode[0]}</p>}
             {form.formState.errors.zipCode && <p className="text-sm text-destructive mt-1">{form.formState.errors.zipCode.message}</p>}
           </div>
         </div>
@@ -342,14 +367,12 @@ export default function AdmissionFormComponent() {
             <div>
                 <Label htmlFor="emergencyContactName">Emergency Contact Full Name</Label>
                 <Input id="emergencyContactName" name="emergencyContactName" placeholder="e.g., Suresh Mehta" {...form.register("emergencyContactName")} />
-                {state.errors?.emergencyContactName && <p className="text-sm text-destructive mt-1">{state.errors.emergencyContactName[0]}</p>}
-                 {form.formState.errors.emergencyContactName && <p className="text-sm text-destructive mt-1">{form.formState.errors.emergencyContactName.message}</p>}
+                {form.formState.errors.emergencyContactName && <p className="text-sm text-destructive mt-1">{form.formState.errors.emergencyContactName.message}</p>}
             </div>
             <div>
                 <Label htmlFor="emergencyContactPhone">Emergency Contact Phone Number</Label>
                 <Input id="emergencyContactPhone" name="emergencyContactPhone" type="tel" placeholder="e.g., 9876500000" {...form.register("emergencyContactPhone")} />
-                {state.errors?.emergencyContactPhone && <p className="text-sm text-destructive mt-1">{state.errors.emergencyContactPhone[0]}</p>}
-                 {form.formState.errors.emergencyContactPhone && <p className="text-sm text-destructive mt-1">{form.formState.errors.emergencyContactPhone.message}</p>}
+                {form.formState.errors.emergencyContactPhone && <p className="text-sm text-destructive mt-1">{form.formState.errors.emergencyContactPhone.message}</p>}
             </div>
         </div>
       </section>
@@ -358,12 +381,12 @@ export default function AdmissionFormComponent() {
       <section className="space-y-4 p-6 border rounded-lg shadow-sm">
         <h3 className="text-xl font-semibold text-secondary border-b pb-2">Declaration</h3>
         <div className="flex items-start space-x-3">
-          <Checkbox 
-            id="declaration" 
-            name="declaration" 
+          <Checkbox
+            id="declaration"
+            name="declaration"
             checked={form.watch("declaration")}
             onCheckedChange={(checked) => form.setValue("declaration", checked as boolean, {shouldValidate: true})}
-            aria-invalid={(state.errors?.declaration || form.formState.errors.declaration) ? "true" : "false"}
+            aria-invalid={form.formState.errors.declaration ? "true" : "false"}
           />
           <div className="grid gap-1.5 leading-none">
             <Label htmlFor="declaration" className="font-medium cursor-pointer">
@@ -374,16 +397,16 @@ export default function AdmissionFormComponent() {
             </p>
           </div>
         </div>
-         {state.errors?.declaration && <p className="text-sm text-destructive mt-1">{state.errors.declaration[0]}</p>}
          {form.formState.errors.declaration && <p className="text-sm text-destructive mt-1">{form.formState.errors.declaration.message}</p>}
       </section>
 
       <div className="flex flex-col items-center justify-center space-y-4">
         <SubmitButton />
-        
-        {state.status === "error" && state.message && Object.keys(state.errors || {}).length > 0 && (
+
+
+        {state.status === "error" && state.message && (!state.errors || Object.keys(state.errors).length === 0) && (
           <p className="text-sm text-destructive mt-4 text-center">
-            Please correct the errors in the form and try again.
+            {state.message}
           </p>
         )}
       </div>
