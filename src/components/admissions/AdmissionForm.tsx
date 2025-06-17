@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react"; // Added useState
+import { useEffect, useState } from "react";
 import { useActionState } from "react"; 
 import { useFormStatus } from "react-dom"; 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,10 +18,10 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { submitAdmissionForm, type AdmissionFormState } from "@/app/admissions/actions";
-import { CalendarIcon, Loader2, Award, Info, Copy } from "lucide-react"; // Added Award, Info, Copy
+import { CalendarIcon, Loader2, Award, Info, Copy, LogIn } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { admissionFormSchema } from "@/lib/schemas/admission-schema"; 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"; // Added Card components
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export type AdmissionFormData = z.infer<typeof admissionFormSchema>;
 
@@ -32,10 +32,14 @@ const initialState: AdmissionFormState = {
   couponCode: undefined,
 };
 
-function SubmitButton() {
+function SubmitButton({ showLoginPrompt }: { showLoginPrompt: boolean }) {
   const { pending } = useFormStatus();
   return (
-    <Button type="submit" disabled={pending} className="w-full md:w-auto text-lg py-3">
+    <Button 
+      type="submit" 
+      disabled={pending || showLoginPrompt} 
+      className="w-full md:w-auto text-lg py-3"
+    >
       {pending ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
       {pending ? "Submitting Application..." : "Submit Application"}
     </Button>
@@ -55,6 +59,11 @@ export default function AdmissionFormComponent() {
   const { toast } = useToast();
   const [showCouponInstructions, setShowCouponInstructions] = useState(false);
   const [formSubmittedSuccessfully, setFormSubmittedSuccessfully] = useState(false);
+
+  // New state for login simulation
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Simulates if user is logged in
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const [stagedFormData, setStagedFormData] = useState<FormData | null>(null);
 
   const form = useForm<AdmissionFormData>({
     resolver: zodResolver(admissionFormSchema),
@@ -82,15 +91,18 @@ export default function AdmissionFormComponent() {
 
   useEffect(() => {
     if (state.status === "success" && state.couponCode) {
-      setFormSubmittedSuccessfully(true); // Indicate form success to change UI
+      setFormSubmittedSuccessfully(true);
       form.reset(); 
-      // Toast is not needed here as we are showing a larger success message
-    } else if (state.status === "success") { // Generic success without coupon (fallback)
+      setIsLoggedIn(false); // Reset login state for next submission
+      setStagedFormData(null);
+    } else if (state.status === "success") {
        toast({
         title: "Application Submitted!",
         description: state.message,
       });
       form.reset();
+      setIsLoggedIn(false);
+      setStagedFormData(null);
     } else if (state.status === "error" && state.message && !Object.keys(state.errors || {}).length) {
        toast({
         title: "Submission Error",
@@ -98,16 +110,63 @@ export default function AdmissionFormComponent() {
         variant: "destructive",
       });
     }
+    // If there are validation errors, keep the login prompt hidden and let user fix form
+    if (state.status === "error" && state.errors && Object.keys(state.errors).length > 0) {
+      setShowLoginPrompt(false);
+    }
   }, [state, toast, form]);
 
-  const handleFormAction = (formData: FormData) => {
+  const prepareAndStageFormData = (currentFormData: FormData) => {
     const dob = form.getValues("studentDOB");
     if (dob) {
-      formData.set("studentDOB", dob.toISOString());
+      currentFormData.set("studentDOB", dob.toISOString());
     } else {
-      formData.delete("studentDOB");
+      currentFormData.delete("studentDOB");
     }
-    formAction(formData);
+    setStagedFormData(currentFormData);
+  };
+
+  const handleFormSubmitAttempt = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); 
+    const currentFormData = new FormData(event.currentTarget);
+    prepareAndStageFormData(currentFormData);
+
+    if (!isLoggedIn) {
+      // Check form validity before showing login prompt
+      form.trigger().then(isValid => {
+        if (isValid) {
+          setShowLoginPrompt(true);
+        } else {
+          // If form is invalid, scroll to first error and let user fix it.
+          // This part relies on standard HTML5 validation focusing or custom scroll logic.
+          // For now, we just prevent the login prompt.
+          console.log("Form is invalid, please correct errors before proceeding.");
+          toast({
+            title: "Invalid Form",
+            description: "Please correct the errors highlighted in the form.",
+            variant: "destructive",
+          });
+        }
+      });
+    } else {
+      formAction(currentFormData);
+    }
+  };
+
+  const handleSimulatedLoginAndSubmit = () => {
+    setIsLoggedIn(true);
+    setShowLoginPrompt(false);
+    if (stagedFormData) {
+      formAction(stagedFormData);
+    } else {
+      // This case should ideally not happen if logic is correct
+      // but as a fallback, re-trigger validation and show form
+      toast({
+        title: "Error",
+        description: "No form data found. Please try submitting again.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleCopyToClipboard = (text: string) => {
@@ -158,7 +217,7 @@ export default function AdmissionFormComponent() {
               <p><strong>Validity:</strong> This coupon is valid for 3 months from today's date. Please use it before it expires.</p>
             </div>
           )}
-           <Button onClick={() => { setFormSubmittedSuccessfully(false); setShowCouponInstructions(false); form.reset(); }} className="mt-6">
+           <Button onClick={() => { setFormSubmittedSuccessfully(false); setShowCouponInstructions(false); form.reset(); setIsLoggedIn(false); }} className="mt-6">
             Submit Another Application
           </Button>
         </CardContent>
@@ -167,7 +226,7 @@ export default function AdmissionFormComponent() {
   }
 
   return (
-    <form action={handleFormAction} className="space-y-8" noValidate>
+    <form onSubmit={handleFormSubmitAttempt} className="space-y-8" noValidate>
       {/* Student Information Section */}
       <section className="space-y-6 p-6 border rounded-lg shadow-sm">
         <h3 className="text-xl font-semibold text-secondary border-b pb-2">Student Information</h3>
@@ -175,7 +234,8 @@ export default function AdmissionFormComponent() {
           <div>
             <Label htmlFor="studentFullName">Student Full Name</Label>
             <Input id="studentFullName" name="studentFullName" placeholder="e.g., Rohan Kumar" {...form.register("studentFullName")} />
-            {state.errors?.studentFullName && <p className="text-sm text-destructive mt-1">{state.errors.studentFullName[0]}</p>}
+            {(state.errors?.studentFullName && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.studentFullName[0]}</p>}
+             {form.formState.errors.studentFullName && <p className="text-sm text-destructive mt-1">{form.formState.errors.studentFullName.message}</p>}
           </div>
           <div>
             <Label htmlFor="studentDOBFormInput">Date of Birth</Label>
@@ -205,8 +265,9 @@ export default function AdmissionFormComponent() {
                 />
               </PopoverContent>
             </Popover>
-            <input type="hidden" name="studentDOB" value={form.watch("studentDOB") ? form.watch("studentDOB")!.toISOString() : ""} />
-            {state.errors?.studentDOB && <p className="text-sm text-destructive mt-1">{state.errors.studentDOB[0]}</p>}
+            {/* Hidden input for DOB is handled by FormData constructor if studentDOB is set */}
+            {(state.errors?.studentDOB && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.studentDOB[0]}</p>}
+            {form.formState.errors.studentDOB && <p className="text-sm text-destructive mt-1">{form.formState.errors.studentDOB.message}</p>}
           </div>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
@@ -220,7 +281,8 @@ export default function AdmissionFormComponent() {
                 <SelectItem value="Other">Other</SelectItem>
               </SelectContent>
             </Select>
-            {state.errors?.studentGender && <p className="text-sm text-destructive mt-1">{state.errors.studentGender[0]}</p>}
+            {(state.errors?.studentGender && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.studentGender[0]}</p>}
+            {form.formState.errors.studentGender && <p className="text-sm text-destructive mt-1">{form.formState.errors.studentGender.message}</p>}
           </div>
           <div>
             <Label htmlFor="applyingForGrade">Applying for Grade</Label>
@@ -230,7 +292,8 @@ export default function AdmissionFormComponent() {
                 {grades.map(grade => <SelectItem key={grade} value={grade}>{grade}</SelectItem>)}
               </SelectContent>
             </Select>
-            {state.errors?.applyingForGrade && <p className="text-sm text-destructive mt-1">{state.errors.applyingForGrade[0]}</p>}
+            {(state.errors?.applyingForGrade && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.applyingForGrade[0]}</p>}
+            {form.formState.errors.applyingForGrade && <p className="text-sm text-destructive mt-1">{form.formState.errors.applyingForGrade.message}</p>}
           </div>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
@@ -252,7 +315,8 @@ export default function AdmissionFormComponent() {
           <div>
             <Label htmlFor="parentFullName">Parent/Guardian Full Name</Label>
             <Input id="parentFullName" name="parentFullName" placeholder="e.g., Anita Sharma" {...form.register("parentFullName")} />
-            {state.errors?.parentFullName && <p className="text-sm text-destructive mt-1">{state.errors.parentFullName[0]}</p>}
+            {(state.errors?.parentFullName && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.parentFullName[0]}</p>}
+             {form.formState.errors.parentFullName && <p className="text-sm text-destructive mt-1">{form.formState.errors.parentFullName.message}</p>}
           </div>
           <div>
             <Label htmlFor="relationshipToStudent">Relationship to Student</Label>
@@ -264,25 +328,29 @@ export default function AdmissionFormComponent() {
                 <SelectItem value="Guardian">Guardian</SelectItem>
               </SelectContent>
             </Select>
-            {state.errors?.relationshipToStudent && <p className="text-sm text-destructive mt-1">{state.errors.relationshipToStudent[0]}</p>}
+            {(state.errors?.relationshipToStudent && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.relationshipToStudent[0]}</p>}
+             {form.formState.errors.relationshipToStudent && <p className="text-sm text-destructive mt-1">{form.formState.errors.relationshipToStudent.message}</p>}
           </div>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
             <Label htmlFor="parentEmail">Email Address</Label>
             <Input id="parentEmail" name="parentEmail" type="email" placeholder="e.g., anita.sharma@example.com" {...form.register("parentEmail")} />
-            {state.errors?.parentEmail && <p className="text-sm text-destructive mt-1">{state.errors.parentEmail[0]}</p>}
+            {(state.errors?.parentEmail && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.parentEmail[0]}</p>}
+             {form.formState.errors.parentEmail && <p className="text-sm text-destructive mt-1">{form.formState.errors.parentEmail.message}</p>}
           </div>
           <div>
             <Label htmlFor="parentPhone">Phone Number</Label>
             <Input id="parentPhone" name="parentPhone" type="tel" placeholder="e.g., 9876543210" {...form.register("parentPhone")} />
-            {state.errors?.parentPhone && <p className="text-sm text-destructive mt-1">{state.errors.parentPhone[0]}</p>}
+            {(state.errors?.parentPhone && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.parentPhone[0]}</p>}
+             {form.formState.errors.parentPhone && <p className="text-sm text-destructive mt-1">{form.formState.errors.parentPhone.message}</p>}
           </div>
         </div>
         <div>
           <Label htmlFor="addressLine1">Address Line 1</Label>
           <Input id="addressLine1" name="addressLine1" placeholder="House No., Street Name" {...form.register("addressLine1")} />
-          {state.errors?.addressLine1 && <p className="text-sm text-destructive mt-1">{state.errors.addressLine1[0]}</p>}
+          {(state.errors?.addressLine1 && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.addressLine1[0]}</p>}
+           {form.formState.errors.addressLine1 && <p className="text-sm text-destructive mt-1">{form.formState.errors.addressLine1.message}</p>}
         </div>
         <div>
           <Label htmlFor="addressLine2">Address Line 2 (Optional)</Label>
@@ -292,17 +360,20 @@ export default function AdmissionFormComponent() {
           <div>
             <Label htmlFor="city">City</Label>
             <Input id="city" name="city" placeholder="e.g., Mumbai" {...form.register("city")} />
-            {state.errors?.city && <p className="text-sm text-destructive mt-1">{state.errors.city[0]}</p>}
+            {(state.errors?.city && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.city[0]}</p>}
+            {form.formState.errors.city && <p className="text-sm text-destructive mt-1">{form.formState.errors.city.message}</p>}
           </div>
           <div>
             <Label htmlFor="state">State/Province</Label>
             <Input id="state" name="state" placeholder="e.g., Maharashtra" {...form.register("state")} />
-            {state.errors?.state && <p className="text-sm text-destructive mt-1">{state.errors.state[0]}</p>}
+            {(state.errors?.state && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.state[0]}</p>}
+            {form.formState.errors.state && <p className="text-sm text-destructive mt-1">{form.formState.errors.state.message}</p>}
           </div>
           <div>
             <Label htmlFor="zipCode">Zip/Postal Code</Label>
             <Input id="zipCode" name="zipCode" placeholder="e.g., 400001" {...form.register("zipCode")} />
-            {state.errors?.zipCode && <p className="text-sm text-destructive mt-1">{state.errors.zipCode[0]}</p>}
+            {(state.errors?.zipCode && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.zipCode[0]}</p>}
+            {form.formState.errors.zipCode && <p className="text-sm text-destructive mt-1">{form.formState.errors.zipCode.message}</p>}
           </div>
         </div>
       </section>
@@ -314,12 +385,14 @@ export default function AdmissionFormComponent() {
             <div>
                 <Label htmlFor="emergencyContactName">Emergency Contact Full Name</Label>
                 <Input id="emergencyContactName" name="emergencyContactName" placeholder="e.g., Suresh Mehta" {...form.register("emergencyContactName")} />
-                {state.errors?.emergencyContactName && <p className="text-sm text-destructive mt-1">{state.errors.emergencyContactName[0]}</p>}
+                {(state.errors?.emergencyContactName && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.emergencyContactName[0]}</p>}
+                 {form.formState.errors.emergencyContactName && <p className="text-sm text-destructive mt-1">{form.formState.errors.emergencyContactName.message}</p>}
             </div>
             <div>
                 <Label htmlFor="emergencyContactPhone">Emergency Contact Phone Number</Label>
                 <Input id="emergencyContactPhone" name="emergencyContactPhone" type="tel" placeholder="e.g., 9876500000" {...form.register("emergencyContactPhone")} />
-                {state.errors?.emergencyContactPhone && <p className="text-sm text-destructive mt-1">{state.errors.emergencyContactPhone[0]}</p>}
+                {(state.errors?.emergencyContactPhone && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.emergencyContactPhone[0]}</p>}
+                 {form.formState.errors.emergencyContactPhone && <p className="text-sm text-destructive mt-1">{form.formState.errors.emergencyContactPhone.message}</p>}
             </div>
         </div>
       </section>
@@ -333,7 +406,7 @@ export default function AdmissionFormComponent() {
             name="declaration" 
             checked={form.watch("declaration")}
             onCheckedChange={(checked) => form.setValue("declaration", checked as boolean, {shouldValidate: true})}
-            aria-invalid={state.errors?.declaration ? "true" : "false"}
+            aria-invalid={(state.errors?.declaration || form.formState.errors.declaration) && !showLoginPrompt ? "true" : "false"}
           />
           <div className="grid gap-1.5 leading-none">
             <Label htmlFor="declaration" className="font-medium cursor-pointer">
@@ -344,17 +417,40 @@ export default function AdmissionFormComponent() {
             </p>
           </div>
         </div>
-         {state.errors?.declaration && <p className="text-sm text-destructive mt-1">{state.errors.declaration[0]}</p>}
+         {(state.errors?.declaration && !showLoginPrompt) && <p className="text-sm text-destructive mt-1">{state.errors.declaration[0]}</p>}
+         {form.formState.errors.declaration && <p className="text-sm text-destructive mt-1">{form.formState.errors.declaration.message}</p>}
       </section>
 
-      <div className="flex justify-center">
-        <SubmitButton />
+      <div className="flex flex-col items-center justify-center space-y-4">
+        {showLoginPrompt ? (
+          <Card className="w-full max-w-md p-6 shadow-lg bg-background border-primary">
+            <CardHeader>
+              <CardTitle className="text-center text-primary text-xl">Login or Sign Up to Continue</CardTitle>
+              <CardDescription className="text-center text-muted-foreground">
+                Please "log in" to submit your application.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-col items-center space-y-3">
+              <Button onClick={handleSimulatedLoginAndSubmit} className="w-full text-lg py-3">
+                <LogIn className="mr-2 h-5 w-5" /> Simulate Login & Submit
+              </Button>
+              <Button variant="outline" onClick={() => { setShowLoginPrompt(false); setStagedFormData(null); }} className="w-full">
+                Cancel
+              </Button>
+            </CardContent>
+          </Card>
+        ) : (
+          <SubmitButton showLoginPrompt={showLoginPrompt} />
+        )}
+        
+        {state.status === "error" && state.message && Object.keys(state.errors || {}).length > 0 && !showLoginPrompt && (
+          <p className="text-sm text-destructive mt-4 text-center">
+            Please correct the errors in the form and try again.
+          </p>
+        )}
       </div>
-       {state.status === "error" && state.message && Object.keys(state.errors || {}).length > 0 && (
-        <p className="text-sm text-destructive mt-4 text-center">
-          Please correct the errors in the form and try again.
-        </p>
-      )}
     </form>
   );
 }
+
+    
