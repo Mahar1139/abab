@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import SectionWrapper from '@/components/shared/SectionWrapper';
-import { GraduationCap, Activity, Users, FileText, Users2, Camera, ArrowRight } from 'lucide-react';
+import { BookOpenCheck, Leaf, Handshake, FileText, Users2, Camera, ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const ANIMATION_DURATION = 800; // ms for each plane to slide
@@ -247,7 +247,7 @@ export default function HomePage() {
             <Card className="shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-background/50">
               <CardHeader className="items-center text-center">
                 <div className="p-4 bg-primary rounded-full mb-4 inline-block">
-                  <GraduationCap className="w-10 h-10 text-primary-foreground" />
+                  <BookOpenCheck className="w-10 h-10 text-primary-foreground" />
                 </div>
                 <CardTitle className="text-2xl text-primary">Academic Excellence</CardTitle>
               </CardHeader>
@@ -258,7 +258,7 @@ export default function HomePage() {
             <Card className="shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-background/50">
               <CardHeader className="items-center text-center">
                 <div className="p-4 bg-primary rounded-full mb-4 inline-block">
-                  <Activity className="w-10 h-10 text-primary-foreground" />
+                  <Leaf className="w-10 h-10 text-primary-foreground" />
                 </div>
                 <CardTitle className="text-2xl text-primary">Holistic Growth</CardTitle>
               </CardHeader>
@@ -269,7 +269,7 @@ export default function HomePage() {
             <Card className="shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-background/50">
               <CardHeader className="items-center text-center">
                 <div className="p-4 bg-primary rounded-full mb-4 inline-block">
-                  <Users className="w-10 h-10 text-primary-foreground" />
+                  <Handshake className="w-10 h-10 text-primary-foreground" />
                 </div>
                 <CardTitle className="text-2xl text-primary">Vibrant Community</CardTitle>
               </CardHeader>
