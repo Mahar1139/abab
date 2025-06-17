@@ -1,3 +1,4 @@
+
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -5,6 +6,7 @@ import { ScrollText, CheckCircle, CalendarDays } from "lucide-react";
 import QuestionSuggester from "@/components/ai/QuestionSuggester";
 import { suggestAdmissionQuestions } from "@/ai/flows/suggest-admission-questions";
 import { admissionsContent, fullAdmissionsText } from "./admission-content";
+import FloatingAIHelper from "@/components/ai/FloatingAIHelper"; // Added import
 
 export default function AdmissionsPage() {
   return (
@@ -65,6 +67,9 @@ export default function AdmissionsPage() {
         title="Questions About Admissions?"
         description="After reviewing the admissions information, you might have some questions. Our AI can help suggest a few relevant ones to ask."
       />
+
+      <FloatingAIHelper />
     </div>
   );
 }
+

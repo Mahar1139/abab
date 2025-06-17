@@ -8,3 +8,4 @@ import '@/ai/flows/school-info-flow.ts';
 import '@/ai/flows/generate-quiz-question-flow.ts';
 import '@/ai/flows/teacher-conduit-flow.ts';
 import '@/ai/flows/explain-quiz-answer-flow.ts';
+import '@/ai/flows/admission-assistant-flow.ts'; // Added import for the new flow
