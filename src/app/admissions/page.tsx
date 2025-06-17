@@ -41,7 +41,7 @@ export default function AdmissionsPage() {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="criteria" className="mt-6">
+          <TabsContent value="criteria" className="mt-8"> {/* Increased from mt-6 */}
             <Card className="shadow-md">
               <CardHeader>
                 <CardTitle className="text-2xl text-primary">Eligibility & Criteria</CardTitle>
@@ -52,7 +52,7 @@ export default function AdmissionsPage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="procedure" className="mt-6">
+          <TabsContent value="procedure" className="mt-8"> {/* Increased from mt-6 */}
             <Card className="shadow-md">
               <CardHeader>
                 <CardTitle className="text-2xl text-primary">How to Apply</CardTitle>
@@ -63,7 +63,7 @@ export default function AdmissionsPage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="deadlines" className="mt-6">
+          <TabsContent value="deadlines" className="mt-8"> {/* Increased from mt-6 */}
             <Card className="shadow-md">
               <CardHeader>
                 <CardTitle className="text-2xl text-primary">Key Dates & Deadlines</CardTitle>
@@ -74,7 +74,7 @@ export default function AdmissionsPage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="apply" className="mt-6">
+          <TabsContent value="apply" className="mt-8"> {/* Increased from mt-6 */}
             <Card className="shadow-md">
               <CardHeader>
                 <CardTitle className="text-2xl text-primary">Online Admission Form</CardTitle>
