@@ -2,18 +2,19 @@
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ScrollText, CheckCircle, CalendarDays } from "lucide-react";
+import { ScrollText, CheckCircle, CalendarDays, ClipboardEdit } from "lucide-react"; // Added ClipboardEdit
 import QuestionSuggester from "@/components/ai/QuestionSuggester";
 import { suggestAdmissionQuestions } from "@/ai/flows/suggest-admission-questions";
 import { admissionsContent, fullAdmissionsText } from "./admission-content";
-import FloatingAIHelper from "@/components/ai/FloatingAIHelper"; // Added import
+import FloatingAIHelper from "@/components/ai/FloatingAIHelper";
+import AdmissionFormComponent from "@/components/admissions/AdmissionForm"; // New import
 
 export default function AdmissionsPage() {
   return (
     <div className="container mx-auto py-8">
       <SectionWrapper title="Admissions at Himalaya Public School">
         <Tabs defaultValue="criteria" className="w-full">
-          <TabsList className="grid w-full grid-cols-1 md:grid-cols-3 mb-6 gap-2 md:gap-0">
+          <TabsList className="grid w-full grid-cols-1 md:grid-cols-4 mb-6 gap-2 md:gap-0"> {/* Updated grid-cols */}
             <TabsTrigger value="criteria" className="py-3 text-base">
               <CheckCircle className="mr-2 h-5 w-5" /> Admission Criteria
             </TabsTrigger>
@@ -22,6 +23,9 @@ export default function AdmissionsPage() {
             </TabsTrigger>
             <TabsTrigger value="deadlines" className="py-3 text-base">
               <CalendarDays className="mr-2 h-5 w-5" /> Important Deadlines
+            </TabsTrigger>
+            <TabsTrigger value="apply" className="py-3 text-base"> {/* New Tab Trigger */}
+              <ClipboardEdit className="mr-2 h-5 w-5" /> Apply Online
             </TabsTrigger>
           </TabsList>
 
@@ -57,6 +61,18 @@ export default function AdmissionsPage() {
               </CardContent>
             </Card>
           </TabsContent>
+
+          <TabsContent value="apply"> {/* New Tab Content */}
+            <Card className="shadow-md">
+              <CardHeader>
+                <CardTitle className="text-2xl text-primary">Online Admission Form</CardTitle>
+                <CardDescription>Please fill out the form below to apply for admission.</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <AdmissionFormComponent />
+              </CardContent>
+            </Card>
+          </TabsContent>
         </Tabs>
       </SectionWrapper>
 
@@ -65,11 +81,10 @@ export default function AdmissionsPage() {
         suggestionFn={suggestAdmissionQuestions}
         inputKey="admissionsInfo"
         title="Questions About Admissions?"
-        description="After reviewing the admissions information, you might have some questions. Our AI can help suggest a few relevant ones to ask."
+        description="After reviewing the admissions information, or while filling the form, you might have some questions. Our AI can help suggest a few relevant ones."
       />
 
       <FloatingAIHelper />
     </div>
   );
 }
-

@@ -1,3 +1,7 @@
+
+import type { z } from 'zod'; // Added for Zod types if needed elsewhere
+import type { admissionFormSchema } from '@/components/admissions/AdmissionForm'; // For AdmissionFormData
+
 export interface FacultyMember {
   id: string;
   name: string;
@@ -25,3 +29,6 @@ export interface DownloadableResource {
   fileUrl: string; // Placeholder URL for download
   icon: React.ElementType; // Lucide icon component
 }
+
+// Type for Admission Form Data, inferred from Zod schema
+export type AdmissionFormData = z.infer<typeof admissionFormSchema>;
