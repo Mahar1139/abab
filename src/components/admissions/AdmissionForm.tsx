@@ -2,17 +2,17 @@
 "use client";
 
 import { useEffect } from "react";
-import { useActionState } from "react"; // For useActionState
-import { useFormStatus } from "react-dom"; // For useFormStatus
+import { useActionState } from "react"; 
+import { useFormStatus } from "react-dom"; 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import type { z } from "zod"; // Keep type import if needed, but schema comes from new file
 import { format } from "date-fns";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea"; // Assuming you might want a larger message field, or for other uses. Not directly in this form.
+// import { Textarea } from "@/components/ui/textarea"; 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -21,36 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 import { submitAdmissionForm, type AdmissionFormState } from "@/app/admissions/actions";
 import { CalendarIcon, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-export const admissionFormSchema = z.object({
-  // Student Information
-  studentFullName: z.string().min(3, { message: "Student's full name must be at least 3 characters." }),
-  studentDOB: z.date({ required_error: "Date of birth is required." }),
-  studentGender: z.string({ required_error: "Please select student's gender." }).min(1, "Please select student's gender."),
-  applyingForGrade: z.string({ required_error: "Please select a grade." }).min(1, "Please select a grade."),
-  previousSchoolName: z.string().optional(),
-  previousSchoolCity: z.string().optional(),
-
-  // Parent/Guardian Information
-  parentFullName: z.string().min(3, { message: "Parent/Guardian name must be at least 3 characters." }),
-  relationshipToStudent: z.string({ required_error: "Please select relationship."}).min(1, "Please select relationship."),
-  parentEmail: z.string().email({ message: "Please enter a valid email address." }),
-  parentPhone: z.string().min(10, { message: "Phone number must be at least 10 digits." }).regex(/^\d+$/, "Phone number must contain only digits."),
-  addressLine1: z.string().min(5, { message: "Address Line 1 must be at least 5 characters." }),
-  addressLine2: z.string().optional(),
-  city: z.string().min(2, { message: "City must be at least 2 characters." }),
-  state: z.string().min(2, { message: "State must be at least 2 characters." }),
-  zipCode: z.string().min(5, { message: "Zip code must be at least 5 characters." }).regex(/^\d+$/, "Zip code must contain only digits."),
-
-  // Emergency Contact
-  emergencyContactName: z.string().optional(),
-  emergencyContactPhone: z.string().optional().refine(val => !val || (val.length >= 10 && /^\d+$/.test(val)), {
-    message: "Emergency phone must be at least 10 digits and contain only digits, if provided.",
-  }),
-  
-  // Declaration
-  declaration: z.boolean().refine(val => val === true, { message: "You must agree to the declaration." }),
-});
+import { admissionFormSchema } from "@/lib/schemas/admission-schema"; // Updated import
 
 export type AdmissionFormData = z.infer<typeof admissionFormSchema>;
 
@@ -123,14 +94,14 @@ export default function AdmissionFormComponent() {
     // For field-specific errors, they are handled below directly in the JSX
   }, [state, toast, form]);
 
-  // Helper to get form data for action.ts
-  // Ensures date is passed correctly.
   const handleFormAction = (formData: FormData) => {
     const dob = form.getValues("studentDOB");
     if (dob) {
+      // Ensure studentDOB field in FormData is an ISO string for the server action
       formData.set("studentDOB", dob.toISOString());
     } else {
-      formData.delete("studentDOB"); // Ensure it's not an empty string if undefined
+      // If DOB is not set, ensure it's not an empty string that might cause parsing issues
+      formData.delete("studentDOB");
     }
     formAction(formData);
   };
@@ -147,10 +118,11 @@ export default function AdmissionFormComponent() {
             {state.errors?.studentFullName && <p className="text-sm text-destructive mt-1">{state.errors.studentFullName[0]}</p>}
           </div>
           <div>
-            <Label htmlFor="studentDOB">Date of Birth</Label>
+            <Label htmlFor="studentDOBFormInput">Date of Birth</Label>
             <Popover>
               <PopoverTrigger asChild>
                 <Button
+                  id="studentDOBFormInput"
                   variant={"outline"}
                   className={cn(
                     "w-full justify-start text-left font-normal",
@@ -170,11 +142,10 @@ export default function AdmissionFormComponent() {
                   captionLayout="dropdown-buttons"
                   fromYear={new Date().getFullYear() - 20}
                   toYear={new Date().getFullYear() -2}
-
                 />
               </PopoverContent>
             </Popover>
-            {/* Hidden input to carry the date value for FormData, managed by react-hook-form's setValue */}
+            {/* This hidden input ensures the date is part of FormData when submitted */}
             <input type="hidden" name="studentDOB" value={form.watch("studentDOB") ? form.watch("studentDOB")!.toISOString() : ""} />
             {state.errors?.studentDOB && <p className="text-sm text-destructive mt-1">{state.errors.studentDOB[0]}</p>}
           </div>
@@ -328,4 +299,3 @@ export default function AdmissionFormComponent() {
     </form>
   );
 }
-

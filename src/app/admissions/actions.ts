@@ -2,7 +2,7 @@
 "use server";
 
 import { z } from "zod";
-import { admissionFormSchema } from "@/components/admissions/AdmissionForm"; // Import the schema
+import { admissionFormSchema } from "@/lib/schemas/admission-schema"; // Updated import
 
 export type AdmissionFormState = {
   message: string;
@@ -64,4 +64,3 @@ export async function submitAdmissionForm(
     errors: {},
   };
 }
-

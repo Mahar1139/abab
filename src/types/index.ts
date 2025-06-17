@@ -1,6 +1,6 @@
 
-import type { z } from 'zod'; // Added for Zod types if needed elsewhere
-import type { admissionFormSchema } from '@/components/admissions/AdmissionForm'; // For AdmissionFormData
+import type { z } from 'zod';
+import type { admissionFormSchema } from '@/lib/schemas/admission-schema'; // Updated import
 
 export interface FacultyMember {
   id: string;
@@ -16,19 +16,18 @@ export interface SchoolEvent {
   title: string;
   description: string;
   imageUrl: string;
-  date?: string; // Optional date for events or news
+  date?: string; 
   dataAiHint?: string;
 }
 
-export interface NewsArticle extends SchoolEvent {} // News can share event structure
+export interface NewsArticle extends SchoolEvent {} 
 
 export interface DownloadableResource {
   id:string;
   title: string;
   description: string;
-  fileUrl: string; // Placeholder URL for download
-  icon: React.ElementType; // Lucide icon component
+  fileUrl: string; 
+  icon: React.ElementType; 
 }
 
-// Type for Admission Form Data, inferred from Zod schema
 export type AdmissionFormData = z.infer<typeof admissionFormSchema>;
