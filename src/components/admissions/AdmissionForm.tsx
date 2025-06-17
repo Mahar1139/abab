@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState, useFormStatus } from "react"; // Updated import
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -78,7 +78,7 @@ const grades = [
 ];
 
 export default function AdmissionFormComponent() {
-  const [state, formAction] = useFormState(submitAdmissionForm, initialState);
+  const [state, formAction] = useActionState(submitAdmissionForm, initialState); // Updated hook
   const { toast } = useToast();
 
   const form = useForm<AdmissionFormData>({
