@@ -18,7 +18,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       <AppSidebar />
       <SidebarInset className="flex flex-col">
         <PageHeader />
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto animate-in fade-in-0 duration-500 ease-out">
           {children}
         </main>
         {showFooter && (
