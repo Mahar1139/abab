@@ -53,7 +53,7 @@ export default function FloatingAIHelper() {
   const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);
   const isOnCooldown = cooldownEndTime !== null && Date.now() < cooldownEndTime;
 
-  const initialGreeting = "How can I assist you today with HPS?";
+  const initialGreeting = "Welcome to your AI guide for Himalaya Public School! I'm ready to help you explore our offerings, from admissions details to program information, and can also assist with general knowledge or coding questions. What would you like to discover today?";
   
   // Load and save cooldown state from/to localStorage
   useEffect(() => {
