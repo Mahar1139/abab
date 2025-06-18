@@ -200,19 +200,17 @@ export default function SchoolInfoChatbot() {
         ta_full = rawAnswer.substring(match.index + match[0].length);
       }
       
-      setTextBefore(tb_full || null);
+      setTextBefore(tb_full); // Store actual string, even if empty
       setCodeLanguage(cl_full);
-      setCodeContent(cc_full);
-      setTextAfter(ta_full || null);
-
-      if (tb_full && tb_full.trim().length > 0) {
+      setCodeContent(cc_full); // Store actual string or null
+      setTextAfter(ta_full);   // Store actual string, even if empty
+      
+      if (tb_full.length > 0) {
         setIsAnimatingTextBefore(true);
-      } else if (cc_full) {
+      } else if (cc_full && cc_full.length > 0) {
         setIsAnimatingCode(true);
-      } else if (ta_full && ta_full.trim().length > 0) {
+      } else if (ta_full && ta_full.length > 0) {
         setIsAnimatingTextAfter(true);
-      } else if (rawAnswer) { 
-        setIsAnimatingTextBefore(true); 
       }
     } else {
       setTextBefore(null);
@@ -220,10 +218,11 @@ export default function SchoolInfoChatbot() {
       setCodeLanguage(null);
       setTextAfter(null);
     }
-  }, [rawAnswer]);
+    scrollToBottom();
+  }, [rawAnswer, scrollToBottom]);
 
   useEffect(() => {
-    if (isAnimatingTextBefore && textBefore) {
+    if (isAnimatingTextBefore && textBefore !== null) {
       if (animatedTextBefore.length < textBefore.length) {
         animationTimeoutRef.current = setTimeout(() => {
           setAnimatedTextBefore(textBefore.substring(0, animatedTextBefore.length + 1));
@@ -231,9 +230,9 @@ export default function SchoolInfoChatbot() {
         }, currentAnimationDelay);
       } else { 
         setIsAnimatingTextBefore(false);
-        if (codeContent) {
+        if (codeContent && codeContent.length > 0) {
           setIsAnimatingCode(true); 
-        } else if (textAfter && textAfter.trim().length > 0) {
+        } else if (textAfter && textAfter.length > 0) {
           setIsAnimatingTextAfter(true); 
         }
       }
@@ -246,7 +245,7 @@ export default function SchoolInfoChatbot() {
   }, [isAnimatingTextBefore, textBefore, animatedTextBefore, codeContent, textAfter, currentAnimationDelay, scrollToBottom]);
 
   useEffect(() => {
-    if (isAnimatingCode && codeContent) {
+    if (isAnimatingCode && codeContent !== null) {
       if (animatedCode.length < codeContent.length) {
         animationTimeoutRef.current = setTimeout(() => {
           setAnimatedCode(codeContent.substring(0, animatedCode.length + 1));
@@ -254,7 +253,7 @@ export default function SchoolInfoChatbot() {
         }, currentAnimationDelay);
       } else { 
         setIsAnimatingCode(false);
-        if (textAfter && textAfter.trim().length > 0) {
+        if (textAfter && textAfter.length > 0) {
           setIsAnimatingTextAfter(true); 
         }
       }
@@ -267,7 +266,7 @@ export default function SchoolInfoChatbot() {
   }, [isAnimatingCode, codeContent, animatedCode, textAfter, currentAnimationDelay, scrollToBottom]);
 
   useEffect(() => {
-    if (isAnimatingTextAfter && textAfter) {
+    if (isAnimatingTextAfter && textAfter !== null) {
       if (animatedTextAfter.length < textAfter.length) {
         animationTimeoutRef.current = setTimeout(() => {
           setAnimatedTextAfter(textAfter.substring(0, animatedTextAfter.length + 1));
@@ -310,19 +309,22 @@ export default function SchoolInfoChatbot() {
 
         let cooldownDurationMs = 60000; 
         if (newStrikeCount > 1) {
-          cooldownDurationMs = Math.min((1 + (newStrikeCount - 1) * 5) * 60000, 24 * 60 * 60 * 1000); // Cap at 24h
+          cooldownDurationMs = Math.min((1 + (newStrikeCount - 1) * 5) * 60000, 24 * 60 * 60 * 1000); 
         }
         const newCooldownEndTime = Date.now() + cooldownDurationMs;
         setCooldownEndTime(newCooldownEndTime);
         setRawAnswer(result.answer || "Your query was blocked due to content policy. Interaction is temporarily disabled.");
       } else if (result.answer !== undefined && result.answer !== null) {
-        if (result.answer.trim() === "") {
-          setError("The AI provided an empty response. Please try rephrasing your question or ask something else.");
+        const trimmedAnswer = result.answer.trim();
+        const isHtmlCommentOnly = /^<!--[\s\S]*?-->$/.test(trimmedAnswer);
+
+        if (trimmedAnswer === "" || isHtmlCommentOnly) {
+          setError("The AI provided an empty or non-displayable response. Please try rephrasing your question or ask something else.");
           setRawAnswer(null);
         } else {
-          setRawAnswer(result.answer);
+          setRawAnswer(result.answer); 
         }
-      } else {
+      } else { 
         setError("The AI didn't provide an answer. Please try rephrasing your question.");
         setRawAnswer(null);
       }
@@ -508,7 +510,7 @@ export default function SchoolInfoChatbot() {
               <div className="p-4 bg-secondary/10 rounded-md text-foreground/90 leading-relaxed prose max-w-none dark:prose-invert prose-p:my-2 prose-pre:bg-card prose-pre:shadow-md prose-code:font-code">
                 {animatedTextBefore && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextBefore}</div>}
                 
-                { (codeContent || animatedCode.length > 0) && (
+                { (codeContent || (animatedCode && animatedCode.length > 0)) && (
                   <pre className="overflow-x-auto">
                     <code className={codeLanguage ? `language-${codeLanguage}` : 'language-plaintext'}>
                       {animatedCode}
