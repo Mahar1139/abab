@@ -8,36 +8,36 @@ import { ArrowRight, CheckCircle, Code2, Bot, Laptop } from 'lucide-react';
 import ClassGallery from '@/components/classes/ClassGallery';
 
 const codingGalleryImages = [
-  { src: '/images/placeholder-300x300.png', alt: 'Students collaborating on code', dataAiHint: 'students collaborating' },
-  { src: '/images/placeholder-300x300.png', alt: 'Student presenting coding project', dataAiHint: 'student presentation' },
-  { src: '/images/placeholder-300x300.png', alt: 'Close-up of code on a screen', dataAiHint: 'code screen' },
-  { src: '/images/placeholder-300x300.png', alt: 'Happy student with laptop', dataAiHint: 'student laptop' },
-  { src: '/images/placeholder-300x300.png', alt: 'Teacher explaining code to students', dataAiHint: 'teacher students' },
-  { src: '/images/placeholder-300x300.png', alt: 'Group of girls coding', dataAiHint: 'girls coding' },
-  { src: '/images/placeholder-300x300.png', alt: 'Diverse students in coding class', dataAiHint: 'diverse students' },
-  { src: '/images/placeholder-300x300.png', alt: 'Student debugging code', dataAiHint: 'student debugging' },
+  { src: '/All_Images/coding-classes/gallery-students-collaborating.png', alt: 'Students collaborating on code', dataAiHint: 'students collaborating' },
+  { src: '/All_Images/coding-classes/gallery-student-presenting.png', alt: 'Student presenting coding project', dataAiHint: 'student presentation' },
+  { src: '/All_Images/coding-classes/gallery-code-screen.png', alt: 'Close-up of code on a screen', dataAiHint: 'code screen' },
+  { src: '/All_Images/coding-classes/gallery-student-laptop.png', alt: 'Happy student with laptop', dataAiHint: 'student laptop' },
+  { src: '/All_Images/coding-classes/gallery-teacher-explaining.png', alt: 'Teacher explaining code to students', dataAiHint: 'teacher students' },
+  { src: '/All_Images/coding-classes/gallery-girls-coding.png', alt: 'Group of girls coding', dataAiHint: 'girls coding' },
+  { src: '/All_Images/coding-classes/gallery-diverse-students.png', alt: 'Diverse students in coding class', dataAiHint: 'diverse students' },
+  { src: '/All_Images/coding-classes/gallery-student-debugging.png', alt: 'Student debugging code', dataAiHint: 'student debugging' },
 ];
 
 const roboticsGalleryImages = [
-  { src: '/images/placeholder-300x300.png', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
-  { src: '/images/placeholder-300x300.png', alt: 'Students testing a robot', dataAiHint: 'students robot' },
-  { src: '/images/placeholder-300x300.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
-  { src: '/images/placeholder-300x300.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
-  { src: '/images/placeholder-300x300.png', alt: 'Team celebrating robot success', dataAiHint: 'team celebration' },
-  { src: '/images/placeholder-300x300.png', alt: 'Robots in a competition setting', dataAiHint: 'robot competition' },
-  { src: '/images/placeholder-300x300.png', alt: 'Robot navigating an obstacle course', dataAiHint: 'robot obstacle' },
-  { src: '/images/placeholder-300x300.png', alt: 'Student programming robot', dataAiHint: 'student programming' },
+  { src: '/All_Images/robotics-classes/gallery-robotic-arm.png', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
+  { src: '/All_Images/robotics-classes/gallery-students-testing.png', alt: 'Students testing a robot', dataAiHint: 'students robot' },
+  { src: '/All_Images/robotics-classes/gallery-robot-components.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
+  { src: '/All_Images/robotics-classes/gallery-student-soldering.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
+  { src: '/All_Images/robotics-classes/gallery-team-celebrating.png', alt: 'Team celebrating robot success', dataAiHint: 'team celebration' },
+  { src: '/All_Images/robotics-classes/gallery-robot-competition.png', alt: 'Robots in a competition setting', dataAiHint: 'robot competition' },
+  { src: '/All_Images/robotics-classes/gallery-robot-obstacle.png', alt: 'Robot navigating an obstacle course', dataAiHint: 'robot obstacle' },
+  { src: '/All_Images/robotics-classes/gallery-student-programming.png', alt: 'Student programming robot', dataAiHint: 'student programming' },
 ];
 
 const computerGalleryImages = [
-  { src: '/images/placeholder-300x300.png', alt: 'Student learning on a computer', dataAiHint: 'student computer' },
-  { src: '/images/placeholder-300x300.png', alt: 'Creating digital art on a tablet', dataAiHint: 'digital art' },
-  { src: '/images/placeholder-300x300.png', alt: 'Interface of video editing software', dataAiHint: 'video editing' },
-  { src: '/images/placeholder-300x300.png', alt: 'Students researching online', dataAiHint: 'students research' },
-  { src: '/images/placeholder-300x300.png', alt: 'Teacher assisting student at PC', dataAiHint: 'teacher student' },
-  { src: '/images/placeholder-300x300.png', alt: 'Students working on a group project on computer', dataAiHint: 'group project' },
-  { src: '/images/placeholder-300x300.png', alt: 'Concept of cybersecurity shield', dataAiHint: 'cybersecurity concept' },
-  { src: '/images/placeholder-300x300.png', alt: 'Student learning presentation software', dataAiHint: 'student presentation software' },
+  { src: '/All_Images/computer-classes/gallery-student-learning.png', alt: 'Student learning on a computer', dataAiHint: 'student computer' },
+  { src: '/All_Images/computer-classes/gallery-digital-art.png', alt: 'Creating digital art on a tablet', dataAiHint: 'digital art' },
+  { src: '/All_Images/computer-classes/gallery-video-editing.png', alt: 'Interface of video editing software', dataAiHint: 'video editing' },
+  { src: '/All_Images/computer-classes/gallery-students-research.png', alt: 'Students researching online', dataAiHint: 'students research' },
+  { src: '/All_Images/computer-classes/gallery-teacher-assisting.png', alt: 'Teacher assisting student at PC', dataAiHint: 'teacher student' },
+  { src: '/All_Images/computer-classes/gallery-group-project.png', alt: 'Students working on a group project on computer', dataAiHint: 'group project' },
+  { src: '/All_Images/computer-classes/gallery-cybersecurity.png', alt: 'Concept of cybersecurity shield', dataAiHint: 'cybersecurity concept' },
+  { src: '/All_Images/computer-classes/gallery-presentation-software.png', alt: 'Student learning presentation software', dataAiHint: 'student presentation software' },
 ];
 
 export default function TechProgramsPage() {
@@ -53,7 +53,7 @@ export default function TechProgramsPage() {
           <div className="md:flex">
             <div className="md:w-1/2 relative min-h-[300px] md:min-h-[400px]">
               <Image
-                src="/images/placeholder-600x400.png"
+                src="/All_Images/coding-classes/main-students-learning.png"
                 alt="Students learning coding concepts on laptops"
                 fill
                 data-ai-hint="students coding laptop"
@@ -106,7 +106,7 @@ export default function TechProgramsPage() {
           <div className="md:flex">
             <div className="md:w-1/2 relative min-h-[300px] md:min-h-[400px]">
               <Image
-                src="/images/placeholder-600x400.png"
+                src="/All_Images/robotics-classes/main-students-assembling.png"
                 alt="Students assembling and programming a robot"
                 fill
                 data-ai-hint="students building robot"
@@ -159,7 +159,7 @@ export default function TechProgramsPage() {
           <div className="md:flex">
             <div className="md:w-1/2 relative min-h-[300px] md:min-h-[400px]">
               <Image
-                src="/images/placeholder-600x400.png"
+                src="/All_Images/computer-classes/main-students-classroom.png"
                 alt="Students using computers in a classroom setting"
                 fill
                 data-ai-hint="students computers classroom"

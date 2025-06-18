@@ -8,14 +8,14 @@ import { ArrowRight, CheckCircle, Laptop } from 'lucide-react';
 import ClassGallery from '@/components/classes/ClassGallery';
 
 const computerGalleryImages = [
-  { src: '/images/placeholder-300x300.png', alt: 'Student learning on a computer', dataAiHint: 'student computer' },
-  { src: '/images/placeholder-300x300.png', alt: 'Creating digital art on a tablet', dataAiHint: 'digital art' },
-  { src: '/images/placeholder-300x300.png', alt: 'Interface of video editing software', dataAiHint: 'video editing' },
-  { src: '/images/placeholder-300x300.png', alt: 'Students researching online', dataAiHint: 'students research' },
-  { src: '/images/placeholder-300x300.png', alt: 'Teacher assisting student at PC', dataAiHint: 'teacher student' },
-  { src: '/images/placeholder-300x300.png', alt: 'Students working on a group project on computer', dataAiHint: 'group project' },
-  { src: '/images/placeholder-300x300.png', alt: 'Concept of cybersecurity shield', dataAiHint: 'cybersecurity concept' },
-  { src: '/images/placeholder-300x300.png', alt: 'Student learning presentation software', dataAiHint: 'student presentation software' },
+  { src: '/All_Images/computer-classes/gallery-student-learning.png', alt: 'Student learning on a computer', dataAiHint: 'student computer' },
+  { src: '/All_Images/computer-classes/gallery-digital-art.png', alt: 'Creating digital art on a tablet', dataAiHint: 'digital art' },
+  { src: '/All_Images/computer-classes/gallery-video-editing.png', alt: 'Interface of video editing software', dataAiHint: 'video editing' },
+  { src: '/All_Images/computer-classes/gallery-students-research.png', alt: 'Students researching online', dataAiHint: 'students research' },
+  { src: '/All_Images/computer-classes/gallery-teacher-assisting.png', alt: 'Teacher assisting student at PC', dataAiHint: 'teacher student' },
+  { src: '/All_Images/computer-classes/gallery-group-project.png', alt: 'Students working on a group project on computer', dataAiHint: 'group project' },
+  { src: '/All_Images/computer-classes/gallery-cybersecurity.png', alt: 'Concept of cybersecurity shield', dataAiHint: 'cybersecurity concept' },
+  { src: '/All_Images/computer-classes/gallery-presentation-software.png', alt: 'Student learning presentation software', dataAiHint: 'student presentation software' },
 ];
 
 export default function ComputerClassesPage() {
@@ -30,7 +30,7 @@ export default function ComputerClassesPage() {
           <div className="md:flex">
             <div className="md:w-1/2 relative min-h-[300px] md:min-h-[400px]">
               <Image
-                src="/images/placeholder-600x400.png"
+                src="/All_Images/computer-classes/main-students-classroom.png"
                 alt="Students using computers in a classroom setting"
                 fill
                 data-ai-hint="students computers classroom"

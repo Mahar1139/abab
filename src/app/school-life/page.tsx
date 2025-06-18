@@ -1,3 +1,4 @@
+
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GalleryImage from "@/components/school-life/GalleryImage";

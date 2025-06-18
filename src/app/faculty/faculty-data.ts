@@ -7,7 +7,7 @@ export const facultyMembers: FacultyMember[] = [
     name: 'Suman Bisht',
     title: 'Principal, PhD in Education',
     bio: 'Dr. Sharma has over 20 years of experience in educational leadership and curriculum development. She is passionate about fostering an inclusive and innovative learning environment.',
-    imageUrl: '/images/placeholder-150x150.png',
+    imageUrl: '/All_Images/faculty/suman-bisht.png',
     dataAiHint: 'portrait professional'
   },
   {
@@ -15,7 +15,7 @@ export const facultyMembers: FacultyMember[] = [
     name: 'Mr. Rohan Verma',
     title: 'Head of Mathematics, M.Sc. Mathematics',
     bio: 'Mr. Verma is known for his engaging teaching style and ability to make complex mathematical concepts accessible to students of all levels. He has been with Himalaya Public School for 15 years.',
-    imageUrl: '/images/placeholder-150x150.png',
+    imageUrl: '/All_Images/faculty/rohan-verma.png',
     dataAiHint: 'portrait professional'
   },
   {
@@ -23,7 +23,7 @@ export const facultyMembers: FacultyMember[] = [
     name: 'Ms. Priya Kulkarni',
     title: 'Lead Science Teacher, M.Ed. Science Education',
     bio: 'Ms. Kulkarni champions inquiry-based learning and hands-on experiments in her science classes. She actively mentors students for science olympiads and fairs.',
-    imageUrl: '/images/placeholder-150x150.png',
+    imageUrl: '/All_Images/faculty/priya-kulkarni.png',
     dataAiHint: 'portrait professional'
   },
   {
@@ -31,7 +31,7 @@ export const facultyMembers: FacultyMember[] = [
     name: 'Mr. Sameer Khan',
     title: 'English Department Head, MA English Literature',
     bio: 'Mr. Khan inspires a love for literature and critical thinking. He organizes the school\'s debate club and annual literary festival.',
-    imageUrl: '/images/placeholder-150x150.png',
+    imageUrl: '/All_Images/faculty/sameer-khan.png',
     dataAiHint: 'portrait professional'
   },
    {
@@ -39,7 +39,7 @@ export const facultyMembers: FacultyMember[] = [
     name: 'Mrs. Sunita Patel',
     title: 'Arts & Crafts Coordinator, B.F.A.',
     bio: 'Mrs. Patel believes in nurturing creativity and self-expression through various art forms. Her students regularly win accolades at inter-school art competitions.',
-    imageUrl: '/images/placeholder-150x150.png',
+    imageUrl: '/All_Images/faculty/sunita-patel.png',
     dataAiHint: 'portrait professional'
   },
   {
@@ -47,7 +47,7 @@ export const facultyMembers: FacultyMember[] = [
     name: 'Mr. Arjun Reddy',
     title: 'Physical Education Director, M.P.Ed.',
     bio: 'Mr. Reddy is dedicated to promoting physical fitness and sportsmanship among students. He coaches multiple school sports teams, leading them to numerous victories.',
-    imageUrl: '/images/placeholder-150x150.png',
+    imageUrl: '/All_Images/faculty/arjun-reddy.png',
     dataAiHint: 'portrait professional'
   }
 ];
