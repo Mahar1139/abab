@@ -400,8 +400,8 @@ export default function SchoolInfoChatbot() {
         </CardTitle>
         <CardDescription>
           {isUnrestrictedMode 
-            ? "You're in unrestricted mode. Ask anything! Type \"#10x10\" to exit and return to school assistant." 
-            : "Ask about Himalaya Public School, request code snippets, or general questions. Try \"#10x10\" for unrestricted mode or \"11x11\" for Teacher NCERT Helper."}
+            ? "You're in unrestricted mode. Ask anything!" 
+            : "Ask about Himalaya Public School, request code snippets, or general questions."}
         </CardDescription>
       </CardHeader>
       <CardContent 
@@ -519,3 +519,4 @@ export default function SchoolInfoChatbot() {
     </Card>
   );
 }
+
