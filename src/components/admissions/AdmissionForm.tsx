@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useEffect, useState, useActionState } from "react";
+import { useEffect, useState, useActionState, useRef } from "react"; // Added useRef
 import { useFormStatus } from "react-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -58,6 +58,7 @@ export default function AdmissionFormComponent() {
   const { toast } = useToast();
   const [showCouponInstructions, setShowCouponInstructions] = useState(false);
   const [formSubmittedSuccessfully, setFormSubmittedSuccessfully] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null); // Added formRef
 
   const form = useForm<AdmissionFormData>({
     resolver: zodResolver(admissionFormSchema),
@@ -97,7 +98,6 @@ export default function AdmissionFormComponent() {
       let specificFieldErrorsSet = false;
       if (state.errors && Object.keys(state.errors).length > 0) {
         let firstErrorField: keyof AdmissionFormData | null = null;
-        // Iterate over the keys of the schema to ensure we only try to set errors for valid fields
         for (const schemaKey in admissionFormSchema.shape) {
             const fieldName = schemaKey as keyof AdmissionFormData;
             if (state.errors[fieldName]) {
@@ -156,14 +156,23 @@ export default function AdmissionFormComponent() {
       return;
     }
 
-    const currentFormData = new FormData(event.currentTarget);
-    const dob = form.getValues("studentDOB");
-    if (dob) {
-      currentFormData.set("studentDOB", dob.toISOString());
+    if (formRef.current) { // Check if formRef.current is available
+        const currentFormData = new FormData(formRef.current); // Use formRef.current
+        const dob = form.getValues("studentDOB");
+        if (dob) {
+          currentFormData.set("studentDOB", dob.toISOString());
+        } else {
+          currentFormData.delete("studentDOB"); 
+        }
+        formAction(currentFormData);
     } else {
-      currentFormData.delete("studentDOB"); 
+        console.error("Form reference is not available for FormData construction.");
+        toast({
+            title: "Form Error",
+            description: "Could not process the form. Please try again.",
+            variant: "destructive",
+        });
     }
-    formAction(currentFormData);
   };
 
   const handleCopyToClipboard = (text: string) => {
@@ -223,7 +232,7 @@ export default function AdmissionFormComponent() {
   }
 
   return (
-    <form onSubmit={handleFormSubmitAttempt} className="space-y-8" noValidate>
+    <form ref={formRef} onSubmit={handleFormSubmitAttempt} className="space-y-8" noValidate> {/* Added ref={formRef} */}
       {/* Student Information Section */}
       <section className="space-y-6 p-6 border rounded-lg shadow-sm">
         <h3 className="text-xl font-semibold text-secondary border-b pb-2">Student Information</h3>
@@ -413,3 +422,5 @@ export default function AdmissionFormComponent() {
   );
 }
     
+
+      
