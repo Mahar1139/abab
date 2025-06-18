@@ -21,12 +21,12 @@ import {
   Cpu, 
   School, 
   Brain,
-  LayoutGrid, // New
-  CalendarDays, // New
-  Award, // New
-  Users2, // New
-  Library, // New
-  Bot // New (for AI Assistant)
+  LayoutGrid, 
+  CalendarDays, 
+  Award, 
+  Users2, 
+  Library,
+  Bot
 } from 'lucide-react';
 
 const navItems = [
@@ -87,4 +87,3 @@ export default function AppSidebar() {
     </Sidebar>
   );
 }
-
