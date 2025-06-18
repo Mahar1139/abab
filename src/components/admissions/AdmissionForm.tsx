@@ -94,41 +94,48 @@ export default function AdmissionFormComponent() {
       });
       form.reset();
     } else if (state.status === "error") {
+      let specificFieldErrorsSet = false;
       if (state.errors && Object.keys(state.errors).length > 0) {
         let firstErrorField: keyof AdmissionFormData | null = null;
-        for (const key in state.errors) {
-          const fieldName = key as keyof AdmissionFormData;
-          const message = state.errors[fieldName]?.[0];
-          if (message && form.getFieldState(fieldName) !== undefined) {
-            if (!firstErrorField) firstErrorField = fieldName;
-            form.setError(fieldName, { type: 'server', message });
-          }
+        // Iterate over the keys of the schema to ensure we only try to set errors for valid fields
+        for (const schemaKey in admissionFormSchema.shape) {
+            const fieldName = schemaKey as keyof AdmissionFormData;
+            if (state.errors[fieldName]) {
+                const message = state.errors[fieldName]?.[0];
+                if (message) {
+                    if (!firstErrorField) firstErrorField = fieldName;
+                    form.setError(fieldName, { type: 'server', message });
+                    specificFieldErrorsSet = true;
+                }
+            }
         }
         if (firstErrorField) {
            const element = document.getElementById(firstErrorField);
             if (element) element.focus();
         }
-        toast({
-          title: "Validation Error",
-          description: state.message && Object.keys(state.errors).length > 0 ? "Please check the highlighted fields." : (state.message || "Please correct the errors highlighted in the form."),
-          variant: "destructive",
-        });
-      } else if (state.message) {
-        toast({
-          title: "Submission Error",
-          description: state.message,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: "Error",
-          description: "An unexpected error occurred during submission.",
-          variant: "destructive",
-        });
+      }
+      
+      if (specificFieldErrorsSet) {
+          toast({
+            title: "Validation Error",
+            description: state.message || "Please check the highlighted fields and correct the errors.",
+            variant: "destructive",
+          });
+      } else if (state.message) { 
+         toast({
+            title: "Submission Error",
+            description: state.message,
+            variant: "destructive",
+          });
+      } else { 
+          toast({
+            title: "Error",
+            description: "An unexpected error occurred during submission. Please try again.",
+            variant: "destructive",
+          });
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state, toast]);
+  }, [state, toast, form]);
 
   const handleFormSubmitAttempt = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -152,10 +159,9 @@ export default function AdmissionFormComponent() {
     const currentFormData = new FormData(event.currentTarget);
     const dob = form.getValues("studentDOB");
     if (dob) {
-      // Ensure DOB is sent as a string that the server action can parse
       currentFormData.set("studentDOB", dob.toISOString());
     } else {
-      currentFormData.delete("studentDOB"); // Remove if not set, to avoid sending empty string
+      currentFormData.delete("studentDOB"); 
     }
     formAction(currentFormData);
   };
@@ -402,16 +408,8 @@ export default function AdmissionFormComponent() {
 
       <div className="flex flex-col items-center justify-center space-y-4">
         <SubmitButton />
-
-
-        {state.status === "error" && state.message && (!state.errors || Object.keys(state.errors).length === 0) && (
-          <p className="text-sm text-destructive mt-4 text-center">
-            {state.message}
-          </p>
-        )}
       </div>
     </form>
   );
 }
-
     
