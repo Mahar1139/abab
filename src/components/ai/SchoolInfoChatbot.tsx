@@ -150,14 +150,10 @@ export default function SchoolInfoChatbot() {
     if (animationTimeoutRef.current) {
       clearTimeout(animationTimeoutRef.current);
     }
-    if (isAnimatingTextBefore && textBefore) setAnimatedTextBefore(textBefore.substring(0, animatedTextBefore.length));
-    if (isAnimatingCode && codeContent) setAnimatedCode(codeContent.substring(0, animatedCode.length));
-    if (isAnimatingTextAfter && textAfter) setAnimatedTextAfter(textAfter.substring(0, animatedTextAfter.length));
-    
     setIsAnimatingTextBefore(false);
     setIsAnimatingCode(false);
     setIsAnimatingTextAfter(false);
-  }, [isAnimatingTextBefore, textBefore, animatedTextBefore.length, isAnimatingCode, codeContent, animatedCode.length, isAnimatingTextAfter, textAfter, animatedTextAfter.length]);
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -175,6 +171,8 @@ export default function SchoolInfoChatbot() {
     setIsAnimatingTextBefore(false);
     setIsAnimatingCode(false);
     setIsAnimatingTextAfter(false);
+    setError(null); // Clear previous errors when a new answer is processed
+
 
     if (rawAnswer) {
       let delay = 15; 
@@ -200,10 +198,10 @@ export default function SchoolInfoChatbot() {
         ta_full = rawAnswer.substring(match.index + match[0].length);
       }
       
-      setTextBefore(tb_full); // Store actual string, even if empty
+      setTextBefore(tb_full); 
       setCodeLanguage(cl_full);
-      setCodeContent(cc_full); // Store actual string or null
-      setTextAfter(ta_full);   // Store actual string, even if empty
+      setCodeContent(cc_full); 
+      setTextAfter(ta_full);   
       
       if (tb_full.length > 0) {
         setIsAnimatingTextBefore(true);
@@ -218,7 +216,7 @@ export default function SchoolInfoChatbot() {
       setCodeLanguage(null);
       setTextAfter(null);
     }
-    scrollToBottom();
+    scrollToBottom(); 
   }, [rawAnswer, scrollToBottom]);
 
   useEffect(() => {
@@ -508,9 +506,9 @@ export default function SchoolInfoChatbot() {
             <>
               <h4 className="font-semibold mb-2 text-lg text-foreground mt-6">Answer:</h4>
               <div className="p-4 bg-secondary/10 rounded-md text-foreground/90 leading-relaxed prose max-w-none dark:prose-invert prose-p:my-2 prose-pre:bg-card prose-pre:shadow-md prose-code:font-code">
-                {animatedTextBefore && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextBefore}</div>}
+                {textBefore !== null && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextBefore}</div>}
                 
-                { (codeContent || (animatedCode && animatedCode.length > 0)) && (
+                { codeContent !== null && (
                   <pre className="overflow-x-auto">
                     <code className={codeLanguage ? `language-${codeLanguage}` : 'language-plaintext'}>
                       {animatedCode}
@@ -518,7 +516,7 @@ export default function SchoolInfoChatbot() {
                   </pre>
                 )}
                 
-                {animatedTextAfter && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextAfter}</div>}
+                {textAfter !== null && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextAfter}</div>}
               </div>
             </>
           )}
