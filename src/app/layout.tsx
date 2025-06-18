@@ -41,7 +41,7 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className="font-body antialiased" style={{ marginTop: '0px' }}>
+      <body className="font-body antialiased">
         <AppLayout>
           {children}
         </AppLayout>
