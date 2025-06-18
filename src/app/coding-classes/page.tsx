@@ -8,14 +8,14 @@ import { ArrowRight, CheckCircle, Code2 } from 'lucide-react';
 import ClassGallery from '@/components/classes/ClassGallery';
 
 const codingGalleryImages = [
-  { src: 'https://placehold.co/300x300.png', alt: 'Students collaborating on code', dataAiHint: 'students collaborating' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Student presenting coding project', dataAiHint: 'student presentation' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Close-up of code on a screen', dataAiHint: 'code screen' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Happy student with laptop', dataAiHint: 'student laptop' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Teacher explaining code to students', dataAiHint: 'teacher students' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Group of girls coding', dataAiHint: 'girls coding' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Diverse students in coding class', dataAiHint: 'diverse students' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Student debugging code', dataAiHint: 'student debugging' },
+  { src: '/images/placeholder-300x300.png', alt: 'Students collaborating on code', dataAiHint: 'students collaborating' },
+  { src: '/images/placeholder-300x300.png', alt: 'Student presenting coding project', dataAiHint: 'student presentation' },
+  { src: '/images/placeholder-300x300.png', alt: 'Close-up of code on a screen', dataAiHint: 'code screen' },
+  { src: '/images/placeholder-300x300.png', alt: 'Happy student with laptop', dataAiHint: 'student laptop' },
+  { src: '/images/placeholder-300x300.png', alt: 'Teacher explaining code to students', dataAiHint: 'teacher students' },
+  { src: '/images/placeholder-300x300.png', alt: 'Group of girls coding', dataAiHint: 'girls coding' },
+  { src: '/images/placeholder-300x300.png', alt: 'Diverse students in coding class', dataAiHint: 'diverse students' },
+  { src: '/images/placeholder-300x300.png', alt: 'Student debugging code', dataAiHint: 'student debugging' },
 ];
 
 export default function CodingClassesPage() {
@@ -30,7 +30,7 @@ export default function CodingClassesPage() {
           <div className="md:flex">
             <div className="md:w-1/2 relative min-h-[300px] md:min-h-[400px]">
               <Image
-                src="https://placehold.co/600x400.png"
+                src="/images/placeholder-600x400.png"
                 alt="Students learning coding concepts on laptops"
                 fill
                 data-ai-hint="students coding laptop"

@@ -8,14 +8,14 @@ import { ArrowRight, CheckCircle, Bot } from 'lucide-react';
 import ClassGallery from '@/components/classes/ClassGallery';
 
 const roboticsGalleryImages = [
-  { src: 'https://placehold.co/300x300.png', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Students testing a robot', dataAiHint: 'students robot' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Team celebrating robot success', dataAiHint: 'team celebration' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Robots in a competition setting', dataAiHint: 'robot competition' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Robot navigating an obstacle course', dataAiHint: 'robot obstacle' },
-  { src: 'https://placehold.co/300x300.png', alt: 'Student programming robot', dataAiHint: 'student programming' },
+  { src: '/images/placeholder-300x300.png', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
+  { src: '/images/placeholder-300x300.png', alt: 'Students testing a robot', dataAiHint: 'students robot' },
+  { src: '/images/placeholder-300x300.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
+  { src: '/images/placeholder-300x300.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
+  { src: '/images/placeholder-300x300.png', alt: 'Team celebrating robot success', dataAiHint: 'team celebration' },
+  { src: '/images/placeholder-300x300.png', alt: 'Robots in a competition setting', dataAiHint: 'robot competition' },
+  { src: '/images/placeholder-300x300.png', alt: 'Robot navigating an obstacle course', dataAiHint: 'robot obstacle' },
+  { src: '/images/placeholder-300x300.png', alt: 'Student programming robot', dataAiHint: 'student programming' },
 ];
 
 export default function RoboticsClassesPage() {
@@ -30,7 +30,7 @@ export default function RoboticsClassesPage() {
           <div className="md:flex">
             <div className="md:w-1/2 relative min-h-[300px] md:min-h-[400px]">
               <Image
-                src="https://placehold.co/600x400.png"
+                src="/images/placeholder-600x400.png"
                 alt="Students assembling and programming a robot"
                 fill
                 data-ai-hint="students building robot"

@@ -1,3 +1,4 @@
+
 import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
@@ -16,6 +17,7 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      // No need to add patterns for local images in /public
     ],
   },
 };

@@ -199,7 +199,7 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="relative w-full h-[70vh] md:h-[80vh] flex items-center justify-center text-center text-white overflow-hidden">
           <Image
-            src="https://placehold.co/1920x1080.png"
+            src="/images/placeholder-1920x1080.png"
             alt="Himalaya Public School Campus"
             fill
             className="z-0 object-cover"
