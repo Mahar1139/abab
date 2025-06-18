@@ -105,8 +105,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body antialiased;
-    margin-top: 0px; /* Explicitly set margin-top to 0 */
+    @apply bg-background text-foreground font-body antialiased mt-0;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-headline;

@@ -37,7 +37,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${playfairDisplay.variable} ${ptSans.variable} dark`}>
+    <html lang="en" className={`${playfairDisplay.variable} ${ptSans.variable} dark`}>
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
