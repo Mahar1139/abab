@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import SectionWrapper from '@/components/shared/SectionWrapper';
 import { BookOpenCheck, Leaf, Handshake, FileText, Users2, Camera, ArrowRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import FloatingAIHelper from '@/components/ai/FloatingAIHelper'; // Added import
 
 const ANIMATION_DURATION = 800; // ms for each plane to slide
 const STAGGER_DELAY = 300; // ms between each plane
@@ -340,6 +341,7 @@ export default function HomePage() {
           </div>
         </SectionWrapper>
       </div>
+      <FloatingAIHelper /> {/* Added FloatingAIHelper component */}
     </>
   );
 }
