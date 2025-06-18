@@ -8,40 +8,73 @@ import { suggestAdmissionQuestions } from "@/ai/flows/suggest-admission-question
 import { admissionsContent, fullAdmissionsText } from "./admission-content";
 import FloatingAIHelper from "@/components/ai/FloatingAIHelper";
 import AdmissionFormComponent from "@/components/admissions/AdmissionForm";
+import { cn } from "@/lib/utils";
 
 export default function AdmissionsPage() {
   return (
     <div className="container mx-auto py-8">
       <SectionWrapper title="Admissions at Himalaya Public School">
         <Tabs defaultValue="criteria" className="w-full">
-          <TabsList className="grid w-full grid-cols-1 md:grid-cols-4 mb-6 gap-2">
-            <TabsTrigger 
-              value="criteria" 
-              className="py-3 text-base whitespace-normal h-auto text-center justify-center md:text-left md:justify-start"
+          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mb-6 gap-3">
+            <TabsTrigger
+              value="criteria"
+              className={cn(
+                "group relative w-full rounded-lg border px-3 py-3 text-sm font-medium shadow-sm transition-all duration-150 ease-in-out",
+                "flex flex-col items-center justify-center space-y-1.5 text-center h-auto",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                "data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg",
+                "hover:bg-accent/90 hover:text-accent-foreground hover:border-accent",
+                "text-muted-foreground border-border bg-card"
+              )}
             >
-              <CheckCircle className="mr-2 h-5 w-5 shrink-0" /> Admission Criteria
+              <CheckCircle className="mb-1 h-6 w-6 shrink-0 group-data-[state=active]:text-primary-foreground text-primary" />
+              <span className="whitespace-normal">Admission Criteria</span>
             </TabsTrigger>
-            <TabsTrigger 
-              value="procedure" 
-              className="py-3 text-base whitespace-normal h-auto text-center justify-center md:text-left md:justify-start"
+            <TabsTrigger
+              value="procedure"
+              className={cn(
+                "group relative w-full rounded-lg border px-3 py-3 text-sm font-medium shadow-sm transition-all duration-150 ease-in-out",
+                "flex flex-col items-center justify-center space-y-1.5 text-center h-auto",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                "data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg",
+                "hover:bg-accent/90 hover:text-accent-foreground hover:border-accent",
+                "text-muted-foreground border-border bg-card"
+              )}
             >
-              <ScrollText className="mr-2 h-5 w-5 shrink-0" /> Application Procedure
+              <ScrollText className="mb-1 h-6 w-6 shrink-0 group-data-[state=active]:text-primary-foreground text-primary" />
+              <span className="whitespace-normal">Application Procedure</span>
             </TabsTrigger>
-            <TabsTrigger 
-              value="deadlines" 
-              className="py-3 text-base whitespace-normal h-auto text-center justify-center md:text-left md:justify-start"
+            <TabsTrigger
+              value="deadlines"
+              className={cn(
+                "group relative w-full rounded-lg border px-3 py-3 text-sm font-medium shadow-sm transition-all duration-150 ease-in-out",
+                "flex flex-col items-center justify-center space-y-1.5 text-center h-auto",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                "data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg",
+                "hover:bg-accent/90 hover:text-accent-foreground hover:border-accent",
+                "text-muted-foreground border-border bg-card"
+              )}
             >
-              <CalendarDays className="mr-2 h-5 w-5 shrink-0" /> Important Deadlines
+              <CalendarDays className="mb-1 h-6 w-6 shrink-0 group-data-[state=active]:text-primary-foreground text-primary" />
+              <span className="whitespace-normal">Important Deadlines</span>
             </TabsTrigger>
-            <TabsTrigger 
-              value="apply" 
-              className="py-3 text-base whitespace-normal h-auto text-center justify-center md:text-left md:justify-start"
+            <TabsTrigger
+              value="apply"
+              className={cn(
+                "group relative w-full rounded-lg border px-3 py-3 text-sm font-medium shadow-sm transition-all duration-150 ease-in-out",
+                "flex flex-col items-center justify-center space-y-1.5 text-center h-auto",
+                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                "data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-lg",
+                "hover:bg-accent/90 hover:text-accent-foreground hover:border-accent",
+                "text-muted-foreground border-border bg-card"
+              )}
             >
-              <ClipboardEdit className="mr-2 h-5 w-5 shrink-0" /> Apply Online
+              <ClipboardEdit className="mb-1 h-6 w-6 shrink-0 group-data-[state=active]:text-primary-foreground text-primary" />
+              <span className="whitespace-normal">Apply Online</span>
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="criteria" className="mt-8"> {/* Increased from mt-6 */}
+          <TabsContent value="criteria" className="mt-8">
             <Card className="shadow-md">
               <CardHeader>
                 <CardTitle className="text-2xl text-primary">Eligibility & Criteria</CardTitle>
@@ -52,7 +85,7 @@ export default function AdmissionsPage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="procedure" className="mt-8"> {/* Increased from mt-6 */}
+          <TabsContent value="procedure" className="mt-8">
             <Card className="shadow-md">
               <CardHeader>
                 <CardTitle className="text-2xl text-primary">How to Apply</CardTitle>
@@ -63,7 +96,7 @@ export default function AdmissionsPage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="deadlines" className="mt-8"> {/* Increased from mt-6 */}
+          <TabsContent value="deadlines" className="mt-8">
             <Card className="shadow-md">
               <CardHeader>
                 <CardTitle className="text-2xl text-primary">Key Dates & Deadlines</CardTitle>
@@ -74,7 +107,7 @@ export default function AdmissionsPage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="apply" className="mt-8"> {/* Increased from mt-6 */}
+          <TabsContent value="apply" className="mt-8">
             <Card className="shadow-md">
               <CardHeader>
                 <CardTitle className="text-2xl text-primary">Online Admission Form</CardTitle>
