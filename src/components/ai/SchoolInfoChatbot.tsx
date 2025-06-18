@@ -315,10 +315,16 @@ export default function SchoolInfoChatbot() {
         const newCooldownEndTime = Date.now() + cooldownDurationMs;
         setCooldownEndTime(newCooldownEndTime);
         setRawAnswer(result.answer || "Your query was blocked due to content policy. Interaction is temporarily disabled.");
-      } else if (result.answer !== undefined && result.answer !== null) { 
-        setRawAnswer(result.answer);
+      } else if (result.answer !== undefined && result.answer !== null) {
+        if (result.answer.trim() === "") {
+          setError("The AI provided an empty response. Please try rephrasing your question or ask something else.");
+          setRawAnswer(null);
+        } else {
+          setRawAnswer(result.answer);
+        }
       } else {
         setError("The AI didn't provide an answer. Please try rephrasing your question.");
+        setRawAnswer(null);
       }
     } catch (e) {
       console.error("Error fetching school information:", e);

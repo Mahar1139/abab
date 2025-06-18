@@ -184,8 +184,11 @@ export default function FloatingAIHelper() {
         aiResponseText = result.answer || "Your query was blocked due to content policy. Interaction is temporarily disabled.";
          setMessages((prev) => [...prev, { id: `ai-${Date.now()}`, text: aiResponseText!, sender: 'ai', isCooldownMessage: true }]);
 
+      } else if (aiResponseText && aiResponseText.trim() !== "") {
+         setMessages((prev) => [...prev, { id: `ai-${Date.now()}`, text: aiResponseText, sender: 'ai' }]);
       } else {
-         setMessages((prev) => [...prev, { id: `ai-${Date.now()}`, text: aiResponseText || "I'm sorry, I couldn't generate a response.", sender: 'ai' }]);
+        const emptyResponseMessage = "The AI didn't provide a specific answer to this query. Please try rephrasing or ask something else.";
+        setMessages((prev) => [...prev, { id: `ai-empty-${Date.now()}`, text: emptyResponseMessage, sender: 'ai', isError: true }]);
       }
 
     } catch (error) {
