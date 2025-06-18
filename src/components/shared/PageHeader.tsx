@@ -16,7 +16,6 @@ import {
   LayoutGrid, 
   CalendarDays, 
   Award, 
-  Users2, 
   Library,
   Bot
 } from 'lucide-react';
@@ -31,7 +30,6 @@ const navItems = [
   { href: '/events-calendar', label: 'Events Calendar', icon: CalendarDays },
   { href: '/student-achievements', label: 'Student Achievements', icon: Award },
   { href: '/library', label: 'Library', icon: Library },
-  { href: '/parent-portal', label: 'Parent Portal', icon: Users2 },
   { href: '/quiz', label: 'AI Quiz Challenge', icon: Brain },
   { href: '/ai-assistant', label: 'AI Assistant', icon: Bot },
   { href: '/contact', label: 'Contact & Support', icon: Mail },
