@@ -14,8 +14,8 @@ export default function AdmissionsPage() {
   return (
     <div className="container mx-auto py-8">
       <SectionWrapper title="Admissions at Himalaya Public School">
-        <Tabs defaultValue="criteria" className="w-full">
-          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-4 mb-6 gap-3">
+        <Tabs defaultValue="criteria" className="w-full flex flex-col"> {/* Added flex flex-col */}
+          <TabsList className="grid w-full grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3"> {/* Removed mb-6 */}
             <TabsTrigger
               value="criteria"
               className={cn(
@@ -74,7 +74,7 @@ export default function AdmissionsPage() {
             </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="criteria" className="mt-8">
+          <TabsContent value="criteria" className="mt-6"> {/* Adjusted margin */}
             <Card className="shadow-md">
               <CardHeader>
                 <CardTitle className="text-2xl text-primary">Eligibility & Criteria</CardTitle>
@@ -85,7 +85,7 @@ export default function AdmissionsPage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="procedure" className="mt-8">
+          <TabsContent value="procedure" className="mt-6"> {/* Adjusted margin */}
             <Card className="shadow-md">
               <CardHeader>
                 <CardTitle className="text-2xl text-primary">How to Apply</CardTitle>
@@ -96,7 +96,7 @@ export default function AdmissionsPage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="deadlines" className="mt-8">
+          <TabsContent value="deadlines" className="mt-6"> {/* Adjusted margin */}
             <Card className="shadow-md">
               <CardHeader>
                 <CardTitle className="text-2xl text-primary">Key Dates & Deadlines</CardTitle>
@@ -107,7 +107,7 @@ export default function AdmissionsPage() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="apply" className="mt-8">
+          <TabsContent value="apply" className="mt-6"> {/* Adjusted margin */}
             <Card className="shadow-md">
               <CardHeader>
                 <CardTitle className="text-2xl text-primary">Online Admission Form</CardTitle>
