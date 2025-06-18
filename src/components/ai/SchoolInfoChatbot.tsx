@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Loader2, BrainCircuit, HelpCircle, StopCircle, Zap, ArrowLeftCircle, ShieldBan, Timer } from 'lucide-react';
+import { Loader2, BrainCircuit, HelpCircle, StopCircle, Zap, ArrowLeftCircle, ShieldBan } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 
@@ -21,8 +21,8 @@ const initialSuggestedQuestions = [
 
 const TEACHER_CONDUIT_PROMPT = "11x11";
 const UNRESTRICTED_MODE_PROMPT = "#10x10";
-const LOCAL_STORAGE_STRIKE_COUNT_KEY = "hps_abuseStrikeCount";
-const LOCAL_STORAGE_COOLDOWN_END_TIME_KEY = "hps_cooldownEndTime";
+const LOCAL_STORAGE_STRIKE_COUNT_KEY = "hps_abuseStrikeCount_main";
+const LOCAL_STORAGE_COOLDOWN_END_TIME_KEY = "hps_cooldownEndTime_main";
 
 function shuffleArray<T>(array: T[]): T[] {
   const newArray = [...array];
@@ -81,7 +81,6 @@ export default function SchoolInfoChatbot() {
   const isAnyAnimationActive = isAnimatingTextBefore || isAnimatingCode || isAnimatingTextAfter;
   const isOnCooldown = cooldownEndTime !== null && Date.now() < cooldownEndTime;
 
-  // Load cooldown state from localStorage on mount
   useEffect(() => {
     const storedStrikes = localStorage.getItem(LOCAL_STORAGE_STRIKE_COUNT_KEY);
     const storedCooldownEnd = localStorage.getItem(LOCAL_STORAGE_COOLDOWN_END_TIME_KEY);
@@ -94,7 +93,6 @@ export default function SchoolInfoChatbot() {
       if (endTime > Date.now()) {
         setCooldownEndTime(endTime);
       } else {
-        // Clear expired cooldown from storage
         localStorage.removeItem(LOCAL_STORAGE_STRIKE_COUNT_KEY);
         localStorage.removeItem(LOCAL_STORAGE_COOLDOWN_END_TIME_KEY);
         setAbuseStrikeCount(0);
@@ -102,7 +100,6 @@ export default function SchoolInfoChatbot() {
     }
   }, []);
 
-  // Update localStorage when cooldown state changes
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_STRIKE_COUNT_KEY, abuseStrikeCount.toString());
     if (cooldownEndTime) {
@@ -112,7 +109,6 @@ export default function SchoolInfoChatbot() {
     }
   }, [abuseStrikeCount, cooldownEndTime]);
 
-  // Cooldown timer effect
   useEffect(() => {
     if (cooldownTimerRef.current) {
       clearInterval(cooldownTimerRef.current);
@@ -123,7 +119,7 @@ export default function SchoolInfoChatbot() {
         if (timeLeft <= 0) {
           setCooldownEndTime(null);
           setRemainingCooldownTime(null);
-          setAbuseStrikeCount(0); // Reset strikes after cooldown
+          setAbuseStrikeCount(0); 
           localStorage.removeItem(LOCAL_STORAGE_STRIKE_COUNT_KEY);
           localStorage.removeItem(LOCAL_STORAGE_COOLDOWN_END_TIME_KEY);
           if (cooldownTimerRef.current) clearInterval(cooldownTimerRef.current);
@@ -131,7 +127,7 @@ export default function SchoolInfoChatbot() {
           setRemainingCooldownTime(formatRemainingTime(timeLeft));
         }
       };
-      updateTimer(); // Initial call
+      updateTimer(); 
       cooldownTimerRef.current = setInterval(updateTimer, 1000);
     }
     return () => {
@@ -164,7 +160,6 @@ export default function SchoolInfoChatbot() {
   }, [isAnimatingTextBefore, textBefore, animatedTextBefore.length, isAnimatingCode, codeContent, animatedCode.length, isAnimatingTextAfter, textAfter, animatedTextAfter.length]);
 
   useEffect(() => {
-    // Cleanup animations on component unmount
     return () => {
       handleBreakResponse();
     };
@@ -313,13 +308,13 @@ export default function SchoolInfoChatbot() {
         const newStrikeCount = abuseStrikeCount + 1;
         setAbuseStrikeCount(newStrikeCount);
 
-        let cooldownDurationMs = 60000; // 1 minute for the first strike
+        let cooldownDurationMs = 60000; 
         if (newStrikeCount > 1) {
-          cooldownDurationMs = (1 + (newStrikeCount - 1) * 5) * 60000;
+          cooldownDurationMs = Math.min((1 + (newStrikeCount - 1) * 5) * 60000, 24 * 60 * 60 * 1000); // Cap at 24h
         }
         const newCooldownEndTime = Date.now() + cooldownDurationMs;
         setCooldownEndTime(newCooldownEndTime);
-        setRawAnswer(result.answer || "Your query was blocked."); // Display the message from flow
+        setRawAnswer(result.answer || "Your query was blocked due to content policy. Interaction is temporarily disabled.");
       } else if (result.answer !== undefined && result.answer !== null) { 
         setRawAnswer(result.answer);
       } else {
@@ -383,7 +378,12 @@ export default function SchoolInfoChatbot() {
         setRawAnswer(null);
         setError(null);
         setIsAutoSubmitting(false);
-      } else {
+      } else if (question.trim().toLowerCase() === TEACHER_CONDUIT_PROMPT) {
+          router.push('/teacher-conduit');
+          setQuestion('');
+          setIsAutoSubmitting(false);
+      }
+      else {
         fetchAnswer(question, isUnrestrictedMode);
       }
     }
@@ -400,8 +400,8 @@ export default function SchoolInfoChatbot() {
         </CardTitle>
         <CardDescription>
           {isUnrestrictedMode 
-            ? "You're in unrestricted mode. Ask anything!"
-            : ""}
+            ? "You're in unrestricted mode. Ask anything! Type \"#10x10\" to exit and return to school assistant." 
+            : "Ask about Himalaya Public School, request code snippets, or general questions. Try \"#10x10\" for unrestricted mode or \"11x11\" for Teacher NCERT Helper."}
         </CardDescription>
       </CardHeader>
       <CardContent 
@@ -460,7 +460,7 @@ export default function SchoolInfoChatbot() {
           </Alert>
         )}
 
-        {!isUnrestrictedMode && !isOnCooldown && (
+        {!isUnrestrictedMode && !rawAnswer && !isLoading && !error && !isOnCooldown && (
           <div className="mt-6">
             <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center">
               <HelpCircle className="w-4 h-4 mr-2"/>
@@ -519,5 +519,3 @@ export default function SchoolInfoChatbot() {
     </Card>
   );
 }
-
-    
