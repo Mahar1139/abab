@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useEffect, useState, useActionState, useRef } from "react"; // Added useRef
-import { useFormStatus } from "react-dom";
+import { useEffect, useState, useActionState, useRef, useTransition } from "react"; // Import useTransition
+// useFormStatus is not needed here if we rely on useTransition's pending state
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
@@ -31,16 +31,16 @@ const initialState: AdmissionFormState = {
   couponCode: undefined,
 };
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
+// Modified SubmitButton to take isPending prop
+function SubmitButton({ isPending }: { isPending: boolean }) {
   return (
     <Button
       type="submit"
-      disabled={pending}
+      disabled={isPending} // Use the passed isPending state
       className="w-full md:w-auto text-lg py-3"
     >
-      {pending ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
-      {pending ? "Submitting Application..." : "Submit Application"}
+      {isPending ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : null}
+      {isPending ? "Submitting Application..." : "Submit Application"}
     </Button>
   );
 }
@@ -55,10 +55,11 @@ const grades = [
 
 export default function AdmissionFormComponent() {
   const [state, formAction] = useActionState(submitAdmissionForm, initialState);
+  const [isTransitionPending, startTransition] = useTransition(); // Use useTransition
   const { toast } = useToast();
   const [showCouponInstructions, setShowCouponInstructions] = useState(false);
   const [formSubmittedSuccessfully, setFormSubmittedSuccessfully] = useState(false);
-  const formRef = useRef<HTMLFormElement>(null); // Added formRef
+  const formRef = useRef<HTMLFormElement>(null);
 
   const form = useForm<AdmissionFormData>({
     resolver: zodResolver(admissionFormSchema),
@@ -156,15 +157,18 @@ export default function AdmissionFormComponent() {
       return;
     }
 
-    if (formRef.current) { // Check if formRef.current is available
-        const currentFormData = new FormData(formRef.current); // Use formRef.current
+    if (formRef.current) {
+        const currentFormData = new FormData(formRef.current);
         const dob = form.getValues("studentDOB");
         if (dob) {
           currentFormData.set("studentDOB", dob.toISOString());
         } else {
           currentFormData.delete("studentDOB"); 
         }
-        formAction(currentFormData);
+        // Wrap formAction call in startTransition
+        startTransition(() => {
+          formAction(currentFormData);
+        });
     } else {
         console.error("Form reference is not available for FormData construction.");
         toast({
@@ -232,7 +236,7 @@ export default function AdmissionFormComponent() {
   }
 
   return (
-    <form ref={formRef} onSubmit={handleFormSubmitAttempt} className="space-y-8" noValidate> {/* Added ref={formRef} */}
+    <form ref={formRef} onSubmit={handleFormSubmitAttempt} className="space-y-8" noValidate>
       {/* Student Information Section */}
       <section className="space-y-6 p-6 border rounded-lg shadow-sm">
         <h3 className="text-xl font-semibold text-secondary border-b pb-2">Student Information</h3>
@@ -416,7 +420,7 @@ export default function AdmissionFormComponent() {
       </section>
 
       <div className="flex flex-col items-center justify-center space-y-4">
-        <SubmitButton />
+        <SubmitButton isPending={isTransitionPending} />
       </div>
     </form>
   );
@@ -424,3 +428,5 @@ export default function AdmissionFormComponent() {
     
 
       
+
+    
