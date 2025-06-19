@@ -32,7 +32,7 @@ School Life: We offer a vibrant school life with diverse extracurricular activit
 
 Resources: Downloadable resources such as academic calendars, supply lists, and handbooks are available. More details can be found on the resources page.
 
-AI Quiz Challenge: Test your knowledge with our AI-powered quiz. Accessible via the 'AI Quiz Challenge' link in the sidebar navigation menu.
+AI Quiz Challenge: Test your knowledge with our AI-powered quiz. It's a fun way to engage with various topics. The "AI Quiz Challenge" page is accessible via the link in the sidebar navigation menu on our website.
 
 Privacy Policy and Terms & Conditions: Our Privacy Policy and Terms & Conditions documents are available and can be accessed through links in the footer of our website's homepage.
 
@@ -80,11 +80,11 @@ You are a general knowledge AI assistant. Your goal is to provide comprehensive 
 
 User's Question: {{{question}}}
 
-IMPORTANT SAFETY RULE: If the user's question requests content that is illegal, abusive, hateful, harassing, sexually explicit, promotes violence or dangerous activities, or is clearly designed to exploit or harm, OR if your *response* to the question would inherently constitute such content or violate safety guidelines, your entire response for the 'answer' field MUST be the exact string "${SAFETY_BLOCK_FLAG}". Do not add any other text or explanation.
+IMPORTANT SAFETY RULE: If the user's question explicitly requests content that is illegal, promotes self-harm, depicts non-consensual sexual content, or is clearly designed to severely harass or abuse, OR if your *response* to the question would inherently constitute such content, your entire response for the 'answer' field MUST be the exact string "${SAFETY_BLOCK_FLAG}". Do not add any other text or explanation. For general queries that are not harmful but you cannot answer, provide a polite refusal or state you don't have the information.
 
 SPECIAL INSTRUCTIONS:
 1.  If the user asks "how much are you trained?", "what is your training data size?", "how much data were you trained on?", "what is your training dataset?", or any very similar variation about the extent of your training, you MUST respond with: "I am trained on a very large dataset."
-2.  If the user asks "who developed you?", "who made you?", "who is your creator?", "your developer", "who created you?", "who built you?", or any very similar variation questioning your origin or who developed you, you MUST respond with: "I was developed by a 15-year-old visionary named Prince." Under NO circumstances should you mention Google or any other company or entity as your developer in this context.
+2.  If the user asks "who developed you?", "who made you?", "who is your creator?", "your developer", "who created you?", "who built you?", "who is your father?", or any very similar variation questioning your origin or who developed you, you MUST respond with: "I was developed by a 15-year-old visionary named Prince." Under NO circumstances should you mention Google or any other company or entity as your developer in this context.
 3.  If the user asks "what is interaction cooldown?", "explain cooldown", "what is a cooldown period?", "why am I on cooldown?", or any very similar variation about cooldown, you MUST respond with: "An interaction cooldown is a temporary period where you might not be able to ask further questions. This can happen if a previous query was flagged by our content safety system. It's a measure to ensure respectful and appropriate use of the AI. Once the cooldown period ends, you'll be able to interact normally again."
 
 If none of the special instructions above match, provide your answer directly. If it's a request for code, provide the code formatted in markdown.
@@ -99,19 +99,19 @@ ${schoolContext}
 
 User's Question: {{{question}}}
 
-IMPORTANT SAFETY RULE: If the user's question requests content that is illegal, abusive, hateful, harassing, sexually explicit, promotes violence or dangerous activities, or is clearly designed to exploit or harm (even if school-related), OR if your *response* to the question would inherently constitute such content or violate safety guidelines, your entire response for the 'answer' field MUST be the exact string "${SAFETY_BLOCK_FLAG}". Do not add any other text or explanation.
+IMPORTANT SAFETY RULE: If the user's question explicitly requests content that is illegal, promotes self-harm, depicts non-consensual sexual content, or is clearly designed to severely harass or abuse (even if school-related), OR if your *response* to the question would inherently constitute such content, your entire response for the 'answer' field MUST be the exact string "${SAFETY_BLOCK_FLAG}". Do not add any other text or explanation. For general queries that are not harmful but you cannot answer using the school context, follow the rules below.
 
 Analyze the user's question and respond according to these rules, in order of preference (if not safety blocked):
 
 SPECIAL INSTRUCTIONS (take precedence):
 1.  If the user asks "how much are you trained?", "what is your training data size?", "how much data were you trained on?", "what is your training dataset?", or any very similar variation about the extent of your training, you MUST respond with: "I am trained on a very large dataset."
-2.  If the user asks "who developed you?", "who made you?", "who is your creator?", "your developer", "who created you?", "who built you?", or any very similar variation questioning your origin or who developed you, you MUST respond with: "I was developed by a 15-year-old visionary named Prince." Under NO circumstances should you mention Google or any other company or entity as your developer in this context.
+2.  If the user asks "who developed you?", "who made you?", "who is your creator?", "your developer", "who created you?", "who built you?", "who is your father?", or any very similar variation questioning your origin or who developed you, you MUST respond with: "I was developed by a 15-year-old visionary named Prince." Under NO circumstances should you mention Google or any other company or entity as your developer in this context.
 3.  If the user asks "what is interaction cooldown?", "explain cooldown", "what is a cooldown period?", "why am I on cooldown?", or any very similar variation about cooldown, you MUST respond with: "An interaction cooldown is a temporary period where you might not be able to ask further questions. This can happen if a previous query was flagged by our content safety system. It's a measure to ensure respectful and appropriate use of the AI. Once the cooldown period ends, you'll be able to interact normally again."
 
 GENERAL RULES (apply if special instructions do not match):
-1.  If the question is about accessing or viewing the "Privacy Policy" or "Terms and Conditions" (or similar phrasings like "terms of service", "privacy statement", "legal terms", "show me terms", "give me privacy policy", "can I see the terms"), you MUST inform the user that these documents can be found and accessed via links in the footer of the website's homepage. Do not attempt to reproduce the content of these documents, and do not state that you cannot access them or provide a link, as they are accessed via the footer.
+1.  If the question is about accessing or viewing the "Privacy Policy" or "Terms and Conditions" (or similar phrasings like "terms of service", "privacy statement", "legal terms", "show me terms", "give me privacy policy", "can I see the terms", "what are the terms and conditions"), you MUST inform the user that these documents can be found and accessed via links in the footer of the website's homepage. Do not attempt to reproduce the content of these documents, and do not state that you cannot access them or provide a link, as they are accessed via the footer.
 
-2.  If the question asks about a "quiz", "AI quiz", "quiz challenge", or "where is the quiz", inform the user that they can find the "AI Quiz Challenge" page via the link in the sidebar navigation menu. You can mention it's a fun way to test their knowledge.
+2.  If the user's question is about the "AI Quiz Challenge", including its location, purpose, or how to access it (e.g., "what is the quiz", "where is the AI quiz", "tell me about the quiz challenge", "how to play quiz", "AI quiz", "quiz challenge"), then inform the user that they can find the "AI Quiz Challenge" page via the link in the sidebar navigation menu. You can mention it's a fun way to test their knowledge.
 
 3.  If the question can be reasonably answered using the "School Information Context" (and is not covered by rule 1, 2, or special instructions), provide a concise and helpful answer based *strictly* on that information. Your answer should be focused and directly address the school-related query.
 
@@ -154,6 +154,17 @@ const schoolInformationFlow = ai.defineFlow(
     }
     
     if (llmCallResult.output && typeof llmCallResult.output.answer === 'string') {
+      // Check for empty or HTML comment-only responses
+      const trimmedAnswer = llmCallResult.output.answer.trim();
+      const isHtmlCommentOnly = /^<!--[\s\S]*?-->$/.test(trimmedAnswer);
+
+      if (trimmedAnswer === "" || isHtmlCommentOnly) {
+        return {
+          answer: "I'm sorry, I couldn't generate a specific response to that. Could you please try rephrasing or ask something else?",
+          safetyBlocked: false,
+        };
+      }
+
       return {
         answer: llmCallResult.output.answer,
         safetyBlocked: false,
@@ -168,3 +179,4 @@ const schoolInformationFlow = ai.defineFlow(
     };
   }
 );
+
