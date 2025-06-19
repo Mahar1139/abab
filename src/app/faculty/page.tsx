@@ -22,23 +22,21 @@ export default function FacultyPage() {
         {director && (
           <SectionWrapper title="Our Director" titleClassName="text-2xl sm:text-3xl md:text-4xl mb-6">
             <div className="flex justify-center mb-8 md:mb-10">
-              {/* Responsive container for the Director's card */}
-              <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+              {/* Responsive container for the Director's card - Reduced max-width */}
+              <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
                 <FacultyCard member={director} imageAspectRatio="landscape" />
               </div>
             </div>
           </SectionWrapper>
         )}
 
-        <SectionWrapper title="Our Esteemed Faculty" titleClassName="text-2xl sm:text-3xl md:text-4xl mt-8 mb-6">
+        <SectionWrapper title="Our Esteemed Faculty" titleClassName="text-2xl sm:text-3xl md:text-4xl mt-2 mb-6"> {/* Reduced mt for closer positioning */}
           <p className="text-center text-base sm:text-lg text-foreground/80 mb-8 md:mb-10 max-w-2xl mx-auto">
             Meet the dedicated educators who inspire and guide our students. Our faculty members are experts in their fields and are committed to providing a supportive and enriching learning experience.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {otherFaculty.map((member: FacultyMember) => (
-              <FacultyCard key={member.id} member={member} imageAspectRatio="square" /> 
-              // Other faculty will not have imageUrl, so FacultyCard will not render an image for them.
-              // imageAspectRatio="square" is passed but won't be used if imageUrl is missing.
+              <FacultyCard key={member.id} member={member} imageAspectRatio="square" />
             ))}
           </div>
         </SectionWrapper>
