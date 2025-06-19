@@ -7,11 +7,13 @@ import { usePathname } from 'next/navigation';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import AppSidebar from './AppSidebar';
 import PageHeader from '../shared/PageHeader';
-import { School, Mail, MapPin, Phone, ChevronRight } from 'lucide-react';
+import { School, Mail, BookOpen, Brain, MessageSquare } from 'lucide-react'; // Added MessageSquare for AI Assistant
+import { Button } from '@/components/ui/button';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const showFooter = pathname === '/';
+  // Show footer only on the homepage for now, or adjust as needed
+  const showFooter = pathname === '/'; 
 
   return (
     <SidebarProvider defaultOpen={false}>
@@ -22,60 +24,48 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {children}
         </main>
         {showFooter && (
-          <footer className="bg-card py-10 md:py-16 text-foreground">
+          <footer className="bg-card py-6 md:py-8 border-t border-border/20 text-foreground">
             <div className="container mx-auto px-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
-                {/* Column 1: School Identity & Tagline */}
-                <div className="space-y-3">
-                  <Link href="/" className="flex items-center gap-2 mb-3">
-                    <School className="w-8 h-8 text-accent" />
-                    <h3 className="text-xl font-bold text-foreground">Himalaya Public School</h3>
-                  </Link>
-                  <p className="text-sm leading-relaxed text-foreground/80">
-                    Nurturing potential, inspiring futures.
-                  </p>
-                </div>
+              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                {/* Left Side: School Name & Logo */}
+                <Link href="/" className="flex items-center gap-2 text-foreground hover:text-accent transition-colors">
+                  <School className="w-6 h-6 text-accent" />
+                  <span className="font-semibold text-md">Himalaya Public School</span>
+                </Link>
 
-                {/* Column 2: Quick Links */}
-                <div className="space-y-3">
-                  <h4 className="text-lg font-semibold mb-3 text-foreground">Explore</h4>
-                  <ul className="space-y-2 text-sm">
-                    <li><Link href="/academic-programs" className="hover:text-accent transition-colors flex items-center text-foreground"><ChevronRight className="w-4 h-4 mr-1.5 text-accent/70 shrink-0" />Academic Programs</Link></li>
-                    <li><Link href="/admissions" className="hover:text-accent transition-colors flex items-center text-foreground"><ChevronRight className="w-4 h-4 mr-1.5 text-accent/70 shrink-0" />Admissions Process</Link></li>
-                    <li><Link href="/faculty" className="hover:text-accent transition-colors flex items-center text-foreground"><ChevronRight className="w-4 h-4 mr-1.5 text-accent/70 shrink-0" />Our Educators</Link></li>
-                    <li><Link href="/contact" className="hover:text-accent transition-colors flex items-center text-foreground"><ChevronRight className="w-4 h-4 mr-1.5 text-accent/70 shrink-0" />Get In Touch</Link></li>
-                  </ul>
-                </div>
-
-                {/* Column 3: Contact Details */}
-                <div className="space-y-3">
-                  <h4 className="text-lg font-semibold mb-3 text-foreground">Contact Us</h4>
-                  <address className="not-italic text-sm space-y-2.5">
-                    <p className="flex items-start text-foreground/90">
-                      <MapPin className="w-4 h-4 mr-2.5 mt-0.5 shrink-0 text-accent" />
-                      <span>123 Education Lane, Knowledge City, KC 12345, India</span>
+                {/* Right Side: Action Links & Legal */}
+                <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+                  <div className="flex items-center gap-3 md:gap-4">
+                    <Button variant="ghost" size="sm" asChild className="text-foreground/80 hover:text-accent px-2">
+                      <Link href="/admissions" aria-label="Admissions">
+                        <BookOpen className="w-5 h-5" />
+                        <span className="ml-1.5 hidden sm:inline">Admissions</span>
+                      </Link>
+                    </Button>
+                    <Button variant="ghost" size="sm" asChild className="text-foreground/80 hover:text-accent px-2">
+                      <Link href="/contact" aria-label="Contact Us">
+                        <Mail className="w-5 h-5" />
+                        <span className="ml-1.5 hidden sm:inline">Contact</span>
+                      </Link>
+                    </Button>
+                    <Button variant="ghost" size="sm" asChild className="text-foreground/80 hover:text-accent px-2">
+                      <Link href="/ai-assistant" aria-label="AI Assistant">
+                        <MessageSquare className="w-5 h-5" />
+                        <span className="ml-1.5 hidden sm:inline">AI Helper</span>
+                      </Link>
+                    </Button>
+                  </div>
+                  
+                  <div className="text-center md:text-right mt-4 md:mt-0">
+                    <p className="text-xs text-foreground/70">
+                      &copy; {new Date().getFullYear()} Himalaya Public School.
                     </p>
-                    <p className="flex items-center text-foreground/90">
-                      <Phone className="w-4 h-4 mr-2.5 shrink-0 text-accent" />
-                      <span>+91 (123) 456-7890</span>
-                    </p>
-                    <p className="flex items-center text-foreground/90">
-                      <Mail className="w-4 h-4 mr-2.5 shrink-0 text-accent" />
-                      <span>info@himalayaschool.edu</span>
-                    </p>
-                  </address>
-                </div>
-              </div>
-
-              {/* Bottom Bar */}
-              <div className="border-t border-border/20 pt-6 mt-6 text-center">
-                <p className="text-xs text-foreground/70 mb-1">
-                  &copy; {new Date().getFullYear()} Himalaya Public School. All Rights Reserved.
-                </p>
-                <div className="space-x-3 text-xs text-foreground/70">
-                  <Link href="/privacy-policy" className="hover:text-accent transition-colors">Privacy Policy</Link>
-                  <span className="text-foreground/50">|</span>
-                  <Link href="/terms-conditions" className="hover:text-accent transition-colors">Terms & Conditions</Link>
+                    <div className="text-xs text-foreground/60 space-x-2">
+                      <Link href="/privacy-policy" className="hover:text-accent transition-colors">Privacy</Link>
+                      <span>&bull;</span>
+                      <Link href="/terms-conditions" className="hover:text-accent transition-colors">Terms</Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
