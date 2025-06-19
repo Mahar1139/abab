@@ -214,7 +214,7 @@ export default function FloatingAIHelper() {
       <div
         className="fixed bottom-6 right-6 z-50
                   h-16 w-16 rounded-full p-1 
-                  bg-gradient-to-r from-primary via-accent to-secondary
+                  bg-gradient-to-r from-purple-600 via-blue-900 to-orange-500
                   bg-[length:200%_200%] animate-gradient-slide
                   flex items-center justify-center"
       >
