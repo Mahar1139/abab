@@ -385,7 +385,7 @@ export default function HomePage() {
                   </li>
                   <li className="flex items-center">
                     <Mail className="w-4 h-4 mr-3 text-primary-foreground shrink-0" />
-                    <a href="mailto:info@himalayaschool.edu" className="hover:text-white hover:underline transition-colors">info@himalayaschool.edu</a>
+                    <a href="mailto:hps_pithoragarh@rediffmail.com" className="hover:text-white hover:underline transition-colors">hps_pithoragarh@rediffmail.com</a>
                   </li>
                 </ul>
               </div>
