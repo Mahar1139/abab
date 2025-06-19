@@ -20,9 +20,8 @@ export default function FacultyPage() {
         {director && (
           <SectionWrapper title="Our Director" titleClassName="text-2xl sm:text-3xl md:text-4xl mb-6">
             <div className="flex justify-center mb-8 md:mb-10">
-              {/* Updated max-width classes for responsiveness */}
               <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
-                <FacultyCard member={director} />
+                <FacultyCard member={director} imageAspectRatio="landscape" />
               </div>
             </div>
           </SectionWrapper>

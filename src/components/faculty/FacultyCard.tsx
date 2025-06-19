@@ -2,16 +2,23 @@
 import type { FacultyMember } from '@/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
+import { cn } from '@/lib/utils';
 
 interface FacultyCardProps {
   member: FacultyMember;
+  imageAspectRatio?: 'square' | 'landscape';
 }
 
-export default function FacultyCard({ member }: FacultyCardProps) {
+export default function FacultyCard({ member, imageAspectRatio = 'square' }: FacultyCardProps) {
   return (
     <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden group">
       {member.imageUrl && (
-        <div className="relative w-full aspect-square overflow-hidden">
+        <div
+          className={cn(
+            "relative w-full overflow-hidden",
+            imageAspectRatio === 'landscape' ? 'aspect-video' : 'aspect-square'
+          )}
+        >
           <Image
             src={member.imageUrl}
             alt={member.name}
