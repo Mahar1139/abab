@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import SectionWrapper from '@/components/shared/SectionWrapper';
-import { BookOpenCheck, Leaf, Handshake, FileText, Users2, Camera, ArrowRight, TrendingUp, Users, Telescope } from 'lucide-react';
+import { BookOpenCheck, Leaf, Handshake, FileText, Users, Telescope, ArrowRight } from 'lucide-react'; // Removed TrendingUp, Users2, Camera
 import { useState, useEffect } from 'react';
 import FloatingAIHelper from '@/components/ai/FloatingAIHelper';
 
@@ -116,7 +116,7 @@ export default function HomePage() {
 
 
   return (
-    <>
+    <div className="faculty-directory-light-theme"> {/* Added class for Faculty theme */}
       {animationContainerVisible && (
         <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden bg-transparent">
           {[saffronPlane, whitePlane, greenPlane].map(plane => (
@@ -226,7 +226,7 @@ export default function HomePage() {
         </section>
 
         {/* Discover Himalaya Section */}
-        <SectionWrapper className="bg-background/90 backdrop-blur-md text-foreground py-16 md:py-24 animate-in fade-in-0 duration-700 delay-200" id="discover">
+        <SectionWrapper className="text-foreground py-16 md:py-24 animate-in fade-in-0 duration-700 delay-200" id="discover">
           <div className="text-center max-w-3xl mx-auto p-6 border-2 border-primary/20 rounded-xl shadow-lg bg-card/50">
              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6">Discover Himalaya</h2>
             <p className="text-lg md:text-xl text-foreground/80 leading-relaxed">
@@ -236,7 +236,7 @@ export default function HomePage() {
         </SectionWrapper>
 
         {/* Why Choose Us Section */}
-        <SectionWrapper title="Why Choose Himalaya?" className="bg-secondary/50 backdrop-blur-sm text-card-foreground py-16 md:py-24">
+        <SectionWrapper title="Why Choose Himalaya?" className="text-card-foreground py-16 md:py-24">
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { title: "Academic Excellence", icon: BookOpenCheck, description: "Our rigorous curriculum and dedicated faculty ensure students achieve their full academic potential and are well-prepared for higher education.", delay: 200 },
@@ -259,7 +259,7 @@ export default function HomePage() {
         </SectionWrapper>
 
         {/* Explore Our School Section */}
-        <SectionWrapper title="Explore Our School" className="bg-background/90 backdrop-blur-md text-foreground py-16 md:py-24">
+        <SectionWrapper title="Explore Our School" className="text-foreground py-16 md:py-24">
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { title: "Admissions Process", href: "/admissions", icon: FileText, description: "Learn about our application process and key dates.", dataAiHint: "admission documents", delay: 200 },
@@ -289,7 +289,7 @@ export default function HomePage() {
         </SectionWrapper>
 
         {/* Get Started CTA Section */}
-        <SectionWrapper className="bg-primary/95 backdrop-blur-sm text-primary-foreground py-20 md:py-28 animate-in fade-in-0 duration-700 delay-300">
+        <SectionWrapper className="bg-primary/95 text-primary-foreground py-20 md:py-28 animate-in fade-in-0 duration-700 delay-300">
           <div className="text-center animate-in fade-in-0 slide-in-from-bottom-10 duration-1000 delay-500">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Join the Himalaya Family?</h2>
             <p className="text-lg md:text-xl mb-10 max-w-2xl mx-auto text-primary-foreground/90">
@@ -316,6 +316,6 @@ export default function HomePage() {
         </SectionWrapper>
       </div>
       <FloatingAIHelper />
-    </>
+    </div>
   );
 }

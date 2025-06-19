@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useEffect } from 'react'; // Added useEffect
+import React, { useEffect } from 'react'; 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -14,12 +14,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const showFooter = pathname === '/';
 
   useEffect(() => {
-    if (pathname === '/faculty') {
+    if (pathname === '/faculty' || pathname === '/') { // Apply to home page as well
       document.body.classList.add('faculty-theme-active');
     } else {
       document.body.classList.remove('faculty-theme-active');
     }
-    // Cleanup function to remove class if component unmounts while on faculty page
     return () => {
       document.body.classList.remove('faculty-theme-active');
     };
