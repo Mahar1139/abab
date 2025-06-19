@@ -5,98 +5,98 @@
 
 @layer base {
   :root {
-    /* New Relaxing Light Theme: "Serene Earth & Sky" */
-    --background: 40 30% 97%; /* Soft, very light beige */
-    --foreground: 210 15% 25%; /* Dark, cool desaturated blue-gray */
+    /* New Relaxing Light Green Theme */
+    --background: 90 20% 97%; /* Very light, slightly yellowish green - like faint spring leaves */
+    --foreground: 120 25% 20%; /* Dark, desaturated green for text */
 
-    --card: 40 30% 99%; /* Almost white, subtly warm */
-    --card-foreground: 210 15% 25%; /* Matches page foreground */
+    --card: 90 20% 99%; /* Almost white, subtly green-tinted */
+    --card-foreground: 120 25% 20%; /* Matches page foreground */
 
-    --popover: 40 30% 99%;
-    --popover-foreground: 210 15% 25%;
+    --popover: 90 20% 99%;
+    --popover-foreground: 120 25% 20%;
 
-    --primary: 160 35% 55%; /* Muted Sage Green */
-    --primary-foreground: 160 15% 95%; /* Very light green/white for contrast */
+    --primary: 130 45% 60%; /* A calm, light green */
+    --primary-foreground: 130 10% 95%; /* Very light, for text on primary */
 
-    --secondary: 40 20% 92%; /* Lighter beige, for subtle contrast */
-    --secondary-foreground: 160 30% 40%; /* Darker muted sage green */
+    --secondary: 120 25% 92%; /* Lighter, desaturated green */
+    --secondary-foreground: 130 40% 35%; /* Darker green text for secondary */
     
-    --muted: 40 20% 88%; /* Medium-light beige */
-    --muted-foreground: 210 15% 45%; /* Medium cool gray */
+    --muted: 120 20% 88%; /* Medium-light desaturated green */
+    --muted-foreground: 120 15% 45%; /* Medium green-gray text */
 
-    --accent: 25 65% 60%; /* Warm Muted Terracotta (Highlighted Color) */
-    --accent-foreground: 25 15% 95%; /* Very light terracotta/white for contrast */
+    --accent: 150 55% 50%; /* A slightly more vibrant, but still calm, tealish green (Highlighted Color) */
+    --accent-foreground: 150 10% 95%; /* Very light, for text on accent */
 
     --destructive: 0 60% 65%; /* Softer Red */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 40 20% 85%; /* Light beige-gray border */
-    --input: 40 30% 95%; /* Slightly darker than card for input fields */
-    --ring: 160 40% 60%; /* Slightly brighter sage for Focus Rings */
+    --border: 120 20% 85%; /* Light green-gray border */
+    --input: 90 20% 95%; /* Slightly darker for input fields */
+    --ring: 130 50% 65%; /* Slightly brighter primary green for Focus Rings */
 
-    --chart-1: 160 35% 55%; /* Primary - Muted Sage Green */
-    --chart-2: 25 65% 60%;  /* Accent - Warm Muted Terracotta */
-    --chart-3: 210 20% 65%; /* Soft Blue-Gray */
-    --chart-4: 260 30% 70%; /* Gentle Lavender */
-    --chart-5: 50 50% 70%;  /* Muted Yellow/Gold */
+    --chart-1: 130 45% 60%; /* Primary */
+    --chart-2: 150 55% 50%;  /* Accent */
+    --chart-3: 110 40% 70%; /* Another light green shade */
+    --chart-4: 170 40% 75%; /* Light teal */
+    --chart-5: 90 40% 80%;  /* Very light yellow-green */
     --radius: 0.5rem;
 
-    /* Sidebar specific theme (Light - Relaxing) */
-    --sidebar-background: 40 30% 96%; 
-    --sidebar-foreground: 210 15% 25%; 
-    --sidebar-primary: 160 35% 55%;    
-    --sidebar-primary-foreground: 160 15% 95%; 
-    --sidebar-accent: 40 30% 94%;      
-    --sidebar-accent-foreground: 160 35% 50%; 
-    --sidebar-border: 40 20% 88%;
-    --sidebar-ring: 160 40% 60%;
+    /* Sidebar specific theme (Light - Relaxing Light Green) */
+    --sidebar-background: 90 20% 96%; 
+    --sidebar-foreground: 120 25% 20%; 
+    --sidebar-primary: 130 45% 60%;    
+    --sidebar-primary-foreground: 130 10% 95%; 
+    --sidebar-accent: 120 25% 94%;      
+    --sidebar-accent-foreground: 130 45% 55%; 
+    --sidebar-border: 120 20% 88%;
+    --sidebar-ring: 130 50% 65%;
   }
 
   .dark {
-    /* New Relaxing Dark Theme: "Serene Earth & Sky" */
-    --background: 210 15% 12%; /* Very dark, cool desaturated blue-gray */
-    --foreground: 40 25% 88%; /* Light soft beige */
+    /* New Relaxing Light Green Theme (Dark Mode) */
+    --background: 120 15% 12%; /* Very dark, desaturated green */
+    --foreground: 90 20% 88%; /* Light, slightly yellowish green text */
 
-    --card: 210 15% 18%; /* Darker cool gray for cards */
-    --card-foreground: 40 25% 88%;
+    --card: 120 15% 18%; /* Darker green-gray for cards */
+    --card-foreground: 90 20% 88%;
 
-    --popover: 210 15% 15%; 
-    --popover-foreground: 40 25% 88%;
+    --popover: 120 15% 15%; 
+    --popover-foreground: 90 20% 88%;
 
-    --primary: 160 30% 65%;    /* Brighter Muted Sage Green for dark mode */
-    --primary-foreground: 160 10% 15%; /* Very Dark Sage text */
+    --primary: 130 40% 70%;    /* Brighter light green for dark mode */
+    --primary-foreground: 130 20% 15%; /* Very dark green text on primary */
 
-    --secondary: 210 15% 22%; /* Dark muted cool gray */
-    --secondary-foreground: 40 20% 75%; /* Lighter beige text */
+    --secondary: 120 15% 22%; /* Dark muted green-gray */
+    --secondary-foreground: 90 15% 75%; /* Lighter green-gray text */
 
-    --muted: 210 15% 25%;   
-    --muted-foreground: 40 15% 60%; 
+    --muted: 120 15% 25%;   
+    --muted-foreground: 90 10% 60%; 
 
-    --accent: 25 60% 70%; /* Brighter Muted Terracotta */
-    --accent-foreground: 25 10% 15%; /* Very Dark Terracotta text */
+    --accent: 150 50% 60%; /* Brighter tealish green for dark mode */
+    --accent-foreground: 150 20% 15%; /* Very dark green text on accent */
 
     --destructive: 0 65% 70%; /* Slightly brighter/softer Red */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 15% 25%; 
-    --input: 210 15% 20%; 
-    --ring: 160 35% 70%; 
+    --border: 120 15% 25%; 
+    --input: 120 15% 20%; 
+    --ring: 130 45% 75%; 
 
-    --chart-1: 160 30% 65%;   /* Bright Primary Sage */
-    --chart-2: 25 60% 70%;  /* Bright Accent Terracotta */
-    --chart-3: 210 20% 45%;  /* Darker Soft Blue-Gray */
-    --chart-4: 260 30% 50%; /* Darker Gentle Lavender */
-    --chart-5: 50 40% 50%;  /* Darker Muted Yellow/Gold */
+    --chart-1: 130 40% 70%;   /* Dark Primary */
+    --chart-2: 150 50% 60%;  /* Dark Accent */
+    --chart-3: 110 35% 50%;  /* Darker green shade */
+    --chart-4: 170 35% 55%; /* Darker light teal */
+    --chart-5: 90 35% 60%;  /* Darker very light yellow-green */
 
-    /* Sidebar specific theme (Dark - Relaxing) */
-    --sidebar-background: 210 15% 11%; 
-    --sidebar-foreground: 40 25% 80%; 
-    --sidebar-primary: 160 30% 65%; 
-    --sidebar-primary-foreground: 160 10% 15%;
-    --sidebar-accent: 210 15% 20%;      
-    --sidebar-accent-foreground: 160 35% 70%; 
-    --sidebar-border: 210 15% 22%;
-    --sidebar-ring: 160 35% 70%;
+    /* Sidebar specific theme (Dark - Relaxing Light Green) */
+    --sidebar-background: 120 15% 11%; 
+    --sidebar-foreground: 90 20% 80%; 
+    --sidebar-primary: 130 40% 70%; 
+    --sidebar-primary-foreground: 130 20% 15%;
+    --sidebar-accent: 120 15% 20%;      
+    --sidebar-accent-foreground: 130 40% 65%; 
+    --sidebar-border: 120 15% 22%;
+    --sidebar-ring: 130 45% 75%;
   }
 
   /* Specific Light Theme for Faculty Directory Page CONTENT - REMAINS DISTINCT */
