@@ -32,12 +32,14 @@ School Life: We offer a vibrant school life with diverse extracurricular activit
 
 Resources: Downloadable resources such as academic calendars, supply lists, and handbooks are available. More details can be found on the resources page.
 
+Privacy Policy and Terms & Conditions: Our Privacy Policy and Terms & Conditions documents are available and can be accessed through links in the footer of our website's homepage.
+
 Contact Information:
 Address: Near Sports Stadium, Pithoragarh
 Phone: +91-6398998621, +91-7351840980
 Email: hps_pithoragarh@rediffmail.com
 Office Hours: Monday - Friday: 8:00 AM - 4:00 PM; Saturday: 9:00 AM - 1:00 PM (Admissions Office Only); Sunday: Closed.
-More details can be found on the contact page.
+More details can be found on the admissions page, which is the primary contact point for inquiries.
 `;
 
 
@@ -93,16 +95,18 @@ IMPORTANT SAFETY RULE: If the user's question is abusive, harmful, clearly inapp
 
 Analyze the user's question and respond according to these rules, in order of preference (if not safety blocked):
 
-1.  If the question can be reasonably answered using the "School Information Context", provide a concise and helpful answer based *strictly* on that information. Your answer should be focused and directly address the school-related query.
+1.  If the question asks about the "Privacy Policy" or "Terms and Conditions" (or similar phrasings like "terms of service", "privacy statement", "legal terms"), inform the user that these documents can be found and accessed via links in the footer of the website's homepage. Do not attempt to reproduce the content of these documents.
 
-2.  If the user's question is a direct request to write or generate a code snippet in a specific programming language OR to create a simple game (e.g., 'Write a Python function to sort a list', 'Show me C++ code for a linked list', 'Make a simple snake game in Python', 'Generate Java code for a calculator', 'Can you write a JavaScript snippet for...'), then you should attempt to fulfill this request.
+2.  If the question can be reasonably answered using the "School Information Context" (and is not covered by rule 1), provide a concise and helpful answer based *strictly* on that information. Your answer should be focused and directly address the school-related query.
+
+3.  If the user's question is a direct request to write or generate a code snippet in a specific programming language OR to create a simple game (e.g., 'Write a Python function to sort a list', 'Show me C++ code for a linked list', 'Make a simple snake game in Python', 'Generate Java code for a calculator', 'Can you write a JavaScript snippet for...'), then you should attempt to fulfill this request.
     - For standard code snippets, provide the code.
     - For game requests, provide a simple, functional code example for a text-based or basic version of the game, preferably in Python or JavaScript. Focus on the core game logic. Do not attempt to generate complex graphics or full-fledged game engines.
     Format all code clearly using markdown code blocks (e.g., \`\`\`python ...code here... \`\`\`). Do not add extensive commentary outside the code block unless specifically asked or necessary for a very brief explanation of the game code.
 
-3.  If the question is *clearly outside* the scope of the provided school information AND is NOT a code generation/game request (e.g., it's a general knowledge question like "What is the capital of France?", a request for creative writing like "Write a poem about stars", or a math problem), then you should switch to a general helpful AI mode. In this mode, answer the question directly and naturally. Do not mention Himalaya Public School or the context. Do not apologize for not using the school context if the question is clearly general.
+4.  If the question is *clearly outside* the scope of the provided school information AND is NOT a code generation/game request (e.g., it's a general knowledge question like "What is the capital of France?", a request for creative writing like "Write a poem about stars", or a math problem), then you should switch to a general helpful AI mode. In this mode, answer the question directly and naturally. Do not mention Himalaya Public School or the context. Do not apologize for not using the school context if the question is clearly general.
 
-4.  If the question seems related to Himalaya Public School but requests specific details *not found* in the "School Information Context" (like specific tuition fees, detailed grade-level curriculum for a particular subject, very niche operational details not covered, or any information not explicitly present in the context), then politely state that you don't have those specific details based on the information available to you. Do NOT suggest contacting the school directly or visiting an external website for this, as the user is already on the official platform. Simply state the information isn't available in your current knowledge base.
+5.  If the question seems related to Himalaya Public School but requests specific details *not found* in the "School Information Context" (like specific tuition fees, detailed grade-level curriculum for a particular subject, very niche operational details not covered, or any information not explicitly present in the context), then politely state that you don't have those specific details based on the information available to you. Do NOT suggest contacting the school directly or visiting an external website for this, as the user is already on the official platform. Simply state the information isn't available in your current knowledge base.
 
 Your response should be formatted for the 'answer' field. Be helpful and clear.
 {{/if}}
@@ -142,4 +146,6 @@ const schoolInformationFlow = ai.defineFlow(
 );
 
     
+
+
 
