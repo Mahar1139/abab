@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetFooter, SheetDescription } from '@/components/ui/sheet';
-import { Send, User, Loader2, Zap, ShieldBan, Cpu } from 'lucide-react'; // Keep Cpu for chat avatars
+import { Send, User, Loader2, BrainCircuit, ShieldBan } from 'lucide-react'; // Changed Cpu to BrainCircuit
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
@@ -140,7 +140,7 @@ export default function FloatingAIHelper() {
 
     if (userMessageText.toLowerCase() === UNRESTRICTED_MODE_PROMPT_FLOAT) {
       setIsUnrestrictedMode(!isUnrestrictedMode); 
-      const modeMessage = !isUnrestrictedMode ? "Unrestricted mode enabled. Ask anything!" : "Switched back to School Assistant mode.";
+      const modeMessage = !isUnrestrictedMode ? "Unrestricted AI mode enabled. Ask anything!" : "Switched back to School Assistant mode.";
       setMessages(prev => [...prev, 
         { id: `user-${Date.now()}`, text: userMessageText, sender: 'user' },
         { id: `mode-switch-${Date.now()}`, text: modeMessage, sender: 'ai' }
@@ -223,14 +223,14 @@ export default function FloatingAIHelper() {
                            bg-[length:250%_250%] animate-gradient-slide
                            flex items-center justify-center" 
               >
-                <span className="text-3xl font-bold text-white">AI</span>
+                <BrainCircuit className="h-10 w-10 text-white" />
               </div>
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-full sm:max-w-md flex flex-col p-0">
             <SheetHeader className="p-4 border-b">
               <SheetTitle className="flex items-center gap-2 text-primary">
-                {isUnrestrictedMode ? <Zap className="h-6 w-6 text-orange-500" /> : <Cpu className="h-6 w-6" />}
+                {isUnrestrictedMode ? <BrainCircuit className="h-6 w-6 text-orange-500" /> : <BrainCircuit className="h-6 w-6" />}
                 {isUnrestrictedMode ? "Unrestricted AI" : "AI Helper"}
               </SheetTitle>
               <SheetDescription className="text-xs">
@@ -249,7 +249,7 @@ export default function FloatingAIHelper() {
                     )}
                   >
                     {msg.sender === 'ai' && (
-                      <Cpu className={cn("h-6 w-6 shrink-0 mb-1", isUnrestrictedMode && msg.sender === 'ai' ? "text-orange-500" : "text-primary")} />
+                      <BrainCircuit className={cn("h-6 w-6 shrink-0 mb-1", isUnrestrictedMode && msg.sender === 'ai' ? "text-orange-500" : "text-primary")} />
                     )}
                     <div
                       className={cn(
@@ -272,7 +272,7 @@ export default function FloatingAIHelper() {
                 ))}
                 {isLoading && (
                   <div className="flex items-center justify-start gap-2">
-                    <Cpu className={cn("h-6 w-6 shrink-0 mb-1", isUnrestrictedMode ? "text-orange-500" : "text-primary")} />
+                    <BrainCircuit className={cn("h-6 w-6 shrink-0 mb-1", isUnrestrictedMode ? "text-orange-500" : "text-primary")} />
                     <div className="bg-card text-card-foreground border rounded-lg px-3 py-2 shadow">
                       <Loader2 className="h-5 w-5 animate-spin text-primary" />
                     </div>

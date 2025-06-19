@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Loader2, BrainCircuit, HelpCircle, StopCircle, Zap, ArrowLeftCircle, ShieldBan, Cpu } from 'lucide-react'; // Added Cpu
+import { Loader2, BrainCircuit, HelpCircle, StopCircle, Zap, ArrowLeftCircle, ShieldBan } from 'lucide-react'; // Changed Cpu to BrainCircuit
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 
@@ -324,7 +324,7 @@ export default function SchoolInfoChatbot() {
         }
       } else { 
         setError("The AI didn't provide an answer. Please try rephrasing your question.");
-        setRawAnswer(null);
+        setRawAnswer(null); 
       }
     } catch (e) {
       console.error("Error fetching school information:", e);
@@ -401,7 +401,7 @@ export default function SchoolInfoChatbot() {
     <Card className="flex flex-col h-full w-full shadow-none border-0 rounded-none bg-card">
       <CardHeader className="border-b">
         <CardTitle className="flex items-center gap-2 text-xl text-primary">
-          {isUnrestrictedMode ? <Zap className="w-6 h-6 text-orange-500" /> : <Cpu className="w-6 h-6" />} {/* Changed BrainCircuit to Cpu */}
+          {isUnrestrictedMode ? <Zap className="w-6 h-6 text-orange-500" /> : <BrainCircuit className="w-6 h-6" />} {/* Changed Cpu to BrainCircuit */}
           {isUnrestrictedMode ? "Unrestricted AI Mode" : "AI Assistant"}
         </CardTitle>
         <CardDescription>
