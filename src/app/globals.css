@@ -5,97 +5,97 @@
 
 @layer base {
   :root {
-    /* New Warm Orange Glow Theme */
-    --background: 30 50% 97%; /* Very light, soft peach */
-    --foreground: 25 20% 25%; /* Dark, desaturated warm brown/gray */
+    /* New Off-White Background with Orange Accents Theme */
+    --background: 0 0% 98%; /* Neutral off-white (very light gray) */
+    --foreground: 0 0% 10%; /* Near black for text */
 
-    --card: 30 50% 99%; /* Almost white, subtly peachy */
-    --card-foreground: 25 20% 25%; /* Matches page foreground */
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 0 0% 10%; /* Match page foreground */
 
-    --popover: 30 50% 99%;
-    --popover-foreground: 25 20% 25%;
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 0 0% 10%; /* Match page foreground */
 
-    --primary: 25 75% 60%; /* Muted, pleasant orange */
+    --primary: 25 75% 60%; /* Muted, pleasant orange (from Warm Orange Glow) */
     --primary-foreground: 25 15% 95%; /* Very light, for text on primary */
 
-    --secondary: 35 60% 92%; /* Lighter, desaturated warm peach/beige */
-    --secondary-foreground: 25 70% 35%; /* Darker orange/brown text for secondary */
+    --secondary: 30 20% 94%; /* Very light warm gray */
+    --secondary-foreground: 25 75% 60%; /* Orange text for secondary */
     
-    --muted: 30 40% 88%; /* Medium-light desaturated peach */
-    --muted-foreground: 30 25% 45%; /* Medium warm gray/brown text */
+    --muted: 0 0% 90%; /* Light gray */
+    --muted-foreground: 0 0% 40%; /* Medium gray text */
 
-    --accent: 40 80% 55%; /* Brighter, warmer orange/gold (Highlighted Color) */
+    --accent: 40 80% 55%; /* Brighter, warmer orange/gold (from Warm Orange Glow) */
     --accent-foreground: 40 10% 95%; /* Very light, for text on accent */
 
     --destructive: 0 60% 65%; /* Softer Red */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 30 40% 85%; /* Light warm gray/peach border */
-    --input: 30 50% 95%; /* Slightly darker for input fields */
+    --border: 0 0% 88%; /* Light gray border */
+    --input: 0 0% 95%; /* Light gray input background */
     --ring: 25 80% 65%; /* Slightly brighter primary orange for Focus Rings */
 
-    --chart-1: 25 75% 60%; /* Primary */
-    --chart-2: 40 80% 55%;  /* Accent */
+    --chart-1: 25 75% 60%; /* Primary Orange */
+    --chart-2: 40 80% 55%;  /* Accent Gold/Orange */
     --chart-3: 30 70% 70%; /* Another warm orange/peach shade */
     --chart-4: 45 70% 65%; /* Soft gold */
     --chart-5: 20 60% 75%;  /* Lighter peach */
     --radius: 0.5rem;
 
-    /* Sidebar specific theme (Light - Warm Orange Glow) */
-    --sidebar-background: 30 50% 96%; 
-    --sidebar-foreground: 25 20% 25%; 
+    /* Sidebar specific theme (Light - Off-White with Orange Accents) */
+    --sidebar-background: 0 0% 97%; 
+    --sidebar-foreground: 0 0% 10%; 
     --sidebar-primary: 25 75% 60%;    
     --sidebar-primary-foreground: 25 15% 95%; 
-    --sidebar-accent: 35 60% 94%;      
+    --sidebar-accent: 0 0% 92%;      
     --sidebar-accent-foreground: 25 75% 55%; 
-    --sidebar-border: 30 40% 88%;
+    --sidebar-border: 0 0% 90%;
     --sidebar-ring: 25 80% 65%;
   }
 
   .dark {
-    /* New Warm Orange Glow Theme (Dark Mode) */
-    --background: 25 15% 12%; /* Very dark, desaturated warm brown */
-    --foreground: 30 40% 88%; /* Light, soft peach text */
+    /* New Off-White Background with Orange Accents Theme (Dark Mode) */
+    --background: 0 0% 8%; /* Very dark gray, almost black */
+    --foreground: 0 0% 95%; /* Off-white text */
 
-    --card: 25 15% 18%; /* Darker warm brown for cards */
-    --card-foreground: 30 40% 88%;
+    --card: 0 0% 12%; /* Slightly lighter dark gray for cards */
+    --card-foreground: 0 0% 95%;
 
-    --popover: 25 15% 15%; 
-    --popover-foreground: 30 40% 88%;
+    --popover: 0 0% 10%; 
+    --popover-foreground: 0 0% 95%;
 
-    --primary: 25 70% 70%;    /* Brighter orange for dark mode */
+    --primary: 25 70% 70%;    /* Brighter orange for dark mode (from Warm Orange Glow) */
     --primary-foreground: 25 20% 15%; /* Very dark brown/orange text on primary */
 
-    --secondary: 30 15% 22%; /* Dark muted warm brown */
-    --secondary-foreground: 35 30% 75%; /* Lighter warm peach/beige text */
+    --secondary: 0 0% 15%; /* Dark gray */
+    --secondary-foreground: 25 70% 70%; /* Orange text for dark secondary */
 
-    --muted: 25 15% 25%;   
-    --muted-foreground: 30 20% 60%; 
+    --muted: 0 0% 20%;   
+    --muted-foreground: 0 0% 60%; 
 
-    --accent: 40 75% 65%; /* Brighter orange/gold for dark mode */
+    --accent: 40 75% 65%; /* Brighter orange/gold for dark mode (from Warm Orange Glow) */
     --accent-foreground: 40 20% 15%; /* Very dark brown/orange text on accent */
 
     --destructive: 0 65% 70%; /* Slightly brighter/softer Red */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 25 15% 25%; 
-    --input: 25 15% 20%; 
+    --border: 0 0% 20%; 
+    --input: 0 0% 15%; 
     --ring: 25 75% 75%; 
 
-    --chart-1: 25 70% 70%;   /* Dark Primary */
-    --chart-2: 40 75% 65%;  /* Dark Accent */
+    --chart-1: 25 70% 70%;   /* Dark Primary Orange */
+    --chart-2: 40 75% 65%;  /* Dark Accent Gold/Orange */
     --chart-3: 30 65% 60%;  /* Darker warm orange/peach shade */
     --chart-4: 45 65% 55%; /* Darker soft gold */
     --chart-5: 20 55% 60%;  /* Darker lighter peach */
 
-    /* Sidebar specific theme (Dark - Warm Orange Glow) */
-    --sidebar-background: 25 15% 11%; 
-    --sidebar-foreground: 30 40% 80%; 
+    /* Sidebar specific theme (Dark - Off-White with Orange Accents) */
+    --sidebar-background: 0 0% 7%; 
+    --sidebar-foreground: 0 0% 90%; 
     --sidebar-primary: 25 70% 70%; 
     --sidebar-primary-foreground: 25 20% 15%;
-    --sidebar-accent: 30 15% 20%;      
+    --sidebar-accent: 0 0% 15%;      
     --sidebar-accent-foreground: 25 70% 65%; 
-    --sidebar-border: 25 15% 22%;
+    --sidebar-border: 0 0% 18%;
     --sidebar-ring: 25 75% 75%;
   }
 
@@ -216,3 +216,5 @@
     scrollbar-color: hsl(var(--sidebar-foreground) / 0.3) transparent; /* thumb color track color */
   }
 }
+
+    
