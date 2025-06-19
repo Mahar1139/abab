@@ -135,6 +135,15 @@
     --chart-3: 0 70% 55%;   /* Destructive Red */
     --chart-4: 190 50% 60%; /* A contrasting Teal/Blue */
     --chart-5: 45 50% 50%;  /* An Olive Green */
+
+    /* Subtle background pattern */
+    background-image: repeating-linear-gradient(
+      45deg,
+      hsla(var(--muted-foreground) / 0.08),
+      hsla(var(--muted-foreground) / 0.08) 1px,
+      transparent 1px,
+      transparent 20px /* Adjust 20px to control line spacing */
+    );
   }
 }
 
