@@ -11,7 +11,7 @@ import { School, Mail, MapPin, Phone, Facebook, Instagram, Linkedin } from 'luci
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const showFooter = pathname === '/'; // Updated logic: only show footer on the homepage
+  const showFooter = pathname === '/';
 
   useEffect(() => {
     if (pathname === '/faculty') {
@@ -26,7 +26,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }, [pathname]);
 
   return (
-    <SidebarProvider defaultOpen={true}>
+    <SidebarProvider defaultOpen={false}>
       <AppSidebar />
       <SidebarInset className="flex flex-col">
         <PageHeader />
