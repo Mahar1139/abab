@@ -68,7 +68,7 @@ export default function RoboticsClassesPage() {
               </CardContent>
               <CardContent>
                 <Button asChild size="lg" className="w-full md:w-auto">
-                  <Link href="/contact">
+                  <Link href="/admissions">
                     Explore Robotics Programs <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>

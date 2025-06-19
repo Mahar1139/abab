@@ -366,7 +366,7 @@ export default function HomePage() {
                 size="lg"
                 className="px-12 py-7 text-lg md:text-xl font-semibold shadow-2xl hover:scale-105 transition-transform duration-300 bg-accent text-accent-foreground hover:bg-accent/80 w-full sm:w-auto"
               >
-                <Link href="/contact">Contact Admissions</Link>
+                <Link href="/admissions">Contact Admissions</Link>
               </Button>
               <Button
                 asChild

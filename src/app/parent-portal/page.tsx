@@ -64,7 +64,7 @@ export default function ParentPortalPage() {
             <div className="text-center mt-8">
               <p className="text-foreground/80">
                 If you have any questions or need assistance, please {" "}
-                <Link href="/contact" className="text-accent hover:underline font-medium">
+                <Link href="/admissions" className="text-accent hover:underline font-medium">
                   contact our support team
                 </Link>.
               </p>
