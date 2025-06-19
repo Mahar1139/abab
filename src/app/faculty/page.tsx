@@ -10,7 +10,7 @@ export default function FacultyPage() {
   const facultyProfilesText = facultyMembers.map(member => `${member.name} (${member.title}): ${member.bio}`).join('\n\n');
 
   return (
-    <div className="faculty-directory-light-theme"> {/* Added wrapper div with theme class */}
+    <div className="faculty-directory-light-theme bg-background text-foreground min-h-full"> {/* Added bg-background, text-foreground, and min-h-full */}
       <div className="container mx-auto py-8">
         <SectionWrapper title="Our Esteemed Faculty">
           <p className="text-center text-lg text-foreground/80 mb-10 max-w-2xl mx-auto">
