@@ -248,14 +248,13 @@ export default function HomePage() {
               </Button>
             </div>
             <div className="animate-in fade-in-0 slide-in-from-right-10 duration-700 delay-300">
-              <div className="rounded-xl shadow-2xl overflow-hidden aspect-video group">
+              <div className="rounded-xl shadow-2xl overflow-hidden aspect-video group relative">
                 <Image
-                  src="https://placehold.co/600x400.png" 
-                  alt="Students engaged in learning at Himalaya Public School"
-                  width={600}
-                  height={400}
-                  className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                  data-ai-hint="students learning campus"
+                  src="/All_Images/home/HPS.jpg" 
+                  alt="Himalaya Public School building and courtyard"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  data-ai-hint="school building"
                 />
               </div>
             </div>
@@ -382,3 +381,4 @@ export default function HomePage() {
     </div>
   );
 }
+
