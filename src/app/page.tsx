@@ -2,7 +2,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from 'next/link'
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import SectionWrapper from '@/components/shared/SectionWrapper';
@@ -10,6 +10,7 @@ import { BookOpenCheck, Leaf, Users, Telescope, ArrowRight, TrendingUp, Zap, Shi
 import { useState, useEffect } from 'react';
 import FloatingAIHelper from '@/components/ai/FloatingAIHelper';
 
+// Removed incorrect import: import homepageimg from '../All_Images/homepageimg.jpg';
 // --- Independence Day Animation Logic (Preserved) ---
 const ANIMATION_DURATION = 800; 
 const STAGGER_DELAY = 300; 
@@ -193,13 +194,13 @@ export default function HomePage() {
         style={{ backgroundColor: 'hsl(45, 70%, 55%)' }} // Simple Dark Yellow Shine Background
       >
         {/* Hero Section */}
-        <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden group">
+        <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden group animate-in fade-in-0 duration-500">
           <Image
-            src="/All_Images/home/hero-banner.png" 
+            src="/All_Images/homepageimg.jpg" // Corrected: Direct path to public image
             alt="Himalaya Public School - Inspiring Campus"
+            data-ai-hint="school campus" // Added data-ai-hint
             fill
             className="z-0 object-cover brightness-75 group-hover:brightness-90 transition-all duration-500 ease-in-out"
-            data-ai-hint="school campus students"
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10" />
