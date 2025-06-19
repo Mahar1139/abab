@@ -7,12 +7,11 @@ import { usePathname } from 'next/navigation';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import AppSidebar from './AppSidebar';
 import PageHeader from '../shared/PageHeader';
-import { School, Mail, BookOpen, Brain, MessageSquare } from 'lucide-react'; // Added MessageSquare for AI Assistant
+import { School, Mail, BookOpen, Cpu } from 'lucide-react'; // Changed Brain to Cpu
 import { Button } from '@/components/ui/button';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  // Show footer only on the homepage for now, or adjust as needed
   const showFooter = pathname === '/'; 
 
   return (
@@ -24,19 +23,23 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           {children}
         </main>
         {showFooter && (
-          <footer className="bg-card py-6 md:py-8 border-t border-border/20 text-foreground">
+          <footer className="bg-card py-6 border-t border-border text-foreground">
             <div className="container mx-auto px-4">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                {/* Left Side: School Name & Logo */}
-                <Link href="/" className="flex items-center gap-2 text-foreground hover:text-accent transition-colors">
-                  <School className="w-6 h-6 text-accent" />
-                  <span className="font-semibold text-md">Himalaya Public School</span>
-                </Link>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                {/* Left: School Identity */}
+                <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                  <Link href="/" className="flex items-center gap-2 text-foreground hover:text-accent transition-colors mb-2">
+                    <School className="w-7 h-7 text-primary" />
+                    <span className="font-semibold text-xl font-headline">Himalaya Public School</span>
+                  </Link>
+                  <p className="text-xs text-foreground/70">
+                    Nurturing potential, inspiring futures.
+                  </p>
+                </div>
 
-                {/* Right Side: Action Links & Legal */}
-                <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
-                  <div className="flex items-center gap-3 md:gap-4">
-                    <Button variant="ghost" size="sm" asChild className="text-foreground/80 hover:text-accent px-2">
+                {/* Center: Quick Links (Optional, kept minimal for this design) */}
+                <div className="flex justify-center items-center gap-4">
+                   <Button variant="ghost" size="sm" asChild className="text-foreground/80 hover:text-accent px-2">
                       <Link href="/admissions" aria-label="Admissions">
                         <BookOpen className="w-5 h-5" />
                         <span className="ml-1.5 hidden sm:inline">Admissions</span>
@@ -50,21 +53,19 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                     </Button>
                     <Button variant="ghost" size="sm" asChild className="text-foreground/80 hover:text-accent px-2">
                       <Link href="/ai-assistant" aria-label="AI Assistant">
-                        <MessageSquare className="w-5 h-5" />
+                        <Cpu className="w-5 h-5" /> {/* Changed Brain to Cpu */}
                         <span className="ml-1.5 hidden sm:inline">AI Helper</span>
                       </Link>
                     </Button>
-                  </div>
-                  
-                  <div className="text-center md:text-right mt-4 md:mt-0">
-                    <p className="text-xs text-foreground/70">
-                      &copy; {new Date().getFullYear()} Himalaya Public School.
-                    </p>
-                    <div className="text-xs text-foreground/60 space-x-2">
-                      <Link href="/privacy-policy" className="hover:text-accent transition-colors">Privacy</Link>
-                      <span>&bull;</span>
-                      <Link href="/terms-conditions" className="hover:text-accent transition-colors">Terms</Link>
-                    </div>
+                </div>
+
+                {/* Right: Copyright and Legal */}
+                <div className="text-center md:text-right text-xs text-foreground/70">
+                  <p>&copy; {new Date().getFullYear()} Himalaya Public School.</p>
+                  <div className="space-x-2 mt-1">
+                    <Link href="/privacy-policy" className="hover:text-accent transition-colors">Privacy</Link>
+                    <span>&bull;</span>
+                    <Link href="/terms-conditions" className="hover:text-accent transition-colors">Terms</Link>
                   </div>
                 </div>
               </div>
