@@ -11,7 +11,7 @@ import { School, Mail, MapPin, Phone, Facebook, Instagram, Linkedin } from 'luci
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const showFooter = pathname !== '/ai-assistant';
+  const showFooter = pathname === '/'; // Updated logic: only show footer on the homepage
 
   useEffect(() => {
     if (pathname === '/faculty') {
