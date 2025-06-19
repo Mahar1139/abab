@@ -7,8 +7,6 @@ export interface FacultyMember {
   name: string;
   title: string;
   bio: string;
-  imageUrl: string;
-  dataAiHint?: string;
 }
 
 export interface SchoolEvent {
@@ -31,3 +29,14 @@ export interface DownloadableResource {
 }
 
 export type AdmissionFormData = z.infer<typeof admissionFormSchema>;
+
+export interface AcademicProgram {
+  id: string;
+  level: string;
+  title: string;
+  description: string;
+  keySubjects: string[];
+  imageUrl: string;
+  dataAiHint?: string;
+  icon: React.ElementType;
+}
