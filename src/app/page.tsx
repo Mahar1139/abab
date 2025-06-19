@@ -194,7 +194,9 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden animate-in fade-in-0 duration-500">
           <video
-            src="https://www.w3schools.com/tags/movie.mp4" // IMPORTANT: Replaced with a different placeholder video. Update with your video file path.
+            // IMPORTANT: Replace this placeholder with the path to YOUR high-quality, educational video file.
+            // For example, if your video is in public/videos/my-educational-video.mp4, use src="/videos/my-educational-video.mp4"
+            src="https://www.w3schools.com/tags/movie.mp4" 
             autoPlay
             loop
             muted
