@@ -117,8 +117,6 @@ export default function HomePage() {
   // --- End of Independence Day Animation State & Effect ---
 
   return (
-    // Removed .faculty-directory-light-theme to use global theme for page content
-    // The AppLayout will still apply the special sidebar theme for the home page.
     <div> 
       {/* --- Independence Day Animation Container (Preserved) --- */}
       {animationContainerVisible && (
@@ -190,11 +188,14 @@ export default function HomePage() {
       )}
       {/* --- End of Independence Day Animation Container --- */}
 
-      <div className="flex flex-col min-h-screen animate-in fade-in-0 duration-500">
+      <div 
+        className="flex flex-col min-h-screen animate-in fade-in-0 duration-500"
+        style={{ backgroundColor: 'hsl(52, 98%, 62%)' }} // Highlighted Yellow Background
+      >
         {/* Hero Section */}
         <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden group">
           <Image
-            src="/All_Images/home/hero-banner.png" // Existing hero image
+            src="/All_Images/home/hero-banner.png" 
             alt="Himalaya Public School - Inspiring Campus"
             fill
             className="z-0 object-cover brightness-75 group-hover:brightness-90 transition-all duration-500 ease-in-out"
@@ -249,7 +250,7 @@ export default function HomePage() {
             <div className="animate-in fade-in-0 slide-in-from-right-10 duration-700 delay-300">
               <div className="rounded-xl shadow-2xl overflow-hidden aspect-video group">
                 <Image
-                  src="https://placehold.co/600x400.png" // Placeholder - replace with an actual image
+                  src="https://placehold.co/600x400.png" 
                   alt="Students engaged in learning at Himalaya Public School"
                   width={600}
                   height={400}
@@ -381,3 +382,4 @@ export default function HomePage() {
     </div>
   );
 }
+
