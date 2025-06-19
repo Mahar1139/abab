@@ -101,40 +101,40 @@
 
   /* Specific Light Theme for Faculty Directory Page */
   .faculty-directory-light-theme {
-    --background: 220 20% 97%; /* Very Light Cool Grey */
-    --foreground: 220 25% 30%; /* Dark Slate Blue */
+    --background: 55 100% 95%; /* Light Yellow */
+    --foreground: 40 10% 30%;  /* Dark Warm Grey */
 
-    --card: 0 0% 100%; /* White */
-    --card-foreground: 220 25% 30%; /* Dark Slate Blue */
+    --card: 210 30% 97%; /* Very Pale Blue-Grey for boxes */
+    --card-foreground: 210 20% 25%; /* Darker Blue-Grey text for boxes */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 30%;
+    --popover: 210 30% 97%; /* Consistent popover with card */
+    --popover-foreground: 210 20% 25%;
 
-    --primary: 175 55% 45%; /* Soft Teal/Aqua */
+    --primary: 25 70% 55%; /* Muted Earthy Orange */
     --primary-foreground: 0 0% 100%; /* White */
 
-    --secondary: 220 15% 92%; /* Light Cool Grey */
-    --secondary-foreground: 175 45% 35%; /* Darker Teal/Aqua */
+    --secondary: 45 60% 90%; /* Light Sandy Beige */
+    --secondary-foreground: 45 30% 40%; /* Darker Beige Text */
     
-    --muted: 220 15% 88%;
-    --muted-foreground: 220 20% 50%;
+    --muted: 50 20% 85%; /* Light Greyish Yellow */
+    --muted-foreground: 50 15% 50%; /* Medium Greyish Yellow Text */
 
-    --accent: 35 90% 65%; /* Soft Orange */
-    --accent-foreground: 20 100% 15%; /* Dark Brown */
+    --accent: 35 90% 60%; /* Brighter, Saturated Orange */
+    --accent-foreground: 20 100% 10%; /* Dark Brown */
 
-    --destructive: 0 70% 55%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 70% 55%; /* Standard Red */
+    --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 220 15% 85%;
-    --input: 220 15% 94%;
-    --ring: 175 60% 50%; /* Brighter Teal/Aqua for Focus Rings */
+    --border: 50 20% 80%; /* Greyish Yellow Border */
+    --input: 55 70% 92%; /* Slightly Darker Yellow Input Background */
+    --ring: 25 70% 55%; /* Muted Earthy Orange for Focus Rings */
 
-    /* Chart colors for this specific theme (can be same or different) */
-    --chart-1: 175 55% 45%; 
-    --chart-2: 35 90% 65%;  
-    --chart-3: 0 70% 55%;   
-    --chart-4: 250 50% 65%; 
-    --chart-5: 50 75% 60%;  
+    /* Chart colors for this specific theme */
+    --chart-1: 25 70% 55%; /* Primary - Muted Earthy Orange */
+    --chart-2: 35 90% 60%;  /* Accent - Brighter Orange */
+    --chart-3: 0 70% 55%;   /* Destructive Red */
+    --chart-4: 190 50% 60%; /* A contrasting Teal/Blue */
+    --chart-5: 45 50% 50%;  /* An Olive Green */
   }
 }
 
@@ -143,7 +143,8 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body antialiased mt-0;
+    @apply bg-background text-foreground font-body antialiased;
+    @apply mt-0;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-headline;
