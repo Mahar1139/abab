@@ -190,7 +190,7 @@ export default function HomePage() {
 
       <div 
         className="flex flex-col min-h-screen animate-in fade-in-0 duration-500"
-        style={{ backgroundColor: 'hsl(52, 98%, 62%)' }} // Highlighted Yellow Background
+        style={{ backgroundColor: 'hsl(45, 70%, 55%)' }} // Simple Dark Yellow Shine Background
       >
         {/* Hero Section */}
         <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden group">
@@ -233,7 +233,7 @@ export default function HomePage() {
         </section>
 
         {/* About Us Snippet Section */}
-        <SectionWrapper className="bg-background text-foreground py-16 md:py-24">
+        <SectionWrapper className="bg-card text-foreground py-16 md:py-24">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-in fade-in-0 slide-in-from-left-10 duration-700 delay-200">
               <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 font-headline">A Tradition of Learning & Growth</h2>
@@ -263,14 +263,14 @@ export default function HomePage() {
         </SectionWrapper>
 
         {/* Why Choose Himalaya Section */}
-        <SectionWrapper title="Why Choose Himalaya?" className="bg-secondary/30 text-foreground py-16 md:py-24">
+        <SectionWrapper title="Why Choose Himalaya?" className="bg-card text-foreground py-16 md:py-24">
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { title: "Academic Excellence", icon: GraduationCap, description: "Rigorous curriculum, innovative teaching, and a focus on achieving full potential.", delay: 200 },
               { title: "Holistic Development", icon: Leaf, description: "Balancing academics with arts, sports, and character-building activities for all-round growth.", delay: 400 },
               { title: "Supportive Community", icon: Users, description: "A nurturing and inclusive environment where every student feels valued and supported.", delay: 600 }
             ].map((item, index) => (
-              <Card key={index} className="shadow-xl hover:shadow-2xl transition-all duration-300 bg-card hover:border-primary/50 group animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{ animationDelay: `${item.delay}ms`}}>
+              <Card key={index} className="shadow-xl hover:shadow-2xl transition-all duration-300 bg-background hover:border-primary/50 group animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{ animationDelay: `${item.delay}ms`}}>
                 <CardHeader className="items-center text-center">
                   <div className="p-5 bg-primary/10 rounded-full mb-4 inline-block group-hover:bg-primary transition-colors duration-300">
                     <item.icon className="w-12 h-12 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
@@ -286,7 +286,7 @@ export default function HomePage() {
         </SectionWrapper>
 
         {/* Our Programs Teaser Section */}
-        <SectionWrapper title="Pathways to Success: Our Programs" className="bg-background text-foreground py-16 md:py-24">
+        <SectionWrapper title="Pathways to Success: Our Programs" className="bg-card text-foreground py-16 md:py-24">
           <p className="text-center text-lg text-foreground/80 mb-12 max-w-2xl mx-auto">
             We offer a diverse range of programs designed to cater to different learning stages and interests, ensuring a strong foundation for every student.
           </p>
@@ -297,7 +297,7 @@ export default function HomePage() {
               { title: "High School", description: "Preparing for board exams and specialized studies.", icon: ShieldCheck, href: "/academic-programs#high", delay: 400, dataAiHint: "teenagers studying" },
               { title: "Tech Programs", description: "Coding, Robotics, and Digital Literacy for the future.", icon: Zap, href: "/tech-programs", delay: 500, dataAiHint: "robotics coding" },
             ].map((program) => (
-              <Card key={program.title} className="group overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full bg-card hover:border-accent/50 animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{ animationDelay: `${program.delay}ms`}}>
+              <Card key={program.title} className="group overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full bg-background hover:border-accent/50 animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{ animationDelay: `${program.delay}ms`}}>
                 <CardHeader className="items-center text-center p-4">
                   <div className="p-3 bg-accent/10 rounded-full mb-3 inline-block group-hover:bg-accent transition-colors duration-300">
                     <program.icon className="w-8 h-8 text-accent group-hover:text-accent-foreground transition-colors duration-300" />
@@ -320,7 +320,7 @@ export default function HomePage() {
         </SectionWrapper>
 
         {/* School Life Teaser Section */}
-        <SectionWrapper title="Beyond the Classroom: Vibrant School Life" className="bg-secondary/30 text-foreground py-16 md:py-24">
+        <SectionWrapper title="Beyond the Classroom: Vibrant School Life" className="bg-card text-foreground py-16 md:py-24">
           <p className="text-center text-lg text-foreground/80 mb-12 max-w-2xl mx-auto">
             Our school is a hub of activity, offering numerous opportunities for students to engage, learn, and grow outside of academics.
           </p>
@@ -330,7 +330,7 @@ export default function HomePage() {
               { title: "Arts & Culture", icon: Palette, description: "Encouraging creativity and self-expression through music, drama, visual arts, and cultural events.", delay: 350, dataAiHint:"children painting art" },
               { title: "Clubs & Events", icon: Telescope, description: "Diverse clubs and engaging school events that enrich the student experience and build community.", delay: 500, dataAiHint:"student clubs activity" },
             ].map((item) => (
-               <Card key={item.title} className="bg-card shadow-lg rounded-lg p-6 text-center group hover:shadow-xl transition-shadow duration-300 animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{animationDelay: `${item.delay}ms`}}>
+               <Card key={item.title} className="bg-background shadow-lg rounded-lg p-6 text-center group hover:shadow-xl transition-shadow duration-300 animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{animationDelay: `${item.delay}ms`}}>
                   <div className="flex justify-center mb-4">
                       <div className="p-4 bg-primary/10 rounded-full group-hover:bg-primary transition-colors duration-300">
                           <item.icon className="w-10 h-10 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
@@ -382,4 +382,3 @@ export default function HomePage() {
     </div>
   );
 }
-
