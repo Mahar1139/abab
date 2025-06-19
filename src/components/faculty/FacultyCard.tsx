@@ -6,26 +6,38 @@ import { cn } from '@/lib/utils';
 
 interface FacultyCardProps {
   member: FacultyMember;
-  // imageAspectRatio prop is no longer needed as logic is based on imageUrl presence
+  imageAspectRatio?: 'square' | 'landscape';
 }
 
-export default function FacultyCard({ member }: FacultyCardProps) {
+export default function FacultyCard({ member, imageAspectRatio = 'square' }: FacultyCardProps) {
   if (member.imageUrl) {
-    // Special layout for Director (or any member with an image)
+    // Special layout for members with an image (currently, only Director)
     return (
       <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group bg-card text-card-foreground">
         <div className="flex flex-col sm:flex-row items-center sm:items-start">
-          {/* Circular Image Container - Adjusted for responsiveness */}
+          {/* Image Container - Adjusted for responsiveness and double frame */}
           <div className="p-4 sm:p-6 flex-shrink-0">
-            <div className="relative w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full overflow-hidden shadow-md border-2 border-card-foreground/20">
-              <Image
-                src={member.imageUrl}
-                alt={member.name}
-                fill
-                data-ai-hint={member.dataAiHint || "faculty member"}
-                className="object-cover"
-                sizes="(max-width: 640px) 96px, (max-width: 768px) 112px, 128px"
-              />
+            {/* Double frame effect */}
+            <div className="p-1 bg-border shadow-md"> {/* Outer frame part 1 (can be themed color like secondary if border is not enough) */}
+              <div className="bg-card p-0.5"> {/* Gap between frames */}
+                <div
+                  className={cn(
+                    "relative w-32 sm:w-40 md:w-48 overflow-hidden border-2 border-primary", // Inner frame
+                    imageAspectRatio === 'landscape' ? 'aspect-video' : 'aspect-square'
+                  )}
+                >
+                  <Image
+                    src={member.imageUrl}
+                    alt={member.name}
+                    fill
+                    data-ai-hint={member.dataAiHint || "faculty member"}
+                    className="object-cover"
+                    sizes={imageAspectRatio === 'landscape' ? 
+                      "(max-width: 640px) 128px, (max-width: 768px) 160px, 192px" :
+                      "(max-width: 640px) 96px, (max-width: 768px) 112px, 128px"} // Sizes adjusted slightly
+                  />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -61,3 +73,4 @@ export default function FacultyCard({ member }: FacultyCardProps) {
     </Card>
   );
 }
+
