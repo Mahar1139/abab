@@ -41,15 +41,15 @@
     --chart-5: 20 60% 75%;  /* Lighter peach */
     --radius: 0.5rem;
 
-    /* Sidebar specific theme (Pure White with Orange Accents) */
-    --sidebar-background: 0 0% 100%; /* Pure White */
-    --sidebar-foreground: 0 0% 10%; 
-    --sidebar-primary: 25 75% 60%;    
-    --sidebar-primary-foreground: 25 15% 95%; 
-    --sidebar-accent: 0 0% 94%;      /* Very light gray for hover */
-    --sidebar-accent-foreground: 25 75% 55%; 
-    --sidebar-border: 0 0% 90%;
-    --sidebar-ring: 25 80% 65%;
+    /* Sidebar specific theme (RED THEME) */
+    --sidebar-background: 0 70% 55%; /* Medium Red */
+    --sidebar-foreground: 0 0% 95%; /* Off-white text */
+    --sidebar-primary: 0 70% 45%;    /* Darker Red for active item */
+    --sidebar-primary-foreground: 0 0% 100%; /* White text on active item */
+    --sidebar-accent: 0 70% 50%;      /* Slightly different Red for hover */
+    --sidebar-accent-foreground: 0 0% 100%; /* White text on hover */
+    --sidebar-border: 0 50% 40%;      /* Darker Red border */
+    --sidebar-ring: 0 70% 60%;        /* Brighter Red for focus rings */
   }
 
   .dark {
@@ -88,15 +88,15 @@
     --chart-4: 45 65% 55%;
     --chart-5: 20 55% 60%;
 
-    /* Sidebar specific theme (Dark - Pure White with Orange Accents) */
-    --sidebar-background: 0 0% 7%; 
-    --sidebar-foreground: 0 0% 90%; 
-    --sidebar-primary: 25 70% 70%; 
-    --sidebar-primary-foreground: 25 20% 15%;
-    --sidebar-accent: 0 0% 15%;      
-    --sidebar-accent-foreground: 25 70% 65%; 
-    --sidebar-border: 0 0% 18%;
-    --sidebar-ring: 25 75% 75%;
+    /* Sidebar specific theme (RED THEME - DARK MODE) */
+    --sidebar-background: 0 65% 50%; /* Red for dark mode */
+    --sidebar-foreground: 0 0% 95%; /* Off-white text */
+    --sidebar-primary: 0 65% 40%; /* Darker Red for active item */
+    --sidebar-primary-foreground: 0 0% 100%; /* White text on active */
+    --sidebar-accent: 0 65% 45%;      /* Slightly different Red for hover */
+    --sidebar-accent-foreground: 0 0% 100%; /* White text on hover */
+    --sidebar-border: 0 45% 35%;      /* Darker Red border */
+    --sidebar-ring: 0 65% 55%;        /* Brighter Red for focus rings */
   }
 
   /* Specific Light Theme for Faculty Directory Page CONTENT - REMAINS DISTINCT */
