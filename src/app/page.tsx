@@ -250,7 +250,7 @@ export default function HomePage() {
             <div className="animate-in fade-in-0 slide-in-from-right-10 duration-700 delay-300">
               <div className="rounded-xl shadow-2xl overflow-hidden aspect-video group relative">
                 <Image
-                  src="/All_Images/home/HPS.jpj" 
+                  src="/All_Images/home/HPS.jpg" 
                   alt="Himalaya Public School building and courtyard"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
