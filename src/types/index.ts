@@ -7,8 +7,8 @@ export interface FacultyMember {
   name: string;
   title: string;
   bio: string;
-  imageUrl?: string; 
-  dataAiHint?: string; 
+  imageUrl?: string; // imageUrl is optional
+  dataAiHint?: string; // dataAiHint is optional
 }
 
 export interface SchoolEvent {

@@ -10,17 +10,19 @@ export default function FacultyPage() {
   const director = facultyMembers.find(member => member.id === 'director-001');
   const otherFaculty = facultyMembers.filter(member => member.id !== 'director-001');
 
-  const facultyProfilesText = facultyMembers
-    .map(member => `${member.name} (${member.title}): ${member.bio}`)
-    .join('\n\n');
+  // Construct text for QuestionSuggester including the director if they exist
+  const facultyProfilesTextForAI = [
+    ...(director ? [`${director.name} (${director.title}): ${director.bio}`] : []),
+    ...otherFaculty.map(member => `${member.name} (${member.title}): ${member.bio}`)
+  ].join('\n\n');
 
   return (
     <div className="faculty-directory-light-theme bg-background text-foreground min-h-full">
       <div className="container mx-auto py-8 px-4">
         {director && (
           <SectionWrapper title="Our Director" titleClassName="text-2xl sm:text-3xl md:text-4xl mb-6">
-            {/* Responsive container for the Director's card */}
             <div className="flex justify-center mb-8 md:mb-10">
+              {/* Responsive container for the Director's card */}
               <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl">
                 <FacultyCard member={director} imageAspectRatio="landscape" />
               </div>
@@ -34,13 +36,15 @@ export default function FacultyPage() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
             {otherFaculty.map((member: FacultyMember) => (
-              <FacultyCard key={member.id} member={member} imageAspectRatio="square" />
+              <FacultyCard key={member.id} member={member} imageAspectRatio="square" /> 
+              // Other faculty will not have imageUrl, so FacultyCard will not render an image for them.
+              // imageAspectRatio="square" is passed but won't be used if imageUrl is missing.
             ))}
           </div>
         </SectionWrapper>
 
         <QuestionSuggester
-          contentToAnalyze={facultyProfilesText}
+          contentToAnalyze={facultyProfilesTextForAI}
           suggestionFn={suggestFacultyQuestions}
           inputKey="facultyProfilesText"
           title="Questions for Our Team?"
