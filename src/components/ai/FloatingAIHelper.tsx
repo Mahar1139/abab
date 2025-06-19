@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetFooter, SheetDescription } from '@/components/ui/sheet';
-import { Send, User, Loader2, Zap, ShieldBan, Cpu } from 'lucide-react'; // Changed Brain to Cpu
+import { Send, User, Loader2, Zap, ShieldBan, Cpu } from 'lucide-react'; // Keep Cpu for chat avatars
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
@@ -223,7 +223,7 @@ export default function FloatingAIHelper() {
                            bg-[length:250%_250%] animate-gradient-slide
                            flex items-center justify-center" 
               >
-                <Cpu className="h-8 w-8 text-white" /> {/* Increased icon size */}
+                <span className="text-3xl font-bold text-white">AI</span>
               </div>
             </Button>
           </SheetTrigger>
@@ -313,4 +313,3 @@ export default function FloatingAIHelper() {
     </>
   );
 }
-
