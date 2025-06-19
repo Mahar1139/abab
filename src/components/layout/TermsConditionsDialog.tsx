@@ -1,7 +1,6 @@
 
 "use client";
 
-import { useRef } from "react";
 import {
   Dialog,
   DialogContent,
@@ -9,34 +8,11 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogDescription,
-  DialogFooter,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
-import { ChevronUp, ChevronDown, ArrowUpToLine, ArrowDownToLine } from "lucide-react";
 
 export default function TermsConditionsDialog() {
-  const scrollRef = useRef<HTMLDivElement | null>(null);
-
-  const handleScroll = (direction: "up" | "down" | "top" | "bottom") => {
-    if (scrollRef.current) {
-      switch (direction) {
-        case "up":
-          scrollRef.current.scrollTop -= 200;
-          break;
-        case "down":
-          scrollRef.current.scrollTop += 200;
-          break;
-        case "top":
-          scrollRef.current.scrollTop = 0;
-          break;
-        case "bottom":
-          scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-          break;
-      }
-    }
-  };
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -49,8 +25,8 @@ export default function TermsConditionsDialog() {
             Last updated: {new Date().toLocaleDateString()}
           </DialogDescription>
         </DialogHeader>
-        <ScrollArea className="flex-grow pr-6 -mr-6"> {/* Added padding-right and negative margin-right to manage scrollbar */}
-          <div ref={scrollRef} className="prose dark:prose-invert max-w-none text-foreground/90 h-[55vh] overflow-y-auto pr-2">
+        <ScrollArea className="flex-grow pr-6 -mr-6">
+          <div className="prose dark:prose-invert max-w-none text-foreground/90 h-[55vh] overflow-y-auto pr-2">
             <p>
               Welcome to the Himalaya Public School website (the "Service"). These Terms and Conditions ("Terms") govern your access to and use of our Service. Please read these Terms carefully before using the Service.
             </p>
@@ -300,22 +276,6 @@ export default function TermsConditionsDialog() {
             </ul>
           </div>
         </ScrollArea>
-        <DialogFooter className="pt-4 border-t mt-2">
-          <div className="flex justify-end space-x-2 w-full">
-            <Button variant="outline" size="icon" onClick={() => handleScroll("top")} title="Scroll to Top">
-              <ArrowUpToLine className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="icon" onClick={() => handleScroll("up")} title="Scroll Up">
-              <ChevronUp className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="icon" onClick={() => handleScroll("down")} title="Scroll Down">
-              <ChevronDown className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="icon" onClick={() => handleScroll("bottom")} title="Scroll to Bottom">
-              <ArrowDownToLine className="h-4 w-4" />
-            </Button>
-          </div>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
