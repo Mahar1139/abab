@@ -377,7 +377,7 @@ export default function HomePage() {
                 <ul className="space-y-3.5 text-base font-medium text-primary-foreground/90">
                   <li className="flex items-start">
                     <MapPin className="w-4 h-4 mr-3 mt-1 text-primary-foreground shrink-0" />
-                    <span>123 Education Lane, Knowledge City, KC 12345, India</span>
+                    <span>Near Sports Stadium, Pithoragarh</span>
                   </li>
                   <li className="flex items-center">
                     <Phone className="w-4 h-4 mr-3 text-primary-foreground shrink-0" />
@@ -409,3 +409,4 @@ export default function HomePage() {
     </div>
   );
 }
+

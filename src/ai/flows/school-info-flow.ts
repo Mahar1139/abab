@@ -33,7 +33,7 @@ School Life: We offer a vibrant school life with diverse extracurricular activit
 Resources: Downloadable resources such as academic calendars, supply lists, and handbooks are available. More details can be found on the resources page.
 
 Contact Information:
-Address: 123 Education Lane, Knowledge City, KC 12345, India
+Address: Near Sports Stadium, Pithoragarh
 Phone: +91-6398998621, +91-7351840980
 Email: hps_pithoragarh@rediffmail.com
 Office Hours: Monday - Friday: 8:00 AM - 4:00 PM; Saturday: 9:00 AM - 1:00 PM (Admissions Office Only); Sunday: Closed.
@@ -142,3 +142,4 @@ const schoolInformationFlow = ai.defineFlow(
 );
 
     
+
