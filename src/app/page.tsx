@@ -197,7 +197,7 @@ export default function HomePage() {
           <Image
             src="/All_Images/homepageimg.jpg" 
             alt="Himalaya Public School - Inspiring Campus"
-            data-ai-hint="school campus"
+            data-ai-hint="school campus building"
             fill
             className="z-0 object-cover brightness-75 group-hover:brightness-90 transition-all duration-500 ease-in-out"
             priority
@@ -266,13 +266,34 @@ export default function HomePage() {
         <SectionWrapper title="Why Choose Himalaya?" className="bg-card text-foreground py-16 md:py-24">
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: "Academic Excellence", icon: GraduationCap, description: "Rigorous curriculum, innovative teaching, and a focus on achieving full potential.", delay: 200 },
+              { 
+                title: "Academic Excellence", 
+                icon: GraduationCap, 
+                description: "Rigorous curriculum, innovative teaching, and a focus on achieving full potential.", 
+                delay: 200,
+                // EXAMPLE: Using a Firebase Storage URL (replace with your actual URL if you have one)
+                // For demonstration, we'd need an actual image uploaded to your Firebase Storage
+                // and its public download URL here.
+                // For now, this icon component will be used. If you had a URL, it would be:
+                // imageUrl: "https://firebasestorage.googleapis.com/v0/b/YOUR_PROJECT_ID.appspot.com/o/path%2Fto%2Fyour%2Fimage.jpg?alt=media&token=YOUR_TOKEN" 
+              },
               { title: "Holistic Development", icon: Leaf, description: "Balancing academics with arts, sports, and character-building activities for all-round growth.", delay: 400 },
               { title: "Supportive Community", icon: Users, description: "A nurturing and inclusive environment where every student feels valued and supported.", delay: 600 }
             ].map((item, index) => (
               <Card key={index} className="shadow-xl hover:shadow-2xl transition-all duration-300 bg-background hover:border-primary/50 group animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{ animationDelay: `${item.delay}ms`}}>
                 <CardHeader className="items-center text-center">
                   <div className="p-5 bg-primary/10 rounded-full mb-4 inline-block group-hover:bg-primary transition-colors duration-300">
+                    {/* 
+                      // This is where you'd use an Image component if item.imageUrl was defined
+                      // For example:
+                      // item.imageUrl ? (
+                      //   <div className="relative w-12 h-12">
+                      //     <Image src={item.imageUrl} alt={item.title} fill className="object-contain" />
+                      //   </div>
+                      // ) : (
+                      //   <item.icon className="w-12 h-12 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+                      // )
+                    */}
                     <item.icon className="w-12 h-12 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
                   </div>
                   <CardTitle className="text-2xl text-primary group-hover:text-accent transition-colors duration-300 font-headline">{item.title}</CardTitle>
@@ -382,4 +403,3 @@ export default function HomePage() {
     </div>
   );
 }
-
