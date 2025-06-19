@@ -16,14 +16,15 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
       <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group bg-card text-card-foreground">
         <div className="flex flex-col sm:flex-row items-center sm:items-start">
           {/* Image Container - Adjusted for responsiveness and double frame */}
-          <div className="p-4 sm:p-6 md:p-8 flex-shrink-0"> {/* Increased base and md padding */}
+          <div className="p-4 sm:p-6 md:p-8 flex-shrink-0">
             {/* Double frame effect */}
-            <div className="p-1.5 bg-border shadow-md"> {/* Outer frame part 1 - slightly increased padding */}
-              <div className="bg-card p-1"> {/* Gap between frames - slightly increased padding */}
+            {/* Outer frame part 1 - slightly increased padding for a thicker frame */}
+            <div className="p-2 bg-border shadow-md"> 
+              {/* Gap between frames - slightly increased padding */}
+              <div className="bg-card p-1.5"> 
                 <div
                   className={cn(
-                    "relative overflow-hidden border-2 border-primary", // Inner frame
-                    // Increased image widths
+                    "relative overflow-hidden border-[3px] border-primary", // Inner frame - increased border thickness
                     "w-36 sm:w-48 md:w-56 lg:w-64", 
                     imageAspectRatio === 'landscape' ? 'aspect-video' : 'aspect-square'
                   )}
@@ -44,7 +45,7 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
           </div>
 
           {/* Text Content Container */}
-          <div className="flex-grow p-4 pt-0 sm:p-6 sm:pt-4 md:p-8 md:pt-6 text-center sm:text-left"> {/* Adjusted padding */}
+          <div className="flex-grow p-4 pt-0 sm:p-6 sm:pt-4 md:p-8 md:pt-6 text-center sm:text-left">
             <CardHeader className="p-0 mb-1 sm:mb-2">
               <CardTitle className="text-xl md:text-2xl text-primary group-hover:text-accent transition-colors">{member.name}</CardTitle>
               <CardDescription className="text-md md:text-lg text-accent font-semibold">{member.title}</CardDescription>
