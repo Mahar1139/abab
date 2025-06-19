@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import SectionWrapper from '@/components/shared/SectionWrapper';
-import { BookOpenCheck, Leaf, Users, Telescope, ArrowRight, TrendingUp, Zap, ShieldCheck, GraduationCap, Palette, Activity } from 'lucide-react';
+import { BookOpenCheck, Leaf, Users, Telescope, ArrowRight, TrendingUp, Zap, ShieldCheck, GraduationCap, Palette, Activity, School, MapPin, Phone, Mail, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import FloatingAIHelper from '@/components/ai/FloatingAIHelper';
 
@@ -343,42 +343,64 @@ export default function HomePage() {
               </Card>
             ))}
           </div>
-           <div className="text-center mt-12 animate-in fade-in-0 duration-700 delay-700">
-            <Button asChild size="lg">
-              <Link href="/school-life">
-                Explore School Life <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-            </Button>
-          </div>
         </SectionWrapper>
+        
+        {/* New Footer Box */}
+        <footer className="bg-card text-foreground py-12 md:py-16 mt-10 border-t">
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-3 gap-10 mb-10">
+              {/* Column 1: School Info */}
+              <div className="animate-in fade-in-0 slide-in-from-bottom-5 duration-700 delay-100">
+                <Link href="/" className="flex items-center gap-3 mb-4 group">
+                  <School className="h-9 w-9 text-primary group-hover:text-accent transition-colors" />
+                  <span className="text-2xl font-bold text-primary group-hover:text-accent transition-colors font-headline">Himalaya Public School</span>
+                </Link>
+                <p className="text-sm text-foreground/80 italic">
+                  Nurturing potential, inspiring futures.
+                </p>
+              </div>
 
+              {/* Column 2: Quick Links */}
+              <div className="animate-in fade-in-0 slide-in-from-bottom-5 duration-700 delay-200">
+                <h3 className="text-lg font-semibold text-secondary mb-5 font-headline">Explore</h3>
+                <ul className="space-y-2.5">
+                  <li><Link href="/academic-programs" className="text-sm text-foreground/90 hover:text-primary transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-primary transition-colors" />Academic Programs</Link></li>
+                  <li><Link href="/admissions" className="text-sm text-foreground/90 hover:text-primary transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-primary transition-colors" />Admissions</Link></li>
+                  <li><Link href="/faculty" className="text-sm text-foreground/90 hover:text-primary transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-primary transition-colors" />Our Faculty</Link></li>
+                  <li><Link href="/school-life" className="text-sm text-foreground/90 hover:text-primary transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-primary transition-colors" />School Life</Link></li>
+                </ul>
+              </div>
 
-        {/* Get Started CTA Section */}
-        <SectionWrapper className="bg-primary text-primary-foreground py-20 md:py-28">
-          <div className="text-center animate-in fade-in-0 slide-in-from-bottom-10 duration-1000 delay-200">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 font-headline">Ready to Join the Himalaya Family?</h2>
-            <p className="text-lg md:text-xl mb-10 max-w-2xl mx-auto text-primary-foreground/90">
-              We invite you to explore our campus, meet our community, and see how Himalaya Public School can be the perfect place for your child's educational journey.
-            </p>
-            <div className="space-y-4 sm:space-y-0 sm:space-x-6 flex flex-col sm:flex-row items-center justify-center">
-              <Button
-                asChild
-                size="lg"
-                className="px-12 py-7 text-lg md:text-xl font-semibold shadow-2xl hover:scale-105 transition-transform duration-300 bg-accent text-accent-foreground hover:bg-accent/80 w-full sm:w-auto"
-              >
-                <Link href="/admissions">Contact Admissions</Link>
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline" 
-                className="px-12 py-7 text-lg md:text-xl font-semibold shadow-2xl hover:scale-105 transition-transform duration-300 border-2 border-white text-white hover:bg-white hover:bg-primary w-full sm:w-auto"
-              >
-                <Link href="/admissions#form">View Application Steps</Link>
-              </Button>
+              {/* Column 3: Contact Details */}
+              <div className="animate-in fade-in-0 slide-in-from-bottom-5 duration-700 delay-300">
+                <h3 className="text-lg font-semibold text-secondary mb-5 font-headline">Get in Touch</h3>
+                <ul className="space-y-3.5 text-sm text-foreground/90">
+                  <li className="flex items-start">
+                    <MapPin className="w-4 h-4 mr-3 mt-0.5 text-primary shrink-0" />
+                    <span>123 Education Lane, Knowledge City, KC 12345, India</span>
+                  </li>
+                  <li className="flex items-center">
+                    <Phone className="w-4 h-4 mr-3 text-primary shrink-0" />
+                    <a href="tel:+911234567890" className="hover:text-primary transition-colors">+91 (123) 456-7890</a>
+                  </li>
+                  <li className="flex items-center">
+                    <Mail className="w-4 h-4 mr-3 text-primary shrink-0" />
+                    <a href="mailto:info@himalayaschool.edu" className="hover:text-primary transition-colors">info@himalayaschool.edu</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="border-t border-border pt-8 text-center text-xs text-foreground/70">
+              <p>&copy; {new Date().getFullYear()} Himalaya Public School. All Rights Reserved.</p>
+              <div className="mt-2">
+                <Link href="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+                <span className="mx-1.5">|</span>
+                <Link href="/terms-conditions" className="hover:text-primary transition-colors">Terms & Conditions</Link>
+              </div>
             </div>
           </div>
-        </SectionWrapper>
+        </footer>
+
       </div>
       <FloatingAIHelper />
     </div>
