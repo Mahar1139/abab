@@ -5,98 +5,98 @@
 
 @layer base {
   :root {
-    /* New Relaxing Light Green Theme */
-    --background: 90 20% 97%; /* Very light, slightly yellowish green - like faint spring leaves */
-    --foreground: 120 25% 20%; /* Dark, desaturated green for text */
+    /* New Warm Orange Glow Theme */
+    --background: 30 50% 97%; /* Very light, soft peach */
+    --foreground: 25 20% 25%; /* Dark, desaturated warm brown/gray */
 
-    --card: 90 20% 99%; /* Almost white, subtly green-tinted */
-    --card-foreground: 120 25% 20%; /* Matches page foreground */
+    --card: 30 50% 99%; /* Almost white, subtly peachy */
+    --card-foreground: 25 20% 25%; /* Matches page foreground */
 
-    --popover: 90 20% 99%;
-    --popover-foreground: 120 25% 20%;
+    --popover: 30 50% 99%;
+    --popover-foreground: 25 20% 25%;
 
-    --primary: 130 45% 60%; /* A calm, light green */
-    --primary-foreground: 130 10% 95%; /* Very light, for text on primary */
+    --primary: 25 75% 60%; /* Muted, pleasant orange */
+    --primary-foreground: 25 15% 95%; /* Very light, for text on primary */
 
-    --secondary: 120 25% 92%; /* Lighter, desaturated green */
-    --secondary-foreground: 130 40% 35%; /* Darker green text for secondary */
+    --secondary: 35 60% 92%; /* Lighter, desaturated warm peach/beige */
+    --secondary-foreground: 25 70% 35%; /* Darker orange/brown text for secondary */
     
-    --muted: 120 20% 88%; /* Medium-light desaturated green */
-    --muted-foreground: 120 15% 45%; /* Medium green-gray text */
+    --muted: 30 40% 88%; /* Medium-light desaturated peach */
+    --muted-foreground: 30 25% 45%; /* Medium warm gray/brown text */
 
-    --accent: 150 55% 50%; /* A slightly more vibrant, but still calm, tealish green (Highlighted Color) */
-    --accent-foreground: 150 10% 95%; /* Very light, for text on accent */
+    --accent: 40 80% 55%; /* Brighter, warmer orange/gold (Highlighted Color) */
+    --accent-foreground: 40 10% 95%; /* Very light, for text on accent */
 
     --destructive: 0 60% 65%; /* Softer Red */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 120 20% 85%; /* Light green-gray border */
-    --input: 90 20% 95%; /* Slightly darker for input fields */
-    --ring: 130 50% 65%; /* Slightly brighter primary green for Focus Rings */
+    --border: 30 40% 85%; /* Light warm gray/peach border */
+    --input: 30 50% 95%; /* Slightly darker for input fields */
+    --ring: 25 80% 65%; /* Slightly brighter primary orange for Focus Rings */
 
-    --chart-1: 130 45% 60%; /* Primary */
-    --chart-2: 150 55% 50%;  /* Accent */
-    --chart-3: 110 40% 70%; /* Another light green shade */
-    --chart-4: 170 40% 75%; /* Light teal */
-    --chart-5: 90 40% 80%;  /* Very light yellow-green */
+    --chart-1: 25 75% 60%; /* Primary */
+    --chart-2: 40 80% 55%;  /* Accent */
+    --chart-3: 30 70% 70%; /* Another warm orange/peach shade */
+    --chart-4: 45 70% 65%; /* Soft gold */
+    --chart-5: 20 60% 75%;  /* Lighter peach */
     --radius: 0.5rem;
 
-    /* Sidebar specific theme (Light - Relaxing Light Green) */
-    --sidebar-background: 90 20% 96%; 
-    --sidebar-foreground: 120 25% 20%; 
-    --sidebar-primary: 130 45% 60%;    
-    --sidebar-primary-foreground: 130 10% 95%; 
-    --sidebar-accent: 120 25% 94%;      
-    --sidebar-accent-foreground: 130 45% 55%; 
-    --sidebar-border: 120 20% 88%;
-    --sidebar-ring: 130 50% 65%;
+    /* Sidebar specific theme (Light - Warm Orange Glow) */
+    --sidebar-background: 30 50% 96%; 
+    --sidebar-foreground: 25 20% 25%; 
+    --sidebar-primary: 25 75% 60%;    
+    --sidebar-primary-foreground: 25 15% 95%; 
+    --sidebar-accent: 35 60% 94%;      
+    --sidebar-accent-foreground: 25 75% 55%; 
+    --sidebar-border: 30 40% 88%;
+    --sidebar-ring: 25 80% 65%;
   }
 
   .dark {
-    /* New Relaxing Light Green Theme (Dark Mode) */
-    --background: 120 15% 12%; /* Very dark, desaturated green */
-    --foreground: 90 20% 88%; /* Light, slightly yellowish green text */
+    /* New Warm Orange Glow Theme (Dark Mode) */
+    --background: 25 15% 12%; /* Very dark, desaturated warm brown */
+    --foreground: 30 40% 88%; /* Light, soft peach text */
 
-    --card: 120 15% 18%; /* Darker green-gray for cards */
-    --card-foreground: 90 20% 88%;
+    --card: 25 15% 18%; /* Darker warm brown for cards */
+    --card-foreground: 30 40% 88%;
 
-    --popover: 120 15% 15%; 
-    --popover-foreground: 90 20% 88%;
+    --popover: 25 15% 15%; 
+    --popover-foreground: 30 40% 88%;
 
-    --primary: 130 40% 70%;    /* Brighter light green for dark mode */
-    --primary-foreground: 130 20% 15%; /* Very dark green text on primary */
+    --primary: 25 70% 70%;    /* Brighter orange for dark mode */
+    --primary-foreground: 25 20% 15%; /* Very dark brown/orange text on primary */
 
-    --secondary: 120 15% 22%; /* Dark muted green-gray */
-    --secondary-foreground: 90 15% 75%; /* Lighter green-gray text */
+    --secondary: 30 15% 22%; /* Dark muted warm brown */
+    --secondary-foreground: 35 30% 75%; /* Lighter warm peach/beige text */
 
-    --muted: 120 15% 25%;   
-    --muted-foreground: 90 10% 60%; 
+    --muted: 25 15% 25%;   
+    --muted-foreground: 30 20% 60%; 
 
-    --accent: 150 50% 60%; /* Brighter tealish green for dark mode */
-    --accent-foreground: 150 20% 15%; /* Very dark green text on accent */
+    --accent: 40 75% 65%; /* Brighter orange/gold for dark mode */
+    --accent-foreground: 40 20% 15%; /* Very dark brown/orange text on accent */
 
     --destructive: 0 65% 70%; /* Slightly brighter/softer Red */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 120 15% 25%; 
-    --input: 120 15% 20%; 
-    --ring: 130 45% 75%; 
+    --border: 25 15% 25%; 
+    --input: 25 15% 20%; 
+    --ring: 25 75% 75%; 
 
-    --chart-1: 130 40% 70%;   /* Dark Primary */
-    --chart-2: 150 50% 60%;  /* Dark Accent */
-    --chart-3: 110 35% 50%;  /* Darker green shade */
-    --chart-4: 170 35% 55%; /* Darker light teal */
-    --chart-5: 90 35% 60%;  /* Darker very light yellow-green */
+    --chart-1: 25 70% 70%;   /* Dark Primary */
+    --chart-2: 40 75% 65%;  /* Dark Accent */
+    --chart-3: 30 65% 60%;  /* Darker warm orange/peach shade */
+    --chart-4: 45 65% 55%; /* Darker soft gold */
+    --chart-5: 20 55% 60%;  /* Darker lighter peach */
 
-    /* Sidebar specific theme (Dark - Relaxing Light Green) */
-    --sidebar-background: 120 15% 11%; 
-    --sidebar-foreground: 90 20% 80%; 
-    --sidebar-primary: 130 40% 70%; 
-    --sidebar-primary-foreground: 130 20% 15%;
-    --sidebar-accent: 120 15% 20%;      
-    --sidebar-accent-foreground: 130 40% 65%; 
-    --sidebar-border: 120 15% 22%;
-    --sidebar-ring: 130 45% 75%;
+    /* Sidebar specific theme (Dark - Warm Orange Glow) */
+    --sidebar-background: 25 15% 11%; 
+    --sidebar-foreground: 30 40% 80%; 
+    --sidebar-primary: 25 70% 70%; 
+    --sidebar-primary-foreground: 25 20% 15%;
+    --sidebar-accent: 30 15% 20%;      
+    --sidebar-accent-foreground: 25 70% 65%; 
+    --sidebar-border: 25 15% 22%;
+    --sidebar-ring: 25 75% 75%;
   }
 
   /* Specific Light Theme for Faculty Directory Page CONTENT - REMAINS DISTINCT */
