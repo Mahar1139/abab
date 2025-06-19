@@ -1,7 +1,6 @@
 
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link'
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -11,6 +10,7 @@ import { useState, useEffect } from 'react';
 import FloatingAIHelper from '@/components/ai/FloatingAIHelper';
 import PrivacyPolicyDialog from '@/components/layout/PrivacyPolicyDialog';
 import TermsConditionsDialog from '@/components/layout/TermsConditionsDialog';
+import Image from 'next/image'; // Keep Image for other sections
 
 // --- Independence Day Animation Logic (Preserved) ---
 const ANIMATION_DURATION = 800; 
@@ -192,14 +192,14 @@ export default function HomePage() {
 
       <div className="flex flex-col min-h-screen animate-in fade-in-0 duration-500">
         {/* Hero Section */}
-        <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden group animate-in fade-in-0 duration-500">
-          <Image
-            src="/All_Images/homepageimg.jpg" 
-            alt="Himalaya Public School - Inspiring Campus"
-            data-ai-hint="school campus students"
-            fill
-            className="z-0 object-cover brightness-75 group-hover:brightness-90 transition-all duration-500 ease-in-out"
-            priority
+        <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden animate-in fade-in-0 duration-500">
+          <video
+            src="https://www.w3schools.com/html/mov_bbb.mp4" // IMPORTANT: Replace with your video file path, e.g., /videos/hero-video.mp4
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute top-0 left-0 w-full h-full object-cover z-0"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10" />
           <div className="relative z-20 p-4 md:p-8 max-w-4xl mx-auto">
