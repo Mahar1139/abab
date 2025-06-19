@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from 'react'; 
+import React, { useEffect } from 'react'; // Added useEffect
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -13,8 +13,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const showFooter = pathname === '/';
 
-  // Removed useEffect that conditionally applied 'faculty-theme-active'
-  // The sidebar will now consistently use the default theme from globals.css (which is red)
+  useEffect(() => {
+    if (pathname === '/' || pathname === '/faculty') {
+      document.body.classList.add('faculty-theme-active');
+    } else {
+      document.body.classList.remove('faculty-theme-active');
+    }
+    // Cleanup function to remove the class when the component unmounts or path changes
+    return () => {
+      document.body.classList.remove('faculty-theme-active');
+    };
+  }, [pathname]);
 
   return (
     <SidebarProvider defaultOpen={false}>
@@ -113,3 +122,4 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     </SidebarProvider>
   );
 }
+
