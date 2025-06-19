@@ -21,7 +21,6 @@ import {
   Cpu, 
   School, 
   Brain,
-  LayoutGrid, 
   CalendarDays, 
   Award, 
   Library
@@ -30,7 +29,6 @@ import {
 const navItems = [
   { href: '/', label: 'School Overview', icon: Home },
   { href: '/admissions', label: 'Admissions', icon: BookOpen },
-  { href: '/academic-programs', label: 'Academic Programs', icon: LayoutGrid },
   { href: '/tech-programs', label: 'Tech Programs', icon: Cpu },
   { href: '/faculty', label: 'Faculty Directory', icon: Users },
   { href: '/school-life', label: 'School Life', icon: ImageIcon },
