@@ -158,6 +158,10 @@
     --sidebar-ring: 25 70% 55%;       /* Muted Earthy Orange (for focus rings) */
   }
 
+  body.faculty-theme-active [data-sidebar="footer"] p {
+    color: hsl(var(--sidebar-foreground)); /* Ensure footer text is fully opaque and uses the dark foreground */
+  }
+
   /* Dark mode conditional sidebar theme for Faculty Page */
   .dark body.faculty-theme-active {
     /* Adjust these if you want a different dark mode variant for faculty sidebar */
@@ -170,6 +174,10 @@
     --sidebar-accent-foreground: 0 0% 13%; 
     --sidebar-border: 50 20% 80%;      
     --sidebar-ring: 25 70% 55%;       
+  }
+
+  .dark body.faculty-theme-active [data-sidebar="footer"] p {
+    color: hsl(var(--sidebar-foreground)); /* Ensure footer text is fully opaque in dark mode too */
   }
 }
 
@@ -211,3 +219,4 @@
     scrollbar-color: hsl(var(--sidebar-foreground) / 0.3) transparent; /* thumb color track color */
   }
 }
+
