@@ -5,23 +5,23 @@
 
 @layer base {
   :root {
-    /* New Off-White Background with Orange Accents Theme */
-    --background: 0 0% 98%; /* Neutral off-white (very light gray) */
+    /* White Background with Orange Accents Theme */
+    --background: 0 0% 100%; /* Pure White */
     --foreground: 0 0% 10%; /* Near black for text */
 
-    --card: 0 0% 100%; /* White */
+    --card: 0 0% 100%; /* Pure White */
     --card-foreground: 0 0% 10%; /* Match page foreground */
 
-    --popover: 0 0% 100%; /* White */
+    --popover: 0 0% 100%; /* Pure White */
     --popover-foreground: 0 0% 10%; /* Match page foreground */
 
     --primary: 25 75% 60%; /* Muted, pleasant orange (from Warm Orange Glow) */
     --primary-foreground: 25 15% 95%; /* Very light, for text on primary */
 
-    --secondary: 30 20% 94%; /* Very light warm gray */
+    --secondary: 0 0% 96%; /* Very light gray (subtle distinction from white) */
     --secondary-foreground: 25 75% 60%; /* Orange text for secondary */
     
-    --muted: 0 0% 90%; /* Light gray */
+    --muted: 0 0% 92%; /* Light gray */
     --muted-foreground: 0 0% 40%; /* Medium gray text */
 
     --accent: 40 80% 55%; /* Brighter, warmer orange/gold (from Warm Orange Glow) */
@@ -30,8 +30,8 @@
     --destructive: 0 60% 65%; /* Softer Red */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 0 0% 88%; /* Light gray border */
-    --input: 0 0% 95%; /* Light gray input background */
+    --border: 0 0% 90%; /* Light gray border */
+    --input: 0 0% 97%; /* Very light gray input background */
     --ring: 25 80% 65%; /* Slightly brighter primary orange for Focus Rings */
 
     --chart-1: 25 75% 60%; /* Primary Orange */
@@ -41,19 +41,19 @@
     --chart-5: 20 60% 75%;  /* Lighter peach */
     --radius: 0.5rem;
 
-    /* Sidebar specific theme (Light - Off-White with Orange Accents) */
-    --sidebar-background: 0 0% 97%; 
+    /* Sidebar specific theme (White with Orange Accents) */
+    --sidebar-background: 0 0% 100%; /* Pure White */
     --sidebar-foreground: 0 0% 10%; 
     --sidebar-primary: 25 75% 60%;    
     --sidebar-primary-foreground: 25 15% 95%; 
-    --sidebar-accent: 0 0% 92%;      
+    --sidebar-accent: 0 0% 94%;      /* Very light gray for hover */
     --sidebar-accent-foreground: 25 75% 55%; 
     --sidebar-border: 0 0% 90%;
     --sidebar-ring: 25 80% 65%;
   }
 
   .dark {
-    /* New Off-White Background with Orange Accents Theme (Dark Mode) */
+    /* Dark mode for White Background with Orange Accents Theme */
     --background: 0 0% 8%; /* Very dark gray, almost black */
     --foreground: 0 0% 95%; /* Off-white text */
 
@@ -88,7 +88,7 @@
     --chart-4: 45 65% 55%; /* Darker soft gold */
     --chart-5: 20 55% 60%;  /* Darker lighter peach */
 
-    /* Sidebar specific theme (Dark - Off-White with Orange Accents) */
+    /* Sidebar specific theme (Dark - White with Orange Accents) */
     --sidebar-background: 0 0% 7%; 
     --sidebar-foreground: 0 0% 90%; 
     --sidebar-primary: 25 70% 70%; 
