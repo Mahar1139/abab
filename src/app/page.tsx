@@ -346,16 +346,16 @@ export default function HomePage() {
         </SectionWrapper>
         
         {/* New Footer Box */}
-        <footer className="bg-card text-foreground py-12 md:py-16 mt-10 border-t">
+        <footer className="bg-primary text-primary-foreground py-12 md:py-16 mt-10">
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-3 gap-10 mb-10">
               {/* Column 1: School Info */}
               <div className="animate-in fade-in-0 slide-in-from-bottom-5 duration-700 delay-100">
                 <Link href="/" className="flex items-center gap-3 mb-4 group">
-                  <School className="h-9 w-9 text-primary group-hover:text-accent transition-colors" />
-                  <span className="text-2xl font-bold text-primary group-hover:text-accent transition-colors font-headline">Himalaya Public School</span>
+                  <School className="h-9 w-9 text-primary-foreground group-hover:text-accent transition-colors" />
+                  <span className="text-2xl font-bold text-primary-foreground group-hover:text-accent transition-colors font-headline">Himalaya Public School</span>
                 </Link>
-                <p className="text-sm text-foreground/80 italic">
+                <p className="text-sm text-primary-foreground/80 italic">
                   Nurturing potential, inspiring futures.
                 </p>
               </div>
@@ -364,38 +364,38 @@ export default function HomePage() {
               <div className="animate-in fade-in-0 slide-in-from-bottom-5 duration-700 delay-200">
                 <h3 className="text-lg font-semibold text-secondary mb-5 font-headline">Explore</h3>
                 <ul className="space-y-2.5">
-                  <li><Link href="/academic-programs" className="text-sm text-foreground/90 hover:text-primary transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-primary transition-colors" />Academic Programs</Link></li>
-                  <li><Link href="/admissions" className="text-sm text-foreground/90 hover:text-primary transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-primary transition-colors" />Admissions</Link></li>
-                  <li><Link href="/faculty" className="text-sm text-foreground/90 hover:text-primary transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-primary transition-colors" />Our Faculty</Link></li>
-                  <li><Link href="/school-life" className="text-sm text-foreground/90 hover:text-primary transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-primary transition-colors" />School Life</Link></li>
+                  <li><Link href="/academic-programs" className="text-sm text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />Academic Programs</Link></li>
+                  <li><Link href="/admissions" className="text-sm text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />Admissions</Link></li>
+                  <li><Link href="/faculty" className="text-sm text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />Our Faculty</Link></li>
+                  <li><Link href="/school-life" className="text-sm text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />School Life</Link></li>
                 </ul>
               </div>
 
               {/* Column 3: Contact Details */}
               <div className="animate-in fade-in-0 slide-in-from-bottom-5 duration-700 delay-300">
                 <h3 className="text-lg font-semibold text-secondary mb-5 font-headline">Get in Touch</h3>
-                <ul className="space-y-3.5 text-sm text-foreground/90">
+                <ul className="space-y-3.5 text-sm text-primary-foreground/90">
                   <li className="flex items-start">
-                    <MapPin className="w-4 h-4 mr-3 mt-0.5 text-primary shrink-0" />
+                    <MapPin className="w-4 h-4 mr-3 mt-0.5 text-primary-foreground shrink-0" />
                     <span>123 Education Lane, Knowledge City, KC 12345, India</span>
                   </li>
                   <li className="flex items-center">
-                    <Phone className="w-4 h-4 mr-3 text-primary shrink-0" />
-                    <a href="tel:+911234567890" className="hover:text-primary transition-colors">+91 (123) 456-7890</a>
+                    <Phone className="w-4 h-4 mr-3 text-primary-foreground shrink-0" />
+                    <a href="tel:+911234567890" className="hover:text-white hover:underline transition-colors">+91 (123) 456-7890</a>
                   </li>
                   <li className="flex items-center">
-                    <Mail className="w-4 h-4 mr-3 text-primary shrink-0" />
-                    <a href="mailto:info@himalayaschool.edu" className="hover:text-primary transition-colors">info@himalayaschool.edu</a>
+                    <Mail className="w-4 h-4 mr-3 text-primary-foreground shrink-0" />
+                    <a href="mailto:info@himalayaschool.edu" className="hover:text-white hover:underline transition-colors">info@himalayaschool.edu</a>
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="border-t border-border pt-8 text-center text-xs text-foreground/70">
+            <div className="border-t border-primary-foreground/30 pt-8 text-center text-xs text-primary-foreground/70">
               <p>&copy; {new Date().getFullYear()} Himalaya Public School. All Rights Reserved.</p>
               <div className="mt-2">
-                <Link href="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+                <Link href="/privacy-policy" className="hover:text-white hover:underline transition-colors">Privacy Policy</Link>
                 <span className="mx-1.5">|</span>
-                <Link href="/terms-conditions" className="hover:text-primary transition-colors">Terms & Conditions</Link>
+                <Link href="/terms-conditions" className="hover:text-white hover:underline transition-colors">Terms & Conditions</Link>
               </div>
             </div>
           </div>
@@ -406,3 +406,4 @@ export default function HomePage() {
     </div>
   );
 }
+
