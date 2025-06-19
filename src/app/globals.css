@@ -99,7 +99,7 @@
     --sidebar-ring: 190 65% 60%;
   }
 
-  /* Specific Light Theme for Faculty Directory Page */
+  /* Specific Light Theme for Faculty Directory Page CONTENT */
   .faculty-directory-light-theme {
     --background: 55 100% 95%; /* Light Yellow */
     --foreground: 0 0% 13%;  /* Very Dark Grey / Near Black (for text on yellow background) */
@@ -139,11 +139,37 @@
     /* Subtle background pattern */
     background-image: repeating-linear-gradient(
       45deg,
-      hsla(var(--muted-foreground) / 0.08),
-      hsla(var(--muted-foreground) / 0.08) 1px,
+      hsla(0 0% 25% / 0.08), /* Using hsla with explicit color value and opacity */
+      hsla(0 0% 25% / 0.08) 1px,
       transparent 1px,
       transparent 20px /* Adjust 20px to control line spacing */
     );
+  }
+
+  /* Conditional Sidebar Theme for Faculty Page */
+  body.faculty-theme-active {
+    --sidebar-background: 55 100% 95%; /* Light Yellow */
+    --sidebar-foreground: 0 0% 13%;  /* Near Black */
+    --sidebar-primary: 25 70% 55%;    /* Muted Earthy Orange (for active items) */
+    --sidebar-primary-foreground: 0 0% 100%; /* White (for active item text) */
+    --sidebar-accent: 45 60% 90%;      /* Light Sandy Beige (for hover background) */
+    --sidebar-accent-foreground: 0 0% 13%; /* Dark text (for hover text) */
+    --sidebar-border: 50 20% 80%;      /* Greyish Yellow Border */
+    --sidebar-ring: 25 70% 55%;       /* Muted Earthy Orange (for focus rings) */
+  }
+
+  /* Dark mode conditional sidebar theme for Faculty Page */
+  .dark body.faculty-theme-active {
+    /* Adjust these if you want a different dark mode variant for faculty sidebar */
+    /* For now, let's keep it consistent with the light faculty theme for simplicity */
+    --sidebar-background: 55 100% 95%; 
+    --sidebar-foreground: 0 0% 13%;  
+    --sidebar-primary: 25 70% 55%;    
+    --sidebar-primary-foreground: 0 0% 100%; 
+    --sidebar-accent: 45 60% 90%;      
+    --sidebar-accent-foreground: 0 0% 13%; 
+    --sidebar-border: 50 20% 80%;      
+    --sidebar-ring: 25 70% 55%;       
   }
 }
 
@@ -185,4 +211,3 @@
     scrollbar-color: hsl(var(--sidebar-foreground) / 0.3) transparent; /* thumb color track color */
   }
 }
-

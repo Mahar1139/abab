@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from 'react';
+import React, { useEffect } from 'react'; // Added useEffect
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -12,6 +12,18 @@ import { School, Mail, MapPin, Phone, Facebook, Instagram, Linkedin } from 'luci
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const showFooter = pathname !== '/ai-assistant';
+
+  useEffect(() => {
+    if (pathname === '/faculty') {
+      document.body.classList.add('faculty-theme-active');
+    } else {
+      document.body.classList.remove('faculty-theme-active');
+    }
+    // Cleanup function to remove class if component unmounts while on faculty page
+    return () => {
+      document.body.classList.remove('faculty-theme-active');
+    };
+  }, [pathname]);
 
   return (
     <SidebarProvider defaultOpen={true}>
