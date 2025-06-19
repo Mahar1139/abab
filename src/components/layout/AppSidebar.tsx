@@ -17,7 +17,6 @@ import {
   BookOpen, 
   Users, 
   Image as ImageIcon, 
-  Mail, 
   Cpu, 
   School, 
   Brain,
@@ -36,7 +35,6 @@ const navItems = [
   { href: '/student-achievements', label: 'Student Achievements', icon: Award },
   { href: '/library', label: 'Library', icon: Library },
   { href: '/quiz', label: 'AI Quiz Challenge', icon: Brain },
-  { href: '/contact', label: 'Contact & Support', icon: Mail },
 ];
 
 export default function AppSidebar() {

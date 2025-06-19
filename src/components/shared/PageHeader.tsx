@@ -9,7 +9,6 @@ import {
   BookOpen, 
   Users, 
   Image as ImageIcon, 
-  Mail, 
   Cpu, 
   School, 
   Brain,
@@ -28,7 +27,6 @@ const navItems = [
   { href: '/student-achievements', label: 'Student Achievements', icon: Award },
   { href: '/library', label: 'Library', icon: Library },
   { href: '/quiz', label: 'AI Quiz Challenge', icon: Brain },
-  { href: '/contact', label: 'Contact & Support', icon: Mail },
 ];
 
 export default function PageHeader() {
@@ -45,6 +43,8 @@ export default function PageHeader() {
 
     if (matchedItem) {
       pageTitle = matchedItem.label;
+    } else if (pathname.startsWith('/contact')) { // Keep contact page title if visited directly
+      pageTitle = "Contact & Support";
     }
   }
 
