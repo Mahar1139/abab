@@ -10,7 +10,6 @@ import { BookOpenCheck, Leaf, Users, Telescope, ArrowRight, TrendingUp, Zap, Shi
 import { useState, useEffect } from 'react';
 import FloatingAIHelper from '@/components/ai/FloatingAIHelper';
 
-// Removed incorrect import: import homepageimg from '../All_Images/homepageimg.jpg';
 // --- Independence Day Animation Logic (Preserved) ---
 const ANIMATION_DURATION = 800; 
 const STAGGER_DELAY = 300; 
@@ -191,14 +190,14 @@ export default function HomePage() {
 
       <div 
         className="flex flex-col min-h-screen animate-in fade-in-0 duration-500"
-        style={{ backgroundColor: 'hsl(45, 70%, 55%)' }} // Simple Dark Yellow Shine Background
+        style={{ backgroundColor: 'hsl(45, 70%, 55%)' }} 
       >
         {/* Hero Section */}
         <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden group animate-in fade-in-0 duration-500">
           <Image
-            src="/All_Images/homepageimg.jpg" // Corrected: Direct path to public image
+            src="/All_Images/homepageimg.jpg" 
             alt="Himalaya Public School - Inspiring Campus"
-            data-ai-hint="school campus" // Added data-ai-hint
+            data-ai-hint="school campus"
             fill
             className="z-0 object-cover brightness-75 group-hover:brightness-90 transition-all duration-500 ease-in-out"
             priority
@@ -256,6 +255,7 @@ export default function HomePage() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                   data-ai-hint="school building"
+                  priority
                 />
               </div>
             </div>
@@ -382,3 +382,4 @@ export default function HomePage() {
     </div>
   );
 }
+
