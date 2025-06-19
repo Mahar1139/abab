@@ -136,13 +136,20 @@
     --chart-4: 190 50% 60%; 
     --chart-5: 45 50% 50%;  
 
-    background-image: repeating-linear-gradient(
-      45deg,
-      hsla(0 0% 25% / 0.08), 
-      hsla(0 0% 25% / 0.08) 1px,
-      transparent 1px,
-      transparent 20px 
-    );
+    background-color: hsl(var(--background)); /* Fallback color */
+    background-image: 
+      repeating-linear-gradient(
+        45deg,
+        hsla(0 0% 25% / 0.08), 
+        hsla(0 0% 25% / 0.08) 1px,
+        transparent 1px,
+        transparent 20px 
+      ),
+      url('https://placehold.co/1920x1080.png'); /* Placeholder image */
+    background-size: auto, cover; /* pattern size, image size */
+    background-position: center, center; /* pattern position, image position */
+    background-repeat: repeat, no-repeat; /* pattern repeat, image no-repeat */
+    background-attachment: scroll, fixed; /* pattern scrolls, image is fixed */
   }
 
   /* Conditional Sidebar Theme for Faculty Page - REMAINS DISTINCT */
