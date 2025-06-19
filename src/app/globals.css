@@ -104,10 +104,10 @@
     --background: 55 100% 95%; /* Light Yellow */
     --foreground: 0 0% 13%;  /* Very Dark Grey / Near Black (for text on yellow background) */
 
-    --card: 200 45% 96%; /* Light Cyan-Blue for boxes */
+    --card: 200 60% 95%; /* Light Blue for boxes */
     --card-foreground: 0 0% 10%; /* Black (for text inside cards) */
 
-    --popover: 200 45% 96%; /* Consistent popover with card (Light Cyan-Blue) */
+    --popover: 200 60% 95%; /* Consistent popover with card (Light Blue) */
     --popover-foreground: 0 0% 10%; /* Black */
 
     --primary: 25 70% 55%; /* Muted Earthy Orange */
@@ -185,3 +185,4 @@
     scrollbar-color: hsl(var(--sidebar-foreground) / 0.3) transparent; /* thumb color track color */
   }
 }
+
