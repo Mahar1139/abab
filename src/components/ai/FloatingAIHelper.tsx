@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetFooter, SheetDescription } from '@/components/ui/sheet';
-import { Bot, Send, User, Loader2, MessageSquare, Zap, ShieldBan } from 'lucide-react';
+import { Send, User, Loader2, MessageSquare, Zap, ShieldBan } from 'lucide-react'; // Bot removed
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
@@ -55,7 +55,6 @@ export default function FloatingAIHelper() {
 
   const initialGreeting = "Greetings! Step into the world of Himalaya Public School with your dedicated AI companion. Whether you're curious about our innovative programs, the admissions journey, our vibrant school life, or need a hand with general knowledge or coding challenges, I'm here to illuminate your path. How may I assist you in your exploration today?";
   
-  // Load and save cooldown state from/to localStorage
   useEffect(() => {
     const storedStrikes = localStorage.getItem(LOCAL_STORAGE_STRIKE_COUNT_KEY_FLOAT);
     const storedCooldownEnd = localStorage.getItem(LOCAL_STORAGE_COOLDOWN_END_TIME_KEY_FLOAT);
@@ -81,7 +80,6 @@ export default function FloatingAIHelper() {
     }
   }, [abuseStrikeCount, cooldownEndTime]);
 
-  // Cooldown timer effect
     useEffect(() => {
     if (cooldownTimerRef.current) clearInterval(cooldownTimerRef.current);
     if (isOnCooldown && cooldownEndTime) {
@@ -94,7 +92,6 @@ export default function FloatingAIHelper() {
           localStorage.removeItem(LOCAL_STORAGE_STRIKE_COUNT_KEY_FLOAT);
           localStorage.removeItem(LOCAL_STORAGE_COOLDOWN_END_TIME_KEY_FLOAT);
           if (cooldownTimerRef.current) clearInterval(cooldownTimerRef.current);
-           // Add a message indicating cooldown is over
            setMessages((prev) => [...prev, { id: `cooldown-over-${Date.now()}`, text: "Your interaction cooldown has ended. You can ask questions again.", sender: 'ai'}]);
         } else {
           setRemainingCooldownTime(formatRemainingTime(timeLeft));
@@ -117,7 +114,6 @@ export default function FloatingAIHelper() {
 
   const scrollToBottom = useCallback(() => {
     if (scrollAreaRef.current) {
-        // Using requestAnimationFrame to ensure DOM update before scrolling
         requestAnimationFrame(() => {
             if(scrollAreaRef.current) {
                  scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
@@ -138,12 +134,12 @@ export default function FloatingAIHelper() {
     if (userMessageText.toLowerCase() === TEACHER_CONDUIT_PROMPT_FLOAT) {
       router.push('/teacher-conduit');
       setInputValue('');
-      setIsOpen(false); // Optionally close the sheet
+      setIsOpen(false); 
       return;
     }
 
     if (userMessageText.toLowerCase() === UNRESTRICTED_MODE_PROMPT_FLOAT) {
-      setIsUnrestrictedMode(!isUnrestrictedMode); // Toggle mode
+      setIsUnrestrictedMode(!isUnrestrictedMode); 
       const modeMessage = !isUnrestrictedMode ? "Unrestricted mode enabled. Ask anything!" : "Switched back to School Assistant mode.";
       setMessages(prev => [...prev, 
         { id: `user-${Date.now()}`, text: userMessageText, sender: 'user' },
@@ -175,9 +171,9 @@ export default function FloatingAIHelper() {
       if (safetyBlocked) {
         const newStrikeCount = abuseStrikeCount + 1;
         setAbuseStrikeCount(newStrikeCount);
-        let cooldownDurationMs = 60000; // 1 minute
+        let cooldownDurationMs = 60000; 
         if (newStrikeCount > 1) {
-          cooldownDurationMs = Math.min((1 + (newStrikeCount - 1) * 5) * 60000, 24 * 60 * 60 * 1000); // Cap at 24h
+          cooldownDurationMs = Math.min((1 + (newStrikeCount - 1) * 5) * 60000, 24 * 60 * 60 * 1000); 
         }
         const newCooldownEndTime = Date.now() + cooldownDurationMs;
         setCooldownEndTime(newCooldownEndTime);
@@ -202,31 +198,31 @@ export default function FloatingAIHelper() {
   
   const handleSheetOpenChange = (open: boolean) => {
     setIsOpen(open);
-    if (!open) {
-      // Optional: Reset mode when sheet is closed
-      // setIsUnrestrictedMode(false); 
-    }
   };
 
   return (
     <>
-      {/* Wrapper div for the gradient ring */}
       <div
         className="fixed bottom-6 right-6 z-50
                   h-16 w-16 rounded-full p-1 
                   bg-gradient-to-r from-purple-600 via-blue-900 to-orange-500
                   bg-[length:200%_200%] animate-gradient-slide
-                  flex items-center justify-center"
+                  flex items-center justify-center shadow-2xl"
       >
         <Sheet open={isOpen} onOpenChange={handleSheetOpenChange}>
           <SheetTrigger asChild>
             <Button
               variant="default" 
               size="icon"
-              className="h-14 w-14 rounded-full shadow-xl" // Button itself is smaller
+              className="h-14 w-14 rounded-full shadow-xl flex items-center justify-center overflow-hidden"
               aria-label="Open AI Helper"
             >
-              <Bot className="h-8 w-8" /> {/* Larger icon */}
+              {/* Animated River Element */}
+              <div 
+                className="w-full h-2.5 
+                           bg-gradient-to-r from-pink-500 via-purple-600 through-cyan-400 to-green-400 
+                           bg-[length:250%_auto] animate-gradient-slide"
+              />
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-full sm:max-w-md flex flex-col p-0">
@@ -251,7 +247,8 @@ export default function FloatingAIHelper() {
                     )}
                   >
                     {msg.sender === 'ai' && (
-                      <Bot className={cn("h-6 w-6 shrink-0 mb-1", isUnrestrictedMode && msg.sender === 'ai' ? "text-orange-500" : "text-primary")} />
+                      // Using MessageSquare for AI's avatar in chat
+                      <MessageSquare className={cn("h-6 w-6 shrink-0 mb-1", isUnrestrictedMode && msg.sender === 'ai' ? "text-orange-500" : "text-primary")} />
                     )}
                     <div
                       className={cn(
@@ -274,7 +271,7 @@ export default function FloatingAIHelper() {
                 ))}
                 {isLoading && (
                   <div className="flex items-center justify-start gap-2">
-                    <Bot className={cn("h-6 w-6 shrink-0 mb-1", isUnrestrictedMode ? "text-orange-500" : "text-primary")} />
+                    <MessageSquare className={cn("h-6 w-6 shrink-0 mb-1", isUnrestrictedMode ? "text-orange-500" : "text-primary")} />
                     <div className="bg-card text-card-foreground border rounded-lg px-3 py-2 shadow">
                       <Loader2 className="h-5 w-5 animate-spin text-primary" />
                     </div>
@@ -282,7 +279,7 @@ export default function FloatingAIHelper() {
                 )}
                  {isOnCooldown && remainingCooldownTime && !isLoading && (
                   <div className="flex items-center justify-start gap-2">
-                      <Bot className={cn("h-6 w-6 shrink-0 mb-1", "text-yellow-500")} />
+                      <ShieldBan className={cn("h-6 w-6 shrink-0 mb-1", "text-yellow-500")} />
                        <div className={cn("max-w-[80%] rounded-lg px-3 py-2 shadow", "bg-yellow-100 text-yellow-800 border border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-700")}>
                           <p className="whitespace-pre-line text-sm">
                               Interaction paused. Time remaining: <strong className="tabular-nums">{remainingCooldownTime}</strong>.
@@ -315,3 +312,4 @@ export default function FloatingAIHelper() {
     </>
   );
 }
+
