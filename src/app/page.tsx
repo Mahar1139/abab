@@ -190,7 +190,7 @@ export default function HomePage() {
 
       <div 
         className="flex flex-col min-h-screen animate-in fade-in-0 duration-500"
-        style={{ backgroundColor: 'hsl(45, 70%, 55%)' }} 
+        // Removed inline style: style={{ backgroundColor: 'hsl(45, 70%, 55%)' }} 
       >
         {/* Hero Section */}
         <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden group animate-in fade-in-0 duration-500">
@@ -236,7 +236,7 @@ export default function HomePage() {
         <SectionWrapper className="bg-card text-foreground py-16 md:py-24">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-in fade-in-0 slide-in-from-left-10 duration-700 delay-200">
-              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 font-headline">A Tradition of Learning & Growth</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 font-headline">A Tradition of Learning &amp; Growth</h2>
               <p className="text-lg text-foreground/80 leading-relaxed mb-4">
                 Since our inception, Himalaya Public School has been committed to providing an exceptional educational experience. We foster an environment where students are encouraged to explore their passions, develop critical thinking skills, and become compassionate, responsible global citizens.
               </p>
@@ -263,7 +263,7 @@ export default function HomePage() {
         </SectionWrapper>
 
         {/* Why Choose Himalaya Section */}
-        <SectionWrapper title="Why Choose Himalaya?" className="bg-card text-foreground py-16 md:py-24">
+        <SectionWrapper title="Why Choose Himalaya?" className="bg-background text-foreground py-16 md:py-24">
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { 
@@ -271,25 +271,21 @@ export default function HomePage() {
                 icon: GraduationCap, 
                 description: "Rigorous curriculum, innovative teaching, and a focus on achieving full potential.", 
                 delay: 200,
-                // Example of hypothetical Firebase Storage URL usage commented out:
-                // imageUrl: "https://firebasestorage.googleapis.com/v0/b/YOUR_PROJECT_ID.appspot.com/o/path%2Fto%2Fyour%2Fimage.jpg?alt=media&token=YOUR_TOKEN" 
+                // imageUrl: "https://firebasestorage.googleapis.com/v0/b/your-project-id.appspot.com/o/path%2Fto%2Fyour%2Fimage.jpg?alt=media" 
               },
               { title: "Holistic Development", icon: Leaf, description: "Balancing academics with arts, sports, and character-building activities for all-round growth.", delay: 400 },
               { title: "Supportive Community", icon: Users, description: "A nurturing and inclusive environment where every student feels valued and supported.", delay: 600 }
             ].map((item, index) => (
-              <Card key={index} className="shadow-xl hover:shadow-2xl transition-all duration-300 bg-background hover:border-primary/50 group animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{ animationDelay: `${item.delay}ms`}}>
+              <Card key={index} className="shadow-xl hover:shadow-2xl transition-all duration-300 bg-card hover:border-primary/50 group animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{ animationDelay: `${item.delay}ms`}}>
                 <CardHeader className="items-center text-center">
                   <div className="p-5 bg-primary/10 rounded-full mb-4 inline-block group-hover:bg-primary transition-colors duration-300">
-                    {/* 
-                      // Conditional rendering if item.imageUrl was present:
-                      // item.imageUrl ? (
-                      //   <div className="relative w-12 h-12">
-                      //     <Image src={item.imageUrl} alt={item.title} fill className="object-contain" />
-                      //   </div>
-                      // ) : (
-                      //   <item.icon className="w-12 h-12 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
-                      // )
-                    */}
+                     {/* item.imageUrl ? (
+                       <div className="relative w-12 h-12">
+                         <Image src={item.imageUrl} alt={item.title} fill className="object-contain" />
+                       </div>
+                     ) : (
+                       <item.icon className="w-12 h-12 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+                     ) */}
                     <item.icon className="w-12 h-12 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
                   </div>
                   <CardTitle className="text-2xl text-primary group-hover:text-accent transition-colors duration-300 font-headline">{item.title}</CardTitle>
@@ -337,17 +333,17 @@ export default function HomePage() {
         </SectionWrapper>
 
         {/* School Life Teaser Section */}
-        <SectionWrapper title="Beyond the Classroom: Vibrant School Life" className="bg-card text-foreground py-16 md:py-24">
+        <SectionWrapper title="Beyond the Classroom: Vibrant School Life" className="bg-background text-foreground py-16 md:py-24">
           <p className="text-center text-lg text-foreground/80 mb-12 max-w-2xl mx-auto">
             Our school is a hub of activity, offering numerous opportunities for students to engage, learn, and grow outside of academics.
           </p>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: "Sports & Athletics", icon: Activity, description: "Fostering teamwork, discipline, and physical well-being through a variety of sports.", delay: 200, dataAiHint:"students playing sports" },
-              { title: "Arts & Culture", icon: Palette, description: "Encouraging creativity and self-expression through music, drama, visual arts, and cultural events.", delay: 350, dataAiHint:"children painting art" },
-              { title: "Clubs & Events", icon: Telescope, description: "Diverse clubs and engaging school events that enrich the student experience and build community.", delay: 500, dataAiHint:"student clubs activity" },
+              { title: "Sports &amp; Athletics", icon: Activity, description: "Fostering teamwork, discipline, and physical well-being through a variety of sports.", delay: 200, dataAiHint:"students playing sports" },
+              { title: "Arts &amp; Culture", icon: Palette, description: "Encouraging creativity and self-expression through music, drama, visual arts, and cultural events.", delay: 350, dataAiHint:"children painting art" },
+              { title: "Clubs &amp; Events", icon: Telescope, description: "Diverse clubs and engaging school events that enrich the student experience and build community.", delay: 500, dataAiHint:"student clubs activity" },
             ].map((item) => (
-               <Card key={item.title} className="bg-background shadow-lg rounded-lg p-6 text-center group hover:shadow-xl transition-shadow duration-300 animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{animationDelay: `${item.delay}ms`}}>
+               <Card key={item.title} className="bg-card shadow-lg rounded-lg p-6 text-center group hover:shadow-xl transition-shadow duration-300 animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{animationDelay: `${item.delay}ms`}}>
                   <div className="flex justify-center mb-4">
                       <div className="p-4 bg-primary/10 rounded-full group-hover:bg-primary transition-colors duration-300">
                           <item.icon className="w-10 h-10 text-primary group-hover:text-primary-foreground transition-colors duration-300" />

@@ -1,7 +1,7 @@
 
 "use client";
 
-import React, { useEffect } from 'react'; // Added useEffect
+import React from 'react'; // Removed useEffect as it's no longer needed here
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -13,17 +13,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const showFooter = pathname === '/';
 
-  useEffect(() => {
-    if (pathname === '/' || pathname === '/faculty') {
-      document.body.classList.add('faculty-theme-active');
-    } else {
-      document.body.classList.remove('faculty-theme-active');
-    }
-    // Cleanup function to remove the class when the component unmounts or path changes
-    return () => {
-      document.body.classList.remove('faculty-theme-active');
-    };
-  }, [pathname]);
+  // Removed useEffect that managed faculty-theme-active class on body
 
   return (
     <SidebarProvider defaultOpen={false}>
@@ -66,13 +56,13 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                   <ul className="space-y-2.5 text-sm">
                     <li><Link href="/resources" className="hover:text-accent transition-colors flex items-center text-foreground"><span className="text-accent mr-2">&gt;</span> Downloads</Link></li>
                     <li><Link href="/ai-assistant" className="hover:text-accent transition-colors flex items-center text-foreground"><span className="text-accent mr-2">&gt;</span> AI Assistant / FAQ</Link></li>
-                    <li><Link href="/school-life#news" className="hover:text-accent transition-colors flex items-center text-foreground"><span className="text-accent mr-2">&gt;</span> News & Events</Link></li>
+                    <li><Link href="/school-life#news" className="hover:text-accent transition-colors flex items-center text-foreground"><span className="text-accent mr-2">&gt;</span> News &amp; Events</Link></li>
                   </ul>
                   <Link
                     href="/contact"
                     className="mt-4 inline-flex items-center bg-accent text-accent-foreground py-3 px-5 rounded-lg hover:bg-accent/90 transition-colors text-sm font-medium shadow-md"
                   >
-                    <Mail className="w-5 h-5 mr-2.5 shrink-0" /> Complaint & Suggestion Box
+                    <Mail className="w-5 h-5 mr-2.5 shrink-0" /> Complaint &amp; Suggestion Box
                   </Link>
                 </div>
 
@@ -122,4 +112,3 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     </SidebarProvider>
   );
 }
-

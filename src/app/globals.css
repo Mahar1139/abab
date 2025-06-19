@@ -5,183 +5,98 @@
 
 @layer base {
   :root {
-    /* Pure White Background with Orange Accents Theme */
-    --background: 0 0% 100%; /* Pure White */
-    --foreground: 0 0% 10%; /* Near black for text */
+    /* Modern Blue & Teal Theme - Light Mode */
+    --background: 210 40% 98%; /* Very Light Cool Gray */
+    --foreground: 210 25% 15%; /* Dark Slate Blue */
 
-    --card: 0 0% 100%; /* Pure White */
-    --card-foreground: 0 0% 10%; /* Match page foreground */
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 210 25% 15%; /* Dark Slate Blue */
 
-    --popover: 0 0% 100%; /* Pure White */
-    --popover-foreground: 0 0% 10%; /* Match page foreground */
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 210 25% 15%; /* Dark Slate Blue */
 
-    --primary: 25 75% 60%; /* Muted, pleasant orange */
-    --primary-foreground: 25 15% 95%; /* Very light, for text on primary */
+    --primary: 210 70% 50%; /* Strong Modern Blue */
+    --primary-foreground: 210 40% 98%; /* Very Light Cool Gray */
 
-    --secondary: 0 0% 96%; /* Very light gray (subtle distinction from white) */
-    --secondary-foreground: 25 75% 60%; /* Orange text for secondary */
+    --secondary: 180 60% 45%; /* Teal */
+    --secondary-foreground: 0 0% 100%; /* White */
     
-    --muted: 0 0% 92%; /* Light gray */
-    --muted-foreground: 0 0% 40%; /* Medium gray text */
+    --muted: 210 40% 92%; /* Light Cool Gray */
+    --muted-foreground: 210 20% 40%; /* Medium Slate Blue */
 
-    --accent: 40 80% 55%; /* Brighter, warmer orange/gold */
-    --accent-foreground: 40 10% 95%; /* Very light, for text on accent */
+    --accent: 190 70% 55%; /* Bright Cyan/Teal Accent */
+    --accent-foreground: 210 25% 10%; /* Darker Blue for contrast */
 
-    --destructive: 0 60% 65%; /* Softer Red */
+    --destructive: 0 60% 50%; /* Standard Red */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 0 0% 90%; /* Light gray border */
-    --input: 0 0% 97%; /* Very light gray input background */
-    --ring: 25 80% 65%; /* Slightly brighter primary orange for Focus Rings */
+    --border: 210 30% 85%; /* Light Blue-Gray Border */
+    --input: 210 30% 95%; /* Very Light Blue-Gray Input Background */
+    --ring: 210 70% 55%; /* Brighter Primary Blue for Focus Rings */
 
-    --chart-1: 25 75% 60%; /* Primary Orange */
-    --chart-2: 40 80% 55%;  /* Accent Gold/Orange */
-    --chart-3: 30 70% 70%; /* Another warm orange/peach shade */
-    --chart-4: 45 70% 65%; /* Soft gold */
-    --chart-5: 20 60% 75%;  /* Lighter peach */
+    --chart-1: 210 70% 50%; /* Primary Blue */
+    --chart-2: 180 60% 45%;  /* Teal */
+    --chart-3: 190 70% 55%; /* Cyan/Teal Accent */
+    --chart-4: 220 60% 60%; /* Softer Blue */
+    --chart-5: 170 50% 50%;  /* Muted Teal/Green */
     --radius: 0.5rem;
 
-    /* Sidebar specific theme (RED THEME) */
-    --sidebar-background: 0 70% 55%; /* Medium Red */
-    --sidebar-foreground: 0 0% 95%; /* Off-white text */
-    --sidebar-primary: 0 70% 45%;    /* Darker Red for active item */
+    /* Sidebar specific theme (Blue/Teal Theme) */
+    --sidebar-background: 220 30% 25%; /* Dark Slate/Navy Blue */
+    --sidebar-foreground: 210 40% 90%; /* Light Bluish Gray Text */
+    --sidebar-primary: 190 70% 50%;    /* Bright Teal for active item */
     --sidebar-primary-foreground: 0 0% 100%; /* White text on active item */
-    --sidebar-accent: 0 70% 50%;      /* Slightly different Red for hover */
-    --sidebar-accent-foreground: 0 0% 100%; /* White text on hover */
-    --sidebar-border: 0 50% 40%;      /* Darker Red border */
-    --sidebar-ring: 0 70% 60%;        /* Brighter Red for focus rings */
+    --sidebar-accent: 220 30% 35%;      /* Slightly lighter Dark Blue for hover */
+    --sidebar-accent-foreground: 210 40% 95%; /* Lighter Bluish Gray text on hover */
+    --sidebar-border: 220 30% 20%;      /* Very Dark Blue border */
+    --sidebar-ring: 190 70% 55%;        /* Brighter Teal for focus rings */
   }
 
   .dark {
-    /* Dark mode for Pure White Background with Orange Accents Theme */
-    --background: 0 0% 8%; /* Very dark gray, almost black */
-    --foreground: 0 0% 95%; /* Off-white text */
+    /* Modern Blue & Teal Theme - Dark Mode */
+    --background: 220 20% 12%; /* Very Dark Desaturated Blue */
+    --foreground: 210 30% 90%; /* Light Bluish Gray */
 
-    --card: 0 0% 12%; /* Slightly lighter dark gray for cards */
-    --card-foreground: 0 0% 95%;
+    --card: 220 20% 18%; /* Darker Blue-Gray for cards */
+    --card-foreground: 210 30% 90%;
 
-    --popover: 0 0% 10%; 
-    --popover-foreground: 0 0% 95%;
+    --popover: 220 20% 15%; 
+    --popover-foreground: 210 30% 90%;
 
-    --primary: 25 70% 70%;    /* Brighter orange for dark mode */
-    --primary-foreground: 25 20% 15%; /* Very dark brown/orange text on primary */
+    --primary: 210 75% 65%;    /* Brighter Blue for dark mode */
+    --primary-foreground: 210 20% 10%; /* Very Dark Blue text on primary */
 
-    --secondary: 0 0% 15%; /* Dark gray */
-    --secondary-foreground: 25 70% 70%; /* Orange text for dark secondary */
+    --secondary: 180 65% 55%; /* Brighter Teal for dark secondary */
+    --secondary-foreground: 210 20% 10%; 
 
-    --muted: 0 0% 20%;   
-    --muted-foreground: 0 0% 60%; 
+    --muted: 220 20% 25%;   
+    --muted-foreground: 210 30% 65%; 
 
-    --accent: 40 75% 65%; /* Brighter orange/gold for dark mode */
-    --accent-foreground: 40 20% 15%; /* Very dark brown/orange text on accent */
+    --accent: 190 75% 60%; /* Bright Cyan/Teal Accent for dark mode */
+    --accent-foreground: 210 15% 95%; /* Very light text on accent */
 
-    --destructive: 0 65% 70%; /* Slightly brighter/softer Red */
+    --destructive: 0 65% 60%; /* Slightly brighter Red */
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 20%; 
-    --input: 0 0% 15%; 
-    --ring: 25 75% 75%; 
+    --border: 220 20% 30%; 
+    --input: 220 20% 22%; 
+    --ring: 210 80% 70%; 
 
-    --chart-1: 25 70% 70%;
-    --chart-2: 40 75% 65%;
-    --chart-3: 30 65% 60%;
-    --chart-4: 45 65% 55%;
-    --chart-5: 20 55% 60%;
+    --chart-1: 210 75% 65%;
+    --chart-2: 180 65% 55%;
+    --chart-3: 190 75% 60%;
+    --chart-4: 220 65% 70%;
+    --chart-5: 170 55% 60%;
 
-    /* Sidebar specific theme (RED THEME - DARK MODE) */
-    --sidebar-background: 0 65% 50%; /* Red for dark mode */
-    --sidebar-foreground: 0 0% 95%; /* Off-white text */
-    --sidebar-primary: 0 65% 40%; /* Darker Red for active item */
+    /* Sidebar specific theme (Blue/Teal Theme - DARK MODE) */
+    --sidebar-background: 220 25% 15%; /* Even Darker Navy Blue */
+    --sidebar-foreground: 210 30% 85%; /* Light Bluish Gray Text */
+    --sidebar-primary: 190 70% 55%;    /* Bright Teal for active item */
     --sidebar-primary-foreground: 0 0% 100%; /* White text on active */
-    --sidebar-accent: 0 65% 45%;      /* Slightly different Red for hover */
-    --sidebar-accent-foreground: 0 0% 100%; /* White text on hover */
-    --sidebar-border: 0 45% 35%;      /* Darker Red border */
-    --sidebar-ring: 0 65% 55%;        /* Brighter Red for focus rings */
-  }
-
-  /* Specific Light Theme for Faculty Directory Page CONTENT - REMAINS DISTINCT */
-  .faculty-directory-light-theme {
-    --background: 55 100% 95%; /* Light Yellow */
-    --foreground: 0 0% 13%;  /* Very Dark Grey / Near Black (for text on yellow background) */
-
-    --card: 200 50% 92%; /* Darker Light Blue for boxes */
-    --card-foreground: 0 0% 10%; /* Black (for text inside cards) */
-
-    --popover: 200 50% 92%; 
-    --popover-foreground: 0 0% 10%; 
-
-    --primary: 25 70% 55%; /* Muted Earthy Orange */
-    --primary-foreground: 0 0% 100%; /* White */
-
-    --secondary: 45 60% 90%; /* Light Sandy Beige */
-    --secondary-foreground: 0 0% 13%; 
-    
-    --muted: 50 20% 85%; /* Light Greyish Yellow */
-    --muted-foreground: 0 0% 25%; /* Darker Greyish Yellow Text */
-
-    --accent: 35 90% 60%; /* Brighter, Saturated Orange */
-    --accent-foreground: 20 100% 10%; /* Dark Brown */
-
-    --destructive: 0 70% 55%; 
-    --destructive-foreground: 0 0% 100%; 
-
-    --border: 50 20% 80%; 
-    --input: 55 70% 92%; 
-    --ring: 25 70% 55%; 
-
-    /* Chart colors for faculty theme */
-    --chart-1: 25 70% 55%; 
-    --chart-2: 35 90% 60%;  
-    --chart-3: 0 70% 55%;   
-    --chart-4: 190 50% 60%; 
-    --chart-5: 45 50% 50%;  
-
-    background-color: hsl(var(--background)); /* Fallback color */
-    background-image: 
-      repeating-linear-gradient(
-        45deg,
-        hsla(0 0% 25% / 0.08), 
-        hsla(0 0% 25% / 0.08) 1px,
-        transparent 1px,
-        transparent 20px 
-      );
-    background-size: auto; 
-    background-position: center;
-    background-repeat: repeat; 
-    background-attachment: scroll;
-  }
-
-  /* Conditional Sidebar Theme for Faculty Page - REMAINS DISTINCT */
-  body.faculty-theme-active {
-    --sidebar-background: 55 100% 95%; /* Light Yellow */
-    --sidebar-foreground: 0 0% 13%;  /* Near Black */
-    --sidebar-primary: 25 70% 55%;    /* Muted Earthy Orange (for active items) */
-    --sidebar-primary-foreground: 0 0% 100%; /* White (for active item text) */
-    --sidebar-accent: 45 60% 90%;      /* Light Sandy Beige (for hover background) */
-    --sidebar-accent-foreground: 0 0% 13%; /* Dark text (for hover text) */
-    --sidebar-border: 50 20% 80%;      /* Greyish Yellow Border */
-    --sidebar-ring: 25 70% 55%;       /* Muted Earthy Orange (for focus rings) */
-  }
-
-  body.faculty-theme-active [data-sidebar="footer"] p {
-    color: hsl(var(--sidebar-foreground)); 
-  }
-
-  /* Dark mode conditional sidebar theme for Faculty Page - REMAINS DISTINCT */
-  /* This effectively keeps the faculty sidebar light even in dark mode, as per original unique styling */
-  .dark body.faculty-theme-active {
-    --sidebar-background: 55 100% 95%; 
-    --sidebar-foreground: 0 0% 13%;  
-    --sidebar-primary: 25 70% 55%;    
-    --sidebar-primary-foreground: 0 0% 100%; 
-    --sidebar-accent: 45 60% 90%;      
-    --sidebar-accent-foreground: 0 0% 13%; 
-    --sidebar-border: 50 20% 80%;      
-    --sidebar-ring: 25 70% 55%;       
-  }
-
-  .dark body.faculty-theme-active [data-sidebar="footer"] p {
-    color: hsl(var(--sidebar-foreground)); 
+    --sidebar-accent: 220 25% 25%;      /* Slightly lighter Dark Blue for hover */
+    --sidebar-accent-foreground: 210 30% 90%; /* Lighter Bluish Gray text on hover */
+    --sidebar-border: 220 25% 10%;      /* Very Dark Blue border */
+    --sidebar-ring: 190 70% 60%;        /* Brighter Teal for focus rings */
   }
 }
 

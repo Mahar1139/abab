@@ -15,7 +15,8 @@ export default function FacultyPage() {
     .join('\n\n');
 
   return (
-    <div className="faculty-directory-light-theme bg-background text-foreground min-h-full">
+    // Removed faculty-directory-light-theme class to adopt global theme
+    <div className="bg-background text-foreground min-h-full">
       <div className="container mx-auto py-8 px-4">
         {director && (
           <SectionWrapper title="Our Director" titleClassName="text-2xl sm:text-3xl md:text-4xl mb-6">
