@@ -16,13 +16,15 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
       <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group bg-card text-card-foreground">
         <div className="flex flex-col sm:flex-row items-center sm:items-start">
           {/* Image Container - Adjusted for responsiveness and double frame */}
-          <div className="p-4 sm:p-6 flex-shrink-0">
+          <div className="p-4 sm:p-6 md:p-8 flex-shrink-0"> {/* Increased base and md padding */}
             {/* Double frame effect */}
-            <div className="p-1 bg-border shadow-md"> {/* Outer frame part 1 (can be themed color like secondary if border is not enough) */}
-              <div className="bg-card p-0.5"> {/* Gap between frames */}
+            <div className="p-1.5 bg-border shadow-md"> {/* Outer frame part 1 - slightly increased padding */}
+              <div className="bg-card p-1"> {/* Gap between frames - slightly increased padding */}
                 <div
                   className={cn(
-                    "relative w-32 sm:w-40 md:w-48 overflow-hidden border-2 border-primary", // Inner frame
+                    "relative overflow-hidden border-2 border-primary", // Inner frame
+                    // Increased image widths
+                    "w-36 sm:w-48 md:w-56 lg:w-64", 
                     imageAspectRatio === 'landscape' ? 'aspect-video' : 'aspect-square'
                   )}
                 >
@@ -33,8 +35,8 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
                     data-ai-hint={member.dataAiHint || "faculty member"}
                     className="object-cover"
                     sizes={imageAspectRatio === 'landscape' ? 
-                      "(max-width: 640px) 128px, (max-width: 768px) 160px, 192px" :
-                      "(max-width: 640px) 96px, (max-width: 768px) 112px, 128px"} // Sizes adjusted slightly
+                      "(max-width: 640px) 144px, (max-width: 768px) 192px, (max-width: 1024px) 224px, 256px" :
+                      "(max-width: 640px) 96px, (max-width: 768px) 112px, 128px"}
                   />
                 </div>
               </div>
@@ -42,7 +44,7 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
           </div>
 
           {/* Text Content Container */}
-          <div className="flex-grow p-4 pt-0 sm:p-6 sm:pt-4 text-center sm:text-left">
+          <div className="flex-grow p-4 pt-0 sm:p-6 sm:pt-4 md:p-8 md:pt-6 text-center sm:text-left"> {/* Adjusted padding */}
             <CardHeader className="p-0 mb-1 sm:mb-2">
               <CardTitle className="text-xl md:text-2xl text-primary group-hover:text-accent transition-colors">{member.name}</CardTitle>
               <CardDescription className="text-md md:text-lg text-accent font-semibold">{member.title}</CardDescription>
@@ -73,4 +75,3 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
     </Card>
   );
 }
-
