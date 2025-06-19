@@ -16,7 +16,7 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
         <div
           className={cn(
             "relative w-full overflow-hidden",
-            imageAspectRatio === 'landscape' ? 'aspect-video' : 'aspect-square'
+            imageAspectRatio === 'landscape' ? 'aspect-video' : 'aspect-square' // 16:9 for landscape, 1:1 for square
           )}
         >
           <Image
@@ -25,7 +25,7 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
             fill
             data-ai-hint={member.dataAiHint || "faculty member"}
             className="object-cover transition-transform duration-300 group-hover:scale-105"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" // Responsive image sizes
           />
         </div>
       )}

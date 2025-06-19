@@ -7,8 +7,8 @@ export interface FacultyMember {
   name: string;
   title: string;
   bio: string;
-  imageUrl?: string; // Optional: For Director's image
-  dataAiHint?: string; // Optional: AI hint for the image
+  imageUrl?: string; 
+  dataAiHint?: string; 
 }
 
 export interface SchoolEvent {
@@ -42,4 +42,3 @@ export interface AcademicProgram {
   dataAiHint?: string;
   icon: React.ElementType;
 }
-
