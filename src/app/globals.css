@@ -144,12 +144,11 @@
         hsla(0 0% 25% / 0.08) 1px,
         transparent 1px,
         transparent 20px 
-      ),
-      url('https://placehold.co/1920x1080.png'); /* Placeholder image */
-    background-size: auto, cover; /* pattern size, image size */
-    background-position: center, center; /* pattern position, image position */
-    background-repeat: repeat, no-repeat; /* pattern repeat, image no-repeat */
-    background-attachment: scroll, fixed; /* pattern scrolls, image is fixed */
+      );
+    background-size: auto; 
+    background-position: center;
+    background-repeat: repeat; 
+    background-attachment: scroll;
   }
 
   /* Conditional Sidebar Theme for Faculty Page - REMAINS DISTINCT */
@@ -224,5 +223,3 @@
     scrollbar-color: hsl(var(--sidebar-foreground) / 0.3) transparent; /* thumb color track color */
   }
 }
-
-    
