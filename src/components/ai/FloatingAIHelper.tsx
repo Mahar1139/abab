@@ -210,100 +210,108 @@ export default function FloatingAIHelper() {
 
   return (
     <>
-      <Sheet open={isOpen} onOpenChange={handleSheetOpenChange}>
-        <SheetTrigger asChild>
-          <Button
-            variant="default"
-            size="icon"
-            className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-xl z-50 animate-bounce hover:animate-none"
-            aria-label="Open AI Helper"
-          >
-            <Bot className="h-7 w-7" />
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="right" className="w-full sm:max-w-md flex flex-col p-0">
-          <SheetHeader className="p-4 border-b">
-            <SheetTitle className="flex items-center gap-2 text-primary">
-              {isUnrestrictedMode ? <Zap className="h-6 w-6 text-orange-500" /> : <MessageSquare className="h-6 w-6" />}
-              {isUnrestrictedMode ? "Unrestricted AI" : "AI Helper"}
-            </SheetTitle>
-            <SheetDescription className="text-xs">
-              {isUnrestrictedMode ? "Ask any general question." : "Ask about the school or general topics."}
-            </SheetDescription>
-          </SheetHeader>
-          
-          <ScrollArea className="flex-grow p-4" ref={scrollAreaRef}>
-            <div className="space-y-4">
-              {messages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={cn(
-                    "flex items-end gap-2 text-sm",
-                    msg.sender === 'user' ? "justify-end" : "justify-start"
-                  )}
-                >
-                  {msg.sender === 'ai' && (
-                    <Bot className={cn("h-6 w-6 shrink-0 mb-1", isUnrestrictedMode && msg.sender === 'ai' ? "text-orange-500" : "text-primary")} />
-                  )}
+      {/* Wrapper div for the gradient ring */}
+      <div
+        className="fixed bottom-6 right-6 z-50
+                  h-16 w-16 rounded-full p-1 
+                  bg-gradient-to-r from-primary via-accent to-secondary
+                  bg-[length:200%_200%] animate-gradient-slide
+                  flex items-center justify-center"
+      >
+        <Sheet open={isOpen} onOpenChange={handleSheetOpenChange}>
+          <SheetTrigger asChild>
+            <Button
+              variant="default" 
+              size="icon"
+              className="h-14 w-14 rounded-full shadow-xl" // Button itself is smaller
+              aria-label="Open AI Helper"
+            >
+              <Bot className="h-8 w-8" /> {/* Larger icon */}
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="right" className="w-full sm:max-w-md flex flex-col p-0">
+            <SheetHeader className="p-4 border-b">
+              <SheetTitle className="flex items-center gap-2 text-primary">
+                {isUnrestrictedMode ? <Zap className="h-6 w-6 text-orange-500" /> : <MessageSquare className="h-6 w-6" />}
+                {isUnrestrictedMode ? "Unrestricted AI" : "AI Helper"}
+              </SheetTitle>
+              <SheetDescription className="text-xs">
+                {isUnrestrictedMode ? "Ask any general question." : "Ask about the school or general topics."}
+              </SheetDescription>
+            </SheetHeader>
+            
+            <ScrollArea className="flex-grow p-4" ref={scrollAreaRef}>
+              <div className="space-y-4">
+                {messages.map((msg) => (
                   <div
+                    key={msg.id}
                     className={cn(
-                      "max-w-[80%] rounded-lg px-3 py-2 shadow",
-                      msg.sender === 'user'
-                        ? "bg-primary text-primary-foreground"
-                        : msg.isError 
-                          ? "bg-destructive text-destructive-foreground border border-destructive" 
-                          : msg.isCooldownMessage 
-                            ? "bg-yellow-100 text-yellow-800 border border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-700"
-                            : "bg-card text-card-foreground border"
+                      "flex items-end gap-2 text-sm",
+                      msg.sender === 'user' ? "justify-end" : "justify-start"
                     )}
                   >
-                    <p className="whitespace-pre-line">{msg.text}</p>
-                  </div>
-                   {msg.sender === 'user' && (
-                    <User className="h-6 w-6 text-muted-foreground shrink-0 mb-1" />
-                  )}
-                </div>
-              ))}
-              {isLoading && (
-                <div className="flex items-center justify-start gap-2">
-                  <Bot className={cn("h-6 w-6 shrink-0 mb-1", isUnrestrictedMode ? "text-orange-500" : "text-primary")} />
-                  <div className="bg-card text-card-foreground border rounded-lg px-3 py-2 shadow">
-                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
-                  </div>
-                </div>
-              )}
-               {isOnCooldown && remainingCooldownTime && !isLoading && (
-                <div className="flex items-center justify-start gap-2">
-                    <Bot className={cn("h-6 w-6 shrink-0 mb-1", "text-yellow-500")} />
-                     <div className={cn("max-w-[80%] rounded-lg px-3 py-2 shadow", "bg-yellow-100 text-yellow-800 border border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-700")}>
-                        <p className="whitespace-pre-line text-sm">
-                            Interaction paused. Time remaining: <strong className="tabular-nums">{remainingCooldownTime}</strong>.
-                        </p>
+                    {msg.sender === 'ai' && (
+                      <Bot className={cn("h-6 w-6 shrink-0 mb-1", isUnrestrictedMode && msg.sender === 'ai' ? "text-orange-500" : "text-primary")} />
+                    )}
+                    <div
+                      className={cn(
+                        "max-w-[80%] rounded-lg px-3 py-2 shadow",
+                        msg.sender === 'user'
+                          ? "bg-primary text-primary-foreground"
+                          : msg.isError 
+                            ? "bg-destructive text-destructive-foreground border border-destructive" 
+                            : msg.isCooldownMessage 
+                              ? "bg-yellow-100 text-yellow-800 border border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-700"
+                              : "bg-card text-card-foreground border"
+                      )}
+                    >
+                      <p className="whitespace-pre-line">{msg.text}</p>
                     </div>
-                </div>
-              )}
-            </div>
-          </ScrollArea>
-          <SheetFooter className="p-4 border-t">
-            <form onSubmit={handleSubmit} className="flex w-full items-center space-x-2">
-              <Input
-                type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                placeholder={isOnCooldown ? "Interaction paused..." : (isUnrestrictedMode ? "Ask anything..." : "Type your question...")}
-                className="flex-1"
-                disabled={isLoading || isOnCooldown}
-                aria-label="Your question for the AI assistant"
-              />
-              <Button type="submit" size="icon" disabled={isLoading || !inputValue.trim() || isOnCooldown}>
-                {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
-                <span className="sr-only">Send</span>
-              </Button>
-            </form>
-          </SheetFooter>
-        </SheetContent>
-      </Sheet>
+                     {msg.sender === 'user' && (
+                      <User className="h-6 w-6 text-muted-foreground shrink-0 mb-1" />
+                    )}
+                  </div>
+                ))}
+                {isLoading && (
+                  <div className="flex items-center justify-start gap-2">
+                    <Bot className={cn("h-6 w-6 shrink-0 mb-1", isUnrestrictedMode ? "text-orange-500" : "text-primary")} />
+                    <div className="bg-card text-card-foreground border rounded-lg px-3 py-2 shadow">
+                      <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                    </div>
+                  </div>
+                )}
+                 {isOnCooldown && remainingCooldownTime && !isLoading && (
+                  <div className="flex items-center justify-start gap-2">
+                      <Bot className={cn("h-6 w-6 shrink-0 mb-1", "text-yellow-500")} />
+                       <div className={cn("max-w-[80%] rounded-lg px-3 py-2 shadow", "bg-yellow-100 text-yellow-800 border border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-700")}>
+                          <p className="whitespace-pre-line text-sm">
+                              Interaction paused. Time remaining: <strong className="tabular-nums">{remainingCooldownTime}</strong>.
+                          </p>
+                      </div>
+                  </div>
+                )}
+              </div>
+            </ScrollArea>
+            <SheetFooter className="p-4 border-t">
+              <form onSubmit={handleSubmit} className="flex w-full items-center space-x-2">
+                <Input
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  placeholder={isOnCooldown ? "Interaction paused..." : (isUnrestrictedMode ? "Ask anything..." : "Type your question...")}
+                  className="flex-1"
+                  disabled={isLoading || isOnCooldown}
+                  aria-label="Your question for the AI assistant"
+                />
+                <Button type="submit" size="icon" disabled={isLoading || !inputValue.trim() || isOnCooldown}>
+                  {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
+                  <span className="sr-only">Send</span>
+                </Button>
+              </form>
+            </SheetFooter>
+          </SheetContent>
+        </Sheet>
+      </div>
     </>
   );
 }
-
