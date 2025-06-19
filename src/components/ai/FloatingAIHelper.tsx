@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetFooter, SheetDescription } from '@/components/ui/sheet';
-import { Send, User, Loader2, BrainCircuit, ShieldBan } from 'lucide-react'; // Changed Cpu to BrainCircuit
+import { Send, User, Loader2, BrainCircuit, ShieldBan } from 'lucide-react'; // BrainCircuit for chat avatar
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
@@ -223,7 +223,7 @@ export default function FloatingAIHelper() {
                            bg-[length:250%_250%] animate-gradient-slide
                            flex items-center justify-center" 
               >
-                <BrainCircuit className="h-10 w-10 text-white" />
+                <span className="text-2xl font-bold text-white tracking-tight">AI</span>
               </div>
             </Button>
           </SheetTrigger>
