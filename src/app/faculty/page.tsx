@@ -20,8 +20,8 @@ export default function FacultyPage() {
       <div className="container mx-auto py-8">
         {director && (
           <SectionWrapper title="Our Director" titleClassName="text-2xl md:text-3xl mb-6">
-            <div className="flex justify-center mb-12">
-              <div className="w-full md:w-3/4 lg:w-1/2 xl:w-2/5"> {/* Control width of director card */}
+            <div className="flex justify-center mb-8"> {/* Reduced bottom margin from mb-12 to mb-8 */}
+              <div className="w-full sm:w-5/6 md:w-2/3 lg:w-1/2 xl:w-1/3"> {/* Made card smaller on larger screens */}
                 <FacultyCard member={director} />
               </div>
             </div>
@@ -29,7 +29,7 @@ export default function FacultyPage() {
         )}
 
         <SectionWrapper title="Our Esteemed Faculty">
-          <p className="text-center text-lg text-foreground/80 mb-10 max-w-2xl mx-auto">
+          <p className="text-center text-lg text-foreground/80 mb-8 max-w-2xl mx-auto"> {/* Reduced bottom margin from mb-10 to mb-8 */}
             Meet the dedicated educators who inspire and guide our students. Our faculty members are experts in their fields and are committed to providing a supportive and enriching learning experience.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
