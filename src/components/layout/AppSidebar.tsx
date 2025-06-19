@@ -46,13 +46,15 @@ export default function AppSidebar() {
     <Sidebar collapsible="icon">
       <SidebarHeader className="p-4 flex items-center justify-center border-b group-data-[collapsible=icon]:py-2">
         <div className="flex items-center gap-2 group-data-[collapsible=icon]:hidden">
-          <School className="w-6 h-6 text-sidebar-primary" />
+          {/* Changed icon color to use sidebar-foreground for better visibility on red */}
+          <School className="w-6 h-6 text-sidebar-foreground" /> 
           <h2 className="text-lg font-bold text-sidebar-foreground">
             Himalaya Public School
           </h2>
         </div>
         <div className="hidden group-data-[collapsible=icon]:flex">
-           <School className="w-6 h-6 text-sidebar-primary" />
+           {/* Changed icon color to use sidebar-foreground for better visibility on red */}
+           <School className="w-6 h-6 text-sidebar-foreground" />
         </div>
       </SidebarHeader>
       <SidebarContent>
