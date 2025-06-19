@@ -3,6 +3,14 @@ import type { FacultyMember } from '@/types';
 
 export const facultyMembers: FacultyMember[] = [
   {
+    id: 'director-001',
+    name: 'Dr. Evelyn Reed',
+    title: 'Director & Founder',
+    bio: 'Dr. Reed is the visionary founder and director of Himalaya Public School. With over 25 years of experience in educational leadership, she is dedicated to creating an inspiring and innovative learning environment for all students, fostering a culture of excellence and lifelong learning.',
+    imageUrl: '/All_Images/faculty/director.png',
+    dataAiHint: 'director portrait woman'
+  },
+  {
     id: '1',
     name: 'Suman Bisht',
     title: 'Principal, PhD in Education',
@@ -39,3 +47,4 @@ export const facultyMembers: FacultyMember[] = [
     bio: 'Mr. Reddy is dedicated to promoting physical fitness and sportsmanship among students. He coaches multiple school sports teams, leading them to numerous victories.',
   }
 ];
+
