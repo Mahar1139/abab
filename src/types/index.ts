@@ -1,6 +1,6 @@
 
 import type { z } from 'zod';
-import type { admissionFormSchema } from '@/lib/schemas/admission-schema'; // Updated import
+import type { admissionFormSchema } from '@/lib/schemas/admission-schema'; 
 
 export interface FacultyMember {
   id: string;
@@ -31,3 +31,14 @@ export interface DownloadableResource {
 }
 
 export type AdmissionFormData = z.infer<typeof admissionFormSchema>;
+
+export interface AcademicProgram {
+  id: string;
+  level: string;
+  title: string;
+  description: string;
+  keySubjects: string[];
+  imageUrl: string;
+  dataAiHint: string;
+  icon: React.ElementType;
+}
