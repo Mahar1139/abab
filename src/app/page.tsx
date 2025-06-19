@@ -9,6 +9,8 @@ import SectionWrapper from '@/components/shared/SectionWrapper';
 import { BookOpenCheck, Leaf, Users, Telescope, ArrowRight, TrendingUp, Zap, ShieldCheck, GraduationCap, Palette, Activity, School, MapPin, Phone, Mail, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import FloatingAIHelper from '@/components/ai/FloatingAIHelper';
+import PrivacyPolicyDialog from '@/components/layout/PrivacyPolicyDialog';
+import TermsConditionsDialog from '@/components/layout/TermsConditionsDialog';
 
 // --- Independence Day Animation Logic (Preserved) ---
 const ANIMATION_DURATION = 800; 
@@ -396,9 +398,9 @@ export default function HomePage() {
             <div className="border-t border-primary-foreground/30 pt-8 text-center">
               <p className="text-sm font-medium text-primary-foreground/80">&copy; {new Date().getFullYear()} Himalaya Public School. All Rights Reserved.</p>
               <div className="mt-2">
-                <Link href="/privacy-policy" className="text-sm font-medium text-primary-foreground hover:text-white hover:underline transition-colors">Privacy Policy</Link>
+                <PrivacyPolicyDialog />
                 <span className="mx-1.5 text-primary-foreground/80">|</span>
-                <Link href="/terms-conditions" className="text-sm font-medium text-primary-foreground hover:text-white hover:underline transition-colors">Terms & Conditions</Link>
+                <TermsConditionsDialog />
               </div>
             </div>
           </div>
@@ -409,4 +411,3 @@ export default function HomePage() {
     </div>
   );
 }
-
