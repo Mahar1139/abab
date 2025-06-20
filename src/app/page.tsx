@@ -194,11 +194,21 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden animate-in fade-in-0 duration-500">
           <video
-            // IMPORTANT: Replace this with your ACTUAL video file path.
-            // If using cloud storage, ensure this is a DIRECT, PUBLICLY ACCESSIBLE link to the video file (e.g., ending in .mp4).
-            // If hosting locally, place your video in the `public/videos/` directory
-            // and update the src to something like "/videos/your-file-name.mp4".
-            src="https://example.com/path/to/YOUR_CLOUD_VIDEO_FILE.mp4" 
+            // IMPORTANT: VIDEO SOURCE INSTRUCTIONS
+            // 1. LOCAL VIDEO: Place your video file (e.g., "DSC_4571.MOV" or "DSC_4571.mp4")
+            //    in the `public/videos/` directory of your project.
+            //    Then, update the src below to, for example: src="/videos/DSC_4571.MOV"
+            //    (Using .mp4 format is generally recommended for better web compatibility).
+            //
+            // 2. CLOUD STORAGE (e.g., Firebase Storage, AWS S3):
+            //    Ensure you use a DIRECT, PUBLICLY ACCESSIBLE link to the video file
+            //    (e.g., one ending in .mp4 or .mov).
+            //    General sharing links from services like Google Drive (e.g., drive.google.com/file/d/...)
+            //    WILL NOT WORK here as they are web pages, not direct video files.
+            //
+            // The current src below is set up for a local file named "DSC_4571.MOV".
+            // Please ensure this file exists at `public/videos/DSC_4571.MOV`.
+            src="/videos/DSC_4571.MOV"
             autoPlay
             loop
             muted
@@ -415,4 +425,3 @@ export default function HomePage() {
     </div>
   );
 }
-
