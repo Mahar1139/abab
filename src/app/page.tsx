@@ -194,10 +194,11 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden animate-in fade-in-0 duration-500">
           <video
-            // IMPORTANT: Replace this placeholder with the path to YOUR high-quality, educational video file.
-            // For example, if your video is in public/videos/my-educational-video.mp4, use src="/videos/my-educational-video.mp4"
-            // Current video: /videos/YOUR_NEW_VIDEO_FILE.mp4 - Make sure to place your video in public/videos/
-            src="/videos/YOUR_NEW_VIDEO_FILE.mp4" 
+            // IMPORTANT: Place your video file (e.g., DSC_4571.MOV or DSC_4571.mp4) 
+            // in the public/videos/ directory of your project.
+            // Then update the src attribute below to match the filename.
+            // e.g., src="/videos/DSC_4571.MOV" or src="/videos/DSC_4571.mp4"
+            src="/videos/DSC_4571.MOV" 
             autoPlay
             loop
             muted
