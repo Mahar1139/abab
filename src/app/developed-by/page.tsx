@@ -1,10 +1,16 @@
 
+'use client';
+
+import { useState } from 'react';
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Link from "next/link";
-import { Mail, Briefcase, DollarSign, Users, Sparkles, Cpu, Palette, Server, Phone, Info } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Mail, Briefcase, DollarSign, Users, Sparkles, Cpu, Palette, Server, Phone, Info, Contact } from "lucide-react";
 
 export default function DevelopedByPage() {
+  const [showContactDetails, setShowContactDetails] = useState(false);
+
   return (
     <div className="container mx-auto py-12 px-4">
       <SectionWrapper title="Crafted with Passion by {InfinityX}">
@@ -17,7 +23,7 @@ export default function DevelopedByPage() {
               PRINCE & SHUBHAM {'{InfinityX}'}
             </CardTitle>
             <CardDescription className="text-lg md:text-xl text-foreground/80 mt-3">
-              We are passionate software developers specializing in creating modern, responsive, and AI-integrated web applications. If you're interested in our services or want to discuss a project, please find our contact details below.
+              We are passionate software developers specializing in creating modern, responsive, and AI-integrated web applications.
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6 md:p-10 space-y-10">
@@ -34,28 +40,38 @@ export default function DevelopedByPage() {
 
             {/* Contact Information Section */}
             <div className="text-center border-b border-border pb-8">
-              <Mail className="w-10 h-10 text-secondary mx-auto mb-3" />
+              <Contact className="w-10 h-10 text-secondary mx-auto mb-3" />
               <h3 className="text-2xl font-semibold text-secondary mb-4">Contact Information</h3>
-              <div className="space-y-3 text-lg text-foreground/90">
-                <div className="flex items-center justify-center gap-2">
-                  <Phone className="w-6 h-6 text-accent flex-shrink-0" />
-                  <span className="font-semibold">
-                    Phone: <a href="tel:8449822974" className="text-accent hover:underline">8449822974</a>
-                  </span>
+              
+              {!showContactDetails ? (
+                <Button onClick={() => setShowContactDetails(true)} size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                  Click to View Contact Details
+                </Button>
+              ) : (
+                <div className="space-y-3 text-lg text-foreground/90 mt-4 animate-in fade-in-50 slide-in-from-bottom-3">
+                  <div className="flex items-center justify-center gap-2">
+                    <Phone className="w-6 h-6 text-primary flex-shrink-0" />
+                    <span className="font-semibold">
+                      Phone: <a href="tel:8449822974" className="text-primary hover:underline">8449822974</a>
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <Phone className="w-6 h-6 text-primary flex-shrink-0" />
+                    <span className="font-semibold">
+                      Alternate: <a href="tel:9485171788" className="text-primary hover:underline">9485171788</a>
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <Mail className="w-6 h-6 text-primary flex-shrink-0" />
+                    <span className="font-semibold">
+                      Email: <Link href="mailto:princekohli@outlook.com" className="text-primary hover:underline">princekohli@outlook.com</Link>
+                    </span>
+                  </div>
+                  <Button onClick={() => setShowContactDetails(false)} variant="outline" size="sm" className="mt-4">
+                    Hide Contact Details
+                  </Button>
                 </div>
-                <div className="flex items-center justify-center gap-2">
-                  <Phone className="w-6 h-6 text-accent flex-shrink-0" />
-                  <span className="font-semibold">
-                    Alternate: <a href="tel:9485171788" className="text-accent hover:underline">9485171788</a>
-                  </span>
-                </div>
-                <div className="flex items-center justify-center gap-2">
-                  <Mail className="w-6 h-6 text-accent flex-shrink-0" />
-                  <span className="font-semibold">
-                    Email: <Link href="mailto:princekohli@outlook.com" className="text-accent hover:underline">princekohli@outlook.com</Link>
-                  </span>
-                </div>
-              </div>
+              )}
             </div>
 
             <div>
@@ -148,7 +164,7 @@ export default function DevelopedByPage() {
               </div>
               <p className="text-sm text-muted-foreground mt-6 text-center flex items-center justify-center gap-1">
                 <Info className="w-3.5 h-3.5" />
-                All prices are indicative. Please <Link href="mailto:princekohli@outlook.com" className="text-accent hover:underline">contact us</Link> for a detailed quote based on your specific requirements.
+                All prices are indicative. Please click the button above or <Link href="mailto:princekohli@outlook.com" className="text-accent hover:underline">email us</Link> for a detailed quote based on your specific requirements.
               </p>
             </div>
           </CardContent>
@@ -157,5 +173,6 @@ export default function DevelopedByPage() {
     </div>
   );
 }
+    
 
     
