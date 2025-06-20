@@ -120,7 +120,7 @@ export default function DevelopedByPage() {
                     </ul>
                   </CardContent>
                   <CardContent className="mt-auto">
-                    <p className="text-xl font-bold text-primary mt-3 pt-2 border-t border-dashed">Custom Quote</p>
+                    <p className="text-xl font-bold text-primary mt-3 pt-2 border-t border-dashed">₹30,000 - ₹50,000</p>
                   </CardContent>
                 </Card>
               </div>
