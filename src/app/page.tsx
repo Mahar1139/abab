@@ -193,13 +193,23 @@ export default function HomePage() {
       <div className="flex flex-col min-h-screen animate-in fade-in-0 duration-500">
         {/* Hero Section */}
         <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden animate-in fade-in-0 duration-500">
-          <Image
-            src="/images/himalaya-school-building.jpg" // Path to your image in public/images/
-            alt="Himalaya Public School building"
-            fill
-            className="object-cover z-0"
-            data-ai-hint="school building exterior"
-            priority // Load this image early
+          {/* 
+            BACKGROUND VIDEO:
+            1. Place your video file (e.g., 'hero-background.mp4') in the `public/videos/` directory.
+            2. Ensure the `src` below matches the path to your video.
+            3. For best web compatibility, use the MP4 format. If you have a .MOV or other format, consider converting it.
+            4. You can also use a direct URL from a video hosting service (e.g., Firebase Storage, Vimeo, etc.) if you prefer.
+               If using an external URL for `next/image` with `src`, ensure the hostname is added to `next.config.ts` `images.remotePatterns`.
+               For `<video>`, no `next.config.ts` change is needed for external URLs.
+          */}
+          <video
+            src="/videos/hero-background.mp4" // Ensure this path is correct or update to your video file/URL
+            autoPlay
+            loop
+            muted
+            playsInline // Important for autoplay on mobile devices
+            className="absolute top-0 left-0 w-full h-full object-cover z-0"
+            poster="/images/himalaya-school-building.jpg" // Optional: Show an image while the video loads or if it fails
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10" />
           <div className="relative z-20 p-4 md:p-8 max-w-4xl mx-auto">
@@ -414,3 +424,4 @@ export default function HomePage() {
     </div>
   );
 }
+
