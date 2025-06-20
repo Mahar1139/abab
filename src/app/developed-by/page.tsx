@@ -2,7 +2,7 @@
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Link from "next/link";
-import { Mail, Briefcase, DollarSign, Users, Sparkles, Cpu, Palette, Server, Phone } from "lucide-react";
+import { Mail, Briefcase, DollarSign, Users, Sparkles, Cpu, Palette, Server, Phone, Info } from "lucide-react";
 
 export default function DevelopedByPage() {
   return (
@@ -14,24 +14,10 @@ export default function DevelopedByPage() {
               <Sparkles className="w-12 h-12 text-primary-foreground" />
             </div>
             <CardTitle className="text-3xl md:text-4xl font-bold text-primary">
-              Contact PRINCE &amp; SHUBHAM {'{InfinityX}'}
+              PRINCE & SHUBHAM {'{InfinityX}'}
             </CardTitle>
-            <CardDescription className="text-lg md:text-xl text-foreground/80 mt-3 space-y-2">
-              <div>
-                If you want a website like this, or to discuss a project, please reach out:
-              </div>
-              <div className="flex items-center justify-center sm:justify-start text-left gap-2">
-                <Phone className="w-5 h-5 text-accent flex-shrink-0" />
-                <span className="font-semibold">
-                  Phone: <a href="tel:8449822974" className="text-accent hover:underline">8449822974</a> / <a href="tel:9485171788" className="text-accent hover:underline">9485171788</a>
-                </span>
-              </div>
-              <div className="flex items-center justify-center sm:justify-start text-left gap-2">
-                <Mail className="w-5 h-5 text-accent flex-shrink-0" />
-                <span className="font-semibold">
-                 Email: <Link href="mailto:princekohli@outlook.com" className="text-accent hover:underline">princekohli@outlook.com</Link>
-                </span>
-              </div>
+            <CardDescription className="text-lg md:text-xl text-foreground/80 mt-3">
+              We are passionate software developers specializing in creating modern, responsive, and AI-integrated web applications. If you're interested in our services or want to discuss a project, please find our contact details below.
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6 md:p-10 space-y-10">
@@ -42,8 +28,34 @@ export default function DevelopedByPage() {
                 This website was proudly developed by <strong>PRINCE &amp; SHUBHAM</strong>, the creative minds behind <strong>{'{InfinityX}'}</strong>.
               </p>
               <p className="text-md text-foreground/80 mt-3 max-w-2xl mx-auto">
-                We are passionate software developers specializing in creating modern, responsive, and AI-integrated web applications tailored to your unique needs. We turn ideas into digital realities.
+                We turn ideas into digital realities, specializing in modern, responsive, and AI-integrated web applications tailored to your unique needs.
               </p>
+            </div>
+
+            {/* Contact Information Section */}
+            <div className="text-center border-b border-border pb-8">
+              <Mail className="w-10 h-10 text-secondary mx-auto mb-3" />
+              <h3 className="text-2xl font-semibold text-secondary mb-4">Contact Information</h3>
+              <div className="space-y-3 text-lg text-foreground/90">
+                <div className="flex items-center justify-center gap-2">
+                  <Phone className="w-6 h-6 text-accent flex-shrink-0" />
+                  <span className="font-semibold">
+                    Phone: <a href="tel:8449822974" className="text-accent hover:underline">8449822974</a>
+                  </span>
+                </div>
+                <div className="flex items-center justify-center gap-2">
+                  <Phone className="w-6 h-6 text-accent flex-shrink-0" />
+                  <span className="font-semibold">
+                    Alternate: <a href="tel:9485171788" className="text-accent hover:underline">9485171788</a>
+                  </span>
+                </div>
+                <div className="flex items-center justify-center gap-2">
+                  <Mail className="w-6 h-6 text-accent flex-shrink-0" />
+                  <span className="font-semibold">
+                    Email: <Link href="mailto:princekohli@outlook.com" className="text-accent hover:underline">princekohli@outlook.com</Link>
+                  </span>
+                </div>
+              </div>
             </div>
 
             <div>
@@ -99,11 +111,11 @@ export default function DevelopedByPage() {
                   </CardHeader>
                   <CardContent className="space-y-2 flex-grow">
                     <p className="text-sm text-foreground/80">
-                      Comprehensive web solutions with standard AI integration to enhance user experience and functionality.
+                      Comprehensive web solutions with standard AI integration (e.g., basic chatbots, AI-powered search) to enhance user experience.
                     </p>
                      <ul className="list-disc list-inside text-xs text-foreground/70 pl-1 space-y-1">
                         <li>All Advanced Features</li>
-                        <li>Standard AI Integration (e.g., basic chatbots, AI-powered search)</li>
+                        <li>Standard AI Integration</li>
                         <li>Enhanced Security Features</li>
                         <li>Performance Optimization</li>
                     </ul>
@@ -120,11 +132,11 @@ export default function DevelopedByPage() {
                   </CardHeader>
                   <CardContent className="space-y-2 flex-grow">
                     <p className="text-sm text-foreground/80">
-                      Top-tier custom development with premium design, advanced GenAI capabilities, and dedicated support.
+                      Top-tier custom development with premium design, advanced GenAI capabilities (custom Genkit flows, sophisticated chatbots, API integrations), and dedicated ongoing support.
                     </p>
                      <ul className="list-disc list-inside text-xs text-foreground/70 pl-1 space-y-1">
                       <li>Premium, Custom Design</li>
-                      <li>Advanced AI Integration (Custom Genkit flows, sophisticated chatbots, API integrations)</li>
+                      <li>Advanced AI Integration</li>
                       <li>Scalable Architecture</li>
                       <li>Priority & Ongoing Support</li>
                     </ul>
@@ -134,8 +146,9 @@ export default function DevelopedByPage() {
                   </CardContent>
                 </Card>
               </div>
-              <p className="text-sm text-muted-foreground mt-6 text-center">
-                * All prices are indicative. Please <Link href="mailto:princekohli@outlook.com" className="text-accent hover:underline">contact us</Link> for a detailed quote based on your specific requirements.
+              <p className="text-sm text-muted-foreground mt-6 text-center flex items-center justify-center gap-1">
+                <Info className="w-3.5 h-3.5" />
+                All prices are indicative. Please <Link href="mailto:princekohli@outlook.com" className="text-accent hover:underline">contact us</Link> for a detailed quote based on your specific requirements.
               </p>
             </div>
           </CardContent>
@@ -144,3 +157,5 @@ export default function DevelopedByPage() {
     </div>
   );
 }
+
+    
