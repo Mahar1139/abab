@@ -2,7 +2,7 @@
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Link from "next/link";
-import { Mail, Briefcase, DollarSign, Users, Sparkles } from "lucide-react";
+import { Mail, Briefcase, DollarSign, Users, Sparkles, Cpu, Palette, Server } from "lucide-react";
 
 export default function DevelopedByPage() {
   return (
@@ -39,13 +39,13 @@ export default function DevelopedByPage() {
             <div>
               <h3 className="text-2xl font-semibold text-secondary mb-6 text-center">Our Service Tiers</h3>
               <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-                <Card className="hover:shadow-lg transition-shadow duration-300">
+                <Card className="hover:shadow-lg transition-shadow duration-300 flex flex-col">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-3 text-xl text-accent">
                       <Briefcase className="w-6 h-6" /> Basic Website Package
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-2">
+                  <CardContent className="space-y-2 flex-grow">
                     <p className="text-sm text-foreground/80">
                       Ideal for personal portfolios, small businesses, or dynamic landing pages. Includes responsive design and essential features.
                     </p>
@@ -55,44 +55,71 @@ export default function DevelopedByPage() {
                       <li>Basic SEO Setup</li>
                       <li>Contact Form</li>
                     </ul>
-                    <p className="text-xl font-bold text-primary mt-3 pt-2 border-t border-dashed">Starting from $XXX</p>
+                  </CardContent>
+                  <CardContent className="mt-auto">
+                    <p className="text-xl font-bold text-primary mt-3 pt-2 border-t border-dashed">Starting from ₹9,000</p>
                   </CardContent>
                 </Card>
-                <Card className="hover:shadow-lg transition-shadow duration-300">
+                <Card className="hover:shadow-lg transition-shadow duration-300 flex flex-col">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-3 text-xl text-accent">
-                      <Briefcase className="w-6 h-6" /> Advanced Web Application
+                      <Server className="w-6 h-6" /> Advanced Web Application
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-2">
+                  <CardContent className="space-y-2 flex-grow">
                     <p className="text-sm text-foreground/80">
                       Custom-built applications with complex functionalities, database integration, and user authentication.
                     </p>
                      <ul className="list-disc list-inside text-xs text-foreground/70 pl-1 space-y-1">
-                      <li>Custom Features</li>
+                      <li>Custom Features (up to 10-12 pages)</li>
                       <li>Database Integration</li>
-                      <li>User Accounts</li>
+                      <li>User Accounts & Auth</li>
                       <li>Admin Panel</li>
                     </ul>
-                    <p className="text-xl font-bold text-primary mt-3 pt-2 border-t border-dashed">Starting from $YYYY</p>
+                  </CardContent>
+                  <CardContent className="mt-auto">
+                    <p className="text-xl font-bold text-primary mt-3 pt-2 border-t border-dashed">Starting from ₹15,000</p>
                   </CardContent>
                 </Card>
-                <Card className="md:col-span-2 hover:shadow-lg transition-shadow duration-300">
+                <Card className="hover:shadow-lg transition-shadow duration-300 flex flex-col">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-3 text-xl text-accent">
-                      <DollarSign className="w-6 h-6" /> AI Integration & Custom Solutions
+                      <Cpu className="w-6 h-6" /> Advance Max Package
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-2">
+                  <CardContent className="space-y-2 flex-grow">
                     <p className="text-sm text-foreground/80">
-                      Leverage the power of Artificial Intelligence with custom Genkit flows, intelligent chatbots, data analysis tools, and more.
+                      Comprehensive web solutions with standard AI integration to enhance user experience and functionality.
                     </p>
                      <ul className="list-disc list-inside text-xs text-foreground/70 pl-1 space-y-1">
-                      <li>GenAI Flow Development</li>
-                      <li>Custom Chatbots</li>
-                      <li>API Integrations</li>
-                      <li>Ongoing Support</li>
+                        <li>All Advanced Features</li>
+                        <li>Standard AI Integration (e.g., basic chatbots, AI-powered search)</li>
+                        <li>Enhanced Security Features</li>
+                        <li>Performance Optimization</li>
                     </ul>
+                  </CardContent>
+                  <CardContent className="mt-auto">
+                    <p className="text-xl font-bold text-primary mt-3 pt-2 border-t border-dashed">Starting from ₹20,000</p>
+                  </CardContent>
+                </Card>
+                <Card className="hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-xl text-accent">
+                      <Sparkles className="w-6 h-6" /> InfinityPro Package
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2 flex-grow">
+                    <p className="text-sm text-foreground/80">
+                      Top-tier custom development with premium design, advanced GenAI capabilities, and dedicated support.
+                    </p>
+                     <ul className="list-disc list-inside text-xs text-foreground/70 pl-1 space-y-1">
+                      <li>Premium, Custom Design</li>
+                      <li>Advanced AI Integration (Custom Genkit flows, sophisticated chatbots, API integrations)</li>
+                      <li>Scalable Architecture</li>
+                      <li>Priority & Ongoing Support</li>
+                    </ul>
+                  </CardContent>
+                  <CardContent className="mt-auto">
                     <p className="text-xl font-bold text-primary mt-3 pt-2 border-t border-dashed">Custom Quote</p>
                   </CardContent>
                 </Card>
