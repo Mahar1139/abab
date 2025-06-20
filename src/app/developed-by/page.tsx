@@ -61,12 +61,7 @@ export default function DevelopedByPage() {
                       Alternate: <a href="tel:9485171788" className="text-primary hover:underline">9485171788</a>
                     </span>
                   </div>
-                  <div className="flex items-center justify-center gap-2">
-                    <Mail className="w-6 h-6 text-primary flex-shrink-0" />
-                    <span className="font-semibold">
-                      Email: <Link href="mailto:princekohli@outlook.com" className="text-primary hover:underline">princekohli@outlook.com</Link>
-                    </span>
-                  </div>
+                  {/* Email removed from here */}
                   <Button onClick={() => setShowContactDetails(false)} variant="outline" size="sm" className="mt-4">
                     Hide Contact Details
                   </Button>
@@ -173,6 +168,8 @@ export default function DevelopedByPage() {
     </div>
   );
 }
+    
+
     
 
     
