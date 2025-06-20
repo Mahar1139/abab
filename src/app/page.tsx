@@ -10,7 +10,7 @@ import { useState, useEffect } from 'react';
 import FloatingAIHelper from '@/components/ai/FloatingAIHelper';
 import PrivacyPolicyDialog from '@/components/layout/PrivacyPolicyDialog';
 import TermsConditionsDialog from '@/components/layout/TermsConditionsDialog';
-import Image from 'next/image'; // Keep Image for other sections
+import Image from 'next/image';
 
 // --- Independence Day Animation Logic (Preserved) ---
 const ANIMATION_DURATION = 800; 
@@ -412,11 +412,14 @@ export default function HomePage() {
             </div>
             <div className="border-t border-primary-foreground/30 pt-8 text-center">
               <p className="text-sm font-medium text-primary-foreground/80">&copy; {new Date().getFullYear()} Himalaya Public School. All Rights Reserved.</p>
-              <div className="mt-2">
+              <div className="mt-3">
                 <PrivacyPolicyDialog />
                 <span className="mx-1.5 text-primary-foreground/80">|</span>
                 <TermsConditionsDialog />
               </div>
+              <p className="text-xs text-primary-foreground/70 mt-4">
+                Website by <Link href="/developed-by" className="font-semibold hover:text-white hover:underline">PRINCE &amp; SHUBHAM {'{InfinityX}'}</Link>
+              </p>
             </div>
           </div>
         </footer>
@@ -426,3 +429,4 @@ export default function HomePage() {
     </div>
   );
 }
+

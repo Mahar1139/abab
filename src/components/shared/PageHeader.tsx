@@ -14,7 +14,8 @@ import {
   Brain,
   CalendarDays, 
   Award, 
-  Library
+  Library,
+  Code // Added Code icon
 } from 'lucide-react';
 
 const navItems = [
@@ -27,25 +28,29 @@ const navItems = [
   { href: '/student-achievements', label: 'Student Achievements', icon: Award },
   { href: '/library', label: 'Library', icon: Library },
   { href: '/quiz', label: 'AI Quiz Challenge', icon: Brain },
+  { href: '/developed-by', label: 'Developed By', icon: Code }, // Added for page title
 ];
 
 export default function PageHeader() {
   const pathname = usePathname();
   
   let pageTitle = "Himalaya Public School";
+  // Ensure '/' is matched first for the homepage title specifically.
   if (pathname === '/') {
     pageTitle = navItems.find(item => item.href === '/')?.label || "School Overview";
   } else {
+    // For other pages, find the longest matching path to handle nested routes correctly.
     const matchedItem = navItems
-      .filter(item => item.href !== '/') 
+      .filter(item => item.href !== '/') // Exclude homepage from this specific logic
       .filter(item => pathname.startsWith(item.href))
-      .sort((a, b) => b.href.length - a.href.length)[0]; 
+      .sort((a, b) => b.href.length - a.href.length)[0]; // Sort by length to get most specific match
 
     if (matchedItem) {
       pageTitle = matchedItem.label;
-    } else if (pathname.startsWith('/contact')) { // Keep contact page title if visited directly
+    } else if (pathname.startsWith('/contact')) {
       pageTitle = "Contact & Support";
     }
+    // If no specific match, it retains "Himalaya Public School" or you could set a default like "Page"
   }
 
   return (

@@ -1,0 +1,109 @@
+
+import SectionWrapper from "@/components/shared/SectionWrapper";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import Link from "next/link";
+import { Mail, Briefcase, DollarSign, Users, Sparkles } from "lucide-react";
+
+export default function DevelopedByPage() {
+  return (
+    <div className="container mx-auto py-12 px-4">
+      <SectionWrapper title="Crafted with Passion by {InfinityX}">
+        <Card className="max-w-4xl mx-auto shadow-2xl bg-card border-primary/20">
+          <CardHeader className="text-center pb-8 pt-10 bg-gradient-to-br from-primary/10 via-background to-background rounded-t-lg">
+            <div className="inline-block p-4 bg-primary rounded-full mx-auto mb-5 shadow-lg">
+              <Sparkles className="w-12 h-12 text-primary-foreground" />
+            </div>
+            <CardTitle className="text-3xl md:text-4xl font-bold text-primary">
+              Want a Website Like This?
+            </CardTitle>
+            <CardDescription className="text-lg md:text-xl text-foreground/80 mt-2">
+              Let&apos;s build something amazing together! Contact PRINCE &amp; SHUBHAM at:
+              <br />
+              <Link href="mailto:contact@infinityx.dev" className="font-semibold text-accent hover:underline text-xl">
+                contact@infinityx.dev
+              </Link>
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-6 md:p-10 space-y-10">
+            <div className="text-center border-b border-border pb-8">
+              <Users className="w-10 h-10 text-secondary mx-auto mb-3" />
+              <h3 className="text-2xl font-semibold text-secondary mb-3">About Us</h3>
+              <p className="text-lg text-foreground/90 leading-relaxed">
+                This website was proudly developed by <strong>PRINCE &amp; SHUBHAM</strong>, the creative minds behind <strong>{'{InfinityX}'}</strong>.
+              </p>
+              <p className="text-md text-foreground/80 mt-3 max-w-2xl mx-auto">
+                We are passionate software developers specializing in creating modern, responsive, and AI-integrated web applications tailored to your unique needs. We turn ideas into digital realities.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-semibold text-secondary mb-6 text-center">Our Service Tiers</h3>
+              <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+                <Card className="hover:shadow-lg transition-shadow duration-300">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-xl text-accent">
+                      <Briefcase className="w-6 h-6" /> Basic Website Package
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <p className="text-sm text-foreground/80">
+                      Ideal for personal portfolios, small businesses, or dynamic landing pages. Includes responsive design and essential features.
+                    </p>
+                    <ul className="list-disc list-inside text-xs text-foreground/70 pl-1 space-y-1">
+                      <li>Up to 5 pages</li>
+                      <li>Responsive Design</li>
+                      <li>Basic SEO Setup</li>
+                      <li>Contact Form</li>
+                    </ul>
+                    <p className="text-xl font-bold text-primary mt-3 pt-2 border-t border-dashed">Starting from $XXX</p>
+                  </CardContent>
+                </Card>
+                <Card className="hover:shadow-lg transition-shadow duration-300">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-xl text-accent">
+                      <Briefcase className="w-6 h-6" /> Advanced Web Application
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <p className="text-sm text-foreground/80">
+                      Custom-built applications with complex functionalities, database integration, and user authentication.
+                    </p>
+                     <ul className="list-disc list-inside text-xs text-foreground/70 pl-1 space-y-1">
+                      <li>Custom Features</li>
+                      <li>Database Integration</li>
+                      <li>User Accounts</li>
+                      <li>Admin Panel</li>
+                    </ul>
+                    <p className="text-xl font-bold text-primary mt-3 pt-2 border-t border-dashed">Starting from $YYYY</p>
+                  </CardContent>
+                </Card>
+                <Card className="md:col-span-2 hover:shadow-lg transition-shadow duration-300">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3 text-xl text-accent">
+                      <DollarSign className="w-6 h-6" /> AI Integration & Custom Solutions
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <p className="text-sm text-foreground/80">
+                      Leverage the power of Artificial Intelligence with custom Genkit flows, intelligent chatbots, data analysis tools, and more.
+                    </p>
+                     <ul className="list-disc list-inside text-xs text-foreground/70 pl-1 space-y-1">
+                      <li>GenAI Flow Development</li>
+                      <li>Custom Chatbots</li>
+                      <li>API Integrations</li>
+                      <li>Ongoing Support</li>
+                    </ul>
+                    <p className="text-xl font-bold text-primary mt-3 pt-2 border-t border-dashed">Custom Quote</p>
+                  </CardContent>
+                </Card>
+              </div>
+              <p className="text-sm text-muted-foreground mt-6 text-center">
+                * All prices are indicative. Please <Link href="mailto:contact@infinityx.dev" className="text-accent hover:underline">contact us</Link> for a detailed quote based on your specific requirements.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+      </SectionWrapper>
+    </div>
+  );
+}

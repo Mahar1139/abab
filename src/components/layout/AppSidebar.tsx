@@ -22,7 +22,8 @@ import {
   Brain,
   CalendarDays, 
   Award, 
-  Library
+  Library,
+  Code // Added Code icon
 } from 'lucide-react';
 
 const navItems = [
@@ -35,29 +36,31 @@ const navItems = [
   { href: '/student-achievements', label: 'Student Achievements', icon: Award },
   { href: '/library', label: 'Library', icon: Library },
   { href: '/quiz', label: 'AI Quiz Challenge', icon: Brain },
+  // { href: '/developed-by', label: 'Developed By', icon: Code }, // Usually not in main nav
 ];
 
 export default function AppSidebar() {
   const pathname = usePathname();
 
+  // Filter out the '/developed-by' link for the sidebar display
+  const displayedNavItems = navItems.filter(item => item.href !== '/developed-by');
+
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="p-4 flex items-center justify-center border-b group-data-[collapsible=icon]:py-2">
         <div className="flex items-center gap-2 group-data-[collapsible=icon]:hidden">
-          {/* Changed icon color to use sidebar-foreground for better visibility on red */}
           <School className="w-6 h-6 text-sidebar-foreground" /> 
           <h2 className="text-lg font-bold text-sidebar-foreground">
             Himalaya Public School
           </h2>
         </div>
         <div className="hidden group-data-[collapsible=icon]:flex">
-           {/* Changed icon color to use sidebar-foreground for better visibility on red */}
            <School className="w-6 h-6 text-sidebar-foreground" />
         </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarMenu>
-          {navItems.map((item) => (
+          {displayedNavItems.map((item) => ( // Use displayedNavItems here
             <SidebarMenuItem key={item.href}>
               <Button
                 asChild
