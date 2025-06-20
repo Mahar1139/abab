@@ -206,8 +206,9 @@ export default function HomePage() {
             //    General sharing links from services like Google Drive (e.g., drive.google.com/file/d/...)
             //    WILL NOT WORK here as they are web pages, not direct video files.
             //
-            // The current src below is set up for a local file named "DSC_4571.MOV".
-            // Please ensure this file exists at `public/videos/DSC_4571.MOV`.
+            // This src points to a local file: /videos/DSC_4571.MOV
+            // Ensure this file exists at `public/videos/DSC_4571.MOV`.
+            // If you convert it to DSC_4571.mp4 (recommended for web), update src to "/videos/DSC_4571.mp4".
             src="/videos/DSC_4571.MOV"
             autoPlay
             loop
@@ -263,11 +264,11 @@ export default function HomePage() {
             <div className="animate-in fade-in-0 slide-in-from-right-10 duration-700 delay-300">
               <div className="rounded-xl shadow-2xl overflow-hidden aspect-video group relative">
                 <Image
-                  src="/All_Images/home/HPS.jpg" 
-                  alt="Himalaya Public School building and courtyard"
+                  src="https://placehold.co/800x600.png" 
+                  alt="Himalaya Public School, Pithoragarh - School Building"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  data-ai-hint="school building"
+                  data-ai-hint="Himalaya school Pithoragarh"
                   priority
                 />
               </div>
