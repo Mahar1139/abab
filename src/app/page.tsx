@@ -196,7 +196,8 @@ export default function HomePage() {
           <video
             // IMPORTANT: Replace this placeholder with the path to YOUR high-quality, educational video file.
             // For example, if your video is in public/videos/my-educational-video.mp4, use src="/videos/my-educational-video.mp4"
-            src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4" 
+            // Current video: /videos/YOUR_NEW_VIDEO_FILE.mp4 - Make sure to place your video in public/videos/
+            src="/videos/YOUR_NEW_VIDEO_FILE.mp4" 
             autoPlay
             loop
             muted
@@ -413,3 +414,4 @@ export default function HomePage() {
     </div>
   );
 }
+
