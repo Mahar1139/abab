@@ -193,28 +193,13 @@ export default function HomePage() {
       <div className="flex flex-col min-h-screen animate-in fade-in-0 duration-500">
         {/* Hero Section */}
         <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden animate-in fade-in-0 duration-500">
-          <video
-            // IMPORTANT: VIDEO SOURCE INSTRUCTIONS
-            // 1. LOCAL VIDEO: Place your video file (e.g., "DSC_4571.MOV" or "DSC_4571.mp4")
-            //    in the `public/videos/` directory of your project.
-            //    Then, update the src below to, for example: src="/videos/DSC_4571.MOV"
-            //    (Using .mp4 format is generally recommended for better web compatibility).
-            //
-            // 2. CLOUD STORAGE (e.g., Firebase Storage, AWS S3):
-            //    Ensure you use a DIRECT, PUBLICLY ACCESSIBLE link to the video file
-            //    (e.g., one ending in .mp4 or .mov).
-            //    General sharing links from services like Google Drive (e.g., drive.google.com/file/d/...)
-            //    WILL NOT WORK here as they are web pages, not direct video files.
-            //
-            // This src points to a local file: /videos/DSC_4571.MOV
-            // Ensure this file exists at `public/videos/DSC_4571.MOV`.
-            // If you convert it to DSC_4571.mp4 (recommended for web), update src to "/videos/DSC_4571.mp4".
-            src="/videos/DSC_4571.MOV" 
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute top-0 left-0 w-full h-full object-cover z-0"
+          <Image
+            src="/images/himalaya-school-building.jpg" // Path to your image in public/images/
+            alt="Himalaya Public School building"
+            fill
+            className="object-cover z-0"
+            data-ai-hint="school building exterior"
+            priority // Load this image early
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10" />
           <div className="relative z-20 p-4 md:p-8 max-w-4xl mx-auto">
@@ -429,4 +414,3 @@ export default function HomePage() {
     </div>
   );
 }
-
