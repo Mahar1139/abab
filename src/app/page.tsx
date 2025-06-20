@@ -194,11 +194,11 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden animate-in fade-in-0 duration-500">
           <video
-            // IMPORTANT: Place your video file (e.g., DSC_4571.MOV or DSC_4571.mp4) 
-            // in the public/videos/ directory of your project.
-            // Then update the src attribute below to match the filename.
-            // e.g., src="/videos/DSC_4571.MOV" or src="/videos/DSC_4571.mp4"
-            src="/videos/DSC_4571.MOV" 
+            // IMPORTANT: Replace this with your ACTUAL video file path.
+            // If using cloud storage, ensure this is a DIRECT, PUBLICLY ACCESSIBLE link to the video file (e.g., ending in .mp4).
+            // If hosting locally, place your video in the `public/videos/` directory
+            // and update the src to something like "/videos/your-file-name.mp4".
+            src="https://example.com/path/to/YOUR_CLOUD_VIDEO_FILE.mp4" 
             autoPlay
             loop
             muted
