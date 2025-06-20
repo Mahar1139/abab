@@ -2,7 +2,7 @@
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Link from "next/link";
-import { Mail, Briefcase, DollarSign, Users, Sparkles, Cpu, Palette, Server } from "lucide-react";
+import { Mail, Briefcase, DollarSign, Users, Sparkles, Cpu, Palette, Server, Phone } from "lucide-react";
 
 export default function DevelopedByPage() {
   return (
@@ -14,14 +14,24 @@ export default function DevelopedByPage() {
               <Sparkles className="w-12 h-12 text-primary-foreground" />
             </div>
             <CardTitle className="text-3xl md:text-4xl font-bold text-primary">
-              Want a Website Like This?
+              Contact PRINCE &amp; SHUBHAM {'{InfinityX}'}
             </CardTitle>
-            <CardDescription className="text-lg md:text-xl text-foreground/80 mt-2">
-              Let&apos;s build something amazing together! Contact PRINCE &amp; SHUBHAM at:
-              <br />
-              <Link href="mailto:contact@infinityx.dev" className="font-semibold text-accent hover:underline text-xl">
-                contact@infinityx.dev
-              </Link>
+            <CardDescription className="text-lg md:text-xl text-foreground/80 mt-3 space-y-2">
+              <div>
+                If you want a website like this, or to discuss a project, please reach out:
+              </div>
+              <div className="flex items-center justify-center sm:justify-start text-left gap-2">
+                <Phone className="w-5 h-5 text-accent flex-shrink-0" />
+                <span className="font-semibold">
+                  Phone: <a href="tel:8449822974" className="text-accent hover:underline">8449822974</a> / <a href="tel:9485171788" className="text-accent hover:underline">9485171788</a>
+                </span>
+              </div>
+              <div className="flex items-center justify-center sm:justify-start text-left gap-2">
+                <Mail className="w-5 h-5 text-accent flex-shrink-0" />
+                <span className="font-semibold">
+                 Email: <Link href="mailto:princekohli@outlook.com" className="text-accent hover:underline">princekohli@outlook.com</Link>
+                </span>
+              </div>
             </CardDescription>
           </CardHeader>
           <CardContent className="p-6 md:p-10 space-y-10">
@@ -125,7 +135,7 @@ export default function DevelopedByPage() {
                 </Card>
               </div>
               <p className="text-sm text-muted-foreground mt-6 text-center">
-                * All prices are indicative. Please <Link href="mailto:contact@infinityx.dev" className="text-accent hover:underline">contact us</Link> for a detailed quote based on your specific requirements.
+                * All prices are indicative. Please <Link href="mailto:princekohli@outlook.com" className="text-accent hover:underline">contact us</Link> for a detailed quote based on your specific requirements.
               </p>
             </div>
           </CardContent>
