@@ -8,18 +8,15 @@ import { suggestAdmissionQuestions } from "@/ai/flows/suggest-admission-question
 import { fullAdmissionsText } from "./admission-content";
 import FloatingAIHelper from "@/components/ai/FloatingAIHelper";
 import AdmissionFormComponent from "@/components/admissions/AdmissionForm";
-import { useTranslation } from "@/hooks/use-translation";
 
 export default function AdmissionsPage() {
-  const { t } = useTranslation();
-
   return (
     <div className="container mx-auto py-8">
-      <SectionWrapper title={t('admissionspage.title')}>
+      <SectionWrapper title="Admissions">
         <Card className="shadow-md">
           <CardHeader>
-            <CardTitle className="text-2xl text-primary">{t('admissionspage.form.title')}</CardTitle>
-            <CardDescription>{t('admissionspage.form.desc')}</CardDescription>
+            <CardTitle className="text-2xl text-primary">Online Admission Application</CardTitle>
+            <CardDescription>Please fill out the form below to begin the admission process. All fields marked with * are required.</CardDescription>
           </CardHeader>
           <CardContent>
             <AdmissionFormComponent />
@@ -31,8 +28,8 @@ export default function AdmissionsPage() {
         contentToAnalyze={fullAdmissionsText}
         suggestionFn={suggestAdmissionQuestions}
         inputKey="admissionsInfo"
-        title={t('admissionspage.suggester.title')}
-        description={t('admissionspage.suggester.desc')}
+        title="Have Questions?"
+        description="Based on the admissions info, you might want to ask..."
       />
 
       <FloatingAIHelper />

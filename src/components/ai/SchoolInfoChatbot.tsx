@@ -9,23 +9,14 @@ import { Input } from '@/components/ui/input';
 import { Loader2, BrainCircuit, HelpCircle, StopCircle, Zap, ArrowLeftCircle, ShieldBan } from 'lucide-react'; // Changed Cpu to BrainCircuit
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
-import { useTranslation } from '@/hooks/use-translation';
 
-const initialSuggestedQuestionsEN = [
+const initialSuggestedQuestions = [
   "What is the school's mission?",
   "Tell me about the extracurricular activities.",
   "What are the office hours?",
   "Write a Python function to calculate factorial.",
   "Make a simple text adventure game in Python.",
   "What are the core values of the school?"
-];
-const initialSuggestedQuestionsHI = [
-  "स्कूल का मिशन क्या है?",
-  "पाठ्येतर गतिविधियों के बारे में बताएं।",
-  "कार्यालय के घंटे क्या हैं?",
-  "फैक्टोरियल की गणना के लिए एक पायथन फ़ंक्शन लिखें।",
-  "पायथन में एक सरल टेक्स्ट एडवेंचर गेम बनाएं।",
-  "स्कूल के मूल मूल्य क्या हैं?"
 ];
 
 const TEACHER_CONDUIT_PROMPT = "11x11";
@@ -54,7 +45,6 @@ function formatRemainingTime(ms: number): string {
 }
 
 export default function SchoolInfoChatbot() {
-  const { t, language } = useTranslation();
   const [question, setQuestion] = useState('');
   const [rawAnswer, setRawAnswer] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +71,7 @@ export default function SchoolInfoChatbot() {
   const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   
-  const [displaySuggestedQuestions, setDisplaySuggestedQuestions] = useState(() => shuffleArray(language === 'hi' ? [...initialSuggestedQuestionsHI] : [...initialSuggestedQuestionsEN]));
+  const [displaySuggestedQuestions, setDisplaySuggestedQuestions] = useState(() => shuffleArray([...initialSuggestedQuestions]));
 
   const [abuseStrikeCount, setAbuseStrikeCount] = useState<number>(0);
   const [cooldownEndTime, setCooldownEndTime] = useState<number | null>(null);
@@ -91,10 +81,6 @@ export default function SchoolInfoChatbot() {
   const isAnyAnimationActive = isAnimatingTextBefore || isAnimatingCode || isAnimatingTextAfter;
   const isOnCooldown = cooldownEndTime !== null && Date.now() < cooldownEndTime;
 
-  useEffect(() => {
-    setDisplaySuggestedQuestions(shuffleArray(language === 'hi' ? [...initialSuggestedQuestionsHI] : [...initialSuggestedQuestionsEN]));
-  }, [language]);
-  
   useEffect(() => {
     const storedStrikes = localStorage.getItem(LOCAL_STORAGE_STRIKE_COUNT_KEY);
     const storedCooldownEnd = localStorage.getItem(LOCAL_STORAGE_COOLDOWN_END_TIME_KEY);
@@ -387,7 +373,7 @@ export default function SchoolInfoChatbot() {
     if (isOnCooldown) return;
     setQuestion(suggestedQ);
     setIsAutoSubmitting(true); 
-    setDisplaySuggestedQuestions(shuffleArray(language === 'hi' ? [...initialSuggestedQuestionsHI] : [...initialSuggestedQuestionsEN]));
+    setDisplaySuggestedQuestions(shuffleArray([...initialSuggestedQuestions]));
   };
 
   useEffect(() => {
@@ -416,12 +402,12 @@ export default function SchoolInfoChatbot() {
       <CardHeader className="border-b">
         <CardTitle className="flex items-center gap-2 text-xl text-primary">
           {isUnrestrictedMode ? <Zap className="w-6 h-6 text-orange-500" /> : <BrainCircuit className="w-6 h-6" />}
-          {isUnrestrictedMode ? t('ai.chatbot.title.unrestricted') : t('ai.chatbot.title.school')}
+          {isUnrestrictedMode ? 'General AI Assistant' : 'HPS AI Assistant'}
         </CardTitle>
         <CardDescription>
           {isUnrestrictedMode 
-            ? t('ai.chatbot.desc.unrestricted') 
-            : t('ai.chatbot.desc.school')}
+            ? 'You can ask me anything! To return to school-specific info, type "#10x10" again.' 
+            : 'Ask me anything about Himalaya Public School. For general queries, type "#10x10" to enter unrestricted mode.'}
         </CardDescription>
       </CardHeader>
       <CardContent 
@@ -437,7 +423,7 @@ export default function SchoolInfoChatbot() {
                 setQuestion(e.target.value);
                 if (isAutoSubmitting) setIsAutoSubmitting(false); 
               }}
-              placeholder={isUnrestrictedMode ? t('ai.chatbot.input.placeholder.unrestricted') : t('ai.chatbot.input.placeholder.school')}
+              placeholder={isUnrestrictedMode ? 'Ask a general knowledge question...' : 'Ask about the school...'}
               className="w-full"
               disabled={isLoading || isAnyAnimationActive || isOnCooldown}
               aria-label="Your question"
@@ -448,22 +434,22 @@ export default function SchoolInfoChatbot() {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  {isAutoSubmitting ? t('ai.chatbot.button.asking') : t('ai.chatbot.button.thinking')}
+                  {isAutoSubmitting ? 'Asking...' : 'Thinking...'}
                 </>
               ) : (
-                t('ai.chatbot.button.submit')
+                'Ask AI'
               )}
             </Button>
             {isAnyAnimationActive && !isLoading && (
               <Button variant="outline" size="sm" onClick={handleBreakResponse} className="w-full sm:w-auto">
                 <StopCircle className="mr-2 h-4 w-4" />
-                {t('ai.chatbot.button.break')}
+                Stop Response
               </Button>
             )}
             {isUnrestrictedMode && !isLoading && !isAnyAnimationActive && !isOnCooldown && (
               <Button variant="outline" size="sm" onClick={handleExitUnrestrictedMode} className="w-full sm:w-auto text-orange-600 border-orange-500 hover:bg-orange-50">
                 <ArrowLeftCircle className="mr-2 h-4 w-4" />
-                {t('ai.chatbot.button.exit_unrestricted')}
+                Exit General Mode
               </Button>
             )}
           </div>
@@ -484,7 +470,7 @@ export default function SchoolInfoChatbot() {
           <div className="mt-6">
             <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center">
               <HelpCircle className="w-4 h-4 mr-2"/>
-              {t('ai.chatbot.suggestions.title')}
+              Or try one of these:
               </h4>
             <div className="flex flex-wrap gap-2">
               {displaySuggestedQuestions.map((sq, index) => (
@@ -507,7 +493,7 @@ export default function SchoolInfoChatbot() {
           {isLoading && (
             <div className="flex items-center justify-center text-muted-foreground mt-6">
               <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-              {t('ai.chatbot.thinking')}
+              The AI is thinking...
             </div>
           )}
           {error && !isLoading && !isOnCooldown && (
@@ -518,7 +504,7 @@ export default function SchoolInfoChatbot() {
           )}
           {(rawAnswer !== null && !isLoading && !error) && (
             <>
-              <h4 className="font-semibold mb-2 text-lg text-foreground mt-6">{t('ai.chatbot.answer.title')}</h4>
+              <h4 className="font-semibold mb-2 text-lg text-foreground mt-6">AI's Response:</h4>
               <div className="p-4 bg-secondary/10 rounded-md text-foreground/90 leading-relaxed prose max-w-none dark:prose-invert prose-p:my-2 prose-pre:bg-card prose-pre:shadow-md prose-code:font-code">
                 {textBefore !== null && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextBefore}</div>}
                 

@@ -7,14 +7,12 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { CalendarDays, ArrowRight } from 'lucide-react';
-import { useTranslation } from '@/hooks/use-translation';
 
 interface NewsItemProps {
   article: NewsArticle;
 }
 
 export default function NewsItem({ article }: NewsItemProps) {
-  const { t } = useTranslation();
   return (
     <Card className="flex flex-col md:flex-row overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 h-full group">
       <div className="md:w-1/3 relative aspect-video md:aspect-auto">
@@ -41,7 +39,7 @@ export default function NewsItem({ article }: NewsItemProps) {
         </CardContent>
         <CardFooter className="p-4 md:p-6 pt-0">
           <Button variant="link" asChild className="text-primary hover:text-accent p-0">
-            <Link href="#">{t('newsitem.readmore')} <ArrowRight className="w-4 h-4 ml-1" /></Link>
+            <Link href="#">Read More <ArrowRight className="w-4 h-4 ml-1" /></Link>
           </Button>
         </CardFooter>
       </div>

@@ -8,24 +8,21 @@ import NewsItem from "@/components/school-life/NewsItem";
 import { galleryItems, newsArticles } from "./school-life-data";
 import type { SchoolEvent, NewsArticle } from "@/types";
 import { Images, Newspaper } from "lucide-react";
-import { useTranslation } from "@/hooks/use-translation";
 
 export default function SchoolLifePage() {
-  const { t } = useTranslation();
-
   return (
     <div className="container mx-auto py-8">
-      <SectionWrapper title={t('schoollifepage.title')}>
+      <SectionWrapper title="A Glimpse into School Life">
         <p className="text-center text-lg text-foreground/80 mb-10 max-w-2xl mx-auto">
-          {t('schoollifepage.desc')}
+          Explore the vibrant activities, events, and achievements that make our school community special.
         </p>
         <Tabs defaultValue="gallery" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-6">
             <TabsTrigger value="gallery" className="py-3 text-base">
-              <Images className="mr-2 h-5 w-5" /> {t('schoollifepage.tab.gallery')}
+              <Images className="mr-2 h-5 w-5" /> Photo Gallery
             </TabsTrigger>
             <TabsTrigger value="news" className="py-3 text-base">
-              <Newspaper className="mr-2 h-5 w-5" /> {t('schoollifepage.tab.news')}
+              <Newspaper className="mr-2 h-5 w-5" /> News & Updates
             </TabsTrigger>
           </TabsList>
 
