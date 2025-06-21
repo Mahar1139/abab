@@ -11,6 +11,8 @@ import FloatingAIHelper from '@/components/ai/FloatingAIHelper';
 import PrivacyPolicyDialog from '@/components/layout/PrivacyPolicyDialog';
 import TermsConditionsDialog from '@/components/layout/TermsConditionsDialog';
 import Image from 'next/image';
+import { useTranslation } from '@/hooks/use-translation';
+
 
 // --- Independence Day Animation Logic (Preserved) ---
 const ANIMATION_DURATION = 800; 
@@ -39,6 +41,7 @@ interface TextElement {
 // --- End of Independence Day Animation Logic ---
 
 export default function HomePage() {
+  const { t } = useTranslation();
   // --- Independence Day Animation State & Effect (Preserved) ---
   const [animationContainerVisible, setAnimationContainerVisible] = useState(false);
   const [saffronPlane, setSaffronPlane] = useState<AnimatedElement>({
@@ -193,32 +196,23 @@ export default function HomePage() {
       <div className="flex flex-col min-h-screen animate-in fade-in-0 duration-500">
         {/* Hero Section */}
         <section className="relative w-full h-[75vh] md:h-[85vh] flex items-center justify-center text-center text-white overflow-hidden animate-in fade-in-0 duration-500">
-          {/* 
-            BACKGROUND VIDEO:
-            1. Place your video file (e.g., 'hero-background.mp4') in the `public/videos/` directory.
-            2. Ensure the `src` below matches the path to your video.
-            3. For best web compatibility, use the MP4 format. If you have a .MOV or other format, consider converting it.
-            4. You can also use a direct URL from a video hosting service (e.g., Firebase Storage, Vimeo, etc.) if you prefer.
-               If using an external URL for `next/image` with `src`, ensure the hostname is added to `next.config.ts` `images.remotePatterns`.
-               For `<video>`, no `next.config.ts` change is needed for external URLs.
-          */}
           <video
-            src="/videos/hero-background.mp4" // Ensure this path is correct or update to your video file/URL
+            src="/videos/hero-background.mp4"
             autoPlay
             loop
             muted
-            playsInline // Important for autoplay on mobile devices
+            playsInline
             className="absolute top-0 left-0 w-full h-full object-cover z-0"
-            poster="/images/himalaya-school-building.jpg" // Optional: Show an image while the video loads or if it fails
+            poster="/images/himalaya-school-building.jpg"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10" />
           <div className="relative z-20 p-4 md:p-8 max-w-4xl mx-auto">
             <div className="animate-in fade-in-0 slide-in-from-bottom-12 duration-1000 delay-200">
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl font-headline">
-                Welcome to Himalaya Public School
+                {t('homepage.hero.title')}
               </h1>
               <p className="text-lg sm:text-xl md:text-2xl mb-10 text-gray-100 drop-shadow-lg max-w-2xl mx-auto">
-                Nurturing curious minds and shaping future leaders with a holistic approach to learning and personal growth.
+                {t('homepage.hero.subtitle')}
               </p>
             </div>
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 animate-in fade-in-0 slide-in-from-bottom-10 duration-1000 delay-500">
@@ -227,7 +221,7 @@ export default function HomePage() {
                 size="lg"
                 className="w-full sm:w-auto px-10 py-7 text-lg font-semibold shadow-xl hover:scale-105 transition-transform duration-300 bg-primary hover:bg-primary/90 text-primary-foreground"
               >
-                <Link href="/academic-programs">Explore Programs</Link>
+                <Link href="/academic-programs">{t('homepage.hero.button.programs')}</Link>
               </Button>
               <Button
                 asChild
@@ -235,7 +229,7 @@ export default function HomePage() {
                 variant="outline"
                 className="w-full sm:w-auto px-10 py-7 text-lg font-semibold shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-white text-white hover:bg-white hover:text-primary"
               >
-                <Link href="/admissions">Apply Now</Link>
+                <Link href="/admissions">{t('homepage.hero.button.apply')}</Link>
               </Button>
             </div>
           </div>
@@ -245,15 +239,15 @@ export default function HomePage() {
         <SectionWrapper className="bg-card text-foreground py-16 md:py-24">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div className="animate-in fade-in-0 slide-in-from-left-10 duration-700 delay-200">
-              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 font-headline">A Tradition of Learning &amp; Growth</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 font-headline">{t('homepage.about.title')}</h2>
               <p className="text-lg text-foreground/80 leading-relaxed mb-4">
-                Since our inception, Himalaya Public School has been committed to providing an exceptional educational experience. We foster an environment where students are encouraged to explore their passions, develop critical thinking skills, and become compassionate, responsible global citizens.
+                {t('homepage.about.p1')}
               </p>
               <p className="text-lg text-foreground/80 leading-relaxed">
-                Our dedicated faculty, comprehensive curriculum, and state-of-the-art facilities create a dynamic learning atmosphere that prepares students for success in an ever-evolving world.
+                {t('homepage.about.p2')}
               </p>
               <Button asChild variant="link" className="text-primary hover:text-accent p-0 mt-6 text-lg">
-                <Link href="/faculty">Meet Our Team <ArrowRight className="ml-2" /></Link>
+                <Link href="/faculty">{t('homepage.about.button')} <ArrowRight className="ml-2" /></Link>
               </Button>
             </div>
             <div className="animate-in fade-in-0 slide-in-from-right-10 duration-700 delay-300">
@@ -272,17 +266,17 @@ export default function HomePage() {
         </SectionWrapper>
 
         {/* Why Choose Himalaya Section */}
-        <SectionWrapper title="Why Choose Himalaya?" className="bg-background text-foreground py-16 md:py-24">
+        <SectionWrapper title={t('homepage.whychooseus.title')} className="bg-background text-foreground py-16 md:py-24">
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { 
-                title: "Academic Excellence", 
+                title: t('homepage.whychooseus.card1.title'), 
                 icon: GraduationCap, 
-                description: "Rigorous curriculum, innovative teaching, and a focus on achieving full potential.", 
+                description: t('homepage.whychooseus.card1.desc'), 
                 delay: 200
               },
-              { title: "Holistic Development", icon: Leaf, description: "Balancing academics with arts, sports, and character-building activities for all-round growth.", delay: 400 },
-              { title: "Supportive Community", icon: Users, description: "A nurturing and inclusive environment where every student feels valued and supported.", delay: 600 }
+              { title: t('homepage.whychooseus.card2.title'), icon: Leaf, description: t('homepage.whychooseus.card2.desc'), delay: 400 },
+              { title: t('homepage.whychooseus.card3.title'), icon: Users, description: t('homepage.whychooseus.card3.desc'), delay: 600 }
             ].map((item, index) => (
               <Card key={index} className="shadow-xl hover:shadow-2xl transition-all duration-300 bg-card hover:border-primary/50 group animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{ animationDelay: `${item.delay}ms`}}>
                 <CardHeader className="items-center text-center">
@@ -300,16 +294,16 @@ export default function HomePage() {
         </SectionWrapper>
 
         {/* Our Programs Teaser Section */}
-        <SectionWrapper title="Pathways to Success: Our Programs" className="bg-card text-foreground py-16 md:py-24">
+        <SectionWrapper title={t('homepage.programs.title')} className="bg-card text-foreground py-16 md:py-24">
           <p className="text-center text-lg text-foreground/80 mb-12 max-w-2xl mx-auto">
-            We offer a diverse range of programs designed to cater to different learning stages and interests, ensuring a strong foundation for every student.
+            {t('homepage.programs.desc')}
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { title: "Primary School", description: "Building foundational skills in a nurturing environment.", icon: BookOpenCheck, href: "/academic-programs#primary", delay: 200, dataAiHint: "children classroom" },
-              { title: "Middle School", description: "Developing critical thinking and exploring new subjects.", icon: TrendingUp, href: "/academic-programs#middle", delay: 300, dataAiHint: "students science" },
-              { title: "High School", description: "Preparing for board exams and specialized studies.", icon: ShieldCheck, href: "/academic-programs#high", delay: 400, dataAiHint: "teenagers studying" },
-              { title: "Tech Programs", description: "Coding, Robotics, and Digital Literacy for the future.", icon: Zap, href: "/tech-programs", delay: 500, dataAiHint: "robotics coding" },
+              { title: t('homepage.programs.card1.title'), description: t('homepage.programs.card1.desc'), icon: BookOpenCheck, href: "/academic-programs#primary", delay: 200, dataAiHint: "children classroom" },
+              { title: t('homepage.programs.card2.title'), description: t('homepage.programs.card2.desc'), icon: TrendingUp, href: "/academic-programs#middle", delay: 300, dataAiHint: "students science" },
+              { title: t('homepage.programs.card3.title'), description: t('homepage.programs.card3.desc'), icon: ShieldCheck, href: "/academic-programs#high", delay: 400, dataAiHint: "teenagers studying" },
+              { title: t('homepage.programs.card4.title'), description: t('homepage.programs.card4.desc'), icon: Zap, href: "/tech-programs", delay: 500, dataAiHint: "robotics coding" },
             ].map((program) => (
               <Card key={program.title} className="group overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full bg-background hover:border-accent/50 animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{ animationDelay: `${program.delay}ms`}}>
                 <CardHeader className="items-center text-center p-4">
@@ -324,7 +318,7 @@ export default function HomePage() {
                 <CardContent className="text-center p-4">
                   <Button asChild variant="outline" className="text-accent border-accent hover:bg-accent hover:text-accent-foreground transition-colors">
                     <Link href={program.href}>
-                      Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                      {t('homepage.programs.button')} <ArrowRight className="ml-2 w-4 h-4" />
                     </Link>
                   </Button>
                 </CardContent>
@@ -334,15 +328,15 @@ export default function HomePage() {
         </SectionWrapper>
 
         {/* School Life Teaser Section */}
-        <SectionWrapper title="Beyond the Classroom: Vibrant School Life" className="bg-background text-foreground py-16 md:py-24">
+        <SectionWrapper title={t('homepage.schoollife.title')} className="bg-background text-foreground py-16 md:py-24">
           <p className="text-center text-lg text-foreground/80 mb-12 max-w-2xl mx-auto">
-            Our school is a hub of activity, offering numerous opportunities for students to engage, learn, and grow outside of academics.
+            {t('homepage.schoollife.desc')}
           </p>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: "Sports &amp; Athletics", icon: Activity, description: "Fostering teamwork, discipline, and physical well-being through a variety of sports.", delay: 200, dataAiHint:"students playing sports" },
-              { title: "Arts &amp; Culture", icon: Palette, description: "Encouraging creativity and self-expression through music, drama, visual arts, and cultural events.", delay: 350, dataAiHint:"children painting art" },
-              { title: "Clubs &amp; Events", icon: Telescope, description: "Diverse clubs and engaging school events that enrich the student experience and build community.", delay: 500, dataAiHint:"student clubs activity" },
+              { title: t('homepage.schoollife.card1.title'), icon: Activity, description: t('homepage.schoollife.card1.desc'), delay: 200, dataAiHint:"students playing sports" },
+              { title: t('homepage.schoollife.card2.title'), icon: Palette, description: t('homepage.schoollife.card2.desc'), delay: 350, dataAiHint:"children painting art" },
+              { title: t('homepage.schoollife.card3.title'), icon: Telescope, description: t('homepage.schoollife.card3.desc'), delay: 500, dataAiHint:"student clubs activity" },
             ].map((item) => (
                <Card key={item.title} className="bg-card shadow-lg rounded-lg p-6 text-center group hover:shadow-xl transition-shadow duration-300 animate-in fade-in-0 slide-in-from-bottom-5 duration-700" style={{animationDelay: `${item.delay}ms`}}>
                   <div className="flex justify-center mb-4">
@@ -368,28 +362,28 @@ export default function HomePage() {
                   <span className="text-2xl font-bold text-primary-foreground group-hover:text-accent transition-colors font-headline">Himalaya Public School</span>
                 </Link>
                 <p className="text-base font-semibold text-primary-foreground">
-                  Nurturing potential, inspiring futures.
+                  {t('homepage.footer.motto')}
                 </p>
               </div>
 
               {/* Column 2: Quick Links */}
               <div className="animate-in fade-in-0 slide-in-from-bottom-5 duration-700 delay-200">
-                <h3 className="text-xl font-bold text-secondary mb-5 font-headline">Explore</h3>
+                <h3 className="text-xl font-bold text-secondary mb-5 font-headline">{t('homepage.footer.explore')}</h3>
                 <ul className="space-y-2.5">
-                  <li><Link href="/academic-programs" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />Academic Programs</Link></li>
-                  <li><Link href="/admissions" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />Admissions</Link></li>
-                  <li><Link href="/faculty" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />Our Faculty</Link></li>
-                  <li><Link href="/school-life" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />School Life</Link></li>
+                  <li><Link href="/academic-programs" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />{t('nav.admissions')}</Link></li>
+                  <li><Link href="/admissions" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />{t('nav.admissions')}</Link></li>
+                  <li><Link href="/faculty" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />{t('nav.faculty')}</Link></li>
+                  <li><Link href="/school-life" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />{t('nav.schoolLife')}</Link></li>
                 </ul>
               </div>
 
               {/* Column 3: Contact Details */}
               <div className="animate-in fade-in-0 slide-in-from-bottom-5 duration-700 delay-300">
-                <h3 className="text-xl font-bold text-secondary mb-5 font-headline">Get in Touch</h3>
+                <h3 className="text-xl font-bold text-secondary mb-5 font-headline">{t('homepage.footer.touch')}</h3>
                 <ul className="space-y-3.5 text-base font-medium text-primary-foreground/90">
                   <li className="flex items-start">
                     <MapPin className="w-4 h-4 mr-3 mt-1 text-primary-foreground shrink-0" />
-                    <span>Near Sports Stadium, Pithoragarh</span>
+                    <span>{t('homepage.footer.address')}</span>
                   </li>
                   <li className="flex items-center">
                     <Phone className="w-4 h-4 mr-3 text-primary-foreground shrink-0" />
@@ -406,14 +400,14 @@ export default function HomePage() {
               </div>
             </div>
             <div className="border-t border-primary-foreground/30 pt-8 text-center">
-              <p className="text-sm font-medium text-primary-foreground/80">&copy; {new Date().getFullYear()} Himalaya Public School. All Rights Reserved.</p>
+              <p className="text-sm font-medium text-primary-foreground/80">{t('homepage.footer.copyright', {year: new Date().getFullYear()})}</p>
               <div className="mt-3">
                 <PrivacyPolicyDialog />
                 <span className="mx-1.5 text-primary-foreground/80">|</span>
                 <TermsConditionsDialog />
               </div>
               <p className="text-xs text-primary-foreground/70 mt-4">
-                Website by <Link href="/developed-by" className="font-semibold hover:text-white hover:underline">PRINCE &amp; SHUBHAM {'{InfinityX}'}</Link>
+                {t('homepage.footer.developedBy')} <Link href="/developed-by" className="font-semibold hover:text-white hover:underline">PRINCE &amp; SHUBHAM {'{InfinityX}'}</Link>
               </p>
             </div>
           </div>
@@ -424,4 +418,3 @@ export default function HomePage() {
     </div>
   );
 }
-

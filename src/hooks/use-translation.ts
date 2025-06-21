@@ -5,6 +5,7 @@ import { useLanguage } from '@/context/LanguageContext';
 
 const translations = {
   en: {
+    // --- Settings ---
     'settings.title': 'Website Settings',
     'settings.description': 'Customize the appearance and language of the application.',
     'settings.theme.label': 'Theme',
@@ -17,6 +18,7 @@ const translations = {
     'settings.language.description': 'Full-site language switching is a planned feature.',
   },
   hi: {
+    // --- Settings ---
     'settings.title': 'वेबसाइट सेटिंग्स',
     'settings.description': 'एप्लिकेशन की उपस्थिति और भाषा को अनुकूलित करें।',
     'settings.theme.label': 'थीम',
@@ -37,5 +39,5 @@ export function useTranslation() {
     return translations[language]?.[key] || translations['en'][key] || key;
   };
 
-  return { t };
+  return { t, language };
 }

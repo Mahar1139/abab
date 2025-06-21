@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Button } from '@/components/ui/button';
 import { SettingsDialog } from '@/components/settings/SettingsDialog';
+import { useTranslation } from '@/hooks/use-translation';
 import { 
   Home, 
   BookOpen, 
@@ -29,21 +30,22 @@ import {
   Code
 } from 'lucide-react';
 
-const navItems = [
-  { href: '/', label: 'School Overview', icon: Home },
-  { href: '/admissions', label: 'Admissions', icon: BookOpen },
-  { href: '/tech-programs', label: 'Tech Programs', icon: Cpu },
-  { href: '/faculty', label: 'Faculty Directory', icon: Users },
-  { href: '/school-life', label: 'School Life', icon: ImageIcon },
-  { href: '/events-calendar', label: 'Events Calendar', icon: CalendarDays },
-  { href: '/student-achievements', label: 'Student Achievements', icon: Award },
-  { href: '/library', label: 'Library', icon: Library },
-  { href: '/quiz', label: 'AI Quiz Challenge', icon: Brain },
-];
-
 export default function AppSidebar() {
   const pathname = usePathname();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const { t } = useTranslation();
+
+  const navItems = [
+    { href: '/', label: t('nav.home'), icon: Home },
+    { href: '/admissions', label: t('nav.admissions'), icon: BookOpen },
+    { href: '/tech-programs', label: t('nav.tech'), icon: Cpu },
+    { href: '/faculty', label: t('nav.faculty'), icon: Users },
+    { href: '/school-life', label: t('nav.schoolLife'), icon: ImageIcon },
+    { href: '/events-calendar', label: t('nav.events'), icon: CalendarDays },
+    { href: '/student-achievements', label: t('nav.achievements'), icon: Award },
+    { href: '/library', label: t('nav.library'), icon: Library },
+    { href: '/quiz', label: t('nav.quiz'), icon: Brain },
+  ];
 
   const displayedNavItems = navItems.filter(item => item.href !== '/developed-by');
 
@@ -86,7 +88,7 @@ export default function AppSidebar() {
             className="w-full justify-start group-data-[collapsible=icon]:justify-center text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
           >
             <Settings className="w-5 h-5" />
-            <span className="group-data-[collapsible=icon]:hidden">Settings</span>
+            <span className="group-data-[collapsible=icon]:hidden">{t('settings.title')}</span>
           </Button>
           <p className="text-xs text-sidebar-foreground/70 group-data-[collapsible=icon]:hidden text-center pt-2">
             Himalaya Public School All rights reserved.

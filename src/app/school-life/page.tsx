@@ -1,4 +1,6 @@
 
+'use client';
+
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GalleryImage from "@/components/school-life/GalleryImage";
@@ -6,21 +8,24 @@ import NewsItem from "@/components/school-life/NewsItem";
 import { galleryItems, newsArticles } from "./school-life-data";
 import type { SchoolEvent, NewsArticle } from "@/types";
 import { Images, Newspaper } from "lucide-react";
+import { useTranslation } from "@/hooks/use-translation";
 
 export default function SchoolLifePage() {
+  const { t } = useTranslation();
+
   return (
     <div className="container mx-auto py-8">
-      <SectionWrapper title="Vibrant School Life at Himalaya">
+      <SectionWrapper title={t('schoollifepage.title')}>
         <p className="text-center text-lg text-foreground/80 mb-10 max-w-2xl mx-auto">
-          Experience the dynamic and enriching environment at Himalaya Public School through our events, activities, and latest news.
+          {t('schoollifepage.desc')}
         </p>
         <Tabs defaultValue="gallery" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-6">
             <TabsTrigger value="gallery" className="py-3 text-base">
-              <Images className="mr-2 h-5 w-5" /> Photo Gallery
+              <Images className="mr-2 h-5 w-5" /> {t('schoollifepage.tab.gallery')}
             </TabsTrigger>
             <TabsTrigger value="news" className="py-3 text-base">
-              <Newspaper className="mr-2 h-5 w-5" /> School News
+              <Newspaper className="mr-2 h-5 w-5" /> {t('schoollifepage.tab.news')}
             </TabsTrigger>
           </TabsList>
 

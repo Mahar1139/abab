@@ -11,6 +11,7 @@ import { Send, User, Loader2, BrainCircuit, ShieldBan } from 'lucide-react'; // 
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { useTranslation } from '@/hooks/use-translation';
 
 interface Message {
   id: string;
@@ -39,6 +40,7 @@ function formatRemainingTime(ms: number): string {
 
 
 export default function FloatingAIHelper() {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -53,7 +55,7 @@ export default function FloatingAIHelper() {
   const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);
   const isOnCooldown = cooldownEndTime !== null && Date.now() < cooldownEndTime;
 
-  const initialGreeting = "Greetings! Step into the world of Himalaya Public School with your dedicated AI companion. Whether you're curious about our innovative programs, the admissions journey, our vibrant school life, or need a hand with general knowledge or coding challenges, I'm here to illuminate your path. How may I assist you in your exploration today?";
+  const initialGreeting = t('ai.floating.initial_greeting');
   
   useEffect(() => {
     const storedStrikes = localStorage.getItem(LOCAL_STORAGE_STRIKE_COUNT_KEY_FLOAT);
@@ -140,7 +142,7 @@ export default function FloatingAIHelper() {
 
     if (userMessageText.toLowerCase() === UNRESTRICTED_MODE_PROMPT_FLOAT) {
       setIsUnrestrictedMode(!isUnrestrictedMode); 
-      const modeMessage = !isUnrestrictedMode ? "Unrestricted AI mode enabled. Ask anything!" : "Switched back to School Assistant mode.";
+      const modeMessage = !isUnrestrictedMode ? t('ai.floating.unrestricted.enabled') : t('ai.floating.unrestricted.disabled');
       setMessages(prev => [...prev, 
         { id: `user-${Date.now()}`, text: userMessageText, sender: 'user' },
         { id: `mode-switch-${Date.now()}`, text: modeMessage, sender: 'ai' }
@@ -231,10 +233,10 @@ export default function FloatingAIHelper() {
             <SheetHeader className="p-4 border-b">
               <SheetTitle className="flex items-center gap-2 text-primary">
                 {isUnrestrictedMode ? <BrainCircuit className="h-6 w-6 text-orange-500" /> : <BrainCircuit className="h-6 w-6" />}
-                {isUnrestrictedMode ? "Unrestricted AI" : "AI Helper"}
+                {isUnrestrictedMode ? t('ai.chatbot.title.unrestricted') : t('ai.chatbot.title.school')}
               </SheetTitle>
               <SheetDescription className="text-xs">
-                {isUnrestrictedMode ? "Ask any general question." : "Ask about the school or general topics."}
+                {isUnrestrictedMode ? t('ai.chatbot.desc.unrestricted') : t('ai.chatbot.desc.school')}
               </SheetDescription>
             </SheetHeader>
             
@@ -283,7 +285,7 @@ export default function FloatingAIHelper() {
                       <ShieldBan className={cn("h-6 w-6 shrink-0 mb-1", "text-yellow-500")} />
                        <div className={cn("max-w-[80%] rounded-lg px-3 py-2 shadow", "bg-yellow-100 text-yellow-800 border border-yellow-300 dark:bg-yellow-900/30 dark:text-yellow-300 dark:border-yellow-700")}>
                           <p className="whitespace-pre-line text-sm">
-                              Interaction paused. Time remaining: <strong className="tabular-nums">{remainingCooldownTime}</strong>.
+                              {t('ai.floating.cooldown.message', {time: remainingCooldownTime})}
                           </p>
                       </div>
                   </div>
@@ -296,7 +298,7 @@ export default function FloatingAIHelper() {
                   type="text"
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder={isOnCooldown ? "Interaction paused..." : (isUnrestrictedMode ? "Ask anything..." : "Type your question...")}
+                  placeholder={isOnCooldown ? t('ai.floating.input.placeholder.cooldown') : (isUnrestrictedMode ? t('ai.floating.input.placeholder.unrestricted') : t('ai.floating.input.placeholder.school'))}
                   className="flex-1"
                   disabled={isLoading || isOnCooldown}
                   aria-label="Your question for the AI assistant"
