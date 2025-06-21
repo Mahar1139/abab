@@ -108,8 +108,18 @@ export default function QuizPage() {
   const [questionExplanations, setQuestionExplanations] = useState<Record<string, QuestionExplanation>>({});
 
   const [isClient, setIsClient] = useState(false);
+  const [showChallengeAlert, setShowChallengeAlert] = useState(false);
+
   useEffect(() => {
     setIsClient(true);
+    
+    // Challenge Alert Logic
+    setShowChallengeAlert(true);
+    const timer = setTimeout(() => {
+      setShowChallengeAlert(false);
+    }, 5000); // Disappears after 5 seconds
+
+    return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
@@ -277,6 +287,18 @@ export default function QuizPage() {
 
   return (
     <div className="container mx-auto py-8">
+      {showChallengeAlert && (
+        <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 w-11/12 max-w-md animate-in fade-in slide-in-from-top-5">
+          <Alert className="bg-accent text-accent-foreground border-accent-foreground/20 shadow-2xl">
+            <Brain className="h-5 w-5 text-accent-foreground" />
+            <AlertTitle className="font-bold">Challenge Issued!</AlertTitle>
+            <AlertDescription>
+              Hi! I am the Himalaya Public School Assistant. Are you ready for a challenge? I am giving you an open challenge! 🤘
+            </AlertDescription>
+          </Alert>
+        </div>
+      )}
+
       <SectionWrapper title="AI Quiz Challenge">
         <Card className="shadow-xl">
           <CardHeader>

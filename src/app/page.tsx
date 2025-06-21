@@ -12,6 +12,7 @@ import PrivacyPolicyDialog from '@/components/layout/PrivacyPolicyDialog';
 import TermsConditionsDialog from '@/components/layout/TermsConditionsDialog';
 import Image from 'next/image';
 import { useTranslation } from '@/hooks/use-translation';
+import QuizAdDialog from '@/components/shared/QuizAdDialog';
 
 
 // --- Independence Day Animation Logic (Preserved) ---
@@ -42,6 +43,19 @@ interface TextElement {
 
 export default function HomePage() {
   const { t } = useTranslation();
+  const [isAdOpen, setIsAdOpen] = useState(false);
+
+  useEffect(() => {
+    // Only show ad once per session for a better user experience
+    if (!sessionStorage.getItem('adShown')) {
+      const timer = setTimeout(() => {
+        setIsAdOpen(true);
+        sessionStorage.setItem('adShown', 'true');
+      }, 2000); // 2-second delay
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
   // --- Independence Day Animation State & Effect (Preserved) ---
   const [animationContainerVisible, setAnimationContainerVisible] = useState(false);
   const [saffronPlane, setSaffronPlane] = useState<AnimatedElement>({
@@ -122,7 +136,9 @@ export default function HomePage() {
   // --- End of Independence Day Animation State & Effect ---
 
   return (
-    <div> 
+    <div>
+      <QuizAdDialog open={isAdOpen} onOpenChange={setIsAdOpen} />
+ 
       {/* --- Independence Day Animation Container (Preserved) --- */}
       {animationContainerVisible && (
         <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden bg-transparent">
@@ -227,7 +243,7 @@ export default function HomePage() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto px-10 py-7 text-lg font-semibold shadow-xl hover:scale-105 transition-transform duration-300 text-white border-white dark:text-white dark:border-white"
+                className="w-full sm:w-auto px-10 py-7 text-lg font-semibold shadow-xl hover:scale-105 transition-transform duration-300 text-white border-white dark:text-white dark:border-white bg-black/20 hover:bg-white/20 dark:bg-black/20 dark:hover:bg-white/20"
               >
                 <Link href="/admissions">Apply Now</Link>
               </Button>
