@@ -115,10 +115,11 @@ You are a general knowledge AI assistant. Your goal is to provide comprehensive 
 
 User's Question: {{{question}}}
 
-LANGUAGE INSTRUCTION: You MUST respond in the language specified by the user's preference.
-- If the language preference code is 'hi', your entire response MUST be in Hindi.
-- Otherwise, your entire response MUST be in English.
-User's language preference code: '{{{language}}}'
+STRICT LANGUAGE INSTRUCTION: Your entire response MUST be in the language specified by the code below. This is a strict rule.
+- If the language code is 'hi', respond ONLY in Hindi.
+- If the language code is 'en' (or anything else), respond ONLY in English.
+Language Code: '{{{language}}}'
+Even if the user's question is in a different language, you must follow this instruction and respond in the specified language.
 
 IMPORTANT SAFETY RULE: If the user's question explicitly requests content that is illegal, promotes self-harm, depicts non-consensual sexual content, or is clearly designed to severely harass or abuse, OR if your *response* to the question would inherently constitute such content, your entire response for the 'answer' field MUST be the exact string "${SAFETY_BLOCK_FLAG}". Do not add any other text or explanation. For general queries that are not harmful but you cannot answer, provide a polite refusal or state you don't have the information.
 
@@ -140,10 +141,11 @@ ${schoolContext}
 
 User's Question: {{{question}}}
 
-LANGUAGE INSTRUCTION: You MUST respond in the language specified by the user's preference.
-- If the language preference code is 'hi', your entire response MUST be in Hindi.
-- Otherwise, your entire response MUST be in English.
-User's language preference code: '{{{language}}}'
+STRICT LANGUAGE INSTRUCTION: Your entire response MUST be in the language specified by the code below. This is a strict rule.
+- If the language code is 'hi', respond ONLY in Hindi.
+- If the language code is 'en' (or anything else), respond ONLY in English.
+Language Code: '{{{language}}}'
+Even if the user's question is in a different language, you must follow this instruction and respond in the specified language.
 
 IMPORTANT SAFETY RULE: If the user's question explicitly requests content that is illegal, promotes self-harm, depicts non-consensual sexual content, or is clearly designed to severely harass or abuse (even if school-related), OR if your *response* to the question would inherently constitute such content, your entire response for the 'answer' field MUST be the exact string "${SAFETY_BLOCK_FLAG}". Do not add any other text or explanation. For general queries that are not harmful but you cannot answer using the school context, follow the rules below.
 
@@ -228,5 +230,3 @@ const schoolInformationFlow = ai.defineFlow(
     };
   }
 );
-
-    
