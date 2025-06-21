@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Loader2, BrainCircuit, HelpCircle, StopCircle, Zap, ArrowLeftCircle, ShieldBan } from 'lucide-react'; // Changed Cpu to BrainCircuit
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
+import { useLanguage } from '@/context/LanguageContext';
 
 const initialSuggestedQuestions = [
   "What is the school's mission?",
@@ -52,6 +53,7 @@ export default function SchoolInfoChatbot() {
   const [isAutoSubmitting, setIsAutoSubmitting] = useState(false);
   const [isUnrestrictedMode, setIsUnrestrictedMode] = useState(false);
   const router = useRouter();
+  const { language } = useLanguage();
 
   const [textBefore, setTextBefore] = useState<string | null>(null);
   const [codeContent, setCodeContent] = useState<string | null>(null);
@@ -297,7 +299,8 @@ export default function SchoolInfoChatbot() {
     try {
       const input: SchoolInformationInput = { 
         question: currentQuestion,
-        unrestrictedMode: unrestricted
+        unrestrictedMode: unrestricted,
+        language: language,
       };
       const result: SchoolInformationOutput = await getSchoolInformation(input);
       
@@ -525,3 +528,5 @@ export default function SchoolInfoChatbot() {
     </Card>
   );
 }
+
+    

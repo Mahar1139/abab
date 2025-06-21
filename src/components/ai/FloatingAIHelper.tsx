@@ -11,6 +11,7 @@ import { Send, User, Loader2, BrainCircuit, ShieldBan } from 'lucide-react'; // 
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
+import { useLanguage } from '@/context/LanguageContext';
 
 interface Message {
   id: string;
@@ -46,6 +47,7 @@ export default function FloatingAIHelper() {
   const [isUnrestrictedMode, setIsUnrestrictedMode] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { language } = useLanguage();
 
   const [abuseStrikeCount, setAbuseStrikeCount] = useState<number>(0);
   const [cooldownEndTime, setCooldownEndTime] = useState<number | null>(null);
@@ -161,7 +163,8 @@ export default function FloatingAIHelper() {
     try {
       const input: SchoolInformationInput = { 
         question: userMessageText,
-        unrestrictedMode: isUnrestrictedMode
+        unrestrictedMode: isUnrestrictedMode,
+        language: language,
       };
       const result: SchoolInformationOutput = await getSchoolInformation(input);
       
@@ -313,3 +316,5 @@ export default function FloatingAIHelper() {
     </>
   );
 }
+
+    

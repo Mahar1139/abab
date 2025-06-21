@@ -83,7 +83,8 @@ The 'Admissions' page is the primary contact point for inquiries.
 
 const SchoolInformationInputSchema = z.object({
   question: z.string().describe('The user\'s question about Himalaya Public School, a general query, or a request for code/game generation.'),
-  unrestrictedMode: z.boolean().optional().describe('If true, the AI should answer any question without school-specific restrictions or context, acting as a general knowledge AI.')
+  unrestrictedMode: z.boolean().optional().describe('If true, the AI should answer any question without school-specific restrictions or context, acting as a general knowledge AI.'),
+  language: z.string().optional().describe('The language for the AI to respond in (e.g., "en" for English, "hi" for Hindi). Defaults to "en".'),
 });
 export type SchoolInformationInput = z.infer<typeof SchoolInformationInputSchema>;
 
@@ -114,7 +115,10 @@ You are a general knowledge AI assistant. Your goal is to provide comprehensive 
 
 User's Question: {{{question}}}
 
-LANGUAGE INSTRUCTION: You MUST analyze the language of the user's question. If the question is in Hindi, respond in Hindi. If it is in English, respond in English. If it is a mix (Hinglish), please respond in Hindi.
+LANGUAGE INSTRUCTION: You MUST respond in the language specified by the user's preference.
+- If the language preference code is 'hi', your entire response MUST be in Hindi.
+- Otherwise, your entire response MUST be in English.
+User's language preference code: '{{{language}}}'
 
 IMPORTANT SAFETY RULE: If the user's question explicitly requests content that is illegal, promotes self-harm, depicts non-consensual sexual content, or is clearly designed to severely harass or abuse, OR if your *response* to the question would inherently constitute such content, your entire response for the 'answer' field MUST be the exact string "${SAFETY_BLOCK_FLAG}". Do not add any other text or explanation. For general queries that are not harmful but you cannot answer, provide a polite refusal or state you don't have the information.
 
@@ -136,7 +140,10 @@ ${schoolContext}
 
 User's Question: {{{question}}}
 
-LANGUAGE INSTRUCTION: You MUST analyze the language of the user's question. If the question is in Hindi, respond in Hindi. If it is in English, respond in English. If it is a mix (Hinglish), please respond in Hindi.
+LANGUAGE INSTRUCTION: You MUST respond in the language specified by the user's preference.
+- If the language preference code is 'hi', your entire response MUST be in Hindi.
+- Otherwise, your entire response MUST be in English.
+User's language preference code: '{{{language}}}'
 
 IMPORTANT SAFETY RULE: If the user's question explicitly requests content that is illegal, promotes self-harm, depicts non-consensual sexual content, or is clearly designed to severely harass or abuse (even if school-related), OR if your *response* to the question would inherently constitute such content, your entire response for the 'answer' field MUST be the exact string "${SAFETY_BLOCK_FLAG}". Do not add any other text or explanation. For general queries that are not harmful but you cannot answer using the school context, follow the rules below.
 
@@ -221,3 +228,5 @@ const schoolInformationFlow = ai.defineFlow(
     };
   }
 );
+
+    
