@@ -55,6 +55,10 @@ Correct Answer: "{{{correctAnswer}}}"
 User's Selected Answer: "{{{userSelectedAnswer}}}"
 
 Your Task:
+
+**CRITICAL LANGUAGE INSTRUCTION:**
+If the topic is "Hindi Literature", the entire 'textualExplanation' MUST be in Hindi (Devanagari script). The 'imageGenerationInstruction' should remain in English as it is for an internal system.
+
 1.  Provide a clear, step-by-step textual explanation detailing how to arrive at the '{{{correctAnswer}}}'.
     *   For mathematical problems, show the complete working and calculations.
     *   For reasoning problems, clearly outline the logical steps or pattern.
