@@ -14,7 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { generateQuizQuestion, type GenerateQuizQuestionOutput, type GenerateQuizQuestionInput } from "@/ai/flows/generate-quiz-question-flow";
 import { explainQuizAnswer, type ExplainQuizAnswerInput, type ExplainQuizAnswerOutput } from "@/ai/flows/explain-quiz-answer-flow";
-import { Brain, CheckCircle, XCircle, Award, RotateCcw, Loader2, Info, HelpCircle, Lightbulb } from "lucide-react";
+import { Brain, CheckCircle, XCircle, Award, RotateCcw, Loader2, Info, HelpCircle, Lightbulb, Target } from "lucide-react";
 
 type QuizState = "selecting_topic_difficulty" | "in_progress" | "finished";
 
@@ -58,7 +58,7 @@ const competitiveStylesMap: Record<string, string[]> = {
     "KVS TGT - Subject Paper", "KVS PGT - Subject Paper",
     "Legend - General Advanced"
   ],
-  "Hindi Literature": ["KVS PRT - General Paper", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - Lecturer Test Prep", "Legend - General Advanced"],
+  "Hindi Literature": ["KVS PRT - General Paper", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - Lecturer Test Prep", "KVS Abki Baar 180 Paar!", "Legend - General Advanced"],
   "Quantitative Aptitude": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
   "Reasoning Ability": ["KVS PRT - General Paper", "Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
   "English Language": ["KVS PRT - General Paper", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
@@ -82,6 +82,8 @@ const getDifficultyOptionsForTopic = (topic: string | null): string[] => {
     const isBBase = baseDifficulties.includes(b);
     if (isABase && !isBBase) return -1;
     if (!isABase && isBBase) return 1;
+    if (a.includes('KVS Abki Baar')) return 1; // Put special KVS batch at end
+    if (b.includes('KVS Abki Baar')) return -1;
     return a.localeCompare(b); 
   });
 };
@@ -265,6 +267,9 @@ export default function QuizPage() {
     if (level.startsWith("Normal - ")) {
       return `Normal (${level.substring("Normal - ".length)} Style)`;
     }
+    if (level.startsWith("KVS Abki Baar")) {
+      return `🎯 ${level}`;
+    }
     if (level.startsWith("KVS")) {
         return `Exam: ${level}`;
     }
@@ -314,7 +319,11 @@ export default function QuizPage() {
                       </SelectTrigger>
                       <SelectContent>
                         {currentDifficultyOptions.map(level => (
-                          <SelectItem key={level} value={level} className="text-lg py-2">
+                          <SelectItem 
+                            key={level} 
+                            value={level} 
+                            className={`text-lg py-2 ${level.includes('KVS Abki Baar') ? 'text-accent font-bold' : ''}`}
+                          >
                             {formatDifficultyLabel(level)}
                           </SelectItem>
                         ))}
