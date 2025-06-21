@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link'
@@ -12,7 +11,6 @@ import PrivacyPolicyDialog from '@/components/layout/PrivacyPolicyDialog';
 import TermsConditionsDialog from '@/components/layout/TermsConditionsDialog';
 import Image from 'next/image';
 import { useTranslation } from '@/hooks/use-translation';
-import QuizAdDialog from '@/components/shared/QuizAdDialog';
 
 
 // --- Independence Day Animation Logic (Preserved) ---
@@ -43,19 +41,7 @@ interface TextElement {
 
 export default function HomePage() {
   const { t } = useTranslation();
-  const [isAdOpen, setIsAdOpen] = useState(false);
 
-  useEffect(() => {
-    // Only show ad once per session for a better user experience
-    if (!sessionStorage.getItem('adShown')) {
-      const timer = setTimeout(() => {
-        setIsAdOpen(true);
-        sessionStorage.setItem('adShown', 'true');
-      }, 16000); // 16-second delay
-
-      return () => clearTimeout(timer);
-    }
-  }, []);
   // --- Independence Day Animation State & Effect (Preserved) ---
   const [animationContainerVisible, setAnimationContainerVisible] = useState(false);
   const [saffronPlane, setSaffronPlane] = useState<AnimatedElement>({
@@ -137,8 +123,6 @@ export default function HomePage() {
 
   return (
     <div>
-      <QuizAdDialog open={isAdOpen} onOpenChange={setIsAdOpen} />
- 
       {/* --- Independence Day Animation Container (Preserved) --- */}
       {animationContainerVisible && (
         <div className="fixed inset-0 z-[100] pointer-events-none overflow-hidden bg-transparent">

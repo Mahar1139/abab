@@ -1,7 +1,7 @@
 
 "use client";
 
-import React from 'react'; 
+import React, { useState, useEffect } from 'react'; 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
@@ -9,10 +9,23 @@ import AppSidebar from './AppSidebar';
 import PageHeader from '../shared/PageHeader';
 import { School, Mail, BookOpen, Cpu } from 'lucide-react'; 
 import { Button } from '@/components/ui/button';
+import QuizAdDialog from '../shared/QuizAdDialog';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  // showFooter variable and its logic removed
+  const [isAdOpen, setIsAdOpen] = useState(false);
+
+  useEffect(() => {
+    // Only show ad once per session for a better user experience
+    if (!sessionStorage.getItem('adShown')) {
+      const timer = setTimeout(() => {
+        setIsAdOpen(true);
+        sessionStorage.setItem('adShown', 'true');
+      }, 16000); // 16-second delay
+
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   return (
     <SidebarProvider defaultOpen={false}>
@@ -22,9 +35,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
         <main className="flex-1 overflow-y-auto animate-in fade-in-0 duration-500 ease-out">
           {children}
         </main>
-        {/* Footer block and its conditional rendering removed */}
+        <QuizAdDialog open={isAdOpen} onOpenChange={setIsAdOpen} />
       </SidebarInset>
     </SidebarProvider>
   );
 }
-
