@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import AppLayout from '@/components/layout/AppLayout';
 import { Playfair_Display, PT_Sans } from 'next/font/google';
 import { ThemeProvider } from '@/components/layout/ThemeProvider';
+import { LanguageProvider } from '@/context/LanguageContext';
 
 const playfairDisplay = Playfair_Display({
   subsets: ['latin'],
@@ -43,18 +44,20 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className="font-body antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-          themes={['light', 'dark', 'forest']}
-        >
-          <AppLayout>
-            {children}
-          </AppLayout>
-          <Toaster />
-        </ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="dark"
+            enableSystem
+            disableTransitionOnChange
+            themes={['light', 'dark', 'forest']}
+          >
+            <AppLayout>
+              {children}
+            </AppLayout>
+            <Toaster />
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );
