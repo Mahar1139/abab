@@ -99,6 +99,88 @@
     --sidebar-border: 207 63% 8%;
     --sidebar-ring: 47 95% 60%;
   }
+
+  .forest {
+    /* Forest Theme - Light Mode */
+    --background: 110 20% 96%; /* Very light green */
+    --foreground: 110 25% 15%; /* Dark green-black */
+
+    --card: 100 20% 99%;
+    --card-foreground: 110 25% 15%;
+
+    --popover: 100 20% 99%;
+    --popover-foreground: 110 25% 15%;
+
+    --primary: 130 40% 30%; /* Deep forest green */
+    --primary-foreground: 110 20% 98%;
+
+    --secondary: 100 30% 50%; /* Olive green */
+    --secondary-foreground: 100 20% 100%;
+
+    --muted: 110 25% 93%;
+    --muted-foreground: 110 20% 40%;
+
+    --accent: 35 60% 50%; /* Warm brown */
+    --accent-foreground: 35 40% 10%;
+
+    --destructive: 0 60% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 110 25% 88%;
+    --input: 110 25% 91%;
+    --ring: 130 40% 35%;
+    
+    /* Sidebar for Forest Theme */
+    --sidebar-background: 120 30% 18%; 
+    --sidebar-foreground: 110 15% 88%; 
+    --sidebar-primary: 35 60% 50%;    
+    --sidebar-primary-foreground: 35 40% 10%; 
+    --sidebar-accent: 120 30% 25%;      
+    --sidebar-accent-foreground: 110 15% 95%;
+    --sidebar-border: 120 30% 14%;      
+    --sidebar-ring: 35 60% 55%;        
+  }
+
+  .dark.forest {
+    /* Forest Theme - Dark Mode */
+    --background: 120 25% 10%; /* Very dark green */
+    --foreground: 110 15% 85%; /* Light green-gray */
+
+    --card: 120 20% 14%;
+    --card-foreground: 110 15% 85%;
+
+    --popover: 120 20% 12%; 
+    --popover-foreground: 110 15% 85%;
+
+    --primary: 130 50% 55%; /* Brighter forest green */
+    --primary-foreground: 130 30% 10%;
+
+    --secondary: 100 35% 45%; /* Brighter olive */
+    --secondary-foreground: 100 20% 95%;
+
+    --muted: 120 20% 20%;   
+    --muted-foreground: 110 15% 65%; 
+
+    --accent: 35 70% 60%; /* Lighter warm brown */
+    --accent-foreground: 35 40% 10%;
+
+    --destructive: 0 65% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 120 20% 25%; 
+    --input: 120 20% 22%; 
+    --ring: 130 55% 65%;
+
+    /* Sidebar for Dark Forest Theme */
+    --sidebar-background: 120 25% 12%; 
+    --sidebar-foreground: 110 15% 85%;
+    --sidebar-primary: 35 70% 60%;    
+    --sidebar-primary-foreground: 35 40% 10%;
+    --sidebar-accent: 120 25% 20%;
+    --sidebar-accent-foreground: 110 15% 90%;
+    --sidebar-border: 120 25% 8%;
+    --sidebar-ring: 35 70% 65%;
+  }
 }
 
 @layer base {
