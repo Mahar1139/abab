@@ -5,146 +5,99 @@
 
 @layer base {
   :root {
-    /* Modern Blue & Teal Theme - Light Mode */
-    --background: 210 40% 98%; /* Very Light Cool Gray */
-    --foreground: 210 25% 15%; /* Dark Slate Blue */
+    /* School Branding Theme (PRD) - Light Mode */
+    --background: 205 74% 95%; /* Light Blue */
+    --foreground: 207 63% 15%; /* Dark Blue-Black */
 
     --card: 0 0% 100%; /* White */
-    --card-foreground: 210 25% 15%; /* Dark Slate Blue */
+    --card-foreground: 207 63% 18%; /* Dark Blue */
 
     --popover: 0 0% 100%; /* White */
-    --popover-foreground: 210 25% 15%; /* Dark Slate Blue */
+    --popover-foreground: 207 63% 18%;
 
-    --primary: 210 70% 50%; /* Strong Modern Blue */
-    --primary-foreground: 210 40% 98%; /* Very Light Cool Gray */
+    --primary: 207 63% 28%; /* Deep Blue (#1A5276) */
+    --primary-foreground: 205 74% 98%; /* Very Light Blue */
 
-    --secondary: 180 60% 45%; /* Teal */
+    --secondary: 207 50% 50%; /* A pleasant mid-blue */
     --secondary-foreground: 0 0% 100%; /* White */
     
-    --muted: 210 40% 92%; /* Light Cool Gray */
-    --muted-foreground: 210 20% 40%; /* Medium Slate Blue */
+    --muted: 205 70% 92%;
+    --muted-foreground: 207 40% 40%;
 
-    --accent: 190 70% 55%; /* Bright Cyan/Teal Accent */
-    --accent-foreground: 210 25% 10%; /* Darker Blue for contrast */
+    --accent: 47 90% 44%; /* Gold (#D4AC0D) */
+    --accent-foreground: 30 50% 10%; /* Dark Brown for contrast on gold */
 
     --destructive: 0 60% 50%; /* Standard Red */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 210 30% 85%; /* Light Blue-Gray Border */
-    --input: 210 30% 95%; /* Very Light Blue-Gray Input Background */
-    --ring: 210 70% 55%; /* Brighter Primary Blue for Focus Rings */
-
-    --chart-1: 210 70% 50%; /* Primary Blue */
-    --chart-2: 180 60% 45%;  /* Teal */
-    --chart-3: 190 70% 55%; /* Cyan/Teal Accent */
-    --chart-4: 220 60% 60%; /* Softer Blue */
-    --chart-5: 170 50% 50%;  /* Muted Teal/Green */
+    --border: 205 50% 90%;
+    --input: 205 60% 93%;
+    --ring: 207 63% 35%; /* A slightly lighter primary for focus rings */
+    
     --radius: 0.5rem;
 
-    /* Sidebar specific theme (Blue/Teal Theme) */
-    --sidebar-background: 220 30% 25%; /* Dark Slate/Navy Blue */
-    --sidebar-foreground: 210 40% 90%; /* Light Bluish Gray Text */
-    --sidebar-primary: 190 70% 50%;    /* Bright Teal for active item */
-    --sidebar-primary-foreground: 0 0% 100%; /* White text on active item */
-    --sidebar-accent: 220 30% 35%;      /* Slightly lighter Dark Blue for hover */
-    --sidebar-accent-foreground: 210 40% 95%; /* Lighter Bluish Gray text on hover */
-    --sidebar-border: 220 30% 20%;      /* Very Dark Blue border */
-    --sidebar-ring: 190 70% 55%;        /* Brighter Teal for focus rings */
+    --chart-1: 207 63% 28%; /* primary */
+    --chart-2: 47 90% 44%;  /* accent */
+    --chart-3: 207 50% 50%; /* secondary */
+    --chart-4: 207 63% 45%; /* lighter primary */
+    --chart-5: 47 80% 60%;  /* lighter accent */
+    
+    /* Sidebar specific theme (Light Mode) */
+    --sidebar-background: 207 63% 20%; /* Darker version of primary blue */
+    --sidebar-foreground: 205 40% 90%; /* Light bluish gray text */
+    --sidebar-primary: 47 90% 44%;    /* Gold for active item */
+    --sidebar-primary-foreground: 30 50% 10%; /* Dark brown text on gold */
+    --sidebar-accent: 207 63% 30%;      /* Primary blue for hover */
+    --sidebar-accent-foreground: 205 40% 95%;
+    --sidebar-border: 207 63% 15%;      /* Very dark blue border */
+    --sidebar-ring: 47 90% 50%;        /* Brighter gold for focus */
   }
 
   .dark {
-    /* Modern Blue & Teal Theme - Dark Mode */
-    --background: 220 20% 12%; /* Very Dark Desaturated Blue */
-    --foreground: 210 30% 90%; /* Light Bluish Gray */
+    /* School Branding Theme (PRD) - Dark Mode */
+    --background: 207 60% 10%; /* Very dark blue */
+    --foreground: 205 30% 85%; /* Light bluish gray text */
 
-    --card: 220 20% 18%; /* Darker Blue-Gray for cards */
-    --card-foreground: 210 30% 90%;
+    --card: 207 50% 15%;
+    --card-foreground: 205 30% 85%;
 
-    --popover: 220 20% 15%; 
-    --popover-foreground: 210 30% 90%;
+    --popover: 207 50% 12%; 
+    --popover-foreground: 205 30% 85%;
 
-    --primary: 210 75% 65%;    /* Brighter Blue for dark mode */
-    --primary-foreground: 210 20% 10%; /* Very Dark Blue text on primary */
+    --primary: 207 70% 55%;    /* Brighter, more vibrant blue for dark mode */
+    --primary-foreground: 207 63% 10%; /* Dark text on primary */
 
-    --secondary: 180 65% 55%; /* Brighter Teal for dark secondary */
-    --secondary-foreground: 210 20% 10%; 
+    --secondary: 207 50% 45%; /* Brighter mid-blue */
+    --secondary-foreground: 207 63% 95%; 
 
-    --muted: 220 20% 25%;   
-    --muted-foreground: 210 30% 65%; 
+    --muted: 207 40% 20%;   
+    --muted-foreground: 205 30% 65%; 
 
-    --accent: 190 75% 60%; /* Bright Cyan/Teal Accent for dark mode */
-    --accent-foreground: 210 15% 95%; /* Very light text on accent */
+    --accent: 47 95% 55%; /* Brighter, more vibrant gold */
+    --accent-foreground: 30 50% 10%; /* Dark brown for contrast */
 
-    --destructive: 0 65% 60%; /* Slightly brighter Red */
+    --destructive: 0 65% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 20% 30%; 
-    --input: 220 20% 22%; 
-    --ring: 210 80% 70%; 
+    --border: 207 50% 25%; 
+    --input: 207 50% 22%; 
+    --ring: 207 75% 65%; 
 
-    --chart-1: 210 75% 65%;
-    --chart-2: 180 65% 55%;
-    --chart-3: 190 75% 60%;
-    --chart-4: 220 65% 70%;
-    --chart-5: 170 55% 60%;
+    --chart-1: 207 70% 55%;
+    --chart-2: 47 95% 55%;
+    --chart-3: 207 50% 45%;
+    --chart-4: 207 70% 70%;
+    --chart-5: 47 95% 70%;
 
-    /* Sidebar specific theme (Blue/Teal Theme - DARK MODE) */
-    --sidebar-background: 220 25% 15%; /* Even Darker Navy Blue */
-    --sidebar-foreground: 210 30% 85%; /* Light Bluish Gray Text */
-    --sidebar-primary: 190 70% 55%;    /* Bright Teal for active item */
-    --sidebar-primary-foreground: 0 0% 100%; /* White text on active */
-    --sidebar-accent: 220 25% 25%;      /* Slightly lighter Dark Blue for hover */
-    --sidebar-accent-foreground: 210 30% 90%; /* Lighter Bluish Gray text on hover */
-    --sidebar-border: 220 25% 10%;      /* Very Dark Blue border */
-    --sidebar-ring: 190 70% 60%;        /* Brighter Teal for focus rings */
-  }
-
-  .sepia {
-    /* Sepia Theme */
-    --background: 40 30% 96%; /* Light Beige */
-    --foreground: 30 30% 25%; /* Dark Brown */
-
-    --card: 40 30% 99%; /* Off-white */
-    --card-foreground: 30 30% 25%;
-
-    --popover: 40 30% 99%;
-    --popover-foreground: 30 30% 25%;
-
-    --primary: 30 50% 40%; /* Rich Brown */
-    --primary-foreground: 40 30% 96%; /* Light Beige */
-
-    --secondary: 30 15% 50%; /* Muted warm gray */
-    --secondary-foreground: 40 30% 98%; /* Very light beige */
-    
-    --muted: 40 25% 92%; /* Light Warm Gray */
-    --muted-foreground: 30 20% 40%; /* Medium Brown */
-
-    --accent: 35 70% 60%; /* Muted Orange/Gold */
-    --accent-foreground: 30 40% 15%; /* Darker brown for contrast */
-
-    --destructive: 0 60% 50%; /* Keeping Red for errors */
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 40 20% 88%; /* Light Warm Gray Border */
-    --input: 40 30% 94%; /* Very Light Warm Gray Input BG */
-    --ring: 35 70% 60%; /* Muted Orange/Gold for focus */
-
-    --chart-1: 30 50% 40%; /* Rich Brown */
-    --chart-2: 30 15% 50%; /* Muted warm gray */
-    --chart-3: 35 70% 60%; /* Muted Orange/Gold */
-    --chart-4: 30 40% 60%; /* Softer Brown */
-    --chart-5: 40 25% 70%; /* Lighter Warm Gray */
-    --radius: 0.5rem;
-
-    /* Sidebar for Sepia theme */
-    --sidebar-background: 30 25% 20%; /* Dark Brown */
-    --sidebar-foreground: 40 20% 85%; /* Light Beige Text */
-    --sidebar-primary: 35 60% 55%;    /* Muted Gold for active item */
-    --sidebar-primary-foreground: 30 40% 10%; /* Very dark brown text on active item */
-    --sidebar-accent: 30 25% 30%;      /* Slightly lighter Dark Brown for hover */
-    --sidebar-accent-foreground: 40 20% 95%; /* Lighter Beige text on hover */
-    --sidebar-border: 30 25% 15%;      /* Very Dark Brown border */
-    --sidebar-ring: 35 60% 60%;        /* Brighter Gold for focus rings */
+    /* Sidebar specific theme (Dark Mode) */
+    --sidebar-background: 207 63% 12%; /* Even darker blue */
+    --sidebar-foreground: 205 30% 85%;
+    --sidebar-primary: 47 95% 55%;    /* Bright gold */
+    --sidebar-primary-foreground: 30 50% 10%;
+    --sidebar-accent: 207 63% 20%;
+    --sidebar-accent-foreground: 205 30% 90%;
+    --sidebar-border: 207 63% 8%;
+    --sidebar-ring: 47 95% 60%;
   }
 }
 
