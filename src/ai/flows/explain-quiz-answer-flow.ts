@@ -65,12 +65,9 @@ If the topic is "Hindi Literature", the entire 'textualExplanation' MUST be in H
     *   For factual questions, explain the relevant concept or fact.
     *   If the user's answer was incorrect, you can briefly mention why their choice might be a common misconception, but the primary focus is on explaining the correct solution path.
 
-2.  Determine if a simple visual aid (like a diagram, chart, or simple illustration) would significantly enhance the understanding of your textual explanation.
-    *   If YES, and such an image can be described by a concise prompt (e.g., "A Venn diagram for two overlapping sets A and B", "Bar chart showing growth from 10 to 50", "Illustration of a lever with fulcrum in the middle"), then provide this concise prompt in the 'imageGenerationInstruction' field. This prompt will be directly used to generate an image.
-    *   If NO visual aid is needed, or if the required visual is too complex for a simple generated image (e.g., a detailed photograph, a highly intricate schematic), then you MUST set the 'imageGenerationInstruction' field to exactly the string "NO_IMAGE_NEEDED".
-
-**SPECIAL INSTRUCTION FOR 'KVS Abki Baar 180 Paar!' BATCH:**
-If the difficulty level is "KVS Abki Baar 180 Paar!", you are part of a premium online coaching experience. For this mode, it is **HIGHLY ENCOURAGED** to provide a helpful 'imageGenerationInstruction'. Think creatively about what visual aid would best help a student preparing for a competitive exam. Examples for Hindi Literature include: a simple portrait of the author mentioned, a timeline of a literary period (e.g., Bhaktikal), a diagram explaining a grammatical concept (e.g., Sandhi), or a simple illustration of a scene from a famous work. Only use 'NO_IMAGE_NEEDED' if a visual is truly irrelevant or impossible to represent simply.
+2.  Determine if an image is appropriate for the given difficulty level.
+    *   **For the "KVS Abki Baar 180 Paar!" difficulty ONLY:** It is **HIGHLY ENCOURAGED** to provide a helpful 'imageGenerationInstruction'. Think creatively about what visual aid would best help a student preparing for a competitive exam. If a simple image (diagram, chart, visual representation, author portrait, timeline) would make this explanation much clearer, provide a concise, direct prompt for an image generation model here (e.g., 'A diagram showing a right-angled triangle with sides labeled A, B, C'). Only use 'NO_IMAGE_NEEDED' if a visual is truly irrelevant or impossible to represent simply. Examples for Hindi Literature include: a simple portrait of the author mentioned, a timeline of a literary period (e.g., Bhaktikal), a diagram explaining a grammatical concept (e.g., Sandhi), or a simple illustration of a scene from a famous work.
+    *   **For ALL OTHER difficulty levels:** You MUST set the 'imageGenerationInstruction' field to exactly the string "NO_IMAGE_NEEDED". This is a strict rule; visual aids are an exclusive feature for the "KVS Abki Baar 180 Paar!" batch.
 
 Ensure the explanation is tailored to the question's topic and difficulty.
 Output the response in the specified JSON format.
@@ -102,10 +99,15 @@ const explainQuizAnswerFlow = ai.defineFlow(
 
     let generatedImageUri: string | undefined = undefined;
 
-    // Step 2: Conditionally generate an image
-    if (imageGenerationInstruction && imageGenerationInstruction.trim() !== "NO_IMAGE_NEEDED" && imageGenerationInstruction.trim() !== "") {
+    // Step 2: Conditionally generate an image, only for the special batch
+    if (
+      input.difficulty === "KVS Abki Baar 180 Paar!" &&
+      imageGenerationInstruction && 
+      imageGenerationInstruction.trim() !== "NO_IMAGE_NEEDED" && 
+      imageGenerationInstruction.trim() !== ""
+    ) {
       try {
-        console.log(`Attempting to generate image with prompt: "${imageGenerationInstruction}"`);
+        console.log(`Attempting to generate image with prompt: "${imageGenerationInstruction}" for special batch.`);
         const imageGenResult = await ai.generate({
           model: 'googleai/gemini-2.0-flash-preview-image-generation',
           prompt: imageGenerationInstruction,
@@ -131,7 +133,7 @@ const explainQuizAnswerFlow = ai.defineFlow(
         // Optionally, you could add a note to the textual explanation that an image could not be generated.
       }
     } else {
-        console.log("No image generation needed or instruction was 'NO_IMAGE_NEEDED'.");
+        console.log("No image generation needed (either not special batch, or instruction was 'NO_IMAGE_NEEDED').");
     }
 
     return {
