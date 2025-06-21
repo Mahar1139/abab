@@ -227,7 +227,7 @@ export default function HomePage() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto px-10 py-7 text-lg font-semibold shadow-xl hover:scale-105 transition-transform duration-300 border-2 border-white text-white hover:bg-white hover:text-primary"
+                className="w-full sm:w-auto px-10 py-7 text-lg font-semibold shadow-xl hover:scale-105 transition-transform duration-300 border-2 bg-transparent border-primary dark:border-white text-primary dark:text-white hover:bg-white hover:text-primary"
               >
                 <Link href="/admissions">Apply Now</Link>
               </Button>
