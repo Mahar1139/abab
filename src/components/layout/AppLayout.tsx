@@ -16,12 +16,17 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [isAdOpen, setIsAdOpen] = useState(false);
 
   useEffect(() => {
+    // Prevent ad from showing if the user is already on the quiz page.
+    if (pathname === '/quiz') {
+      return;
+    }
+
     const timer = setTimeout(() => {
       setIsAdOpen(true);
     }, 16000); // 16-second delay
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [pathname]);
 
   return (
     <SidebarProvider defaultOpen={false}>

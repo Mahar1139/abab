@@ -117,7 +117,7 @@ export default function QuizPage() {
     setShowChallengeAlert(true);
     const timer = setTimeout(() => {
       setShowChallengeAlert(false);
-    }, 5000); // Disappears after 5 seconds
+    }, 8000); // Disappears after 8 seconds
 
     return () => clearTimeout(timer);
   }, []);
