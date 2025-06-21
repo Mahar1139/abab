@@ -40,7 +40,7 @@ interface QuestionExplanation extends ExplainQuizAnswerOutput {
 }
 
 const topics = [
-  "General Knowledge", "Science", "Space Exploration", "Biology", "Physics", 
+  "General Knowledge", "Current Affairs", "Pedagogy", "Science", "Space Exploration", "Biology", "Physics", 
   "Chemistry", "History", "Geography", "Mathematics", "Hindi Literature", "Literature", "Arts", "Computer Science",
   "Quantitative Aptitude", "Reasoning Ability", "English Language", "Banking & Financial Awareness"
 ];
@@ -49,19 +49,27 @@ const baseDifficulties = ["Beginner", "Easy", "Normal", "Hard", "Extreme"];
 
 const competitiveStylesMap: Record<string, string[]> = {
   "Space Exploration": ["Legend - SpaceX/Aerospace", "Legend - General Advanced"],
-  "Biology": ["Normal - NEET", "Legend - NEET", "Legend - General Advanced"],
-  "Physics": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Legend - General Advanced"],
-  "Chemistry": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - General Advanced"],
+  "Biology": ["Normal - NEET", "Legend - NEET", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
+  "Physics": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - SpaceX/Aerospace", "Legend - General Advanced"],
+  "Chemistry": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
   "Mathematics": [
     "Legend - JEE Mains", "Legend - JEE Advanced", 
     "Normal - SBI PO Prelims", "Legend - SBI PO Mains", 
+    "KVS TGT - Subject Paper", "KVS PGT - Subject Paper",
     "Legend - General Advanced"
   ],
-  "Hindi Literature": ["Legend - KVS PGT Hindi", "Legend - Lecturer Test Prep", "Legend - General Advanced"],
+  "Hindi Literature": ["KVS PRT - General Paper", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - Lecturer Test Prep", "Legend - General Advanced"],
   "Quantitative Aptitude": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
-  "Reasoning Ability": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
-  "English Language": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "Reasoning Ability": ["KVS PRT - General Paper", "Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "English Language": ["KVS PRT - General Paper", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
   "Banking & Financial Awareness": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "General Knowledge": ["KVS PRT - General Paper", "Legend - General Advanced"],
+  "Current Affairs": ["KVS PRT - General Paper", "Legend - General Advanced"],
+  "Computer Science": ["KVS PRT - General Paper", "Legend - General Advanced"],
+  "Pedagogy": ["KVS PRT - General Paper", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
+  "History": ["KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
+  "Geography": ["KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
+  "Science": ["KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
   "default": ["Legend - General Advanced"] 
 };
 
@@ -256,6 +264,9 @@ export default function QuizPage() {
     }
     if (level.startsWith("Normal - ")) {
       return `Normal (${level.substring("Normal - ".length)} Style)`;
+    }
+    if (level.startsWith("KVS")) {
+        return `Exam: ${level}`;
     }
     return level;
   };

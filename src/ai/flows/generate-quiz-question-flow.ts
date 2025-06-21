@@ -69,12 +69,19 @@ Consider the difficulty level "{{difficulty}}" when formulating the question and
 
 - If topic is "Hindi Literature":
   CRITICAL LANGUAGE INSTRUCTION: For this topic, the ENTIRE output for 'questionText', 'options', and 'correctAnswer' MUST be in Hindi (Devanagari script). Do not use English letters (transliteration) for the question or options. The "source" field can remain in English.
-
   - If difficulty is "Beginner" or "Easy": Generate basic questions about famous Hindi authors, poems, or stories (e.g., "गोदान' किसने लिखा?").
   - If difficulty is "Normal": Generate questions about specific literary periods (e.g., भक्तिकाल, रीतिकाल) or moderately well-known works.
   - If difficulty is "Hard" or "Extreme": Generate questions requiring deep knowledge of Hindi literary criticism, specific verses, or obscure works.
-  - If difficulty is "Legend - KVS PGT Hindi": Generate a challenging question in the style of the KVS PGT Hindi exam. This should be a multiple-choice question testing deep knowledge of Hindi literature history, prominent authors and their works, grammar (Vyakaran), poetics (Kavya-shastra), and literary movements. The source should be "KVS PGT-style Question (Hindi Literature)".
   - If difficulty is "Legend - Lecturer Test Prep": Generate a very difficult question suitable for a university-level lecturer exam. This question should test nuanced understanding of literary theory, criticism, linguistic details, or comparative literature within the Hindi context. The source should be "Lecturer Test-style Question (Advanced Hindi Literature)".
+
+- If difficulty is "KVS PRT - General Paper":
+  Generate a question from the given "{{topic}}" that is appropriate for the Kendriya Vidyalaya Sangathan (KVS) Primary Teacher (PRT) General Paper. The General Paper includes subjects like General English, General Hindi, GK & Current Affairs, Reasoning Ability, Computer Literacy, and Perspectives on Education & Leadership (Pedagogy). Your question must align with the provided topic and the standard expected for a PRT aspirant. The source should be "KVS PRT-style Question ({{topic}} based)".
+
+- If difficulty is "KVS TGT - Subject Paper":
+  Generate a subject-specific question from the given "{{topic}}" that is appropriate for the Kendriya Vidyalaya Sangathan (KVS) Trained Graduate Teacher (TGT) exam. The questions should be based on concepts up to the high school level (Classes 6-10) but require a graduation-level depth of understanding for solving them, which is typical for this exam. Ensure the question is challenging and relevant. The source should be "KVS TGT-style Question ({{topic}} based)".
+
+- If difficulty is "KVS PGT - Subject Paper":
+  Generate a subject-specific question from the given "{{topic}}" that is appropriate for the Kendriya Vidyalaya Sangathan (KVS) Post Graduate Teacher (PGT) exam. The questions should test a deep understanding of concepts up to the senior secondary level (Classes 11-12) but with a post-graduation level of difficulty in their application and nuances. The question must be highly challenging. The source should be "KVS PGT-style Question ({{topic}} based)".
 
 - If difficulty is "Normal - NEET":
   For topic "{{topic}}" (expected to be Biology, Physics, or Chemistry), generate a question of "Normal" difficulty in the style and format of NEET (National Eligibility cum Entrance Test - India) for medical entrance. The question must be a single correct multiple-choice question. The source should be "NEET-style Question (Normal Difficulty, {{topic}} based)". The questions should be inspired by the type of concepts tested in previous NEET papers and reference materials like MTG books, focusing on core understanding suitable for a normal difficulty assessment. Ensure the question is genuinely challenging for a NEET aspirant at a "Normal" level, not simplistic.
