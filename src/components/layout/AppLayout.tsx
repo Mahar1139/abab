@@ -16,15 +16,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [isAdOpen, setIsAdOpen] = useState(false);
 
   useEffect(() => {
-    // Only show ad once per session for a better user experience
-    if (!sessionStorage.getItem('adShown')) {
-      const timer = setTimeout(() => {
-        setIsAdOpen(true);
-        sessionStorage.setItem('adShown', 'true');
-      }, 16000); // 16-second delay
+    const timer = setTimeout(() => {
+      setIsAdOpen(true);
+    }, 16000); // 16-second delay
 
-      return () => clearTimeout(timer);
-    }
+    return () => clearTimeout(timer);
   }, []);
 
   return (
