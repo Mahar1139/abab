@@ -51,7 +51,7 @@ export default function HomePage() {
       const timer = setTimeout(() => {
         setIsAdOpen(true);
         sessionStorage.setItem('adShown', 'true');
-      }, 2000); // 2-second delay
+      }, 16000); // 16-second delay
 
       return () => clearTimeout(timer);
     }
@@ -243,7 +243,7 @@ export default function HomePage() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto px-10 py-7 text-lg font-semibold shadow-xl hover:scale-105 transition-transform duration-300 text-white border-white dark:text-white dark:border-white bg-black/20 hover:bg-white/20 dark:bg-black/20 dark:hover:bg-white/20"
+                className="w-full sm:w-auto px-10 py-7 text-lg font-semibold shadow-xl hover:scale-105 transition-transform duration-300 text-foreground border-foreground dark:text-white dark:border-white bg-white/20 hover:bg-white/30 dark:bg-black/20 dark:hover:bg-white/20"
               >
                 <Link href="/admissions">Apply Now</Link>
               </Button>
