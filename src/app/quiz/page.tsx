@@ -40,7 +40,7 @@ interface QuestionExplanation extends ExplainQuizAnswerOutput {
 }
 
 const topics = [
-  "General Knowledge", "Current Affairs", "Pedagogy", "Science", "Space Exploration", "Biology", "Physics", 
+  "General Knowledge", "Current Affairs", "Science", "Space Exploration", "Biology", "Physics", 
   "Chemistry", "History", "Geography", "Mathematics", "Hindi Literature", "Literature", "Arts", "Computer Science",
   "Quantitative Aptitude", "Reasoning Ability", "English Language", "Banking & Financial Awareness"
 ];
@@ -66,7 +66,6 @@ const competitiveStylesMap: Record<string, string[]> = {
   "General Knowledge": ["KVS PRT - General Paper", "Legend - General Advanced"],
   "Current Affairs": ["KVS PRT - General Paper", "Legend - General Advanced"],
   "Computer Science": ["KVS PRT - General Paper", "Legend - General Advanced"],
-  "Pedagogy": ["KVS PRT - General Paper", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
   "History": ["KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
   "Geography": ["KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
   "Science": ["KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
