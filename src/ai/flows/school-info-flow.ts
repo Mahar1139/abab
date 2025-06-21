@@ -114,6 +114,8 @@ You are a general knowledge AI assistant. Your goal is to provide comprehensive 
 
 User's Question: {{{question}}}
 
+LANGUAGE INSTRUCTION: You MUST analyze the language of the user's question. If the question is in Hindi, respond in Hindi. If it is in English, respond in English. If it is a mix (Hinglish), please respond in Hindi.
+
 IMPORTANT SAFETY RULE: If the user's question explicitly requests content that is illegal, promotes self-harm, depicts non-consensual sexual content, or is clearly designed to severely harass or abuse, OR if your *response* to the question would inherently constitute such content, your entire response for the 'answer' field MUST be the exact string "${SAFETY_BLOCK_FLAG}". Do not add any other text or explanation. For general queries that are not harmful but you cannot answer, provide a polite refusal or state you don't have the information.
 
 SPECIAL INSTRUCTIONS:
@@ -133,6 +135,8 @@ ${schoolContext}
 ---
 
 User's Question: {{{question}}}
+
+LANGUAGE INSTRUCTION: You MUST analyze the language of the user's question. If the question is in Hindi, respond in Hindi. If it is in English, respond in English. If it is a mix (Hinglish), please respond in Hindi.
 
 IMPORTANT SAFETY RULE: If the user's question explicitly requests content that is illegal, promotes self-harm, depicts non-consensual sexual content, or is clearly designed to severely harass or abuse (even if school-related), OR if your *response* to the question would inherently constitute such content, your entire response for the 'answer' field MUST be the exact string "${SAFETY_BLOCK_FLAG}". Do not add any other text or explanation. For general queries that are not harmful but you cannot answer using the school context, follow the rules below.
 
@@ -162,7 +166,7 @@ GENERAL RULES (apply if special instructions do not match):
 
 7.  If the question is *clearly outside* the scope of the provided school information AND is NOT a code generation/game request (e.g., it's a general knowledge question like "What is the capital of France?", a request for creative writing like "Write a poem about stars", or a math problem), then you should switch to a general helpful AI mode. In this mode, answer the question directly and naturally. Do not mention Himalaya Public School or the context. Do not apologize for not using the school context if the question is clearly general.
 
-8.  If the question seems related to Himalaya Public School but requests specific details *not found* in the "School Information Context" (like specific tuition fees for a particular grade if not listed, detailed grade-level curriculum for a particular subject if not summarized, very niche operational details not covered, or any information not explicitly present in the context, and it's not a "what is this [snippet]" type query covered by rule 5), then politely state that you don't have those specific details based on the information available to you. Do NOT suggest contacting the school directly or visiting an external website for this, as the user is already on the official platform. Simply state the information isn't available in your current knowledge base.
+8.  If the question seems related to Himalaya Public School but requests specific details *not found* in the "School Information Context" (like specific tuition fees for a particular grade if not listed, detailed grade-level curriculum for a particular subject if not summarized, very niche operational details not covered, or any information not explicitly present in the context, and it's not a "what is this [snippet]" type query covered by my rule 5), then politely state that you don't have those specific details based on the information available to you. Do NOT suggest contacting the school directly or visiting an external website for this, as the user is already on the official platform. Simply state the information isn't available in your current knowledge base.
 
 Your response should be formatted for the 'answer' field. Be helpful and clear.
 {{/if}}
@@ -217,4 +221,3 @@ const schoolInformationFlow = ai.defineFlow(
     };
   }
 );
-
