@@ -67,6 +67,15 @@ Consider the difficulty level "{{difficulty}}" when formulating the question and
 - If difficulty is "Hard": Generate a question on more complex applications of concepts from "{{topic}}", requiring deeper understanding and analysis. Source should be "Hard {{{topic}}}".
 - If difficulty is "Extreme": Generate a very challenging question from "{{topic}}", possibly involving multiple concepts, nuanced details, or tricky distractors. Source should be "Extreme {{{topic}}}".
 
+- If topic is "Hindi Literature":
+  CRITICAL LANGUAGE INSTRUCTION: For this topic, the ENTIRE output for 'questionText', 'options', and 'correctAnswer' MUST be in Hindi (Devanagari script). Do not use English letters (transliteration) for the question or options. The "source" field can remain in English.
+
+  - If difficulty is "Beginner" or "Easy": Generate basic questions about famous Hindi authors, poems, or stories (e.g., "गोदान' किसने लिखा?").
+  - If difficulty is "Normal": Generate questions about specific literary periods (e.g., भक्तिकाल, रीतिकाल) or moderately well-known works.
+  - If difficulty is "Hard" or "Extreme": Generate questions requiring deep knowledge of Hindi literary criticism, specific verses, or obscure works.
+  - If difficulty is "Legend - KVS PGT Hindi": Generate a challenging question in the style of the KVS PGT Hindi exam. This should be a multiple-choice question testing deep knowledge of Hindi literature history, prominent authors and their works, grammar (Vyakaran), poetics (Kavya-shastra), and literary movements. The source should be "KVS PGT-style Question (Hindi Literature)".
+  - If difficulty is "Legend - Lecturer Test Prep": Generate a very difficult question suitable for a university-level lecturer exam. This question should test nuanced understanding of literary theory, criticism, linguistic details, or comparative literature within the Hindi context. The source should be "Lecturer Test-style Question (Advanced Hindi Literature)".
+
 - If difficulty is "Normal - NEET":
   For topic "{{topic}}" (expected to be Biology, Physics, or Chemistry), generate a question of "Normal" difficulty in the style and format of NEET (National Eligibility cum Entrance Test - India) for medical entrance. The question must be a single correct multiple-choice question. The source should be "NEET-style Question (Normal Difficulty, {{topic}} based)". The questions should be inspired by the type of concepts tested in previous NEET papers and reference materials like MTG books, focusing on core understanding suitable for a normal difficulty assessment. Ensure the question is genuinely challenging for a NEET aspirant at a "Normal" level, not simplistic.
 - If difficulty is "Legend - NEET":
@@ -134,4 +143,3 @@ const generateQuizQuestionFlow = ai.defineFlow(
     return output;
   }
 );
-

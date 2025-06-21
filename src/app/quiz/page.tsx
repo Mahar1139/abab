@@ -41,7 +41,7 @@ interface QuestionExplanation extends ExplainQuizAnswerOutput {
 
 const topics = [
   "General Knowledge", "Science", "Space Exploration", "Biology", "Physics", 
-  "Chemistry", "History", "Geography", "Mathematics", "Literature", "Arts", "Computer Science",
+  "Chemistry", "History", "Geography", "Mathematics", "Hindi Literature", "Literature", "Arts", "Computer Science",
   "Quantitative Aptitude", "Reasoning Ability", "English Language", "Banking & Financial Awareness"
 ];
 
@@ -57,6 +57,7 @@ const competitiveStylesMap: Record<string, string[]> = {
     "Normal - SBI PO Prelims", "Legend - SBI PO Mains", 
     "Legend - General Advanced"
   ],
+  "Hindi Literature": ["Legend - KVS PGT Hindi", "Legend - Lecturer Test Prep", "Legend - General Advanced"],
   "Quantitative Aptitude": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
   "Reasoning Ability": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
   "English Language": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
