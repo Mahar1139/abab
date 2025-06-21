@@ -98,6 +98,54 @@
     --sidebar-border: 220 25% 10%;      /* Very Dark Blue border */
     --sidebar-ring: 190 70% 60%;        /* Brighter Teal for focus rings */
   }
+
+  .sepia {
+    /* Sepia Theme */
+    --background: 40 30% 96%; /* Light Beige */
+    --foreground: 30 30% 25%; /* Dark Brown */
+
+    --card: 40 30% 99%; /* Off-white */
+    --card-foreground: 30 30% 25%;
+
+    --popover: 40 30% 99%;
+    --popover-foreground: 30 30% 25%;
+
+    --primary: 30 50% 40%; /* Rich Brown */
+    --primary-foreground: 40 30% 96%; /* Light Beige */
+
+    --secondary: 30 15% 50%; /* Muted warm gray */
+    --secondary-foreground: 40 30% 98%; /* Very light beige */
+    
+    --muted: 40 25% 92%; /* Light Warm Gray */
+    --muted-foreground: 30 20% 40%; /* Medium Brown */
+
+    --accent: 35 70% 60%; /* Muted Orange/Gold */
+    --accent-foreground: 30 40% 15%; /* Darker brown for contrast */
+
+    --destructive: 0 60% 50%; /* Keeping Red for errors */
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 40 20% 88%; /* Light Warm Gray Border */
+    --input: 40 30% 94%; /* Very Light Warm Gray Input BG */
+    --ring: 35 70% 60%; /* Muted Orange/Gold for focus */
+
+    --chart-1: 30 50% 40%; /* Rich Brown */
+    --chart-2: 30 15% 50%; /* Muted warm gray */
+    --chart-3: 35 70% 60%; /* Muted Orange/Gold */
+    --chart-4: 30 40% 60%; /* Softer Brown */
+    --chart-5: 40 25% 70%; /* Lighter Warm Gray */
+    --radius: 0.5rem;
+
+    /* Sidebar for Sepia theme */
+    --sidebar-background: 30 25% 20%; /* Dark Brown */
+    --sidebar-foreground: 40 20% 85%; /* Light Beige Text */
+    --sidebar-primary: 35 60% 55%;    /* Muted Gold for active item */
+    --sidebar-primary-foreground: 30 40% 10%; /* Very dark brown text on active item */
+    --sidebar-accent: 30 25% 30%;      /* Slightly lighter Dark Brown for hover */
+    --sidebar-accent-foreground: 40 20% 95%; /* Lighter Beige text on hover */
+    --sidebar-border: 30 25% 15%;      /* Very Dark Brown border */
+    --sidebar-ring: 35 60% 60%;        /* Brighter Gold for focus rings */
+  }
 }
 
 @layer base {
