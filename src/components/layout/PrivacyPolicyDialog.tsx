@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -13,6 +14,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 
 export default function PrivacyPolicyDialog() {
+  const [date, setDate] = useState<string>('');
+
+  useEffect(() => {
+    // Set date on client side to avoid hydration mismatch
+    setDate(new Date().toLocaleDateString());
+  }, []);
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -22,7 +30,7 @@ export default function PrivacyPolicyDialog() {
         <DialogHeader>
           <DialogTitle className="text-2xl text-primary">Privacy Policy</DialogTitle>
           <DialogDescription>
-            Last updated: {new Date().toLocaleDateString()}
+            Last updated: {date}
           </DialogDescription>
         </DialogHeader>
         <ScrollArea className="flex-grow pr-6 -mr-6">

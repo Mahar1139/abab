@@ -73,7 +73,7 @@ export default function SchoolInfoChatbot() {
   const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   
-  const [displaySuggestedQuestions, setDisplaySuggestedQuestions] = useState(() => shuffleArray([...initialSuggestedQuestions]));
+  const [displaySuggestedQuestions, setDisplaySuggestedQuestions] = useState<string[]>([]);
 
   const [abuseStrikeCount, setAbuseStrikeCount] = useState<number>(0);
   const [cooldownEndTime, setCooldownEndTime] = useState<number | null>(null);
@@ -84,6 +84,9 @@ export default function SchoolInfoChatbot() {
   const isOnCooldown = cooldownEndTime !== null && Date.now() < cooldownEndTime;
 
   useEffect(() => {
+    // Shuffling questions on client side to avoid hydration mismatch
+    setDisplaySuggestedQuestions(shuffleArray([...initialSuggestedQuestions]));
+    
     const storedStrikes = localStorage.getItem(LOCAL_STORAGE_STRIKE_COUNT_KEY);
     const storedCooldownEnd = localStorage.getItem(LOCAL_STORAGE_COOLDOWN_END_TIME_KEY);
 
@@ -469,7 +472,7 @@ export default function SchoolInfoChatbot() {
           </Alert>
         )}
 
-        {!isUnrestrictedMode && !rawAnswer && !isLoading && !error && !isOnCooldown && (
+        {!isUnrestrictedMode && !rawAnswer && !isLoading && !error && !isOnCooldown && displaySuggestedQuestions.length > 0 && (
           <div className="mt-6">
             <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center">
               <HelpCircle className="w-4 h-4 mr-2"/>
@@ -528,5 +531,3 @@ export default function SchoolInfoChatbot() {
     </Card>
   );
 }
-
-    
