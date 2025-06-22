@@ -13,7 +13,7 @@ import {z}from 'genkit';
 
 const GenerateQuizQuestionInputSchema = z.object({
   topic: z.string().describe('The subject or topic for the quiz question (e.g., Biology, Space Exploration, Quantitative Aptitude).'),
-  difficulty: z.string().describe('The desired difficulty level. This can be general (e.g., Beginner, Easy, Normal, Hard, Extreme) or specific for competitive styles (e.g., "Normal - NEET", "Legend - JEE Mains", "Normal - SBI PO Prelims").'),
+  difficulty: z.string().describe('The desired difficulty level. This can be general (e.g., Beginner, Easy, Normal, Hard, Extreme) or specific for competitive styles (e.g., "Normal - NEET", "Legend - JEE Mains", "Normal - SBI PO Prelims", "Board Exam: Standard (Class 12)").'),
   previousQuestionTexts: z.array(z.string()).optional().describe('An array of question texts already asked in this session to avoid direct repetition.'),
 });
 export type GenerateQuizQuestionInput = z.infer<typeof GenerateQuizQuestionInputSchema>;
@@ -67,6 +67,15 @@ Consider the difficulty level "{{difficulty}}" when formulating the question and
 - If difficulty is "Hard": Generate a question on more complex applications of concepts from "{{topic}}", requiring deeper understanding and analysis. Source should be "Hard {{{topic}}}".
 - If difficulty is "Extreme": Generate a very challenging question from "{{topic}}", possibly involving multiple concepts, nuanced details, or tricky distractors. Source should be "Extreme {{{topic}}}".
 
+- If difficulty is "Board Exam: Standard (Class 10)":
+  Generate a question of standard difficulty for a Class 10 student on "{{topic}}", testing fundamental concepts from the syllabus. The source should be "Board Exam-style Question (Class 10, {{topic}} based)".
+- If difficulty is "Board Exam: Standard (Class 12)":
+  Generate a question of standard difficulty for a Class 12 student on "{{topic}}". The source should be "Board Exam-style Question (Class 12, {{topic}} based)".
+- If difficulty is "Board Exam: Challenging (Class 12)":
+  Generate a more complex question for a Class 12 student on "{{topic}}" that might require combining concepts or deeper analysis. The source should be "Challenging Board Exam-style Question (Class 12, {{topic}} based)".
+- If difficulty is "Board Exam: Next Time All India Rank One ☠️":
+  Generate an exceptionally challenging and thought-provoking question on "{{topic}}" suitable for a student aiming for the top national rank. This question should test profound conceptual understanding, application skills, and possibly link multiple topics. The source should be "Board Topper's Challenge ({{topic}})".
+
 - If topic is "Hindi Literature":
   CRITICAL LANGUAGE INSTRUCTION: For this topic, the ENTIRE output for 'questionText', 'options', and 'correctAnswer' MUST be in Hindi (Devanagari script). Do not use English letters (transliteration) for the question or options. The "source" field can remain in English.
   - If difficulty is "Beginner" or "Easy": Generate basic questions about famous Hindi authors, poems, or stories (e.g., "गोदान' किसने लिखा?").
@@ -79,10 +88,10 @@ Consider the difficulty level "{{difficulty}}" when formulating the question and
   Generate a question from the given "{{topic}}" that is appropriate for the Kendriya Vidyalaya Sangathan (KVS) Primary Teacher (PRT) General Paper. The General Paper includes subjects like General English, General Hindi, GK & Current Affairs, Reasoning Ability, and Computer Literacy. Your question must align with the provided topic and the standard expected for a PRT aspirant. The source should be "KVS PRT-style Question ({{topic}} based)".
 
 - If difficulty is "KVS TGT - Subject Paper":
-  Generate a subject-specific question from the given "{{topic}}" that is appropriate for the Kendriya Vidyalaya Sangathan (KVS) Trained Graduate Teacher (TGT) exam. The questions should be based on concepts up to the high school level (Classes 6-10) but require a graduation-level depth of understanding for solving them, which is typical for this exam. Ensure the question is challenging and relevant. The source should be "KVS TGT-style Question ({{topic}} based)".
+  Generate a subject-specific question from the given "{{topic}}" (expected to be Mathematics or Hindi Literature) that is appropriate for the Kendriya Vidyalaya Sangathan (KVS) Trained Graduate Teacher (TGT) exam. The questions should be based on concepts up to the high school level (Classes 6-10) but require a graduation-level depth of understanding for solving them, which is typical for this exam. Ensure the question is challenging and relevant. The source should be "KVS TGT-style Question ({{topic}} based)".
 
 - If difficulty is "KVS PGT - Subject Paper":
-  Generate a subject-specific question from the given "{{topic}}" that is appropriate for the Kendriya Vidyalaya Sangathan (KVS) Post Graduate Teacher (PGT) exam. The questions should test a deep understanding of concepts up to the senior secondary level (Classes 11-12) but with a post-graduation level of difficulty in their application and nuances. The question must be highly challenging. The source should be "KVS PGT-style Question ({{topic}} based)".
+  Generate a subject-specific question from the given "{{topic}}" (expected to be Mathematics or Hindi Literature) that is appropriate for the Kendriya Vidyalaya Sangathan (KVS) Post Graduate Teacher (PGT) exam. The questions should test a deep understanding of concepts up to the senior secondary level (Classes 11-12) but with a post-graduation level of difficulty in their application and nuances. The question must be highly challenging. The source should be "KVS PGT-style Question ({{topic}} based)".
 
 - If difficulty is "Normal - NEET":
   For topic "{{topic}}" (expected to be Biology, Physics, or Chemistry), generate a question of "Normal" difficulty in the style and format of NEET (National Eligibility cum Entrance Test - India) for medical entrance. The question must be a single correct multiple-choice question. The source should be "NEET-style Question (Normal Difficulty, {{topic}} based)". The questions should be inspired by the type of concepts tested in previous NEET papers and reference materials like MTG books, focusing on core understanding suitable for a normal difficulty assessment. Ensure the question is genuinely challenging for a NEET aspirant at a "Normal" level, not simplistic.
