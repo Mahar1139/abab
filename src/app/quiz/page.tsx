@@ -49,9 +49,9 @@ const baseDifficulties = ["Beginner", "Easy", "Normal", "Hard", "Extreme"];
 
 const competitiveStylesMap: Record<string, string[]> = {
   "Space Exploration": ["Legend - SpaceX/Aerospace", "Legend - General Advanced"],
-  "Biology": ["Normal - NEET", "Legend - NEET", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
-  "Physics": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - SpaceX/Aerospace", "Legend - General Advanced"],
-  "Chemistry": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
+  "Biology": ["Normal - NEET", "Legend - NEET", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Abki Baar 720 Paar!", "Legend - General Advanced"],
+  "Physics": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - SpaceX/Aerospace", "Abki Baar 720 Paar!", "Legend - General Advanced"],
+  "Chemistry": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Abki Baar 720 Paar!", "Legend - General Advanced"],
   "Mathematics": [
     "Legend - JEE Mains", "Legend - JEE Advanced", 
     "Normal - SBI PO Prelims", "Legend - SBI PO Mains", 
@@ -81,8 +81,8 @@ const getDifficultyOptionsForTopic = (topic: string | null): string[] => {
     const isBBase = baseDifficulties.includes(b);
     if (isABase && !isBBase) return -1;
     if (!isABase && isBBase) return 1;
-    if (a.includes('KVS Abki Baar')) return 1; // Put special KVS batch at end
-    if (b.includes('KVS Abki Baar')) return -1;
+    if (a.includes('Abki Baar')) return 1; // Put special batches at end
+    if (b.includes('Abki Baar')) return -1;
     return a.localeCompare(b); 
   });
 };
@@ -114,12 +114,14 @@ export default function QuizPage() {
     setIsClient(true);
     
     // Challenge Alert Logic
-    setShowChallengeAlert(true);
-    const timer = setTimeout(() => {
-      setShowChallengeAlert(false);
-    }, 8000); // Disappears after 8 seconds
+    if (window.location.pathname === '/quiz') {
+      setShowChallengeAlert(true);
+      const timer = setTimeout(() => {
+        setShowChallengeAlert(false);
+      }, 8000); // Disappears after 8 seconds
 
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   useEffect(() => {
@@ -276,7 +278,7 @@ export default function QuizPage() {
     if (level.startsWith("Normal - ")) {
       return `Normal (${level.substring("Normal - ".length)} Style)`;
     }
-    if (level.startsWith("KVS Abki Baar")) {
+    if (level.includes("Abki Baar")) {
       return `🎯 ${level}`;
     }
     if (level.startsWith("KVS")) {
@@ -343,7 +345,7 @@ export default function QuizPage() {
                           <SelectItem 
                             key={level} 
                             value={level} 
-                            className={`text-lg py-2 ${level.includes('KVS Abki Baar') ? 'text-accent font-bold' : ''}`}
+                            className={`text-lg py-2 ${level.includes('Abki Baar') ? 'text-accent font-bold' : ''}`}
                           >
                             {formatDifficultyLabel(level)}
                           </SelectItem>

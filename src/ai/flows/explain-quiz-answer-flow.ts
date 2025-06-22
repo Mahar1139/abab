@@ -66,8 +66,8 @@ If the topic is "Hindi Literature", the entire 'textualExplanation' MUST be in H
     *   If the user's answer was incorrect, you can briefly mention why their choice might be a common misconception, but the primary focus is on explaining the correct solution path.
 
 2.  Determine if an image is appropriate for the given difficulty level.
-    *   **For the "KVS Abki Baar 180 Paar!" difficulty ONLY:** It is **HIGHLY ENCOURAGED** to provide a helpful 'imageGenerationInstruction'. Think creatively about what visual aid would best help a student preparing for a competitive exam. If a simple image (diagram, chart, visual representation, author portrait, timeline) would make this explanation much clearer, provide a concise, direct prompt for an image generation model here (e.g., 'A diagram showing a right-angled triangle with sides labeled A, B, C'). Only use 'NO_IMAGE_NEEDED' if a visual is truly irrelevant or impossible to represent simply. Examples for Hindi Literature include: a simple portrait of the author mentioned, a timeline of a literary period (e.g., Bhaktikal), a diagram explaining a grammatical concept (e.g., Sandhi), or a simple illustration of a scene from a famous work.
-    *   **For ALL OTHER difficulty levels:** You MUST set the 'imageGenerationInstruction' field to exactly the string "NO_IMAGE_NEEDED". This is a strict rule; visual aids are an exclusive feature for the "KVS Abki Baar 180 Paar!" batch.
+    *   **For the "KVS Abki Baar 180 Paar!" and "Abki Baar 720 Paar!" difficulties ONLY:** It is **HIGHLY ENCOURAGED** to provide a helpful 'imageGenerationInstruction'. Think creatively about what visual aid would best help a student preparing for a competitive exam. If a simple image (diagram, chart, visual representation, author portrait, timeline) would make this explanation much clearer, provide a concise, direct prompt for an image generation model here (e.g., 'A diagram showing a right-angled triangle with sides labeled A, B, C'). Only use 'NO_IMAGE_NEEDED' if a visual is truly irrelevant or impossible to represent simply. Examples for Hindi Literature include: a simple portrait of the author mentioned, a timeline of a literary period (e.g., Bhaktikal), a diagram explaining a grammatical concept (e.g., Sandhi), or a simple illustration of a scene from a famous work. Examples for NEET topics include: a clear diagram of a biological process, a labeled anatomical drawing, or a graph illustrating a physics concept.
+    *   **For ALL OTHER difficulty levels:** You MUST set the 'imageGenerationInstruction' field to exactly the string "NO_IMAGE_NEEDED". This is a strict rule; visual aids are an exclusive feature for these special batches.
 
 Ensure the explanation is tailored to the question's topic and difficulty.
 Output the response in the specified JSON format.
@@ -98,10 +98,12 @@ const explainQuizAnswerFlow = ai.defineFlow(
     }
 
     let generatedImageUri: string | undefined = undefined;
+    
+    const specialBatches = ["KVS Abki Baar 180 Paar!", "Abki Baar 720 Paar!"];
 
-    // Step 2: Conditionally generate an image, only for the special batch
+    // Step 2: Conditionally generate an image, only for the special batches
     if (
-      input.difficulty === "KVS Abki Baar 180 Paar!" &&
+      specialBatches.includes(input.difficulty) &&
       imageGenerationInstruction && 
       imageGenerationInstruction.trim() !== "NO_IMAGE_NEEDED" && 
       imageGenerationInstruction.trim() !== ""
