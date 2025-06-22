@@ -61,7 +61,7 @@ export default function PageHeader() {
           <SidebarTrigger />
         </div>
         <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-foreground hover:text-accent transition-colors">
-          <School className="h-7 w-7 text-accent" />
+          <School className="h-6 w-6 text-accent" />
           <span className="font-headline hidden sm:inline">Himalaya Public School</span>
         </Link>
       </div>
