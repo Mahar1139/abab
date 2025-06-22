@@ -49,9 +49,9 @@ const baseDifficulties = ["Beginner", "Easy", "Normal", "Hard", "Extreme"];
 
 const competitiveStylesMap: Record<string, string[]> = {
   "Space Exploration": ["Legend - SpaceX/Aerospace", "Legend - General Advanced"],
-  "Biology": ["Normal - NEET", "Legend - NEET", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Abki Baar 720 Paar!", "Legend - General Advanced"],
-  "Physics": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - SpaceX/Aerospace", "Abki Baar 720 Paar!", "Legend - General Advanced"],
-  "Chemistry": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Abki Baar 720 Paar!", "Legend - General Advanced"],
+  "Biology": ["Normal - NEET", "Legend - NEET", "Abki Baar 720 Paar!", "Legend - General Advanced"],
+  "Physics": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Abki Baar 720 Paar!", "Legend - General Advanced"],
+  "Chemistry": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Abki Baar 720 Paar!", "Legend - General Advanced"],
   "Mathematics": [
     "Legend - JEE Mains", "Legend - JEE Advanced", 
     "Normal - SBI PO Prelims", "Legend - SBI PO Mains", 
@@ -60,16 +60,16 @@ const competitiveStylesMap: Record<string, string[]> = {
   ],
   "Hindi Literature": ["KVS PRT - General Paper", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - Lecturer Test Prep", "KVS Abki Baar 180 Paar!", "Legend - General Advanced"],
   "Quantitative Aptitude": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
-  "Reasoning Ability": ["KVS PRT - General Paper", "Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
-  "English Language": ["KVS PRT - General Paper", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "Reasoning Ability": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
+  "English Language": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
   "Banking & Financial Awareness": ["Normal - SBI PO Prelims", "Legend - SBI PO Mains", "Legend - General Advanced"],
-  "General Knowledge": ["KVS PRT - General Paper", "Legend - General Advanced"],
-  "Current Affairs": ["KVS PRT - General Paper", "Legend - General Advanced"],
-  "Computer Science": ["KVS PRT - General Paper", "Legend - General Advanced"],
-  "History": ["KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
-  "Geography": ["KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
-  "Science": ["KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - General Advanced"],
-  "default": ["Legend - General Advanced"] 
+  "General Knowledge": ["Legend - General Advanced"],
+  "Current Affairs": ["Legend - General Advanced"],
+  "Computer Science": ["Legend - General Advanced"],
+  "History": ["Legend - General Advanced"],
+  "Geography": ["Legend - General Advanced"],
+  "Science": ["Legend - General Advanced"],
+  "default": ["Legend - General Advanced"]
 };
 
 const getDifficultyOptionsForTopic = (topic: string | null): string[] => {
