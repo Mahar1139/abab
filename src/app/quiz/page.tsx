@@ -17,7 +17,6 @@ import { explainQuizAnswer, type ExplainQuizAnswerInput, type ExplainQuizAnswerO
 import { Brain, CheckCircle, XCircle, Award, RotateCcw, Loader2, Info, HelpCircle, Lightbulb, Target } from "lucide-react";
 
 type QuizState = "selecting_topic_difficulty" | "in_progress" | "finished";
-type QuizMode = "competitive" | "boards";
 
 interface GeneratedQuestion extends GenerateQuizQuestionOutput {
   id: string; 
@@ -41,7 +40,7 @@ interface QuestionExplanation extends ExplainQuizAnswerOutput {
 }
 
 const topics = [
-  "General Knowledge", "Current Affairs", "Science", "Space Exploration", "Biology", "Physics", 
+  "Board Exams", "General Knowledge", "Current Affairs", "Science", "Space Exploration", "Biology", "Physics", 
   "Chemistry", "History", "Geography", "Mathematics", "Hindi Literature", "Literature", "Arts", "Computer Science",
   "Quantitative Aptitude", "Reasoning Ability", "English Language", "Banking & Financial Awareness"
 ];
@@ -112,21 +111,13 @@ const COLORS = {
 
 export default function QuizPage() {
   const [quizState, setQuizState] = useState<QuizState>("selecting_topic_difficulty");
-  const [quizMode, setQuizMode] = useState<QuizMode>('competitive');
 
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
-  const [selectedDifficulty, setSelectedDifficulty] = useState<string | null>(null);
-  
-  // State for competitive mode selectors
-  const [competitiveTopic, setCompetitiveTopic] = useState<string | null>(null);
-  const [competitiveDifficulty, setCompetitiveDifficulty] = useState<string | null>(null);
-  
-  // State for boards mode selectors
   const [boardSubject, setBoardSubject] = useState<string | null>(null);
   const [boardDifficulty, setBoardDifficulty] = useState<string | null>(null);
-  
-  const [currentDifficultyOptions, setCurrentDifficultyOptions] = useState<string[]>(getDifficultyOptionsForTopic(null));
-  
+  const [competitiveDifficulty, setCompetitiveDifficulty] = useState<string | null>(null);
+  const [currentCompetitiveDifficultyOptions, setCurrentCompetitiveDifficultyOptions] = useState<string[]>(getDifficultyOptionsForTopic(null));
+
   const [currentQuestion, setCurrentQuestion] = useState<GeneratedQuestion | null>(null);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [score, setScore] = useState(0);
@@ -138,6 +129,9 @@ export default function QuizPage() {
 
   const [isClient, setIsClient] = useState(false);
   const [showChallengeAlert, setShowChallengeAlert] = useState(false);
+  
+  const [finalTopicForQuiz, setFinalTopicForQuiz] = useState<string | null>(null);
+  const [finalDifficultyForQuiz, setFinalDifficultyForQuiz] = useState<string | null>(null);
 
   useEffect(() => {
     setIsClient(true);
@@ -153,34 +147,32 @@ export default function QuizPage() {
   }, []);
 
   useEffect(() => {
-    setCurrentDifficultyOptions(getDifficultyOptionsForTopic(competitiveTopic));
+    setCurrentCompetitiveDifficultyOptions(getDifficultyOptionsForTopic(selectedTopic));
     setCompetitiveDifficulty(null);
-    setSelectedDifficulty(null); 
-  }, [competitiveTopic]);
+  }, [selectedTopic]);
 
-  const handleModeChange = (mode: QuizMode) => {
-    setQuizMode(mode);
-    setSelectedTopic(null);
-    setSelectedDifficulty(null);
-    setCompetitiveTopic(null);
-    setCompetitiveDifficulty(null);
+  const handleTopicChange = (topic: string | null) => {
+    setSelectedTopic(topic);
     setBoardSubject(null);
     setBoardDifficulty(null);
+    setCompetitiveDifficulty(null);
   };
 
   const resetQuiz = () => {
     setQuizState("selecting_topic_difficulty");
-    handleModeChange('competitive'); // Reset to default mode
+    handleTopicChange(null);
     setCurrentQuestion(null);
     setSelectedAnswer(null);
     setScore(0);
     setUserAnswers([]);
     setError(null);
     setQuestionExplanations({});
+    setFinalTopicForQuiz(null);
+    setFinalDifficultyForQuiz(null);
   };
 
-  const fetchNextQuestion = async () => {
-    if (!selectedTopic || !selectedDifficulty) return;
+  const fetchNextQuestion = async (topic: string, difficulty: string) => {
+    if (!topic || !difficulty) return;
     setIsLoadingQuestion(true);
     setError(null);
     setCurrentQuestion(null);
@@ -188,8 +180,8 @@ export default function QuizPage() {
     try {
       const previousQuestionTexts = userAnswers.map(ua => ua.questionText);
       const input: GenerateQuizQuestionInput = { 
-        topic: selectedTopic, 
-        difficulty: selectedDifficulty,
+        topic: topic, 
+        difficulty: difficulty,
         previousQuestionTexts: previousQuestionTexts.slice(-5) 
       };
       const result = await generateQuizQuestion(input);
@@ -218,16 +210,32 @@ export default function QuizPage() {
   };
 
   const handleStartQuiz = () => {
-    if (!selectedTopic || !selectedDifficulty) return;
+    let topicForAI: string | null = null;
+    let difficultyForAI: string | null = null;
+
+    if (selectedTopic === 'Board Exams') {
+      if (!boardSubject || !boardDifficulty) return;
+      topicForAI = boardSubject;
+      difficultyForAI = `Board Exam: ${boardDifficulty}`;
+    } else {
+      if (!selectedTopic || !competitiveDifficulty) return;
+      topicForAI = selectedTopic;
+      difficultyForAI = competitiveDifficulty;
+    }
+
+    if (!topicForAI || !difficultyForAI) return;
+
+    setFinalTopicForQuiz(topicForAI);
+    setFinalDifficultyForQuiz(difficultyForAI);
     setQuizState("in_progress");
     setScore(0);
     setUserAnswers([]);
     setQuestionExplanations({});
-    fetchNextQuestion();
+    fetchNextQuestion(topicForAI, difficultyForAI);
   };
 
   const handleSubmitAnswer = () => {
-    if (!selectedAnswer || !currentQuestion || !selectedTopic || !selectedDifficulty) return;
+    if (!selectedAnswer || !currentQuestion || !finalTopicForQuiz || !finalDifficultyForQuiz) return;
 
     const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
     if (isCorrect) {
@@ -244,15 +252,15 @@ export default function QuizPage() {
         correctAnswer: currentQuestion.correctAnswer,
         isCorrect,
         source: currentQuestion.source || "N/A",
-        topic: selectedTopic, 
-        difficulty: selectedDifficulty, 
+        topic: finalTopicForQuiz, 
+        difficulty: finalDifficultyForQuiz, 
       },
     ]);
 
     setSelectedAnswer(null);
     
     if (userAnswers.length < 4) { 
-      fetchNextQuestion();
+      fetchNextQuestion(finalTopicForQuiz, finalDifficultyForQuiz);
     } else {
       setQuizState("finished");
     }
@@ -313,8 +321,15 @@ export default function QuizPage() {
     if (level.startsWith("Normal - ")) return `Normal (${level.substring("Normal - ".length)} Style)`;
     if (level.includes("Abki Baar")) return `🎯 ${level}`;
     if (level.startsWith("KVS")) return `Exam: ${level}`;
-    if (level.startsWith("Board Exam:")) return level.substring("Board Exam: ".length);
+    if (level.startsWith("Board Exam: ")) return level.substring("Board Exam: ".length);
     return level;
+  };
+  
+  const isStartButtonDisabled = () => {
+    if (selectedTopic === "Board Exams") {
+      return !boardSubject || !boardDifficulty;
+    }
+    return !selectedTopic || !competitiveDifficulty;
   };
 
   return (
@@ -338,11 +353,10 @@ export default function QuizPage() {
               <Brain className="w-10 h-10 text-primary" />
               <CardTitle className="text-3xl text-primary">Test Your Knowledge!</CardTitle>
             </div>
-            {quizState !== "selecting_topic_difficulty" && selectedTopic && selectedDifficulty && (
+            {quizState !== "selecting_topic_difficulty" && finalTopicForQuiz && finalDifficultyForQuiz && (
               <CardDescription className="text-md">
-                Mode: <span className="font-semibold text-secondary">{quizMode === 'boards' ? 'Board Exams' : 'Competitive Exams'}</span> |
-                Topic: <span className="font-semibold text-secondary">{selectedTopic}</span> | 
-                Difficulty: <span className="font-semibold text-secondary">{formatDifficultyLabel(selectedDifficulty)}</span>
+                Quiz on: <span className="font-semibold text-secondary">{finalTopicForQuiz}</span> | 
+                Difficulty: <span className="font-semibold text-secondary">{formatDifficultyLabel(finalDifficultyForQuiz)}</span>
               </CardDescription>
             )}
           </CardHeader>
@@ -351,85 +365,73 @@ export default function QuizPage() {
               <div className="space-y-6 max-w-lg mx-auto">
                 <h3 className="text-2xl font-semibold text-foreground text-center">Configure Your Quiz</h3>
                 
-                <RadioGroup defaultValue={quizMode} onValueChange={(value) => handleModeChange(value as QuizMode)} className="flex items-center justify-center gap-4 py-2">
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="competitive" id="mode-competitive" />
-                    <Label htmlFor="mode-competitive" className="text-lg font-medium cursor-pointer">Competitive Exams</Label>
+                <div className="space-y-4 animate-in fade-in-0 duration-300">
+                  <div className="space-y-2">
+                    <Label htmlFor="topic-select" className="text-lg">1. Select a Topic or Exam Type</Label>
+                    <Select onValueChange={handleTopicChange} value={selectedTopic ?? undefined}>
+                      <SelectTrigger id="topic-select" className="w-full py-3 text-lg">
+                        <SelectValue placeholder="Choose a topic or exam type..." />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {topics.map(topic => (
+                          <SelectItem key={topic} value={topic} className={`text-lg py-2 ${topic === "Board Exams" ? 'font-bold text-accent' : ''}`}>{topic}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="boards" id="mode-boards" />
-                    <Label htmlFor="mode-boards" className="text-lg font-medium cursor-pointer">Board Exams</Label>
-                  </div>
-                </RadioGroup>
 
-                {quizMode === 'competitive' && (
-                  <div className="space-y-4 animate-in fade-in-0 duration-300">
-                    <div className="space-y-2">
-                      <Label htmlFor="topic-select" className="text-lg">1. Select a Topic</Label>
-                      <Select onValueChange={(value) => {setCompetitiveTopic(value); setSelectedTopic(value); setCompetitiveDifficulty(null); setSelectedDifficulty(null);}} value={competitiveTopic ?? undefined}>
-                        <SelectTrigger id="topic-select" className="w-full py-3 text-lg">
-                          <SelectValue placeholder="Choose a topic..." />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {topics.map(topic => (
-                            <SelectItem key={topic} value={topic} className="text-lg py-2">{topic}</SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    {competitiveTopic && (
+                  {selectedTopic === 'Board Exams' && (
+                    <div className="space-y-4 border-l-4 border-accent pl-4 ml-2 animate-in fade-in-0 duration-300">
                       <div className="space-y-2">
-                        <Label htmlFor="difficulty-select" className="text-lg">2. Select Difficulty for {competitiveTopic}</Label>
-                        <Select onValueChange={(value) => {setCompetitiveDifficulty(value); setSelectedDifficulty(value);}} value={competitiveDifficulty ?? undefined} disabled={!competitiveTopic}>
-                          <SelectTrigger id="difficulty-select" className="w-full py-3 text-lg">
-                            <SelectValue placeholder="Choose a difficulty level..." />
+                        <Label htmlFor="board-subject-select" className="text-lg">2. Select a Board Subject</Label>
+                        <Select onValueChange={setBoardSubject} value={boardSubject ?? undefined}>
+                          <SelectTrigger id="board-subject-select" className="w-full py-3 text-lg">
+                            <SelectValue placeholder="Choose a board subject..." />
                           </SelectTrigger>
                           <SelectContent>
-                            {currentDifficultyOptions.map(level => (
-                              <SelectItem key={level} value={level} className={`text-lg py-2 ${level.includes('Abki Baar') ? 'text-accent font-bold' : ''}`}>{formatDifficultyLabel(level)}</SelectItem>
+                            {boardSubjects.map(subject => (
+                              <SelectItem key={subject} value={subject} className="text-lg py-2">{subject}</SelectItem>
                             ))}
                           </SelectContent>
                         </Select>
                       </div>
-                    )}
-                  </div>
-                )}
-                
-                {quizMode === 'boards' && (
-                  <div className="space-y-4 animate-in fade-in-0 duration-300">
-                    <div className="space-y-2">
-                      <Label htmlFor="board-subject-select" className="text-lg">1. Select a Subject</Label>
-                      <Select onValueChange={(value) => {setBoardSubject(value); setSelectedTopic(value); setBoardDifficulty(null); setSelectedDifficulty(null);}} value={boardSubject ?? undefined}>
-                        <SelectTrigger id="board-subject-select" className="w-full py-3 text-lg">
-                          <SelectValue placeholder="Choose a board subject..." />
+                      {boardSubject && (
+                        <div className="space-y-2">
+                          <Label htmlFor="board-difficulty-select" className="text-lg">3. Select Difficulty for {boardSubject}</Label>
+                          <Select onValueChange={setBoardDifficulty} value={boardDifficulty ?? undefined} disabled={!boardSubject}>
+                            <SelectTrigger id="board-difficulty-select" className="w-full py-3 text-lg">
+                              <SelectValue placeholder="Choose a board difficulty level..." />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {boardDifficulties.map(level => (
+                                <SelectItem key={level} value={level} className={`text-lg py-2 ${level.includes('Rank One') ? 'text-destructive font-bold' : ''}`}>{level}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {selectedTopic && selectedTopic !== 'Board Exams' && (
+                    <div className="space-y-2 animate-in fade-in-0 duration-300">
+                      <Label htmlFor="difficulty-select" className="text-lg">2. Select Difficulty for {selectedTopic}</Label>
+                      <Select onValueChange={setCompetitiveDifficulty} value={competitiveDifficulty ?? undefined} disabled={!selectedTopic}>
+                        <SelectTrigger id="difficulty-select" className="w-full py-3 text-lg">
+                          <SelectValue placeholder="Choose a difficulty level..." />
                         </SelectTrigger>
                         <SelectContent>
-                          {boardSubjects.map(subject => (
-                            <SelectItem key={subject} value={subject} className="text-lg py-2">{subject}</SelectItem>
+                          {currentCompetitiveDifficultyOptions.map(level => (
+                            <SelectItem key={level} value={level} className={`text-lg py-2 ${level.includes('Abki Baar') ? 'text-accent font-bold' : ''}`}>{formatDifficultyLabel(level)}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
                     </div>
-                    {boardSubject && (
-                      <div className="space-y-2">
-                        <Label htmlFor="board-difficulty-select" className="text-lg">2. Select Difficulty for {boardSubject}</Label>
-                        <Select onValueChange={(value) => {setBoardDifficulty(value); setSelectedDifficulty(`Board Exam: ${value}`);}} value={boardDifficulty ?? undefined} disabled={!boardSubject}>
-                          <SelectTrigger id="board-difficulty-select" className="w-full py-3 text-lg">
-                            <SelectValue placeholder="Choose a difficulty level..." />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {boardDifficulties.map(level => (
-                              <SelectItem key={level} value={level} className={`text-lg py-2 ${level.includes('Rank One') ? 'text-destructive font-bold' : ''}`}>{level}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    )}
-                  </div>
-                )}
+                  )}
+                </div>
 
                 <div className="flex justify-center pt-4">
-                   <Button size="lg" onClick={handleStartQuiz} disabled={!selectedTopic || !selectedDifficulty}>
+                   <Button size="lg" onClick={handleStartQuiz} disabled={isStartButtonDisabled()}>
                     Start Quiz <Award className="ml-2 h-5 w-5" />
                   </Button>
                 </div>
@@ -450,7 +452,7 @@ export default function QuizPage() {
                 <AlertDescription>
                   {error}
                   <div className="mt-4 flex gap-2">
-                    <Button onClick={fetchNextQuestion} variant="outline" size="sm" disabled={isLoadingQuestion || !selectedTopic || !selectedDifficulty}>
+                    <Button onClick={() => fetchNextQuestion(finalTopicForQuiz!, finalDifficultyForQuiz!)} variant="outline" size="sm" disabled={isLoadingQuestion || !finalTopicForQuiz || !finalDifficultyForQuiz}>
                       {isLoadingQuestion ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null} Try Again
                     </Button>
                     <Button onClick={resetQuiz} variant="secondary" size="sm">Change Settings</Button>
