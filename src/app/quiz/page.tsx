@@ -50,9 +50,9 @@ const baseDifficulties = ["Beginner", "Easy", "Normal", "Hard", "Extreme"];
 
 const competitiveStylesMap: Record<string, string[]> = {
   "Space Exploration": ["Legend - SpaceX/Aerospace", "Legend - General Advanced"],
-  "Biology": ["Normal - NEET", "Legend - NEET", "Abki Baar 720 Paar!", "Legend - General Advanced"],
-  "Physics": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "Abki Baar 720 Paar!", "Legend - General Advanced"],
-  "Chemistry": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Abki Baar 720 Paar!", "Legend - General Advanced"],
+  "Biology": ["Normal - NEET", "Legend - NEET", "NEET Abki Baar 720 Paar!", "Legend - General Advanced"],
+  "Physics": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "Legend - SpaceX/Aerospace", "NEET Abki Baar 720 Paar!", "Legend - General Advanced"],
+  "Chemistry": ["Normal - NEET", "Legend - NEET", "Legend - JEE Mains", "Legend - JEE Advanced", "NEET Abki Baar 720 Paar!", "Legend - General Advanced"],
   "Mathematics": [
     "Legend - JEE Mains", "Legend - JEE Advanced", 
     "Normal - SBI PO Prelims", "Legend - SBI PO Mains", 
