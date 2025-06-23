@@ -84,6 +84,10 @@ Ensure the explanation is tailored to the question's topic and difficulty. Outpu
   }
 });
 
+export async function explainQuizAnswer(input: ExplainQuizAnswerInput): Promise<ExplainQuizAnswerOutput> {
+  return explainQuizAnswerFlow(input);
+}
+
 const explainQuizAnswerFlow = ai.defineFlow(
   {
     name: 'explainQuizAnswerFlow',
