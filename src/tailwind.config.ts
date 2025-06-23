@@ -105,9 +105,9 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'gradient-flow-right': 'gradient-flow-right 7s ease infinite',
-        'gradient-flow-up': 'gradient-flow-up 12s ease infinite alternate',
-        'gradient-flow-diagonal': 'gradient-flow-diagonal 18s ease infinite',
+        'gradient-flow-right': 'gradient-flow-right 5s ease infinite',
+        'gradient-flow-up': 'gradient-flow-up 8s ease infinite alternate',
+        'gradient-flow-diagonal': 'gradient-flow-diagonal 10s ease infinite',
       },
     },
   },
