@@ -54,7 +54,7 @@ export default function PageHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b bg-background/80 backdrop-blur-sm px-4 md:px-6">
+    <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b bg-background/60 backdrop-blur-sm px-4 md:px-6">
       {/* Left section: Mobile trigger and School Logo/Name */}
       <div className="flex flex-shrink-0 items-center gap-3">
         <div className=""> 
