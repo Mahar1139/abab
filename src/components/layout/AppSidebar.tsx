@@ -72,7 +72,7 @@ export default function AppSidebar() {
                   variant={pathname === item.href ? "default" : "ghost"}
                   className={`w-full justify-start group-data-[collapsible=icon]:justify-center ${pathname === item.href ? 'bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary/90' : 'text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground'}`}
                 >
-                  <Link href={item.href} className="flex items-center gap-3">
+                  <Link href={item.href} className="flex items-center gap-3" prefetch={false}>
                     <item.icon className="w-5 h-5" />
                     <span className="group-data-[collapsible=icon]:hidden">{item.label}</span>
                   </Link>
