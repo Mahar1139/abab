@@ -44,6 +44,7 @@ export default function HomePage() {
   const { t } = useTranslation();
 
   // --- Independence Day Animation State & Effect (Preserved) ---
+  const [isClient, setIsClient] = useState(false);
   const [animationContainerVisible, setAnimationContainerVisible] = useState(false);
   const [saffronPlane, setSaffronPlane] = useState<AnimatedElement>({
     id: 'saffron-plane', opacity: 1, transform: 'translateX(-100%)', width: '100vw', height: '33.34vh', top: '0%', bgColor: 'bg-orange-500', transitionDuration: `${ANIMATION_DURATION}ms`, zIndex: 30,
@@ -62,6 +63,14 @@ export default function HomePage() {
   });
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) {
+      return;
+    }
+
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth(); 
     const currentDay = currentDate.getDate();
@@ -119,7 +128,7 @@ export default function HomePage() {
         animationTimeouts.forEach(clearTimeout);
       };
     }
-  }, []);
+  }, [isClient]);
   // --- End of Independence Day Animation State & Effect ---
 
   return (
