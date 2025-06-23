@@ -90,60 +90,28 @@ export default {
           },
         },
         'blob-1': {
-          '0%': {
-            transform: 'translate(0px, 0px) scale(1)',
-          },
-          '33%': {
-            transform: 'translate(20vw, -25vh) scale(1.2)',
-          },
-          '66%': {
-            transform: 'translate(-15vw, 20vh) scale(0.8)',
-          },
-          '100%': {
-            transform: 'translate(0px, 0px) scale(1)',
-          },
+          '0%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(20vw, -25vh) scale(1.2)' },
+          '66%': { transform: 'translate(-15vw, 20vh) scale(0.8)' },
+          '100%': { transform: 'translate(0px, 0px) scale(1)' },
         },
         'blob-2': {
-          '0%': {
-            transform: 'translate(0px, 0px) scale(1)',
-          },
-          '33%': {
-            transform: 'translate(-25vw, 20vh) scale(1.2)',
-          },
-          '66%': {
-            transform: 'translate(10vw, -25vh) scale(0.8)',
-          },
-          '100%': {
-            transform: 'translate(0px, 0px) scale(1)',
-          },
+          '0%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(-25vw, 20vh) scale(1.2)' },
+          '66%': { transform: 'translate(10vw, -25vh) scale(0.8)' },
+          '100%': { transform: 'translate(0px, 0px) scale(1)' },
         },
         'blob-3': {
-          '0%': {
-            transform: 'translate(0px, 0px) scale(1)',
-          },
-          '33%': {
-            transform: 'translate(15vw, 25vh) scale(0.9)',
-          },
-          '66%': {
-            transform: 'translate(-10vw, -15vh) scale(1.1)',
-          },
-          '100%': {
-            transform: 'translate(0px, 0px) scale(1)',
-          },
+          '0%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(15vw, 25vh) scale(0.9)' },
+          '66%': { transform: 'translate(-10vw, -15vh) scale(1.1)' },
+          '100%': { transform: 'translate(0px, 0px) scale(1)' },
         },
         'blob-4': {
-          '0%': {
-            transform: 'translate(0px, 0px) scale(1)',
-          },
-          '33%': {
-            transform: 'translate(-20vw, 20vh) scale(1.2)',
-          },
-          '66%': {
-            transform: 'translate(25vw, -10vh) scale(0.7)',
-          },
-          '100%': {
-            transform: 'translate(0px, 0px) scale(1)',
-          },
+          '0%': { transform: 'translate(0px, 0px) scale(1)' },
+          '33%': { transform: 'translate(-20vw, 20vh) scale(1.2)' },
+          '66%': { transform: 'translate(25vw, -10vh) scale(0.7)' },
+          '100%': { transform: 'translate(0px, 0px) scale(1)' },
         },
       },
       animation: {
