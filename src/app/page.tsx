@@ -215,7 +215,7 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10" />
           <div className="relative z-20 p-4 md:p-8 max-w-4xl mx-auto">
-            <div className="animate-in fade-in-0 slide-in-from-bottom-12 duration-500 delay-50">
+            <div>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl font-headline">
                 Welcome to Himalaya Public School
               </h1>
@@ -223,7 +223,7 @@ export default function HomePage() {
                 Nurturing curious minds and shaping future leaders with a holistic approach to learning and personal growth.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 animate-in fade-in-0 slide-in-from-bottom-10 duration-500 delay-100">
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
               <Button
                 asChild
                 size="lg"
@@ -246,7 +246,7 @@ export default function HomePage() {
         {/* About Us Snippet Section */}
         <SectionWrapper className="bg-card text-foreground py-16 md:py-24">
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="animate-in fade-in-0 slide-in-from-left-10 duration-300 delay-100">
+            <div>
               <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 font-headline">About Himalaya Public School</h2>
               <p className="text-lg text-foreground/80 leading-relaxed mb-4">
                 Established in 1985, Himalaya Public School is a hub of academic excellence and character development. We provide a supportive, student-centered environment that encourages interactive learning and technological orientation.
@@ -258,7 +258,7 @@ export default function HomePage() {
                 <Link href="/faculty">Meet Our Team <ArrowRight className="ml-2" /></Link>
               </Button>
             </div>
-            <div className="animate-in fade-in-0 slide-in-from-right-10 duration-300 delay-150">
+            <div>
               <div className="rounded-xl shadow-2xl overflow-hidden aspect-video group relative">
                 <Image
                   src="/images/home_page.jpg" 
@@ -280,13 +280,12 @@ export default function HomePage() {
               { 
                 title: "Academic Excellence", 
                 icon: GraduationCap, 
-                description: "A rigorous curriculum and dedicated faculty ensure a top-tier educational experience.", 
-                delay: 50
+                description: "A rigorous curriculum and dedicated faculty ensure a top-tier educational experience."
               },
-              { title: "Holistic Development", icon: Leaf, description: "We focus on the all-round development of students, including arts, sports, and life skills.", delay: 100 },
-              { title: "Vibrant Community", icon: Users, description: "A supportive and inclusive community where every student feels valued and can thrive.", delay: 150 }
+              { title: "Holistic Development", icon: Leaf, description: "We focus on the all-round development of students, including arts, sports, and life skills." },
+              { title: "Vibrant Community", icon: Users, description: "A supportive and inclusive community where every student feels valued and can thrive." }
             ].map((item, index) => (
-              <Card key={index} className="shadow-xl hover:shadow-2xl transition-all duration-300 bg-card hover:border-primary/50 group animate-in fade-in-0 slide-in-from-bottom-5 duration-300" style={{ animationDelay: `${item.delay}ms`}}>
+              <Card key={index} className="shadow-xl hover:shadow-2xl transition-all duration-300 bg-card hover:border-primary/50 group">
                 <CardHeader className="items-center text-center">
                   <div className="p-5 bg-primary/10 rounded-full mb-4 inline-block group-hover:bg-primary transition-colors duration-300">
                     <item.icon className="w-12 h-12 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
@@ -308,12 +307,12 @@ export default function HomePage() {
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { title: "Primary School", description: "Grades 1-5. Building strong foundations in a nurturing environment.", icon: BookOpenCheck, href: "/academic-programs#primary", delay: 50, dataAiHint: "children classroom" },
-              { title: "Middle School", description: "Grades 6-8. Fostering critical thinking and deeper subject understanding.", icon: TrendingUp, href: "/academic-programs#middle", delay: 75, dataAiHint: "students science" },
-              { title: "High School", description: "Grades 9-12. Preparing for board exams and future career paths.", icon: ShieldCheck, href: "/academic-programs#high", delay: 100, dataAiHint: "teenagers studying" },
-              { title: "Tech Programs", description: "Specialized courses in Coding, Robotics, and Computer Literacy.", icon: Zap, href: "/tech-programs", delay: 125, dataAiHint: "robotics coding" },
+              { title: "Primary School", description: "Grades 1-5. Building strong foundations in a nurturing environment.", icon: BookOpenCheck, href: "/academic-programs#primary", dataAiHint: "children classroom" },
+              { title: "Middle School", description: "Grades 6-8. Fostering critical thinking and deeper subject understanding.", icon: TrendingUp, href: "/academic-programs#middle", dataAiHint: "students science" },
+              { title: "High School", description: "Grades 9-12. Preparing for board exams and future career paths.", icon: ShieldCheck, href: "/academic-programs#high", dataAiHint: "teenagers studying" },
+              { title: "Tech Programs", description: "Specialized courses in Coding, Robotics, and Computer Literacy.", icon: Zap, href: "/tech-programs", dataAiHint: "robotics coding" },
             ].map((program) => (
-              <Card key={program.title} className="group overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full bg-background hover:border-accent/50 animate-in fade-in-0 slide-in-from-bottom-5 duration-300" style={{ animationDelay: `${program.delay}ms`}}>
+              <Card key={program.title} className="group overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full bg-background hover:border-accent/50">
                 <CardHeader className="items-center text-center p-4">
                   <div className="p-3 bg-accent/10 rounded-full mb-3 inline-block group-hover:bg-accent transition-colors duration-300">
                     <program.icon className="w-8 h-8 text-accent group-hover:text-accent-foreground transition-colors duration-300" />
@@ -342,11 +341,11 @@ export default function HomePage() {
           </p>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { title: "Sports & Athletics", icon: Activity, description: "Promoting fitness, teamwork, and sportsmanship through various sports.", delay: 50, dataAiHint:"students playing sports" },
-              { title: "Arts & Culture", icon: Palette, description: "Encouraging creativity through music, dance, drama, and visual arts.", delay: 100, dataAiHint:"children painting art" },
-              { title: "Clubs & Events", icon: Telescope, description: "From science fairs to debate clubs, there's something for every interest.", delay: 150, dataAiHint:"student clubs activity" },
+              { title: "Sports & Athletics", icon: Activity, description: "Promoting fitness, teamwork, and sportsmanship through various sports.", dataAiHint:"students playing sports" },
+              { title: "Arts & Culture", icon: Palette, description: "Encouraging creativity through music, dance, drama, and visual arts.", dataAiHint:"children painting art" },
+              { title: "Clubs & Events", icon: Telescope, description: "From science fairs to debate clubs, there's something for every interest.", dataAiHint:"student clubs activity" },
             ].map((item) => (
-               <Card key={item.title} className="bg-card shadow-lg rounded-lg p-6 text-center group hover:shadow-xl transition-shadow duration-300 animate-in fade-in-0 slide-in-from-bottom-5 duration-300" style={{animationDelay: `${item.delay}ms`}}>
+               <Card key={item.title} className="bg-card shadow-lg rounded-lg p-6 text-center group hover:shadow-xl transition-shadow duration-300">
                   <div className="flex justify-center mb-4">
                       <div className="p-4 bg-primary/10 rounded-full group-hover:bg-primary transition-colors duration-300">
                           <item.icon className="w-10 h-10 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
@@ -364,7 +363,7 @@ export default function HomePage() {
           <div className="container mx-auto px-4">
             <div className="grid md:grid-cols-3 gap-10 mb-10">
               {/* Column 1: School Info */}
-              <div className="animate-in fade-in-0 slide-in-from-bottom-5 duration-300 delay-50">
+              <div>
                 <Link href="/" className="flex items-center gap-3 mb-4 group">
                   <School className="h-9 w-9 text-primary-foreground group-hover:text-accent transition-colors" />
                   <span className="text-2xl font-bold text-primary-foreground group-hover:text-accent transition-colors font-headline">Himalaya Public School</span>
@@ -375,7 +374,7 @@ export default function HomePage() {
               </div>
 
               {/* Column 2: Quick Links */}
-              <div className="animate-in fade-in-0 slide-in-from-bottom-5 duration-300 delay-100">
+              <div>
                 <h3 className="text-xl font-bold text-secondary mb-5 font-headline">Explore</h3>
                 <ul className="space-y-2.5">
                   <li><Link href="/academic-programs" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />Academic Programs</Link></li>
@@ -386,7 +385,7 @@ export default function HomePage() {
               </div>
 
               {/* Column 3: Contact Details */}
-              <div className="animate-in fade-in-0 slide-in-from-bottom-5 duration-300 delay-150">
+              <div>
                 <h3 className="text-xl font-bold text-secondary mb-5 font-headline">Get in Touch</h3>
                 <ul className="space-y-3.5 text-base font-medium text-primary-foreground/90">
                   <li className="flex items-start">
