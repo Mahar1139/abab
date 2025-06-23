@@ -1,4 +1,3 @@
-
 "use client";
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
@@ -54,13 +53,13 @@ export default function PageHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b bg-background/60 backdrop-blur-sm px-4 md:px-6">
+    <header className="sticky top-0 z-10 flex h-12 items-center justify-between border-b bg-background/60 backdrop-blur-sm px-2 md:px-4">
       {/* Left section: Mobile trigger and School Logo/Name */}
-      <div className="flex flex-shrink-0 items-center gap-3">
+      <div className="flex flex-shrink-0 items-center gap-2">
         <div className=""> 
           <SidebarTrigger />
         </div>
-        <Link href="/" className="flex items-center gap-2 text-lg font-semibold text-foreground hover:text-accent transition-colors">
+        <Link href="/" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-accent transition-colors">
           <School className="h-6 w-6 text-accent" />
           <span className="font-headline hidden sm:inline">Himalaya Public School</span>
         </Link>
@@ -68,7 +67,7 @@ export default function PageHeader() {
 
       {/* Right section: Page Title, wrapped for better flex handling */}
       <div className="min-w-0 flex-1">
-        <h1 className="text-lg md:text-xl font-semibold font-headline text-primary text-right truncate">
+        <h1 className="text-base md:text-lg font-semibold font-headline text-primary text-right truncate">
           {pageTitle}
         </h1>
       </div>
