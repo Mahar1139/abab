@@ -89,7 +89,7 @@ export default {
             height: '0',
           },
         },
-        'gradient-xy': { 
+        'gradient-slide': { 
           '0%, 100%': { backgroundPosition: '0% 50%' },
           '50%': { backgroundPosition: '100% 50%' },
         },
@@ -97,7 +97,7 @@ export default {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'gradient-slide': 'gradient-xy 15s ease infinite', 
+        'gradient-slide': 'gradient-slide 4s ease infinite', 
       },
     },
   },
