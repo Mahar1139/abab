@@ -89,15 +89,25 @@ export default {
             height: '0',
           },
         },
-        'gradient-slide': { 
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
+        'gradient-flow-right': {
+          '0%, 100%': { 'background-size': '200% 200%', 'background-position': '0% 50%' },
+          '50%': { 'background-size': '200% 200%', 'background-position': '100% 50%' },
+        },
+        'gradient-flow-up': {
+            '0%, 100%': { 'background-size': '200% 200%', 'background-position': '50% 100%' },
+            '50%': { 'background-size': '200% 200%', 'background-position': '50% 0%' },
+        },
+        'gradient-flow-diagonal': {
+            '0%, 100%': { 'background-size': '400% 400%', 'background-position': '0% 100%' },
+            '50%': { 'background-size': '200% 200%', 'background-position': '100% 0%' },
         },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'gradient-slide': 'gradient-slide 4s ease infinite', 
+        'gradient-flow-right': 'gradient-flow-right 7s ease infinite',
+        'gradient-flow-up': 'gradient-flow-up 12s ease infinite alternate',
+        'gradient-flow-diagonal': 'gradient-flow-diagonal 18s ease infinite',
       },
     },
   },
