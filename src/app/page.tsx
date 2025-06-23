@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link'
@@ -193,9 +194,9 @@ export default function HomePage() {
       )}
       {/* --- End of Independence Day Animation Container --- */}
 
-      <div className="flex flex-col min-h-screen animate-in fade-in-0 duration-500">
+      <div className="flex flex-col min-h-screen">
         {/* Hero Section */}
-        <section className="relative -mt-12 w-full h-screen flex items-center justify-center text-center text-white overflow-hidden animate-in fade-in-0 duration-500">
+        <section className="relative -mt-12 w-full h-screen flex items-center justify-center text-center text-white overflow-hidden">
           <Image
             src="https://lh3.googleusercontent.com/gps-cs-s/AC9h4nqGpIjyMkeZmBxDxz5RImzgropFvvV9x8xC5mUiVdtthhKJynZ0XOr38nAMidwAWkT1VY_IvS0iqi-nzQxTwrlhg5ns7brlSVAMXVF_A9GKKaE1cc68Gp0mU_z6YZn4AFuVrns=s1360-w1360-h1020-rw"
             alt="Himalaya Public School students and faculty"
