@@ -90,37 +90,69 @@ export default {
           },
         },
         'blob-1': {
-          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
-          '25%': { transform: 'translate(30vw, -40vh) scale(1.2)' },
-          '50%': { transform: 'translate(50vw, 10vh) scale(0.8)' },
-          '75%': { transform: 'translate(10vw, 40vh) scale(1.1)' },
+          '0%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
+          '33%': {
+            transform: 'translate(20vw, -25vh) scale(1.2)',
+          },
+          '66%': {
+            transform: 'translate(-15vw, 20vh) scale(0.8)',
+          },
+          '100%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
         },
         'blob-2': {
-          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
-          '25%': { transform: 'translate(-40vw, 50vh) scale(1.1)' },
-          '50%': { transform: 'translate(20vw, -20vh) scale(0.9)' },
-          '75%': { transform: 'translate(40vw, -30vh) scale(1.2)' },
+          '0%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
+          '33%': {
+            transform: 'translate(-25vw, 20vh) scale(1.2)',
+          },
+          '66%': {
+            transform: 'translate(10vw, -25vh) scale(0.8)',
+          },
+          '100%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
         },
         'blob-3': {
-          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
-          '25%': { transform: 'translate(20vw, 50vh) scale(0.8)' },
-          '50%': { transform: 'translate(-40vw, -40vh) scale(1.2)' },
-          '75%': { transform: 'translate(20vw, -20vh) scale(1)' },
+          '0%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
+          '33%': {
+            transform: 'translate(15vw, 25vh) scale(0.9)',
+          },
+          '66%': {
+            transform: 'translate(-10vw, -15vh) scale(1.1)',
+          },
+          '100%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
         },
         'blob-4': {
-          '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
-          '25%': { transform: 'translate(-25vw, -25vh) scale(1.2)' },
-          '50%': { transform: 'translate(35vw, 25vh) scale(0.8)' },
-          '75%': { transform: 'translate(-35vw, 35vh) scale(1)' },
+          '0%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
+          '33%': {
+            transform: 'translate(-20vw, 20vh) scale(1.2)',
+          },
+          '66%': {
+            transform: 'translate(25vw, -10vh) scale(0.7)',
+          },
+          '100%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
         },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
-        'blob-1': 'blob-1 5s infinite ease-in-out',
-        'blob-2': 'blob-2 6s infinite ease-in-out',
-        'blob-3': 'blob-3 7s infinite ease-in-out',
-        'blob-4': 'blob-4 8s infinite ease-in-out',
+        'blob-1': 'blob-1 7s infinite ease-in-out',
+        'blob-2': 'blob-2 8s infinite ease-in-out',
+        'blob-3': 'blob-3 9s infinite ease-in-out',
+        'blob-4': 'blob-4 10s infinite ease-in-out',
       },
     },
   },
