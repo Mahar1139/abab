@@ -3,11 +3,12 @@
 
 import { useState, useRef, useEffect, type FormEvent, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetFooter, SheetDescription } from '@/components/ui/sheet';
-import { Send, User, Loader2, BrainCircuit, ShieldBan } from 'lucide-react'; // BrainCircuit for chat avatar
+import { Send, User, Loader2, BrainCircuit, ShieldBan } from 'lucide-react';
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
@@ -47,6 +48,7 @@ export default function FloatingAIHelper() {
   const [isUnrestrictedMode, setIsUnrestrictedMode] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { setTheme } = useTheme();
   const { language } = useLanguage();
 
   const [abuseStrikeCount, setAbuseStrikeCount] = useState<number>(0);
@@ -171,6 +173,16 @@ export default function FloatingAIHelper() {
       let aiResponseText = result.answer;
       let safetyBlocked = result.safetyBlocked;
 
+      // Handle actions first
+      if (result.action) {
+        if (result.action.type === 'navigate' && typeof result.action.payload === 'string') {
+          router.push(result.action.payload);
+          setIsOpen(false);
+        } else if (result.action.type === 'set_theme' && typeof result.action.payload === 'string') {
+          setTheme(result.action.payload);
+        }
+      }
+
       if (safetyBlocked) {
         const newStrikeCount = abuseStrikeCount + 1;
         setAbuseStrikeCount(newStrikeCount);
@@ -185,7 +197,8 @@ export default function FloatingAIHelper() {
 
       } else if (aiResponseText && aiResponseText.trim() !== "") {
          setMessages((prev) => [...prev, { id: `ai-${Date.now()}`, text: aiResponseText, sender: 'ai' }]);
-      } else {
+      } else if (!result.action) {
+        // Only show this error if there was no text AND no action to perform
         const emptyResponseMessage = "The AI didn't provide a specific answer to this query. Please try rephrasing or ask something else.";
         setMessages((prev) => [...prev, { id: `ai-empty-${Date.now()}`, text: emptyResponseMessage, sender: 'ai', isError: true }]);
       }

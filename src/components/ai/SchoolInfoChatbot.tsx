@@ -3,10 +3,11 @@
 
 import { useState, type FormEvent, useEffect, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Loader2, BrainCircuit, HelpCircle, StopCircle, Zap, ArrowLeftCircle, ShieldBan } from 'lucide-react'; // Changed Cpu to BrainCircuit
+import { Loader2, BrainCircuit, HelpCircle, StopCircle, Zap, ArrowLeftCircle, ShieldBan } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 import { useLanguage } from '@/context/LanguageContext';
@@ -53,6 +54,7 @@ export default function SchoolInfoChatbot() {
   const [isAutoSubmitting, setIsAutoSubmitting] = useState(false);
   const [isUnrestrictedMode, setIsUnrestrictedMode] = useState(false);
   const router = useRouter();
+  const { setTheme } = useTheme();
   const { language } = useLanguage();
 
   const [textBefore, setTextBefore] = useState<string | null>(null);
@@ -307,6 +309,15 @@ export default function SchoolInfoChatbot() {
       };
       const result: SchoolInformationOutput = await getSchoolInformation(input);
       
+      // Handle action first
+      if (result.action) {
+        if (result.action.type === 'navigate' && typeof result.action.payload === 'string') {
+          router.push(result.action.payload);
+        } else if (result.action.type === 'set_theme' && typeof result.action.payload === 'string') {
+          setTheme(result.action.payload);
+        }
+      }
+
       if (result.safetyBlocked) {
         const newStrikeCount = abuseStrikeCount + 1;
         setAbuseStrikeCount(newStrikeCount);
@@ -323,12 +334,15 @@ export default function SchoolInfoChatbot() {
         const isHtmlCommentOnly = /^<!--[\s\S]*?-->$/.test(trimmedAnswer);
 
         if (trimmedAnswer === "" || isHtmlCommentOnly) {
-          setError("The AI provided an empty or non-displayable response. Please try rephrasing your question or ask something else.");
+          // If there was an action, we might not need an error message
+          if (!result.action) {
+            setError("The AI provided an empty or non-displayable response. Please try rephrasing your question or ask something else.");
+          }
           setRawAnswer(null);
         } else {
           setRawAnswer(result.answer); 
         }
-      } else { 
+      } else if (!result.action) {
         setError("The AI didn't provide an answer. Please try rephrasing your question.");
         setRawAnswer(null); 
       }
