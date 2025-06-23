@@ -27,21 +27,17 @@ const ExplainQuizAnswerOutputSchema = z.object({
 });
 export type ExplainQuizAnswerOutput = z.infer<typeof ExplainQuizAnswerOutputSchema>;
 
-export async function explainQuizAnswer(input: ExplainQuizAnswerInput): Promise<ExplainQuizAnswerOutput> {
-  return explainQuizAnswerFlow(input);
-}
-
 // This schema is for the output of the first LLM call (explanation + image prompt)
 const ExplanationAndImagePromptSchema = z.object({
-  textualExplanation: z.string().describe("The detailed step-by-step textual explanation for the correct answer. If it's a math problem, show the working. For reasoning, outline the logic."),
-  imageGenerationInstruction: z.string().describe("If a simple image (diagram, chart, visual representation) would make this explanation much clearer, provide a concise, direct prompt for an image generation model here (e.g., 'A diagram showing a right-angled triangle with sides labeled A, B, C'). If no image is necessary or if it would be too complex for a simple image, this MUST be exactly 'NO_IMAGE_NEEDED'.")
+  textualExplanation: z.string().describe("The detailed step-by-step textual explanation for the correct answer, or an apology if the question was flawed. This is the final text to be shown to the user."),
+  imageGenerationInstruction: z.string().describe("If a simple image would clarify the explanation, provide a concise prompt here (e.g., 'A diagram of a right-angled triangle'). If no image is needed or if the question was flawed and resulted in an apology, this MUST be exactly 'NO_IMAGE_NEEDED'.")
 });
 
 const explanationPrompt = ai.definePrompt({
   name: 'explainQuizAnswerTextPrompt',
   input: {schema: ExplainQuizAnswerInputSchema},
   output: {schema: ExplanationAndImagePromptSchema},
-  prompt: `You are an expert educator tasked with explaining the solution to a quiz question. The user wants to understand *why* the correct answer is correct.
+  prompt: `You are an expert educator AND a quality control specialist. Your primary task is to re-solve the provided quiz question from scratch and then provide an explanation. Your final explanation's content and tone depend on your findings.
 
 Quiz Question Details:
 Topic: {{{topic}}}
@@ -51,26 +47,32 @@ Options:
 {{#each options}}
 - {{{this}}}
 {{/each}}
-Correct Answer: "{{{correctAnswer}}}"
+Original Correct Answer: "{{{correctAnswer}}}"
 User's Selected Answer: "{{{userSelectedAnswer}}}"
 
 Your Task:
 
-**CRITICAL LANGUAGE INSTRUCTION:**
-If the topic is "Hindi Literature", the entire 'textualExplanation' MUST be in Hindi (Devanagari script). The 'imageGenerationInstruction' should remain in English as it is for an internal system.
+**CRITICAL RE-EVALUATION TASK:**
+Before generating any explanation, you MUST first re-solve the question from scratch based ONLY on the \`questionText\`.
 
-1.  Provide a clear, step-by-step textual explanation detailing how to arrive at the '{{{correctAnswer}}}'.
-    *   For mathematical problems, show the complete working and calculations.
-    *   For reasoning problems, clearly outline the logical steps or pattern.
-    *   For factual questions, explain the relevant concept or fact.
-    *   If the user's answer was incorrect, you can briefly mention why their choice might be a common misconception, but the primary focus is on explaining the correct solution path.
+1.  **Analyze and Re-Solve:** Independently determine the correct answer.
+2.  **Compare and Generate Response:** Based on your independent analysis, follow one of these cases:
 
-2.  Determine if an image is appropriate for the given difficulty level.
-    *   **For the "KVS Abki Baar 180 Paar!" and "NEET Abki Baar 720 Paar!" difficulties ONLY:** It is **HIGHLY ENCOURAGED** to provide a helpful 'imageGenerationInstruction'. Think creatively about what visual aid would best help a student preparing for a competitive exam. If a simple image (diagram, chart, visual representation, author portrait, timeline) would make this explanation much clearer, provide a concise, direct prompt for an image generation model here (e.g., 'A diagram showing a right-angled triangle with sides labeled A, B, C'). Only use 'NO_IMAGE_NEEDED' if a visual is truly irrelevant or impossible to represent simply. Examples for Hindi Literature include: a simple portrait of the author mentioned, a timeline of a literary period (e.g., Bhaktikal), a diagram explaining a grammatical concept (e.g., Sandhi), or a simple illustration of a scene from a famous work. Examples for NEET topics include: a clear diagram of a biological process, a labeled anatomical drawing, or a graph illustrating a physics concept.
-    *   **For ALL OTHER difficulty levels:** You MUST set the 'imageGenerationInstruction' field to exactly the string "NO_IMAGE_NEEDED". This is a strict rule; visual aids are an exclusive feature for these special batches.
+    *   **Case 1: The correct answer is not in the provided \`options\` array.**
+        If your calculated answer is not one of the options, your ENTIRE \`textualExplanation\` MUST be: \`The correct answer was not available in the options. We sincerely apologize for this mistake. The actual correct answer is [Your Calculated Answer]. We are improving this feature daily for a better experience.\` For this case, set \`imageGenerationInstruction\` to \`NO_IMAGE_NEEDED\`.
 
-Ensure the explanation is tailored to the question's topic and difficulty.
-Output the response in the specified JSON format.
+    *   **Case 2: The user was correct, but the system marked them wrong.**
+        If the \`userSelectedAnswer\` matches YOUR calculated answer (but not the \`correctAnswer\` provided in the input), your ENTIRE \`textualExplanation\` MUST be: \`It appears there was an error in our system. Your answer, "{{userSelectedAnswer}}", is indeed correct! We apologize for the confusion. Here is why your answer is right: [Provide the full, detailed explanation of the solution here].\` For this case, you MAY generate an image if appropriate (follow image rules below).
+
+    *   **Case 3: Standard Explanation (Default).**
+        In all other cases (i.e., the provided \`correctAnswer\` is correct), provide a clear, step-by-step textual explanation for why the provided \`correctAnswer\` is correct.
+
+**Image Generation Rules:**
+*   **CRITICAL LANGUAGE INSTRUCTION:** If the topic is "Hindi Literature", the entire 'textualExplanation' MUST be in Hindi (Devanagari script). The 'imageGenerationInstruction' should remain in English.
+*   **For "KVS Abki Baar 180 Paar!" and "NEET Abki Baar 720 Paar!" difficulties ONLY:** It is **HIGHLY ENCOURAGED** to provide a helpful 'imageGenerationInstruction' (unless Case 1 applies). Think creatively about what visual aid would best help a student. Examples: diagrams, charts, author portraits, timelines. Only use 'NO_IMAGE_NEEDED' if a visual is truly irrelevant.
+*   **For ALL OTHER difficulty levels:** You MUST set the 'imageGenerationInstruction' field to exactly "NO_IMAGE_NEEDED".
+
+Ensure the explanation is tailored to the question's topic and difficulty. Output the response in the specified JSON format.
   `,
   config: {
     safetySettings: [
