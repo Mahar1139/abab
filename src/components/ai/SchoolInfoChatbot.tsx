@@ -418,13 +418,13 @@ export default function SchoolInfoChatbot() {
 
 
   return (
-    <Card className="flex flex-col h-full w-full shadow-none border-0 rounded-none bg-card">
-      <CardHeader className="border-b">
-        <CardTitle className="flex items-center gap-2 text-xl text-primary">
-          {isUnrestrictedMode ? <Zap className="w-6 h-6 text-orange-500" /> : <BrainCircuit className="w-6 h-6" />}
+    <Card className="flex flex-col h-full w-full shadow-none border-0 rounded-none bg-card/30 backdrop-blur-xl">
+      <CardHeader className="border-b border-white/20">
+        <CardTitle className="flex items-center gap-2 text-xl text-primary-foreground">
+          {isUnrestrictedMode ? <Zap className="w-6 h-6 text-orange-300" /> : <BrainCircuit className="w-6 h-6" />}
           {isUnrestrictedMode ? 'General AI Assistant' : 'HPS AI Assistant'}
         </CardTitle>
-        <CardDescription>
+        <CardDescription className="text-primary-foreground/80">
           {isUnrestrictedMode 
             ? 'You can ask me anything! To return to school-specific info, type "#10x10" again.' 
             : 'Ask me anything about Himalaya Public School. For general queries, type "#10x10" to enter unrestricted mode.'}
@@ -444,7 +444,7 @@ export default function SchoolInfoChatbot() {
                 if (isAutoSubmitting) setIsAutoSubmitting(false); 
               }}
               placeholder={isUnrestrictedMode ? 'Ask a general knowledge question...' : 'Ask about the school...'}
-              className="w-full"
+              className="w-full bg-black/20 text-white placeholder:text-white/60 border-white/30 focus-visible:ring-offset-black/30 focus-visible:ring-accent"
               disabled={isLoading || isAnyAnimationActive || isOnCooldown}
               aria-label="Your question"
             />
@@ -467,7 +467,7 @@ export default function SchoolInfoChatbot() {
               </Button>
             )}
             {isUnrestrictedMode && !isLoading && !isAnyAnimationActive && !isOnCooldown && (
-              <Button variant="outline" size="sm" onClick={handleExitUnrestrictedMode} className="w-full sm:w-auto text-orange-600 border-orange-500 hover:bg-orange-50">
+              <Button variant="outline" size="sm" onClick={handleExitUnrestrictedMode} className="w-full sm:w-auto text-orange-300 border-orange-400 hover:bg-orange-400/20 hover:text-orange-200">
                 <ArrowLeftCircle className="mr-2 h-4 w-4" />
                 Exit General Mode
               </Button>
@@ -476,8 +476,8 @@ export default function SchoolInfoChatbot() {
         </form>
 
         {isOnCooldown && remainingCooldownTime && (
-          <Alert variant="destructive" className="mt-4">
-            <ShieldBan className="h-5 w-5" />
+          <Alert variant="destructive" className="mt-4 bg-yellow-500/20 border-yellow-400 text-yellow-100">
+            <ShieldBan className="h-5 w-5 text-yellow-300" />
             <AlertTitle>Interaction Temporarily Disabled</AlertTitle>
             <AlertDescription>
               Due to content policy, further interaction is paused. Please wait: 
@@ -488,7 +488,7 @@ export default function SchoolInfoChatbot() {
 
         {!isUnrestrictedMode && !rawAnswer && !isLoading && !error && !isOnCooldown && displaySuggestedQuestions.length > 0 && (
           <div className="mt-6">
-            <h4 className="text-sm font-medium text-muted-foreground mb-2 flex items-center">
+            <h4 className="text-sm font-medium text-white/70 mb-2 flex items-center">
               <HelpCircle className="w-4 h-4 mr-2"/>
               Or try one of these:
               </h4>
@@ -500,7 +500,7 @@ export default function SchoolInfoChatbot() {
                   size="sm"
                   onClick={() => handleSuggestedQuestionClick(sq)}
                   disabled={isLoading || isAnyAnimationActive || isOnCooldown}
-                  className="text-xs"
+                  className="text-xs text-white/90 bg-white/5 border-white/20 hover:bg-white/10"
                 >
                   {sq}
                 </Button>
@@ -511,21 +511,21 @@ export default function SchoolInfoChatbot() {
         
         <div id="latest-answer-marker"> 
           {isLoading && (
-            <div className="flex items-center justify-center text-muted-foreground mt-6">
+            <div className="flex items-center justify-center text-white/70 mt-6">
               <Loader2 className="mr-2 h-5 w-5 animate-spin" />
               The AI is thinking...
             </div>
           )}
           {error && !isLoading && !isOnCooldown && (
-            <Alert variant="destructive" className="mt-6">
+            <Alert variant="destructive" className="mt-6 bg-red-500/20 border-red-400 text-red-200">
               <AlertTitle>Error</AlertTitle>
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
           {(rawAnswer !== null && !isLoading && !error) && (
             <>
-              <h4 className="font-semibold mb-2 text-lg text-foreground mt-6">AI's Response:</h4>
-              <div className="p-4 bg-secondary/10 rounded-md text-foreground/90 leading-relaxed prose max-w-none dark:prose-invert prose-p:my-2 prose-pre:bg-card prose-pre:shadow-md prose-code:font-code">
+              <h4 className="font-semibold mb-2 text-lg text-white mt-6">AI's Response:</h4>
+              <div className="p-4 bg-black/20 rounded-md text-white/90 leading-relaxed prose max-w-none prose-p:my-2 prose-pre:bg-black/30 prose-pre:shadow-md prose-code:font-code prose-strong:text-white">
                 {textBefore !== null && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextBefore}</div>}
                 
                 { codeContent !== null && (
