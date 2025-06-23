@@ -150,6 +150,7 @@ const generateQuizQuestionFlow = ai.defineFlow(
         throw new Error("AI failed to generate an output for the quiz question.");
     }
     
+    // Add validation to ensure the AI follows the rules
     if (!output.options || output.options.length !== 4) {
         console.error("AI generated an invalid number of options. Output was:", JSON.stringify(output));
         throw new Error(`AI generated an invalid number of options (${output.options?.length || 0}). Expected 4 distinct options. Please try a different topic/difficulty or try again.`);
