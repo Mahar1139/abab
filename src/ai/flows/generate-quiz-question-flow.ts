@@ -123,6 +123,9 @@ Consider the difficulty level "{{difficulty}}" when formulating the question and
   *   Plausible distractors are critical and should be designed to catch common high-level mistakes.
   *   Ensure that approximately 80% of these questions draw significant inspiration from the high-difficulty question patterns found in the most respected SBI PO Mains preparation books and mock series.
 
+- If difficulty is "Legend - Agniveer":
+  For topic "{{topic}}" (must be Mathematics), generate a challenging question that aligns with the syllabus and difficulty level of the Indian Armed Forces Agniveer entrance exams. The questions should test fundamental mathematical concepts, speed, and accuracy, covering topics like algebra, trigonometry, geometry, and arithmetic. The source should be "Agniveer-style Question (Mathematics)".
+
 - If difficulty is "Legend - SpaceX/Aerospace":
   For topic "{{topic}}" (most relevant if topic is Space Exploration or Physics), generate a challenging question related to modern rocketry, aerospace engineering, orbital mechanics, or complex space missions. The source should be "Advanced Aerospace/SpaceX-style Question ({{topic}} based)".
 
@@ -176,3 +179,5 @@ const generateQuizQuestionFlow = ai.defineFlow(
     return output;
   }
 );
+
+    

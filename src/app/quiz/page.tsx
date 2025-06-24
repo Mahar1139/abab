@@ -57,6 +57,7 @@ const competitiveStylesMap: Record<string, string[]> = {
     "Legend - JEE Mains", "Legend - JEE Advanced", 
     "Normal - SBI PO Prelims", "Legend - SBI PO Mains", 
     "KVS TGT - Subject Paper", "KVS PGT - Subject Paper",
+    "Legend - Agniveer",
     "Legend - General Advanced"
   ],
   "Hindi Literature": ["KVS PRT - General Paper", "KVS TGT - Subject Paper", "KVS PGT - Subject Paper", "Legend - Lecturer Test Prep", "KVS Abki Baar 180 Paar!", "Legend - General Advanced"],
@@ -320,19 +321,28 @@ export default function QuizPage() {
             questionText: currentQuestion.questionText,
             topic: finalTopicForQuiz,
             difficulty: finalDifficultyForQuiz,
+            currentOptions: currentQuestion.options,
         };
         const result = await regenerateQuizOptions(input);
 
-        setCurrentQuestion(prev => {
-            if (!prev) return null;
-            return {
-                ...prev,
-                options: result.options,
-                correctAnswer: result.correctAnswer,
-                source: `${prev.source} (Regenerated)`,
-            };
-        });
-        setSelectedAnswer(null);
+        if (result.message) {
+            // Case A: Options were correct, show message to user.
+            setError(result.message);
+        } else if (result.options && result.correctAnswer) {
+            // Case B: Options were regenerated successfully.
+            setCurrentQuestion(prev => {
+                if (!prev) return null;
+                return {
+                    ...prev,
+                    options: result.options!,
+                    correctAnswer: result.correctAnswer!,
+                    source: `${prev.source} (Regenerated)`,
+                };
+            });
+            setSelectedAnswer(null);
+        } else {
+             throw new Error("AI returned an invalid response for option regeneration.");
+        }
     } catch (e) {
         console.error("Error regenerating options:", e);
         let displayError = "An unexpected error occurred while regenerating the options. Please try again or skip the question.";
@@ -482,7 +492,7 @@ export default function QuizPage() {
               </div>
             )}
 
-            {(error && !isRegenerating) && (quizState === "in_progress" || quizState === "selecting_topic_difficulty") && (
+            {error && !currentQuestion && quizState !== "selecting_topic_difficulty" && (
               <Alert variant="destructive" className="my-4">
                 <XCircle className="h-5 w-5" />
                 <AlertTitle>Error Generating Question</AlertTitle>
@@ -504,10 +514,10 @@ export default function QuizPage() {
                     Question {userAnswers.length + 1} of 5
                  </CardDescription>
                 
-                { (error && isRegenerating) && (
-                  <Alert variant="destructive" className="my-2">
-                    <XCircle className="h-5 w-5" />
-                    <AlertTitle>Error Regenerating Options</AlertTitle>
+                {error && (
+                  <Alert variant={error.startsWith("Sorry") ? "default" : "destructive"} className="my-2">
+                    {error.startsWith("Sorry") ? <Info className="h-5 w-5" /> : <XCircle className="h-5 w-5" />}
+                    <AlertTitle>{error.startsWith("Sorry") ? "Options Validated" : "An Error Occurred"}</AlertTitle>
                     <AlertDescription>{error}</AlertDescription>
                   </Alert>
                 )}
@@ -656,3 +666,5 @@ export default function QuizPage() {
     </div>
   );
 }
+
+    
