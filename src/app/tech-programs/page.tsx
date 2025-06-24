@@ -188,9 +188,9 @@ export default function TechProgramsPage() {
                 "Fundamentals of file management and cloud storage.",
                 "Introduction to graphic design principles or basic video editing."
               ]}
-              imageUrl="/All_Images/computer-classes/main-students-classroom.png"
-              imageAlt="Students using computers in a classroom setting"
-              imageHint="students computers classroom"
+              imageUrl="/Computer1.png"
+              imageAlt="Students in a computer class"
+              imageHint="students computer class"
               inquireLink="/admissions"
               inquireText="Join Our Computer Courses"
               imagePosition="left"
