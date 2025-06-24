@@ -187,7 +187,7 @@ export default function AdmissionFormComponent() {
 
   if (formSubmittedSuccessfully && state.couponCode) {
     return (
-      <Card className="shadow-lg border-green-500 bg-green-50 dark:bg-green-900/20 animate-in fade-in-50 zoom-in-95">
+      <Card className="shadow-lg border-green-500 bg-green-50 dark:bg-green-900/20">
         <CardHeader className="text-center">
           <Award className="w-16 h-16 text-yellow-500 mx-auto mb-4" />
           <CardTitle className="text-3xl font-bold text-green-700 dark:text-green-400">Success & Thank You!</CardTitle>
@@ -216,7 +216,7 @@ export default function AdmissionFormComponent() {
           </Button>
 
           {showCouponInstructions && (
-            <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-300 dark:border-blue-700 rounded-lg text-sm text-blue-700 dark:text-blue-300 space-y-2 text-left animate-in fade-in-20 slide-in-from-bottom-5">
+            <div className="mt-4 p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-300 dark:border-blue-700 rounded-lg text-sm text-blue-700 dark:text-blue-300 space-y-2 text-left">
               <h4 className="font-semibold">Redemption Instructions:</h4>
               <p>1. Save or copy your unique coupon code.</p>
               <p>2. Present the code "{state.couponCode}" to the admissions office during the final admission processing.</p>

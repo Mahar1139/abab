@@ -412,7 +412,7 @@ export default function QuizPage() {
               <div className="space-y-6 max-w-lg mx-auto">
                 <h3 className="text-2xl font-semibold text-foreground text-center">Configure Your Quiz</h3>
                 
-                <div className="space-y-4 animate-in fade-in-0 duration-300">
+                <div className="space-y-4">
                   <div className="space-y-2">
                     <Label htmlFor="topic-select" className="text-lg">1. Select a Topic or Exam Type</Label>
                     <Select onValueChange={handleTopicChange} value={selectedTopic ?? undefined}>
@@ -428,7 +428,7 @@ export default function QuizPage() {
                   </div>
 
                   {selectedTopic === 'Board Exams' && (
-                    <div className="space-y-4 border-l-4 border-accent pl-4 ml-2 animate-in fade-in-0 duration-300">
+                    <div className="space-y-4 border-l-4 border-accent pl-4 ml-2">
                       <div className="space-y-2">
                         <Label htmlFor="board-subject-select" className="text-lg">2. Select a Board Subject</Label>
                         <Select onValueChange={setBoardSubject} value={boardSubject ?? undefined}>
@@ -461,7 +461,7 @@ export default function QuizPage() {
                   )}
 
                   {selectedTopic && selectedTopic !== 'Board Exams' && (
-                    <div className="space-y-2 animate-in fade-in-0 duration-300">
+                    <div className="space-y-2">
                       <Label htmlFor="difficulty-select" className="text-lg">2. Select Difficulty for {selectedTopic}</Label>
                       <Select onValueChange={setCompetitiveDifficulty} value={competitiveDifficulty ?? undefined} disabled={!selectedTopic}>
                         <SelectTrigger id="difficulty-select" className="w-full py-3 text-lg">
@@ -666,5 +666,3 @@ export default function QuizPage() {
     </div>
   );
 }
-
-    
