@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link'
@@ -216,7 +215,7 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-black/30 z-10" />
           <div className="relative z-20 p-4 md:p-8 max-w-4xl mx-auto">
-            <div>
+            <div className={isClient ? 'animate-fade-in-up' : 'opacity-0'}>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 font-headline text-white" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' }}>
                 Welcome to Himalaya Public School
               </h1>
@@ -224,7 +223,7 @@ export default function HomePage() {
                 Nurturing curious minds and shaping future leaders with a holistic approach to learning and personal growth.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <div className={`flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 ${isClient ? 'animate-fade-in' : 'opacity-0'}`} style={{animationDelay: '0.4s'}}>
               <Button
                 asChild
                 size="lg"
