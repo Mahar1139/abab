@@ -11,7 +11,7 @@ export default function GalleryImage({ item }: GalleryImageProps) {
   return (
     <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group">
       <CardContent className="p-0">
-        <div className="aspect-video relative">
+        <div className="aspect-square relative">
           <Image 
             src={item.imageUrl} 
             alt={item.title} 

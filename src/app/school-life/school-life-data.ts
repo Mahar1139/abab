@@ -30,6 +30,83 @@ export const galleryItems: SchoolEvent[] = [
     imageUrl: '/All_Images/school-life/gallery/art-workshop.png',
     dataAiHint: 'art workshop children'
   },
+  {
+    id: 'g5',
+    title: 'Morning Assembly',
+    description: 'Starting the day with prayers and thoughts.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'school assembly'
+  },
+  {
+    id: 'g6',
+    title: 'Library Reading Time',
+    description: 'Students engrossed in the world of books.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'students library'
+  },
+  {
+    id: 'g7',
+    title: 'Computer Lab Session',
+    description: 'Learning digital skills in our tech lab.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'computer lab'
+  },
+  {
+    id: 'g8',
+    title: 'Annual Day Function',
+    description: 'Spectacular performances by our talented students.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'stage performance'
+  },
+  {
+    id: 'g9',
+    title: 'Tree Plantation Drive',
+    description: 'Contributing to a greener environment.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'tree plantation'
+  },
+  {
+    id: 'g10',
+    title: 'Yoga and Meditation',
+    description: 'Promoting mental and physical well-being.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'students yoga'
+  },
+  {
+    id: 'g11',
+    title: 'Classroom Interaction',
+    description: 'Engaging discussions in a classroom.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'classroom interaction'
+  },
+  {
+    id: 'g12',
+    title: 'Music Class',
+    description: 'Students learning musical instruments.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'music class'
+  },
+  {
+    id: 'g13',
+    title: 'School Choir',
+    description: 'The school choir performing in harmony.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'school choir'
+  },
+  {
+    id: 'g14',
+    title: 'Parent-Teacher Meeting',
+    description: 'Collaborative discussions for student growth.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'parent teacher'
+  },
+  {
+    id: 'g15',
+    title: 'Graduation Ceremony',
+    description: 'Celebrating the achievements of our graduates.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'graduation ceremony'
+  }
 ];
 
 export const newsArticles: NewsArticle[] = [
