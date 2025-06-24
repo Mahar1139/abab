@@ -205,16 +205,14 @@ export default function HomePage() {
       <div className="flex flex-col min-h-screen">
         {/* Hero Section */}
         <section className="relative -mt-12 w-full h-screen flex items-center justify-center text-center overflow-hidden">
-          <video
-            src="/HPS_home.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="absolute top-0 left-0 w-full h-full object-cover z-0"
-          >
-            Your browser does not support the video tag.
-          </video>
+          <Image
+            src="/DSC_4562.JPG"
+            alt="Himalaya Public School Campus"
+            fill
+            priority
+            className="object-cover z-0"
+            data-ai-hint="school building"
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10" />
           <div className="relative z-20 p-4 md:p-8 max-w-4xl mx-auto">
             <div>
