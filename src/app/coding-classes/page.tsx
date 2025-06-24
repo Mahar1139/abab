@@ -8,6 +8,7 @@ import { ArrowRight, CheckCircle, Code2 } from 'lucide-react';
 import ClassGallery from '@/components/classes/ClassGallery';
 
 const codingGalleryImages = [
+  { src: '/Coding1.jpeg', alt: 'Students focused on coding projects', dataAiHint: 'students coding' },
   { src: '/All_Images/coding-classes/gallery-students-collaborating.png', alt: 'Students collaborating on code', dataAiHint: 'students collaborating' },
   { src: '/All_Images/coding-classes/gallery-student-presenting.png', alt: 'Student presenting coding project', dataAiHint: 'student presentation' },
   { src: '/All_Images/coding-classes/gallery-code-screen.png', alt: 'Close-up of code on a screen', dataAiHint: 'code screen' },
