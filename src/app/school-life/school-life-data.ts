@@ -106,6 +106,76 @@ export const galleryItems: SchoolEvent[] = [
     description: 'Celebrating the achievements of our graduates.',
     imageUrl: 'https://placehold.co/400x400.png',
     dataAiHint: 'graduation ceremony'
+  },
+  {
+    id: 'g16',
+    title: 'Charity Bake Sale',
+    description: 'Students raising funds for a local charity.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'bake sale'
+  },
+  {
+    id: 'g17',
+    title: 'Inter-School Chess Tournament',
+    description: 'Concentration and strategy on display.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'chess tournament'
+  },
+  {
+    id: 'g18',
+    title: 'Field Trip to Museum',
+    description: 'Learning beyond the classroom walls.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'museum trip'
+  },
+  {
+    id: 'g19',
+    title: 'Guest Lecture Series',
+    description: 'Industry experts sharing their knowledge.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'guest lecture'
+  },
+  {
+    id: 'g20',
+    title: 'Annual Fete',
+    description: 'A day of fun, games, and community bonding.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'school fete'
+  },
+  {
+    id: 'g21',
+    title: 'Model United Nations',
+    description: 'Students debating global issues.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'model un'
+  },
+  {
+    id: 'g22',
+    title: 'Pottery Workshop',
+    description: 'Hands-on creativity with clay.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'pottery workshop'
+  },
+  {
+    id: 'g23',
+    title: 'School Orchestra Performance',
+    description: 'A melodious evening with our school orchestra.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'school orchestra'
+  },
+  {
+    id: 'g24',
+    title: 'Scouts and Guides Camp',
+    description: 'Learning survival skills and teamwork.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'scouts camp'
+  },
+  {
+    id: 'g25',
+    title: 'Coding Hackathon',
+    description: '24 hours of innovation and coding.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'coding hackathon'
   }
 ];
 
