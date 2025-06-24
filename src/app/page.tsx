@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link'
@@ -213,13 +214,13 @@ export default function HomePage() {
             className="object-cover z-0"
             data-ai-hint="school building"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/60 to-white/10 z-10" />
+          <div className="absolute inset-0 bg-black/30 z-10" />
           <div className="relative z-20 p-4 md:p-8 max-w-4xl mx-auto">
             <div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 font-headline text-black">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 font-headline text-white" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' }}>
                 Welcome to Himalaya Public School
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl mb-10 text-black max-w-2xl mx-auto">
+              <p className="text-lg sm:text-xl md:text-2xl mb-10 text-white max-w-2xl mx-auto" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.5)' }}>
                 Nurturing curious minds and shaping future leaders with a holistic approach to learning and personal growth.
               </p>
             </div>
