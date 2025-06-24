@@ -70,14 +70,20 @@ const ProgramSection = ({
 }: ProgramSectionProps) => (
   <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card group">
     <div className={`md:flex ${imagePosition === 'right' ? 'md:flex-row-reverse' : ''}`}>
-      <div className="md:w-1/2 relative min-h-[300px] md:min-h-full">
-        <Image
-          src={imageUrl}
-          alt={imageAlt}
-          fill
-          data-ai-hint={imageHint}
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-        />
+      <div className="md:w-1/2 relative min-h-[300px] md:min-h-full p-4 bg-background">
+        <div className="p-2 bg-border shadow-md h-full w-full"> {/* Outer frame */}
+          <div className="bg-card p-1.5 h-full w-full"> {/* Gap between frames */}
+            <div className="relative border-2 border-primary h-full w-full"> {/* Inner frame */}
+              <Image
+                src={imageUrl}
+                alt={imageAlt}
+                fill
+                data-ai-hint={imageHint}
+                className="object-cover transition-transform duration-300 group-hover:scale-105"
+              />
+            </div>
+          </div>
+        </div>
       </div>
       <div className="md:w-1/2 flex flex-col">
         <CardHeader>
