@@ -19,13 +19,13 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
           <div className="p-4 sm:p-6 md:p-8 flex-shrink-0">
             {/* Double frame effect */}
             {/* Outer frame part 1 - slightly increased padding for a thicker frame */}
-            <div className="p-2 bg-border shadow-md"> 
+            <div className="p-3 bg-border shadow-md"> 
               {/* Gap between frames - slightly increased padding */}
-              <div className="bg-card p-1.5"> 
+              <div className="bg-card p-2"> 
                 <div
                   className={cn(
-                    "relative overflow-hidden border-[3px] border-primary", // Inner frame - increased border thickness
-                    "w-36 sm:w-48 md:w-56 lg:w-64", 
+                    "relative overflow-hidden border-4 border-primary", // Inner frame - increased border thickness
+                    "w-48 sm:w-56 md:w-64 lg:w-72", 
                     imageAspectRatio === 'landscape' ? 'aspect-video' : 'aspect-square'
                   )}
                 >
@@ -36,8 +36,8 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
                     data-ai-hint={member.dataAiHint || "faculty member"}
                     className="object-cover"
                     sizes={imageAspectRatio === 'landscape' ? 
-                      "(max-width: 640px) 144px, (max-width: 768px) 192px, (max-width: 1024px) 224px, 256px" :
-                      "(max-width: 640px) 96px, (max-width: 768px) 112px, 128px"}
+                      "(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 288px" :
+                      "(max-width: 640px) 192px, (max-width: 768px) 224px, (max-width: 1024px) 256px, 288px"}
                   />
                 </div>
               </div>
@@ -51,7 +51,7 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
               <CardDescription className="text-md md:text-lg text-accent font-semibold">{member.title}</CardDescription>
             </CardHeader>
             <CardContent className="p-0">
-              <p className="text-sm md:text-base text-foreground/80 leading-relaxed">
+              <p className="text-sm md:text-base text-foreground/80 leading-relaxed whitespace-pre-line">
                 {member.bio}
               </p>
             </CardContent>
