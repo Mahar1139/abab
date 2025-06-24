@@ -15,6 +15,7 @@ const translations = {
     'nav.achievements': 'Achievements',
     'nav.library': 'Library',
     'nav.quiz': 'AI Quiz Challenge',
+    'nav.trackPerformance': 'Track Performance',
     
     // Settings
     'settings.title': 'Website Settings',
@@ -40,6 +41,7 @@ const translations = {
     'nav.achievements': 'उपलब्धियां',
     'nav.library': 'पुस्तकालय',
     'nav.quiz': 'एआई प्रश्नोत्तरी',
+    'nav.trackPerformance': 'प्रदर्शन ट्रैक करें',
 
     // Settings
     'settings.title': 'वेबसाइट सेटिंग्स',

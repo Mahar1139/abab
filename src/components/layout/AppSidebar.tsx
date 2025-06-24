@@ -27,7 +27,8 @@ import {
   Award, 
   Library,
   Settings,
-  Code
+  Code,
+  TrendingUp
 } from 'lucide-react';
 
 export default function AppSidebar() {
@@ -45,6 +46,7 @@ export default function AppSidebar() {
     { href: '/student-achievements', label: t('nav.achievements'), icon: Award },
     { href: '/library', label: t('nav.library'), icon: Library },
     { href: '/quiz', label: t('nav.quiz'), icon: Brain },
+    { href: '/track-performance', label: t('nav.trackPerformance'), icon: TrendingUp },
   ];
 
   const displayedNavItems = navItems.filter(item => item.href !== '/developed-by');

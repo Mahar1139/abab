@@ -15,7 +15,8 @@ import {
   CalendarDays, 
   Award, 
   Library,
-  Code // Added Code icon
+  Code,
+  TrendingUp
 } from 'lucide-react';
 
 const navItems = [
@@ -28,7 +29,8 @@ const navItems = [
   { href: '/student-achievements', label: 'Student Achievements', icon: Award },
   { href: '/library', label: 'Library', icon: Library },
   { href: '/quiz', label: 'AI Quiz Challenge', icon: Brain },
-  { href: '/developed-by', label: 'Developed By', icon: Code }, // Added for page title
+  { href: '/track-performance', label: 'Track Performance', icon: TrendingUp },
+  { href: '/developed-by', label: 'Developed By', icon: Code },
 ];
 
 export default function PageHeader() {
