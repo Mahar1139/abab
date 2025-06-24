@@ -7,7 +7,7 @@ export const facultyMembers: FacultyMember[] = [
     name: 'Dr. Evelyn Reed',
     title: 'Director & Founder',
     bio: 'Dr. Reed is the visionary founder and director of Himalaya Public School. With nearly 20 years of experience in educational leadership, she is dedicated to creating an inspiring and innovative learning environment for all students, fostering a culture of excellence and lifelong learning.',
-    imageUrl: '/All_Images/faculty/director.png', // Only Director has an image
+    imageUrl: '/Director.jpg', // Only Director has an image
     dataAiHint: 'director portrait woman'
   },
   {
