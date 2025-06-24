@@ -54,7 +54,7 @@ Current Options: {{#each currentOptions}}
 Now, compare your \`[Calculated Answer]\` with the \`currentOptions\` provided.
 
 *   **Case A: The correct answer IS ALREADY in the options.**
-    If your \`[Calculated Answer]\` is found within the \`currentOptions\` array, it means the original options were valid. In this case, your response MUST set the 'message' field with the following exact text: "Sorry, but the options provided are correct. If you have any doubts about the question itself, you can ask the HPS AI Assistant for clarification." The 'options' and 'correctAnswer' fields MUST be omitted from your JSON response.
+    If your \`[Calculated Answer]\` is found within the \`currentOptions\` array, it means the original options were valid. In this case, your response MUST set the 'message' field with the following exact text: "Sorry but the options given are correct if you have any doubt with question so you can ask with HPS ai..." The 'options' and 'correctAnswer' fields MUST be omitted from your JSON response.
 
 *   **Case B: The correct answer IS NOT in the options.**
     If your \`[Calculated Answer]\` is NOT found within the \`currentOptions\` array, then you MUST generate a new set of options.
