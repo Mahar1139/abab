@@ -176,6 +176,13 @@ export const galleryItems: SchoolEvent[] = [
     description: '24 hours of innovation and coding.',
     imageUrl: 'https://placehold.co/400x400.png',
     dataAiHint: 'coding hackathon'
+  },
+  {
+    id: 'g26',
+    title: 'New Photo Title',
+    description: 'A new photo description.',
+    imageUrl: 'https://placehold.co/400x400.png',
+    dataAiHint: 'new photo'
   }
 ];
 
