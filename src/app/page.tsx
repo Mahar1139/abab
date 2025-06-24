@@ -248,8 +248,8 @@ export default function HomePage() {
 
         {/* About Us Snippet Section */}
         <SectionWrapper className="bg-card text-foreground py-16 md:py-24">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+          <div className="grid md:grid-cols-5 gap-12 items-center">
+            <div className="md:col-span-2">
               <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 font-headline">About Himalaya Public School</h2>
               <p className="text-lg text-foreground/80 leading-relaxed mb-4">
                 Established in 1985, Himalaya Public School is a hub of academic excellence and character development. We provide a supportive, student-centered environment that encourages interactive learning and technological orientation.
@@ -261,7 +261,7 @@ export default function HomePage() {
                 <Link href="/faculty">Meet Our Team <ArrowRight className="ml-2" /></Link>
               </Button>
             </div>
-            <div>
+            <div className="md:col-span-3">
               <div className="rounded-xl shadow-2xl overflow-hidden aspect-video group relative">
                 <Image
                   src="/images/home_page.jpg" 
