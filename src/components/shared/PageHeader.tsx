@@ -54,13 +54,13 @@ export default function PageHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-10 flex h-10 items-center justify-between border-b border-white/20 bg-black/20 backdrop-blur-sm px-2 md:px-4">
+    <header className="sticky top-0 z-10 flex h-10 items-center justify-between border-b border-border bg-background/80 backdrop-blur-sm px-2 md:px-4">
       {/* Left section: Mobile trigger and School Logo/Name */}
       <div className="flex flex-shrink-0 items-center gap-2">
         <div className=""> 
           <SidebarTrigger />
         </div>
-        <Link href="/" className="flex items-center gap-2 text-base font-semibold text-white drop-shadow-md hover:text-gray-200 transition-colors">
+        <Link href="/" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors">
           <School className="h-6 w-6 text-accent" />
           <span className="font-headline hidden sm:inline">Himalaya Public School</span>
         </Link>
@@ -68,7 +68,7 @@ export default function PageHeader() {
 
       {/* Right section: Page Title, wrapped for better flex handling */}
       <div className="min-w-0 flex-1">
-        <h1 className="text-base md:text-lg font-semibold font-headline text-white drop-shadow-md text-right truncate">
+        <h1 className="text-base md:text-lg font-semibold font-headline text-foreground text-right truncate">
           {pageTitle}
         </h1>
       </div>
