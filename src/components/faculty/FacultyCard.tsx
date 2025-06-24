@@ -14,9 +14,9 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
     // Special layout for members with an image (currently, only Director)
     return (
       <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group bg-card text-card-foreground">
-        <div className="flex flex-col sm:flex-row items-center sm:items-start">
+        <div className="flex flex-col items-center">
           {/* Image Container - Adjusted for responsiveness and double frame */}
-          <div className="p-4 sm:p-6 md:p-8 flex-shrink-0">
+          <div className="p-4 sm:p-6 md:p-8">
             {/* Double frame effect */}
             {/* Outer frame part 1 - slightly increased padding for a thicker frame */}
             <div className="p-3 bg-border shadow-md"> 
@@ -45,8 +45,8 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
           </div>
 
           {/* Text Content Container */}
-          <div className="flex-grow p-4 pt-0 sm:p-6 sm:pt-4 md:p-8 md:pt-6 text-center sm:text-left">
-            <CardHeader className="p-0 mb-1 sm:mb-2">
+          <div className="flex-grow p-4 md:p-6 pt-0 text-center">
+            <CardHeader className="p-0 mb-2">
               <CardTitle className="text-xl md:text-2xl text-primary group-hover:text-accent transition-colors">{member.name}</CardTitle>
               <CardDescription className="text-md md:text-lg text-accent font-semibold">{member.title}</CardDescription>
             </CardHeader>
