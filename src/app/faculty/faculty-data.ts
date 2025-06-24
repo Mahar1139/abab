@@ -56,3 +56,4 @@ Thank you and God Bless You!`,
     bio: 'Mr. Reddy is dedicated to promoting physical fitness and sportsmanship among students. He coaches multiple school sports teams, leading them to numerous victories.',
   }
 ];
+    

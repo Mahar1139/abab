@@ -6,15 +6,22 @@ import { usePathname } from 'next/navigation';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import AppSidebar from './AppSidebar';
 import PageHeader from '../shared/PageHeader';
-import { School, Mail, BookOpen, Cpu } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import QuizAdDialog from '../shared/QuizAdDialog';
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [isAdOpen, setIsAdOpen] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isClient) {
+      return;
+    }
+
     // 1. Prevent ad from showing if the user is already on the quiz page.
     if (pathname === '/quiz') {
       return;
@@ -57,7 +64,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
       }, 16000);
       return () => clearTimeout(timer);
     }
-  }, [pathname]);
+  }, [pathname, isClient]);
 
   return (
     <SidebarProvider defaultOpen={false}>

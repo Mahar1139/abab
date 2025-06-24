@@ -30,30 +30,23 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
     return (
       <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group bg-card text-card-foreground">
         <div className="flex flex-col items-center">
-          {/* Image Container - Adjusted for responsiveness and double frame */}
+          {/* Image Container - Simplified structure to fix parsing error */}
           <div className="p-4 sm:p-6 md:p-8">
-            {/* Double frame effect */}
-            {/* Outer frame part 1 - slightly increased padding for a thicker frame */}
-            <div className="p-3 bg-border shadow-md"> 
-              {/* Gap between frames - slightly increased padding */}
-              <div className="bg-card p-2"> 
-                <div
-                  className={cn(
-                    "relative overflow-hidden border-4 border-primary", // Inner frame - increased border thickness
-                    "w-64 sm:w-72 md:w-80 lg:w-96", 
-                    imageAspectRatio === 'landscape' ? 'aspect-video' : 'aspect-square'
-                  )}
-                >
-                  <Image
-                    src={member.imageUrl}
-                    alt={member.name}
-                    fill
-                    data-ai-hint={member.dataAiHint || "faculty member"}
-                    className="object-cover"
-                    sizes="(min-width: 1024px) 384px, (min-width: 768px) 320px, (min-width: 640px) 288px, 256px"}
-                  />
-                </div>
-              </div>
+            <div
+              className={cn(
+                "relative overflow-hidden border-4 border-primary p-1 bg-border shadow-md",
+                "w-64 sm:w-72 md:w-80 lg:w-96", 
+                imageAspectRatio === 'landscape' ? 'aspect-video' : 'aspect-square'
+              )}
+            >
+              <Image
+                src={member.imageUrl}
+                alt={member.name}
+                fill
+                data-ai-hint={member.dataAiHint || "faculty member"}
+                className="object-cover border-2 border-card"
+                sizes="(min-width: 1024px) 384px, (min-width: 768px) 320px, (min-width: 640px) 288px, 256px"
+              />
             </div>
           </div>
 
@@ -94,3 +87,4 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
     </Card>
   );
 }
+    
