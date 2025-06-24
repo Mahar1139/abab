@@ -14,6 +14,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { generateQuizQuestion, type GenerateQuizQuestionOutput, type GenerateQuizQuestionInput } from "@/ai/flows/generate-quiz-question-flow";
 import { explainQuizAnswer, type ExplainQuizAnswerInput, type ExplainQuizAnswerOutput } from "@/ai/flows/explain-quiz-answer-flow";
+import { regenerateQuizOptions, type RegenerateQuizOptionsInput } from "@/ai/flows/regenerate-quiz-options-flow";
 import { Brain, CheckCircle, XCircle, Award, RotateCcw, Loader2, Info, HelpCircle, Lightbulb, Target } from "lucide-react";
 
 type QuizState = "selecting_topic_difficulty" | "in_progress" | "finished";
@@ -123,6 +124,7 @@ export default function QuizPage() {
   const [score, setScore] = useState(0);
   const [userAnswers, setUserAnswers] = useState<UserAnswer[]>([]);
   const [isLoadingQuestion, setIsLoadingQuestion] = useState(false);
+  const [isRegenerating, setIsRegenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
   const [questionExplanations, setQuestionExplanations] = useState<Record<string, QuestionExplanation>>({});
@@ -306,6 +308,41 @@ export default function QuizPage() {
       }));
     }
   };
+
+  const handleRegenerateOptions = async () => {
+    if (!currentQuestion || !finalTopicForQuiz || !finalDifficultyForQuiz) return;
+
+    setIsRegenerating(true);
+    setError(null);
+
+    try {
+        const input: RegenerateQuizOptionsInput = {
+            questionText: currentQuestion.questionText,
+            topic: finalTopicForQuiz,
+            difficulty: finalDifficultyForQuiz,
+        };
+        const result = await regenerateQuizOptions(input);
+
+        setCurrentQuestion(prev => {
+            if (!prev) return null;
+            return {
+                ...prev,
+                options: result.options,
+                correctAnswer: result.correctAnswer,
+                source: `${prev.source} (Regenerated)`,
+            };
+        });
+        setSelectedAnswer(null);
+    } catch (e) {
+        console.error("Error regenerating options:", e);
+        let displayError = "An unexpected error occurred while regenerating the options. Please try again or skip the question.";
+        if (e instanceof Error) {
+            displayError = `Failed to regenerate options: ${e.message}`;
+        }
+        setError(displayError);
+    }
+    setIsRegenerating(false);
+  };
   
   const chartData = [
     { name: 'Correct', count: score, fill: COLORS.correct },
@@ -313,7 +350,7 @@ export default function QuizPage() {
   ];
 
   if (!isClient) {
-    return <div className="flex justify-center items-center h-screen"><Loader2 className="h-12 w-12 animate-spin text-primary" /></div>;
+    return null;
   }
 
   const formatDifficultyLabel = (level: string): string => {
@@ -445,7 +482,7 @@ export default function QuizPage() {
               </div>
             )}
 
-            {error && (quizState === "in_progress" || quizState === "selecting_topic_difficulty") && (
+            {(error && !isRegenerating) && (quizState === "in_progress" || quizState === "selecting_topic_difficulty") && (
               <Alert variant="destructive" className="my-4">
                 <XCircle className="h-5 w-5" />
                 <AlertTitle>Error Generating Question</AlertTitle>
@@ -461,11 +498,20 @@ export default function QuizPage() {
               </Alert>
             )}
 
-            {!isLoadingQuestion && !error && quizState === "in_progress" && currentQuestion && (
+            {!isLoadingQuestion && quizState === "in_progress" && currentQuestion && (
               <div className="space-y-6">
                  <CardDescription className="text-lg text-center">
                     Question {userAnswers.length + 1} of 5
                  </CardDescription>
+                
+                { (error && isRegenerating) && (
+                  <Alert variant="destructive" className="my-2">
+                    <XCircle className="h-5 w-5" />
+                    <AlertTitle>Error Regenerating Options</AlertTitle>
+                    <AlertDescription>{error}</AlertDescription>
+                  </Alert>
+                )}
+
                 <p className="text-xl font-semibold text-foreground/90">{currentQuestion.questionText}</p>
                 <RadioGroup value={selectedAnswer ?? ""} onValueChange={setSelectedAnswer} className="space-y-3">
                   {currentQuestion.options.map((option, index) => (
@@ -475,14 +521,26 @@ export default function QuizPage() {
                     </div>
                   ))}
                 </RadioGroup>
-                <div className="flex justify-between items-center">
-                    <Button onClick={handleSubmitAnswer} disabled={!selectedAnswer || isLoadingQuestion} className="w-full sm:w-auto">
-                    {isLoadingQuestion ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null}
-                    {userAnswers.length === 4 ? "Finish Quiz" : "Next Question"}
+                
+                <div className="flex justify-between items-center mt-6 flex-wrap gap-2">
+                    <div className="flex items-center gap-2">
+                        <Button
+                            variant="outline"
+                            onClick={handleRegenerateOptions}
+                            disabled={isLoadingQuestion || isRegenerating}
+                            className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+                        >
+                            {isRegenerating ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <HelpCircle className="mr-2 h-4 w-4" />}
+                            Answer Not in Options
+                        </Button>
+                        {userAnswers.length > 0 && (
+                            <Button variant="ghost" onClick={() => setQuizState("finished")} disabled={isRegenerating || isLoadingQuestion}>End Quiz Early</Button>
+                        )}
+                    </div>
+                    <Button onClick={handleSubmitAnswer} disabled={!selectedAnswer || isLoadingQuestion || isRegenerating}>
+                        {isLoadingQuestion ? <Loader2 className="mr-2 h-4 w-4 animate-spin"/> : null}
+                        {userAnswers.length === 4 ? "Finish Quiz" : "Next Question"}
                     </Button>
-                    {userAnswers.length > 0 && (
-                         <Button variant="outline" onClick={() => setQuizState("finished")} className="w-full sm:w-auto ml-2">End Quiz Early</Button>
-                    )}
                 </div>
               </div>
             )}
