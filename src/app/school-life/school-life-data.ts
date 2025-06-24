@@ -1,5 +1,4 @@
-
-import type { SchoolEvent, NewsArticle } from '@/types';
+import type { SchoolEvent, VideoItem } from '@/types';
 
 export const galleryItems: SchoolEvent[] = [
   {
@@ -186,29 +185,41 @@ export const galleryItems: SchoolEvent[] = [
   }
 ];
 
-export const newsArticles: NewsArticle[] = [
+export const videoItems: VideoItem[] = [
   {
-    id: 'n1',
-    title: 'Himalaya School Wins National Debate Championship',
-    description: 'Our debate team brought home the coveted trophy, showcasing exceptional oratory skills and critical thinking.',
-    imageUrl: '/All_Images/school-life/news/debate-championship.png',
-    date: '2023-11-15',
-    dataAiHint: 'debate team award'
+    id: 'v1',
+    title: 'School Annual Day Highlights',
+    description: 'A look back at the spectacular performances from our Annual Day.',
+    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
   },
   {
-    id: 'n2',
-    title: 'Successful Community Outreach Program',
-    description: 'Students participated in a week-long community service initiative, making a positive impact.',
-    imageUrl: '/All_Images/school-life/news/community-outreach.png',
-    date: '2023-10-28',
-    dataAiHint: 'community service students'
+    id: 'v2',
+    title: 'Science Fair 2023 - Top Projects',
+    description: 'Explore the innovative projects showcased by our young scientists.',
+    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
   },
   {
-    id: 'n3',
-    title: 'New Robotics Lab Inaugurated',
-    description: 'Enhancing STEM education with a state-of-the-art robotics laboratory for students.',
-    imageUrl: '/All_Images/school-life/news/robotics-lab.png',
-    date: '2023-09-05',
-    dataAiHint: 'robotics lab school'
+    id: 'v3',
+    title: 'A Message from the Principal',
+    description: 'Our Principal shares a message with students and parents.',
+    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
   },
+  {
+    id: 'v4',
+    title: 'Sports Day - A Day of Champions',
+    description: 'Relive the exciting moments from our annual sports meet.',
+    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+  },
+  {
+    id: 'v5',
+    title: 'Virtual Campus Tour',
+    description: 'Take a virtual walkthrough of the Himalaya Public School campus.',
+    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+  },
+  {
+    id: 'v6',
+    title: 'Student-led Coding Workshop',
+    description: 'See our students in action, sharing their coding knowledge with peers.',
+    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+  }
 ];

@@ -1,13 +1,12 @@
-
 'use client';
 
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import GalleryImage from "@/components/school-life/GalleryImage";
 import NewsItem from "@/components/school-life/NewsItem";
-import { galleryItems, newsArticles } from "./school-life-data";
-import type { SchoolEvent, NewsArticle } from "@/types";
-import { Images, Newspaper } from "lucide-react";
+import { galleryItems, videoItems } from "./school-life-data";
+import type { SchoolEvent, VideoItem } from "@/types";
+import { Images, Video } from "lucide-react";
 
 export default function SchoolLifePage() {
   return (
@@ -21,8 +20,8 @@ export default function SchoolLifePage() {
             <TabsTrigger value="gallery" className="py-3 text-base">
               <Images className="mr-2 h-5 w-5" /> Photo Gallery
             </TabsTrigger>
-            <TabsTrigger value="news" className="py-3 text-base">
-              <Newspaper className="mr-2 h-5 w-5" /> News & Updates
+            <TabsTrigger value="videos" className="py-3 text-base">
+              <Video className="mr-2 h-5 w-5" /> Videos
             </TabsTrigger>
           </TabsList>
 
@@ -36,11 +35,11 @@ export default function SchoolLifePage() {
             </div>
           </TabsContent>
 
-          <TabsContent value="news">
-            <div className="space-y-6 md:space-y-8">
-              {newsArticles.map((article: NewsArticle) => (
-                 <div key={article.id} className="group">
-                  <NewsItem article={article} />
+          <TabsContent value="videos">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+              {videoItems.map((item: VideoItem) => (
+                 <div key={item.id} className="group">
+                  <NewsItem item={item} />
                 </div>
               ))}
             </div>

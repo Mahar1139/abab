@@ -1,4 +1,3 @@
-
 import type { z } from 'zod';
 import type { admissionFormSchema } from '@/lib/schemas/admission-schema'; 
 
@@ -20,7 +19,12 @@ export interface SchoolEvent {
   dataAiHint?: string;
 }
 
-export interface NewsArticle extends SchoolEvent {} 
+export interface VideoItem {
+  id: string;
+  title: string;
+  description: string;
+  videoUrl: string;
+}
 
 export interface DownloadableResource {
   id:string;
