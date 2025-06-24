@@ -48,7 +48,7 @@ export default function DevelopedByPage() {
                   Click to View Contact Details
                 </Button>
               ) : (
-                <div className="space-y-3 text-lg text-foreground/90 mt-4 animate-in fade-in-50 slide-in-from-bottom-3">
+                <div className="space-y-3 text-lg text-foreground/90 mt-4">
                   <div className="flex items-center justify-center gap-2">
                     <Phone className="w-6 h-6 text-primary flex-shrink-0" />
                     <span className="font-semibold">
