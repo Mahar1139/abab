@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link'
@@ -246,7 +245,7 @@ export default function HomePage() {
         </section>
 
         {/* About Us Snippet Section */}
-        <SectionWrapper className="bg-background text-foreground py-16 md:py-24">
+        <SectionWrapper className="bg-muted text-foreground py-16 md:py-24">
           <div className="grid md:grid-cols-5 gap-12 items-center">
             <div className="md:col-span-2">
               <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 font-headline">About Himalaya Public School</h2>
