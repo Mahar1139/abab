@@ -142,9 +142,9 @@ export default function TechProgramsPage() {
                 "Problem-solving and debugging techniques.",
                 "Introduction to object-oriented programming concepts."
               ]}
-              imageUrl="/All_Images/coding-classes/main-students-learning.png"
-              imageAlt="Students learning coding concepts on laptops"
-              imageHint="students coding laptop"
+              imageUrl="/Coding2.webp"
+              imageAlt="A focused student working on a coding project"
+              imageHint="student coding"
               inquireLink="/admissions"
               inquireText="Inquire About Coding Classes"
               imagePosition="left"
