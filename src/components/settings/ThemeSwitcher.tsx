@@ -3,7 +3,7 @@
 
 import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
-import { Sun, Moon, Leaf } from 'lucide-react';
+import { Sun, Moon, Leaf, Flame } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { useTranslation } from '@/hooks/use-translation';
 
@@ -14,7 +14,7 @@ export function ThemeSwitcher() {
   return (
     <div className="space-y-2">
       <Label>{t('settings.theme.label')}</Label>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-2 gap-2">
         <Button
           variant={theme === 'light' ? 'default' : 'outline'}
           onClick={() => setTheme('light')}
@@ -38,6 +38,14 @@ export function ThemeSwitcher() {
         >
           <Leaf className="mr-2 h-4 w-4" />
           {t('settings.theme.forest')}
+        </Button>
+        <Button
+          variant={theme === 'red' ? 'default' : 'outline'}
+          onClick={() => setTheme('red')}
+          className="w-full"
+        >
+          <Flame className="mr-2 h-4 w-4" />
+          {t('settings.theme.red')}
         </Button>
       </div>
     </div>
