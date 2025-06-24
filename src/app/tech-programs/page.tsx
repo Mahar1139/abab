@@ -133,8 +133,8 @@ export default function TechProgramsPage() {
           <div>
             <ProgramSection 
               icon={Code2}
-              title="Creative Coding with Python"
-              description="Explore the fundamentals of programming through Python, one of the most popular and versatile coding languages. This course focuses on building interactive projects, games, and understanding core programming principles in a fun and engaging way."
+              title="Creative Coding with AI tools learning"
+              description="Explore the fundamentals of programming through Our Coding Programme, one of the most popular and versatile coding languages. This course focuses on building interactive projects, games, and understanding core programming principles in a fun and engaging way."
               learnPoints={[
                 "Core Python syntax and programming logic.",
                 "Developing algorithms and data structures.",
@@ -146,7 +146,7 @@ export default function TechProgramsPage() {
               imageAlt="A focused student working on a coding project"
               imageHint="student coding"
               inquireLink="/admissions"
-              inquireText="Inquire About Coding Classes"
+              inquireText="Inquire About Coding Classes...."
               imagePosition="left"
             />
             <ClassGallery images={codingGalleryImages} galleryTitle="Coding Class Moments" />
