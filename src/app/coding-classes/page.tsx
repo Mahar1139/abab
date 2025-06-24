@@ -31,10 +31,10 @@ export default function CodingClassesPage() {
           <div className="md:flex">
             <div className="md:w-1/2 relative min-h-[300px] md:min-h-[400px]">
               <Image
-                src="/All_Images/coding-classes/main-students-learning.png"
-                alt="Students learning coding concepts on laptops"
+                src="/Coding1.jpeg"
+                alt="Students focused on coding projects"
                 fill
-                data-ai-hint="students coding laptop"
+                data-ai-hint="students coding"
                 className="object-cover transition-transform duration-300 group-hover:scale-105"
               />
             </div>
