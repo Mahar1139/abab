@@ -24,7 +24,7 @@ export default function FacultyPage() {
           <SectionWrapper title="Message from the Manager" titleClassName="text-2xl sm:text-3xl md:text-4xl mb-6">
             {/* Responsive container for the Director's card */}
             <div className="flex justify-center mb-8 md:mb-10">
-              <div className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-3xl"> {/* Adjusted max-widths for better scaling */}
+              <div className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-3xl">
                 <FacultyCard member={director} />
               </div>
             </div>

@@ -25,7 +25,7 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
                 <div
                   className={cn(
                     "relative overflow-hidden border-4 border-primary", // Inner frame - increased border thickness
-                    "w-56 sm:w-64 md:w-72 lg:w-80", 
+                    "w-64 sm:w-72 md:w-80 lg:w-96", 
                     imageAspectRatio === 'landscape' ? 'aspect-video' : 'aspect-square'
                   )}
                 >
@@ -36,8 +36,8 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
                     data-ai-hint={member.dataAiHint || "faculty member"}
                     className="object-cover"
                     sizes={imageAspectRatio === 'landscape' ? 
-                      "(max-width: 640px) 224px, (max-width: 768px) 256px, (max-width: 1024px) 288px, 320px" :
-                      "(max-width: 640px) 224px, (max-width: 768px) 256px, (max-width: 1024px) 288px, 320px"}
+                      "(min-width: 1024px) 384px, (min-width: 768px) 320px, (min-width: 640px) 288px, 256px" :
+                      "(min-width: 1024px) 384px, (min-width: 768px) 320px, (min-width: 640px) 288px, 256px"}
                   />
                 </div>
               </div>
