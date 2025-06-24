@@ -21,7 +21,7 @@ Our Vision: To be a center of excellence in education, instilling in students a 
 
 Our Core Values: Integrity, Respect, Collaboration, Excellence, Innovation, and Lifelong Learning.
 
-Our History: Founded in 1985, Himalaya Public School has a rich legacy of academic achievement and community involvement, consistently adapting to provide the best educational experience.
+Our History: Founded in 2005, Himalaya Public School has a rich legacy of academic achievement and community involvement, consistently adapting to provide the best educational experience.
 
 Admissions Overview:
 Himalaya Public School seeks students who are curious, motivated, and eager to contribute. Admission is based on a holistic review including academic records, assessments, and interviews. The application process involves online submission of a detailed form, document upload, fee payment, and potential entrance tests/interviews. Key deadlines are published annually. The 'Admissions' page on our website has the online admission form and more information.

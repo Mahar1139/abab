@@ -1,3 +1,4 @@
+
 'use client';
 
 import Link from 'next/link'
@@ -248,7 +249,7 @@ export default function HomePage() {
             <div className="md:col-span-2">
               <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 font-headline">About Himalaya Public School</h2>
               <p className="text-lg text-foreground/80 leading-relaxed mb-4">
-                Established in 1985, Himalaya Public School is a hub of academic excellence and character development. We provide a supportive, student-centered environment that encourages interactive learning and technological orientation.
+                Established in 2005, Himalaya Public School is a hub of academic excellence and character development. We provide a supportive, student-centered environment that encourages interactive learning and technological orientation.
               </p>
               <p className="text-lg text-foreground/80 leading-relaxed">
                 Our mission is to equip students with the skills and values needed to succeed in an ever-changing world. We believe in nurturing not just scholars, but well-rounded, compassionate individuals.
