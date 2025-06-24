@@ -1,3 +1,4 @@
+
 import type { SchoolEvent, VideoItem } from '@/types';
 
 export const galleryItems: SchoolEvent[] = [
@@ -220,6 +221,42 @@ export const videoItems: VideoItem[] = [
     id: 'v6',
     title: 'Student-led Coding Workshop',
     description: 'See our students in action, sharing their coding knowledge with peers.',
+    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+  },
+  {
+    id: 'v7',
+    title: 'Cultural Fest 2023 Highlights',
+    description: 'A vibrant display of diverse cultures and talents.',
+    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+  },
+  {
+    id: 'v8',
+    title: 'Robotics Club Showcase',
+    description: 'Our students demonstrate their latest robotic creations.',
+    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+  },
+  {
+    id: 'v9',
+    title: 'Music Department Concert',
+    description: 'Enjoy the melodious performances from our school concert.',
+    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+  },
+  {
+    id: 'v10',
+    title: 'Debate Competition Finals',
+    description: 'Witness the final round of our inter-house debate competition.',
+    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+  },
+  {
+    id: 'v11',
+    title: 'Art Exhibition Walkthrough',
+    description: 'A virtual tour of the stunning artwork created by our students.',
+    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+  },
+  {
+    id: 'v12',
+    title: 'HPS Morning Assembly',
+    description: 'Join us for a typical morning assembly at Himalaya Public School.',
     videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
   }
 ];
