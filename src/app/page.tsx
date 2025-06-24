@@ -207,7 +207,7 @@ export default function HomePage() {
         {/* Hero Section */}
         <section className="relative -mt-12 w-full h-screen flex items-center justify-center text-center text-white overflow-hidden">
           <video
-            src="/DSC_4556.MOV"
+            src="/HPS_home.mp4"
             autoPlay
             loop
             muted
