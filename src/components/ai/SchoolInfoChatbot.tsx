@@ -7,10 +7,13 @@ import { useTheme } from 'next-themes';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Loader2, BrainCircuit, HelpCircle, StopCircle, Zap, ArrowLeftCircle, ShieldBan } from 'lucide-react';
+import { Loader2, BrainCircuit, HelpCircle, Zap, ArrowLeftCircle, ShieldBan } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 import { useLanguage } from '@/context/LanguageContext';
+import ReactMarkdown from 'react-markdown';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 
 const initialSuggestedQuestions = [
   "What is the school's mission?",
@@ -48,7 +51,7 @@ function formatRemainingTime(ms: number): string {
 
 export default function SchoolInfoChatbot() {
   const [question, setQuestion] = useState('');
-  const [rawAnswer, setRawAnswer] = useState<string | null>(null);
+  const [answer, setAnswer] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isAutoSubmitting, setIsAutoSubmitting] = useState(false);
@@ -56,23 +59,6 @@ export default function SchoolInfoChatbot() {
   const router = useRouter();
   const { setTheme } = useTheme();
   const { language } = useLanguage();
-
-  const [textBefore, setTextBefore] = useState<string | null>(null);
-  const [codeContent, setCodeContent] = useState<string | null>(null);
-  const [codeLanguage, setCodeLanguage] = useState<string | null>(null);
-  const [textAfter, setTextAfter] = useState<string | null>(null);
-
-  const [animatedTextBefore, setAnimatedTextBefore] = useState<string>('');
-  const [animatedCode, setAnimatedCode] = useState<string>('');
-  const [animatedTextAfter, setAnimatedTextAfter] = useState<string>('');
-
-  const [isAnimatingTextBefore, setIsAnimatingTextBefore] = useState(false);
-  const [isAnimatingCode, setIsAnimatingCode] = useState(false);
-  const [isAnimatingTextAfter, setIsAnimatingTextAfter] = useState(false);
-
-  const [currentAnimationDelay, setCurrentAnimationDelay] = useState(10);
-
-  const animationTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   
   const [displaySuggestedQuestions, setDisplaySuggestedQuestions] = useState<string[]>([]);
@@ -82,7 +68,6 @@ export default function SchoolInfoChatbot() {
   const [remainingCooldownTime, setRemainingCooldownTime] = useState<string | null>(null);
   const cooldownTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const isAnyAnimationActive = isAnimatingTextBefore || isAnimatingCode || isAnimatingTextAfter;
   const isOnCooldown = cooldownEndTime !== null && Date.now() < cooldownEndTime;
 
   useEffect(() => {
@@ -152,154 +137,16 @@ export default function SchoolInfoChatbot() {
       });
     }
   }, []);
-  
-  const handleBreakResponse = useCallback(() => {
-    if (animationTimeoutRef.current) {
-      clearTimeout(animationTimeoutRef.current);
-    }
-    setIsAnimatingTextBefore(false);
-    setIsAnimatingCode(false);
-    setIsAnimatingTextAfter(false);
-  }, []);
 
   useEffect(() => {
-    return () => {
-      handleBreakResponse();
-    };
-  }, [handleBreakResponse]);
-
-  useEffect(() => {
-    if (animationTimeoutRef.current) {
-      clearTimeout(animationTimeoutRef.current);
-    }
-    setAnimatedTextBefore('');
-    setAnimatedCode('');
-    setAnimatedTextAfter('');
-    setIsAnimatingTextBefore(false);
-    setIsAnimatingCode(false);
-    setIsAnimatingTextAfter(false);
-    setError(null); 
-
-
-    if (rawAnswer) {
-      let delay = 15; 
-      if (rawAnswer.length > 500) {
-        delay = 5; 
-      } else if (rawAnswer.length >= 150) {
-        delay = 10; 
-      }
-      setCurrentAnimationDelay(delay);
-
-      const codeBlockRegex = /```(\w*)\n?([\s\S]*?)```/;
-      const match = rawAnswer.match(codeBlockRegex);
-
-      let tb_full = rawAnswer;
-      let cc_full: string | null = null;
-      let cl_full: string | null = null;
-      let ta_full: string | null = null;
-
-      if (match && match.index !== undefined) {
-        tb_full = rawAnswer.substring(0, match.index);
-        cl_full = match[1] || 'plaintext';
-        cc_full = match[2];
-        ta_full = rawAnswer.substring(match.index + match[0].length);
-      }
-      
-      setTextBefore(tb_full); 
-      setCodeLanguage(cl_full);
-      setCodeContent(cc_full); 
-      setTextAfter(ta_full);   
-      
-      if (tb_full.length > 0) {
-        setIsAnimatingTextBefore(true);
-      } else if (cc_full && cc_full.length > 0) {
-        setIsAnimatingCode(true);
-      } else if (ta_full && ta_full.length > 0) {
-        setIsAnimatingTextAfter(true);
-      }
-    } else {
-      setTextBefore(null);
-      setCodeContent(null);
-      setCodeLanguage(null);
-      setTextAfter(null);
-    }
-    scrollToBottom(); 
-  }, [rawAnswer, scrollToBottom]);
-
-  useEffect(() => {
-    if (isAnimatingTextBefore && textBefore !== null) {
-      if (animatedTextBefore.length < textBefore.length) {
-        animationTimeoutRef.current = setTimeout(() => {
-          setAnimatedTextBefore(textBefore.substring(0, animatedTextBefore.length + 1));
-          scrollToBottom();
-        }, currentAnimationDelay);
-      } else { 
-        setIsAnimatingTextBefore(false);
-        if (codeContent && codeContent.length > 0) {
-          setIsAnimatingCode(true); 
-        } else if (textAfter && textAfter.length > 0) {
-          setIsAnimatingTextAfter(true); 
-        }
-      }
-    }
-    return () => { 
-      if (animationTimeoutRef.current && isAnimatingTextBefore ) {
-        clearTimeout(animationTimeoutRef.current);
-      }
-    };
-  }, [isAnimatingTextBefore, textBefore, animatedTextBefore, codeContent, textAfter, currentAnimationDelay, scrollToBottom]);
-
-  useEffect(() => {
-    if (isAnimatingCode && codeContent !== null) {
-      if (animatedCode.length < codeContent.length) {
-        animationTimeoutRef.current = setTimeout(() => {
-          setAnimatedCode(codeContent.substring(0, animatedCode.length + 1));
-          scrollToBottom();
-        }, currentAnimationDelay);
-      } else { 
-        setIsAnimatingCode(false);
-        if (textAfter && textAfter.length > 0) {
-          setIsAnimatingTextAfter(true); 
-        }
-      }
-    }
-     return () => { 
-       if (animationTimeoutRef.current && isAnimatingCode ) {
-        clearTimeout(animationTimeoutRef.current);
-       }
-    };
-  }, [isAnimatingCode, codeContent, animatedCode, textAfter, currentAnimationDelay, scrollToBottom]);
-
-  useEffect(() => {
-    if (isAnimatingTextAfter && textAfter !== null) {
-      if (animatedTextAfter.length < textAfter.length) {
-        animationTimeoutRef.current = setTimeout(() => {
-          setAnimatedTextAfter(textAfter.substring(0, animatedTextAfter.length + 1));
-          scrollToBottom();
-        }, currentAnimationDelay);
-      } else { 
-        setIsAnimatingTextAfter(false);
-      }
-    }
-     return () => { 
-       if (animationTimeoutRef.current && isAnimatingTextAfter ) {
-        clearTimeout(animationTimeoutRef.current);
-       }
-    };
-  }, [isAnimatingTextAfter, textAfter, animatedTextAfter, currentAnimationDelay, scrollToBottom]);
-  
-  useEffect(() => {
-    if (isLoading || error || (rawAnswer && !isAnyAnimationActive && animatedTextBefore === '' && animatedCode === '' && animatedTextAfter === '')) {
-      scrollToBottom();
-    }
-  }, [isLoading, error, rawAnswer, isAnyAnimationActive, animatedTextBefore, animatedCode, animatedTextAfter, scrollToBottom]);
-
+    scrollToBottom();
+  }, [isLoading, error, answer, scrollToBottom]);
 
   const fetchAnswer = async (currentQuestion: string, unrestricted: boolean) => {
     if (!currentQuestion.trim() || isOnCooldown) return;
     setIsLoading(true);
     setError(null);
-    setRawAnswer(null); 
+    setAnswer(null); 
 
     try {
       const input: SchoolInformationInput = { 
@@ -328,23 +175,22 @@ export default function SchoolInfoChatbot() {
         }
         const newCooldownEndTime = Date.now() + cooldownDurationMs;
         setCooldownEndTime(newCooldownEndTime);
-        setRawAnswer(result.answer || "Your query was blocked due to content policy. Interaction is temporarily disabled.");
+        setAnswer(result.answer || "Your query was blocked due to content policy. Interaction is temporarily disabled.");
       } else if (result.answer !== undefined && result.answer !== null) {
         const trimmedAnswer = result.answer.trim();
         const isHtmlCommentOnly = /^<!--[\s\S]*?-->$/.test(trimmedAnswer);
 
         if (trimmedAnswer === "" || isHtmlCommentOnly) {
-          // If there was an action, we might not need an error message
           if (!result.action) {
             setError("The AI provided an empty or non-displayable response. Please try rephrasing your question or ask something else.");
           }
-          setRawAnswer(null);
+          setAnswer(null);
         } else {
-          setRawAnswer(result.answer); 
+          setAnswer(result.answer); 
         }
       } else if (!result.action) {
         setError("The AI didn't provide an answer. Please try rephrasing your question.");
-        setRawAnswer(null); 
+        setAnswer(null); 
       }
     } catch (e) {
       console.error("Error fetching school information:", e);
@@ -355,7 +201,7 @@ export default function SchoolInfoChatbot() {
         }
       }
       setError(errorMessage);
-      setRawAnswer(null); 
+      setAnswer(null); 
     }
     setIsLoading(false);
     setIsAutoSubmitting(false);
@@ -375,7 +221,7 @@ export default function SchoolInfoChatbot() {
     if (currentQ.toLowerCase() === UNRESTRICTED_MODE_PROMPT) {
       setIsUnrestrictedMode(true);
       setQuestion('');
-      setRawAnswer(null); 
+      setAnswer(null); 
       setError(null);
       return;
     }
@@ -384,7 +230,7 @@ export default function SchoolInfoChatbot() {
   
   const handleExitUnrestrictedMode = () => {
     setIsUnrestrictedMode(false);
-    setRawAnswer(null);
+    setAnswer(null);
     setError(null);
     setQuestion(''); 
   };
@@ -401,7 +247,7 @@ export default function SchoolInfoChatbot() {
       if (question.trim().toLowerCase() === UNRESTRICTED_MODE_PROMPT) {
         setIsUnrestrictedMode(true);
         setQuestion('');
-        setRawAnswer(null);
+        setAnswer(null);
         setError(null);
         setIsAutoSubmitting(false);
       } else if (question.trim().toLowerCase() === TEACHER_CONDUIT_PROMPT) {
@@ -413,12 +259,11 @@ export default function SchoolInfoChatbot() {
         fetchAnswer(question, isUnrestrictedMode);
       }
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, [isAutoSubmitting, question, isLoading, isUnrestrictedMode, isOnCooldown]); 
+  }, [isAutoSubmitting, question, isLoading, isUnrestrictedMode, isOnCooldown, fetchAnswer, router]); 
 
 
   return (
-    <Card className="flex flex-col h-full w-full shadow-none border-0 rounded-none bg-card/30 backdrop-blur-xl">
+    <Card className="flex flex-col h-full w-full shadow-none border-0 bg-transparent backdrop-blur-xl">
       <CardHeader className="border-b border-white/20">
         <CardTitle className="flex items-center gap-2 text-xl text-primary-foreground">
           {isUnrestrictedMode ? <Zap className="w-6 h-6 text-orange-300" /> : <BrainCircuit className="w-6 h-6" />}
@@ -445,12 +290,12 @@ export default function SchoolInfoChatbot() {
               }}
               placeholder={isUnrestrictedMode ? 'Ask a general knowledge question...' : 'Ask about the school...'}
               className="w-full bg-black/20 text-white placeholder:text-white/60 border-white/30 focus-visible:ring-offset-black/30 focus-visible:ring-accent"
-              disabled={isLoading || isAnyAnimationActive || isOnCooldown}
+              disabled={isLoading || isOnCooldown}
               aria-label="Your question"
             />
           </div>
           <div className="flex flex-col sm:flex-row gap-2 items-center">
-            <Button type="submit" disabled={isLoading || !question.trim() || isAnyAnimationActive || isOnCooldown} className="w-full sm:w-auto">
+            <Button type="submit" disabled={isLoading || !question.trim() || isOnCooldown} className="w-full sm:w-auto">
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -460,13 +305,7 @@ export default function SchoolInfoChatbot() {
                 'Ask AI'
               )}
             </Button>
-            {isAnyAnimationActive && !isLoading && (
-              <Button variant="outline" size="sm" onClick={handleBreakResponse} className="w-full sm:w-auto">
-                <StopCircle className="mr-2 h-4 w-4" />
-                Stop Response
-              </Button>
-            )}
-            {isUnrestrictedMode && !isLoading && !isAnyAnimationActive && !isOnCooldown && (
+            {isUnrestrictedMode && !isLoading && !isOnCooldown && (
               <Button variant="outline" size="sm" onClick={handleExitUnrestrictedMode} className="w-full sm:w-auto text-orange-300 border-orange-400 hover:bg-orange-400/20 hover:text-orange-200">
                 <ArrowLeftCircle className="mr-2 h-4 w-4" />
                 Exit General Mode
@@ -486,7 +325,7 @@ export default function SchoolInfoChatbot() {
           </Alert>
         )}
 
-        {!isUnrestrictedMode && !rawAnswer && !isLoading && !error && !isOnCooldown && displaySuggestedQuestions.length > 0 && (
+        {!isUnrestrictedMode && !answer && !isLoading && !error && !isOnCooldown && displaySuggestedQuestions.length > 0 && (
           <div className="mt-6">
             <h4 className="text-sm font-medium text-white/70 mb-2 flex items-center">
               <HelpCircle className="w-4 h-4 mr-2"/>
@@ -499,7 +338,7 @@ export default function SchoolInfoChatbot() {
                   variant="outline"
                   size="sm"
                   onClick={() => handleSuggestedQuestionClick(sq)}
-                  disabled={isLoading || isAnyAnimationActive || isOnCooldown}
+                  disabled={isLoading || isOnCooldown}
                   className="text-xs text-white/90 bg-white/5 border-white/20 hover:bg-white/10"
                 >
                   {sq}
@@ -522,21 +361,40 @@ export default function SchoolInfoChatbot() {
               <AlertDescription>{error}</AlertDescription>
             </Alert>
           )}
-          {(rawAnswer !== null && !isLoading && !error) && (
+          {(answer !== null && !isLoading && !error) && (
             <>
               <h4 className="font-semibold mb-2 text-lg text-white mt-6">AI's Response:</h4>
-              <div className="p-4 bg-black/20 rounded-md text-white/90 leading-relaxed prose max-w-none prose-p:my-2 prose-pre:bg-black/30 prose-pre:shadow-md prose-code:font-code prose-strong:text-white">
-                {textBefore !== null && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextBefore}</div>}
-                
-                { codeContent !== null && (
-                  <pre className="overflow-x-auto">
-                    <code className={codeLanguage ? `language-${codeLanguage}` : 'language-plaintext'}>
-                      {animatedCode}
-                    </code>
-                  </pre>
-                )}
-                
-                {textAfter !== null && <div style={{ whiteSpace: 'pre-line' }}>{animatedTextAfter}</div>}
+              <div className="prose prose-sm md:prose-base max-w-none 
+                              prose-headings:text-white/90 prose-p:text-white/80 
+                              prose-strong:text-white prose-a:text-accent hover:prose-a:text-accent/80
+                              prose-blockquote:text-white/70 prose-blockquote:border-accent
+                              prose-code:text-cyan-300 prose-code:before:content-[''] prose-code:after:content-[''] prose-code:font-mono
+                              prose-li:marker:text-white/80
+              ">
+                <ReactMarkdown
+                    children={answer}
+                    components={{
+                        code(props) {
+                            const {children, className, ...rest} = props;
+                            const match = /language-(\w+)/.exec(className || '');
+                            return match ? (
+                                <SyntaxHighlighter
+                                    {...rest}
+                                    PreTag="div"
+                                    children={String(children).replace(/\n$/, '')}
+                                    language={match[1]}
+                                    style={vscDarkPlus}
+                                    wrapLines={true}
+                                    wrapLongLines={true}
+                                />
+                            ) : (
+                                <code {...rest} className={className}>
+                                    {children}
+                                </code>
+                            )
+                        }
+                    }}
+                />
               </div>
             </>
           )}
