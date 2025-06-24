@@ -205,7 +205,7 @@ export default function HomePage() {
 
       <div className="flex flex-col min-h-screen">
         {/* Hero Section */}
-        <section className="relative -mt-12 w-full h-screen flex items-center justify-center text-center text-white overflow-hidden">
+        <section className="relative -mt-12 w-full h-screen flex items-center justify-center text-center overflow-hidden">
           <video
             src="/HPS_home.mp4"
             autoPlay
@@ -219,10 +219,10 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent z-10" />
           <div className="relative z-20 p-4 md:p-8 max-w-4xl mx-auto">
             <div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl font-headline">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 drop-shadow-2xl font-headline text-black">
                 Welcome to Himalaya Public School
               </h1>
-              <p className="text-lg sm:text-xl md:text-2xl mb-10 text-gray-100 drop-shadow-lg max-w-2xl mx-auto">
+              <p className="text-lg sm:text-xl md:text-2xl mb-10 text-black drop-shadow-lg max-w-2xl mx-auto">
                 Nurturing curious minds and shaping future leaders with a holistic approach to learning and personal growth.
               </p>
             </div>
@@ -238,7 +238,7 @@ export default function HomePage() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="w-full sm:w-auto px-10 py-7 text-lg font-semibold shadow-xl hover:scale-105 transition-colors duration-300 text-white border-white bg-transparent hover:bg-accent hover:text-accent-foreground hover:border-accent"
+                className="w-full sm:w-auto px-10 py-7 text-lg font-semibold shadow-xl hover:scale-105 transition-colors duration-300 text-black border-black bg-transparent hover:bg-accent hover:text-accent-foreground hover:border-accent"
               >
                 <Link href="/admissions">Apply Now</Link>
               </Button>
