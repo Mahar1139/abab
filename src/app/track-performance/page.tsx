@@ -1,10 +1,12 @@
 
 'use client';
 
-import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import SectionWrapper from '@/components/shared/SectionWrapper';
-import { Target, CheckCircle, TrendingUp, BookCopy, AlertTriangle, Star, Activity, ListChecks } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { User, Target, CheckCircle, TrendingUp, BookCopy, AlertTriangle, Star, Activity, ListChecks, Lightbulb, ExternalLink } from 'lucide-react';
 
 const mockPerformanceData = {
   summary: {
@@ -31,24 +33,50 @@ const mockPerformanceData = {
   ],
   strengths: ['Biology Concepts', 'General Knowledge'],
   areasForImprovement: ['Advanced Chemistry', 'Quantitative Aptitude Puzzles'],
+  aiRecommendations: [
+    "Focus on 'Chemistry' quizzes this week to improve the 65% accuracy.",
+    "Great work in Biology! Try a 'Hard' difficulty quiz to challenge yourself.",
+    "Review the 'Quantitative Aptitude' concepts before the next quiz.",
+  ]
 };
 
-const PIE_COLORS = ['hsl(var(--chart-1))', 'hsl(var(--chart-2))', 'hsl(var(--chart-3))', 'hsl(var(--chart-4))', 'hsl(var(--chart-5))'];
-
 export default function TrackPerformancePage() {
-  const { summary, performanceByTopic, performanceOverTime, strengths, areasForImprovement } = mockPerformanceData;
+  const { summary, performanceByTopic, performanceOverTime, strengths, areasForImprovement, aiRecommendations } = mockPerformanceData;
 
-  const overallAccuracyData = [
-    { name: 'Correct', value: summary.overallAccuracy },
-    { name: 'Incorrect', value: 100 - summary.overallAccuracy },
-  ];
-  
   return (
     <div className="container mx-auto py-8">
-      <SectionWrapper title="Your Performance Dashboard">
+      <SectionWrapper title="Track Your Child & Check Student Progress">
         <p className="text-center text-lg text-foreground/80 mb-10 max-w-3xl mx-auto">
-          Track your quiz progress, identify strengths, and discover areas for improvement.
+          Monitor your child's academic journey, view quiz results, and gain insights into their learning patterns.
         </p>
+        
+        {/* Student Selector Card */}
+        <Card className="mb-8 shadow-lg">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-3 text-xl text-primary">
+              <User className="w-6 h-6" />
+              Student Profile
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="w-full sm:w-auto sm:flex-1">
+                <Select defaultValue="student1">
+                  <SelectTrigger id="student-select" aria-label="Select Student">
+                    <SelectValue placeholder="Select student..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="student1">Aarav Sharma (Class 8)</SelectItem>
+                    <SelectItem value="student2" disabled>Isha Singh (Class 5) - No data yet</SelectItem>
+                  </SelectContent>
+                </Select>
+            </div>
+            <p className="text-sm text-muted-foreground whitespace-nowrap">Last Synced: Just now</p>
+            <Button>
+                View Full Report Card <ExternalLink className="ml-2 h-4 w-4" />
+            </Button>
+          </CardContent>
+        </Card>
+
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
@@ -166,6 +194,30 @@ export default function TrackPerformancePage() {
                 </CardContent>
             </Card>
         </div>
+        
+        {/* AI Recommendations */}
+        <Card className="mt-8 shadow-xl bg-secondary/10 border-secondary/20">
+          <CardHeader>
+            <CardTitle className="text-xl flex items-center gap-2 text-secondary">
+              <Lightbulb className="w-5 h-5" />
+              AI-Powered Recommendations
+            </CardTitle>
+            <CardDescription>
+              Based on recent performance, here are some suggested next steps.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-3">
+              {aiRecommendations.map((rec, index) => (
+                <li key={index} className="flex items-start p-3 bg-card/50 rounded-md">
+                  <Star className="w-4 h-4 text-accent mr-3 mt-1 shrink-0" />
+                  <span className="text-foreground/90">{rec}</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
       </SectionWrapper>
     </div>
   );
