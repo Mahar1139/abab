@@ -165,7 +165,7 @@ export default function TechProgramsPage() {
                 "Understanding actuators and motor control.",
                 "Team-based projects and robotics competition preparation."
               ]}
-              imageUrl="/All_Images/robotics-classes/main-students-assembling.png"
+              imageUrl="/Robotics1.jpg"
               imageAlt="Students assembling and programming a robot"
               imageHint="students building robot"
               inquireLink="/admissions"
