@@ -1,8 +1,12 @@
 
+'use client';
+
 import type { FacultyMember } from '@/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
 
 interface FacultyCardProps {
   member: FacultyMember;
@@ -10,7 +14,18 @@ interface FacultyCardProps {
 }
 
 export default function FacultyCard({ member, imageAspectRatio = 'square' }: FacultyCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   if (member.imageUrl) {
+    const characterLimit = 350; // Show a preview of ~350 characters
+    const isLongBio = member.bio.length > characterLimit;
+
+    const toggleExpand = () => setIsExpanded(!isExpanded);
+
+    const displayedBio = isLongBio && !isExpanded 
+      ? `${member.bio.substring(0, characterLimit)}...`
+      : member.bio;
+
     // Special layout for members with an image (currently, only Director)
     return (
       <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group bg-card text-card-foreground">
@@ -35,9 +50,7 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
                     fill
                     data-ai-hint={member.dataAiHint || "faculty member"}
                     className="object-cover"
-                    sizes={imageAspectRatio === 'landscape' ? 
-                      "(min-width: 1024px) 384px, (min-width: 768px) 320px, (min-width: 640px) 288px, 256px" :
-                      "(min-width: 1024px) 384px, (min-width: 768px) 320px, (min-width: 640px) 288px, 256px"}
+                    sizes="(min-width: 1024px) 384px, (min-width: 768px) 320px, (min-width: 640px) 288px, 256px"}
                   />
                 </div>
               </div>
@@ -51,9 +64,14 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
               <CardDescription className="text-md md:text-lg text-accent font-semibold">{member.title}</CardDescription>
             </CardHeader>
             <CardContent className="p-0">
-              <p className="text-sm md:text-base text-foreground/80 leading-relaxed whitespace-pre-line">
-                {member.bio}
+              <p className="text-sm md:text-base text-foreground/80 leading-relaxed whitespace-pre-line text-left">
+                {displayedBio}
               </p>
+              {isLongBio && (
+                <Button onClick={toggleExpand} variant="link" className="mt-2 text-accent">
+                  {isExpanded ? 'Read Less' : 'Read More'}
+                </Button>
+              )}
             </CardContent>
           </div>
         </div>
