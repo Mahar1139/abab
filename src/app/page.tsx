@@ -237,7 +237,7 @@ export default function HomePage() {
               <Button
                 asChild
                 size="lg"
-                className="w-full sm:w-auto px-10 py-7 text-lg font-semibold shadow-xl hover:scale-105 transition-transform duration-300 bg-accent hover:bg-accent/90 text-accent-foreground"
+                className="w-full sm:w-auto px-10 py-7 text-lg font-semibold shadow-xl hover:scale-105 transition-transform duration-300 bg-yellow-400 hover:bg-yellow-500 text-black"
               >
                 <Link href="/admissions">Apply Now</Link>
               </Button>
@@ -263,7 +263,7 @@ export default function HomePage() {
             <div className="md:col-span-3">
               <div className="rounded-xl shadow-2xl overflow-hidden aspect-video group relative">
                 <Image
-                  src="/images/home_page.jpg" 
+                  src="/DSC_4562.JPG" 
                   alt="Himalaya Public School, Pithoragarh - School Building"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
