@@ -288,8 +288,8 @@ export default function HomePage() {
             ].map((item, index) => (
               <Card key={index} className="shadow-xl hover:shadow-2xl transition-all duration-300 bg-card hover:border-primary/50 group">
                 <CardHeader className="items-center text-center">
-                  <div className="p-5 bg-primary/10 rounded-full mb-4 inline-block group-hover:bg-primary transition-colors duration-300">
-                    <item.icon className="w-12 h-12 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+                  <div className="p-5 bg-primary rounded-full mb-4 inline-block group-hover:bg-accent transition-colors duration-300">
+                    <item.icon className="w-12 h-12 text-primary-foreground group-hover:text-accent-foreground transition-colors duration-300" />
                   </div>
                   <CardTitle className="text-2xl text-primary group-hover:text-accent transition-colors duration-300 font-headline">{item.title}</CardTitle>
                 </CardHeader>
