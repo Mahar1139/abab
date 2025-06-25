@@ -6,7 +6,7 @@ export const galleryItems: SchoolEvent[] = [
     id: 'g1',
     title: 'Annual Sports Day 2023',
     description: 'Students showcasing sportsmanship and talent.',
-    imageUrl: '/All_Images/school-life/gallery/sports-day.png',
+    imageUrl: '/AnnualSportsDay.png',
     dataAiHint: 'sports day students'
   },
   {
