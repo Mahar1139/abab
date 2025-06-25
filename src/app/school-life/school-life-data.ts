@@ -4,10 +4,10 @@ import type { SchoolEvent, VideoItem } from '@/types';
 export const galleryItems: SchoolEvent[] = [
   {
     id: 'g1',
-    title: 'Annual Sports Day 2023',
-    description: 'Students showcasing sportsmanship and talent.',
-    imageUrl: '/AnnualSportsDay.png',
-    dataAiHint: 'sports day students'
+    title: 'Himalaya Public School Campus',
+    description: 'A beautiful view of our school campus.',
+    imageUrl: '/A1.JPG',
+    dataAiHint: 'school campus'
   },
   {
     id: 'g2',
@@ -183,13 +183,6 @@ export const galleryItems: SchoolEvent[] = [
     description: 'A new photo description.',
     imageUrl: 'https://placehold.co/400x400.png',
     dataAiHint: 'new photo'
-  },
-  {
-    id: 'g27',
-    title: 'School Campus View',
-    description: 'A view of the Himalaya Public School campus.',
-    imageUrl: '/A1.JPG',
-    dataAiHint: 'school campus'
   }
 ];
 
@@ -267,4 +260,5 @@ export const videoItems: VideoItem[] = [
     videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
   }
 ];
+
 
