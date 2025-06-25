@@ -57,12 +57,12 @@ export default function AppSidebar() {
         <SidebarHeader className="p-4 flex items-center justify-center border-b group-data-[collapsible=icon]:py-2">
           <div className="flex items-center gap-2 group-data-[collapsible=icon]:hidden">
             <Image
-              src="https://placehold.co/128x32.png"
+              src="/HPS_Logo.png"
               alt="Himalaya Public School Logo"
               width={128}
               height={32}
               className="h-8 w-auto rounded-md"
-              data-ai-hint="school logo"
+              priority
             />
             <h2 className="text-lg font-bold text-sidebar-foreground">
               Himalaya Public School
@@ -70,12 +70,12 @@ export default function AppSidebar() {
           </div>
           <div className="hidden group-data-[collapsible=icon]:flex">
             <Image
-              src="https://placehold.co/40x40.png"
+              src="/HPS_Logo.png"
               alt="Himalaya Public School Logo"
-              width={32}
-              height={32}
+              width={40}
+              height={40}
               className="h-8 w-8 rounded-md"
-              data-ai-hint="school logo"
+              priority
             />
           </div>
         </SidebarHeader>

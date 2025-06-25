@@ -64,12 +64,12 @@ export default function PageHeader() {
         </div>
         <Link href="/" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors">
           <Image
-            src="https://placehold.co/40x40.png"
+            src="/HPS_Logo.png"
             alt="Himalaya Public School Logo"
             width={32}
             height={32}
             className="h-8 w-8 rounded-sm"
-            data-ai-hint="school logo"
+            priority
           />
           <span className="font-headline hidden sm:inline">Himalaya Public School</span>
         </Link>
