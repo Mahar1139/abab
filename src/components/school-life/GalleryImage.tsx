@@ -29,7 +29,7 @@ export default function GalleryImage({ item }: GalleryImageProps) {
           </CardFooter>
         </Card>
       </DialogTrigger>
-      <DialogContent className="max-w-4xl p-2 sm:p-4">
+      <DialogContent className="max-w-2xl p-2 sm:p-4">
         <DialogHeader className="sr-only">
           <DialogTitle>{item.title}</DialogTitle>
           <DialogDescription>{item.description}</DialogDescription>

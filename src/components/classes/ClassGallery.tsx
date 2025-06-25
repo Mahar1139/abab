@@ -37,7 +37,7 @@ export default function ClassGallery({ images, galleryTitle = "Glimpses from Our
                 />
               </div>
             </DialogTrigger>
-            <DialogContent className="max-w-4xl p-2 sm:p-4">
+            <DialogContent className="max-w-2xl p-2 sm:p-4">
               <div className="relative w-full" style={{ paddingTop: '66.66%' }}>
                 <Image 
                   src={image.src} 
