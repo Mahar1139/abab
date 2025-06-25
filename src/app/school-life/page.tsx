@@ -1,12 +1,24 @@
+
 'use client';
 
+import dynamic from 'next/dynamic';
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import GalleryImage from "@/components/school-life/GalleryImage";
-import NewsItem from "@/components/school-life/NewsItem";
 import { galleryItems, videoItems } from "./school-life-data";
 import type { SchoolEvent, VideoItem } from "@/types";
 import { Images, Video } from "lucide-react";
+
+// Dynamically import components to potentially resolve chunk loading issues.
+// Provide a simple skeleton loader for a better user experience.
+const GalleryImage = dynamic(() => import('@/components/school-life/GalleryImage'), {
+  loading: () => <div className="aspect-square bg-muted rounded-lg animate-pulse" />,
+  ssr: false,
+});
+const NewsItem = dynamic(() => import('@/components/school-life/NewsItem'), {
+  loading: () => <div className="aspect-video bg-muted rounded-lg animate-pulse" />,
+  ssr: false,
+});
+
 
 export default function SchoolLifePage() {
   return (
