@@ -59,9 +59,9 @@ export default function AppSidebar() {
             <Image
               src="https://placehold.co/40x40.png"
               alt="Himalaya Public School Logo"
-              width={28}
-              height={28}
-              className="h-7 w-7 rounded-sm"
+              width={40}
+              height={40}
+              className="h-10 w-10 rounded-md"
               data-ai-hint="school logo"
             />
             <h2 className="text-lg font-bold text-sidebar-foreground">
@@ -72,9 +72,9 @@ export default function AppSidebar() {
             <Image
               src="https://placehold.co/40x40.png"
               alt="Himalaya Public School Logo"
-              width={28}
-              height={28}
-              className="h-7 w-7 rounded-sm"
+              width={40}
+              height={40}
+              className="h-10 w-10 rounded-md"
               data-ai-hint="school logo"
             />
           </div>
