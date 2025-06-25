@@ -37,9 +37,10 @@ const prompt = ai.definePrompt({
   output: {schema: RegenerateQuizOptionsOutputSchema},
   prompt: `You are a meticulous quiz question validator and regenerator. Your task is to take an existing quiz question and its current options, re-solve the question from scratch to find the correct answer, and then determine if a regeneration is necessary.
 
-**Step 1: Re-Solve the Question**
+**Step 1: Analyze and Re-Solve the Question**
 1.  Analyze the following question text carefully.
 2.  Independently solve it to determine the correct answer. Let's call this your \`[Calculated Answer]\`.
+3.  If the question is fundamentally flawed, ambiguous, or unsolvable, note this down.
 
 **Question Details:**
 Topic: {{{topic}}}
@@ -51,19 +52,27 @@ Current Options: {{#each currentOptions}}
 
 
 **Step 2: Validate and Respond**
-Now, compare your \`[Calculated Answer]\` with the \`currentOptions\` provided.
+Now, based on your analysis, choose EXACTLY one of the following three cases for your response.
 
-*   **Case A: The correct answer IS ALREADY in the options.**
-    If your \`[Calculated Answer]\` is found within the \`currentOptions\` array, it means the original options were valid. In this case, your response MUST set the 'message' field with the following exact text: "Sorry but the options given are correct if you have any doubt with question so you can ask with HPS ai..." The 'options' and 'correctAnswer' fields MUST be omitted from your JSON response.
+---
+**Case A: The question is flawed or unsolvable.**
+If you determine that the question itself is ambiguous, contains a typo, or is impossible to answer correctly from the given information, your response MUST set the 'message' field with the following exact text: "Sorry, the question appears to be flawed, which is why a correct answer wasn't available. We have noted this for review." The 'options' and 'correctAnswer' fields MUST be omitted from your JSON response.
 
-*   **Case B: The correct answer IS NOT in the options.**
-    If your \`[Calculated Answer]\` is NOT found within the \`currentOptions\` array, then you MUST generate a new set of options.
-    1.  Create a new set of **exactly four** multiple-choice options.
-    2.  One of these new options **MUST** be your \`[Calculated Answer]\`.
-    3.  The other three options must be plausible but incorrect distractors.
-    4.  The 'message' field in your response MUST be omitted or null.
+---
+**Case B: The correct answer IS ALREADY in the options.**
+If the question is valid and your \`[Calculated Answer]\` IS found within the \`currentOptions\` array, it means the original options were valid. In this case, your response MUST set the 'message' field with the following exact text: "Sorry but the options given are correct. If you have any doubt with the question, you can ask the HPS AI Assistant for an explanation." The 'options' and 'correctAnswer' fields MUST be omitted from your JSON response.
 
-**CRITICAL INSTRUCTION FOR 'correctAnswer' FIELD (in Case B):**
+---
+**Case C: The correct answer IS NOT in the options (Regeneration needed).**
+If the question is valid and your \`[Calculated Answer]\` is NOT found within the \`currentOptions\` array, then you MUST generate a new set of options.
+1.  Create a new set of **exactly four** multiple-choice options.
+2.  One of these new options **MUST** be your \`[Calculated Answer]\`.
+3.  The other three options must be plausible but incorrect distractors.
+4.  The 'message' field in your response MUST be omitted or null. Your response must only contain the 'options' and 'correctAnswer' fields.
+
+---
+
+**CRITICAL INSTRUCTION FOR 'correctAnswer' FIELD (in Case C):**
 The 'correctAnswer' field in your JSON output MUST be the exact full text of the correct option string you've placed in the 'options' array.
 
 Output the result in the specified JSON format based on the cases above.
@@ -93,22 +102,27 @@ const regenerateQuizOptionsFlow = ai.defineFlow(
 
     // Validate the output based on the two possible cases
     if (output.message) {
-      // Case A: A message was returned, so options/correctAnswer should be missing.
+      // Case A or B: A message was returned, so options/correctAnswer should be missing.
       if (output.options || output.correctAnswer) {
+        // This is a safety check; the prompt now forbids this state.
+        console.error("AI returned a message but also included regenerated options, which is an invalid state.", output);
         throw new Error("AI returned a message but also included regenerated options, which is an invalid state.");
       }
       return output;
     } else if (output.options && output.correctAnswer) {
-      // Case B: Options were returned, so they must be valid.
+      // Case C: Options were returned, so they must be valid.
       if (output.options.length !== 4) {
+        console.error("AI regenerated an invalid number of options.", output);
         throw new Error(`AI regenerated an invalid number of options (${output.options.length}). Expected 4.`);
       }
       if (!output.options.includes(output.correctAnswer)) {
+        console.error("AI regenerated a correct answer that is not in the new options list.", output);
         throw new Error(`AI regenerated a correct answer ("${output.correctAnswer}") that is not in the new options list.`);
       }
       return output;
     } else {
       // Neither case was met, which is an error.
+      console.error("AI response for option regeneration was incomplete. It must provide either a message or a valid set of new options and a correct answer.", output);
       throw new Error("AI response for option regeneration was incomplete. It must provide either a message or a valid set of new options and a correct answer.");
     }
   }
