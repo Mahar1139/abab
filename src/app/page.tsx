@@ -7,11 +7,13 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import SectionWrapper from '@/components/shared/SectionWrapper';
 import { BookOpenCheck, Leaf, Users, Telescope, ArrowRight, TrendingUp, Zap, ShieldCheck, GraduationCap, Palette, Activity, School, MapPin, Phone, Mail, ChevronRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import FloatingAIHelper from '@/components/ai/FloatingAIHelper';
 import PrivacyPolicyDialog from '@/components/layout/PrivacyPolicyDialog';
 import TermsConditionsDialog from '@/components/layout/TermsConditionsDialog';
 import Image from 'next/image';
 import { useTranslation } from '@/hooks/use-translation';
+import dynamic from 'next/dynamic';
+
+const FloatingAIHelper = dynamic(() => import('@/components/ai/FloatingAIHelper'), { ssr: false });
 
 
 // --- Independence Day Animation Logic (Preserved) ---
