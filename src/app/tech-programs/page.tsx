@@ -53,7 +53,6 @@ const computerGalleryImages = [
   { src: '/All_Images/computer-classes/gallery-students-research.png', alt: 'Students researching online', dataAiHint: 'students research' },
   { src: '/All_Images/computer-classes/gallery-teacher-assisting.png', alt: 'Teacher assisting student at PC', dataAiHint: 'teacher student' },
   { src: '/All_Images/computer-classes/gallery-group-project.png', alt: 'Students working on a group project on computer', dataAiHint: 'group project' },
-  { src: '/All_Images/computer-classes/gallery-cybersecurity.png', alt: 'Concept of cybersecurity shield', dataAiHint: 'cybersecurity concept' },
 ];
 
 
