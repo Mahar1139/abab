@@ -26,6 +26,8 @@ const ClassGallery = dynamic(() => import('@/components/classes/ClassGallery'), 
 const codingGalleryImages = [
   { src: '/GalleryImg.jpg', alt: 'Students in a tech program', dataAiHint: 'students tech' },
   { src: '/CodingGallery2.jpg', alt: 'Students collaborating on a coding project', dataAiHint: 'students coding' },
+  { src: 'https://placehold.co/400x400.png', alt: 'Student presenting coding project', dataAiHint: 'student presentation' },
+  { src: 'https://placehold.co/400x400.png', alt: 'Close-up of code on a screen', dataAiHint: 'code screen' },
 ];
 
 const roboticsGalleryImages = [
@@ -47,7 +49,7 @@ const computerGalleryImages = [
   { src: '/All_Images/computer-classes/gallery-teacher-assisting.png', alt: 'Teacher assisting student at PC', dataAiHint: 'teacher student' },
   { src: '/All_Images/computer-classes/gallery-group-project.png', alt: 'Students working on a group project on computer', dataAiHint: 'group project' },
   { src: '/All_Images/computer-classes/gallery-cybersecurity.png', alt: 'Concept of cybersecurity shield', dataAiHint: 'cybersecurity concept' },
-  { src: '/All_Images/computer-classes/gallery-presentation-software.png', alt: 'Student learning presentation software', dataAiHint: 'student presentation software' },
+  { src: '/All_Images/computer-classes/gallery-presentation-software.png', alt: 'Student learning presentation software', dataAiHint: 'student presentation' },
 ];
 
 
