@@ -1,4 +1,3 @@
-
 'use client';
 
 import dynamic from 'next/dynamic';
@@ -40,13 +39,7 @@ const roboticsGalleryImages = [
   { src: '/ROBO7.jpg', alt: 'A custom-built robot navigating a course', dataAiHint: 'custom robot', colSpan: 2 },
   { src: '/All_Images/robotics-classes/gallery-robotic-arm.png', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
   { src: '/All_Images/robotics-classes/gallery-student-soldering.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
-  { src: '/All_Images/robotics-classes/gallery-robot-components.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
-];
-
-const computerGalleryImages = [
-  { src: '/All_Images/computer-classes/gallery-student-learning.png', alt: 'Student learning on a computer', dataAiHint: 'student computer' },
-  { src: '/All_Images/computer-classes/gallery-digital-art.png', alt: 'Creating digital art on a tablet', dataAiHint: 'digital art' },
-  { src: '/All_Images/computer-classes/gallery-teacher-assisting.png', alt: 'Teacher assisting student at PC', dataAiHint: 'teacher student' },
+  { src: '/Robotics1.jpg', alt: 'Student working on a robotics project', dataAiHint: 'student robotics' },
 ];
 
 
@@ -132,7 +125,7 @@ export default function TechProgramsPage() {
     <div className="container mx-auto py-8">
       <SectionWrapper title="Explore Our Tech Programs">
         <p className="text-center text-lg text-foreground/80 mb-10 max-w-3xl mx-auto">
-          Dive into the world of technology with our comprehensive programs in Coding, Robotics, and Computer Literacy. We empower students with essential skills for the future, fostering creativity, problem-solving, and digital proficiency.
+          Dive into the world of technology with our comprehensive programs in Coding and Robotics. We empower students with essential skills for the future, fostering creativity and problem-solving.
         </p>
 
         <div className="space-y-16">
@@ -182,28 +175,6 @@ export default function TechProgramsPage() {
             <ClassGallery images={roboticsGalleryImages} galleryTitle="Robotics Workshop Snapshots" />
           </div>
           
-          {/* Computer Literacy Section */}
-          <div>
-            <ProgramSection 
-              icon={Laptop}
-              title="Digital Literacy & Productivity Tools"
-              description="This foundational course builds essential computer skills, covering operating system navigation, file management, internet safety, and proficiency in widely-used office productivity software like word processors, spreadsheets, and presentation tools."
-              learnPoints={[
-                "Navigating computer operating systems effectively.",
-                "Mastering office suite applications (documents, spreadsheets, presentations).",
-                "Safe and responsible internet usage and digital citizenship.",
-                "Fundamentals of file management and cloud storage.",
-                "Introduction to graphic design principles or basic video editing."
-              ]}
-              imageUrl="/Computer1.png"
-              imageAlt="Students in a computer class"
-              imageHint="students computer class"
-              inquireLink="/admissions"
-              inquireText="Join Our Computer Courses"
-              imagePosition="left"
-            />
-            <ClassGallery images={computerGalleryImages} galleryTitle="Digital Literacy in Action" />
-          </div>
         </div>
 
       </SectionWrapper>
