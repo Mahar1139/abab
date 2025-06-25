@@ -13,6 +13,7 @@ const roboticsGalleryImages = [
   { src: '/All_Images/robotics-classes/gallery-robot-components.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
   { src: '/All_Images/robotics-classes/gallery-student-soldering.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
   { src: '/All_Images/robotics-classes/gallery-team-celebrating.png', alt: 'Team celebrating robot success', dataAiHint: 'team celebration' },
+  { src: 'https://placehold.co/400x400.png', alt: 'New robotics placeholder', dataAiHint: 'robotics project' },
 ];
 
 export default function RoboticsClassesPage() {
