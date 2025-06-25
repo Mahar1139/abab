@@ -10,9 +10,9 @@ import ClassGallery from '@/components/classes/ClassGallery';
 const roboticsGalleryImages = [
   { src: '/All_Images/robotics-classes/gallery-students-testing.png', alt: 'Students testing a robot', dataAiHint: 'students robot', colSpan: 2 },
   { src: '/All_Images/robotics-classes/gallery-robotic-arm.png', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
-  { src: '/All_Images/robotics-classes/gallery-robot-components.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
   { src: '/All_Images/robotics-classes/gallery-student-soldering.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
-  { src: 'https://placehold.co/400x400.png', alt: 'New robotics placeholder', dataAiHint: 'robotics project' },
+  { src: '/All_Images/robotics-classes/gallery-robot-components.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
+  { src: '/ROBO7.jpg', alt: 'A custom-built robot navigating a course', dataAiHint: 'custom robot' },
 ];
 
 export default function RoboticsClassesPage() {
