@@ -39,7 +39,6 @@ const codingGalleryImages = [
 const roboticsGalleryImages = [
   { src: '/ROBO7.jpg', alt: 'A custom-built robot navigating a course', dataAiHint: 'custom robot', colSpan: 2 },
   { src: '/All_Images/robotics-classes/gallery-robotic-arm.png', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
-  { src: '/Robotics1.jpg', alt: 'Student working on a robotics project', dataAiHint: 'student robotics' },
   { src: '/All_Images/robotics-classes/gallery-student-soldering.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
   { src: '/All_Images/robotics-classes/gallery-robot-components.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
 ];
@@ -173,9 +172,9 @@ export default function TechProgramsPage() {
                 "Understanding actuators and motor control.",
                 "Team-based projects and robotics competition preparation."
               ]}
-              imageUrl="/All_Images/robotics-classes/main-robot-hand.png"
-              imageAlt="A robotic hand performing a delicate task"
-              imageHint="robotic hand"
+              imageUrl="/Robotics1.jpg"
+              imageAlt="Student working on a robotics project"
+              imageHint="student robotics"
               inquireLink="/admissions"
               inquireText="Explore Robotics Programs"
               imagePosition="right"
