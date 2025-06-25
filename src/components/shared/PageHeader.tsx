@@ -63,7 +63,7 @@ export default function PageHeader() {
           <SidebarTrigger />
         </div>
         <Link href="/" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors">
-          <Image src="https://placehold.co/40x40.png" alt="School Logo" width={40} height={40} data-ai-hint="school logo" className="h-10 w-10 object-contain" />
+          <Image src="/HPS_Logo.png" alt="School Logo" width={40} height={40} className="h-10 w-10 object-contain" />
           <span className="font-headline hidden sm:inline">Himalaya Public School</span>
         </Link>
       </div>
