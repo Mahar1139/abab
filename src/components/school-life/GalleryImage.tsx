@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import type { SchoolEvent } from '@/types';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
 interface GalleryImageProps {
@@ -24,9 +24,6 @@ export default function GalleryImage({ item }: GalleryImageProps) {
               />
             </div>
           </CardContent>
-          <CardFooter className="p-4 bg-card">
-            <h3 className="text-lg font-semibold text-primary truncate group-hover:text-accent transition-colors">{item.title}</h3>
-          </CardFooter>
         </Card>
       </DialogTrigger>
       <DialogContent className="max-w-4xl w-auto p-0 bg-transparent border-none shadow-none">

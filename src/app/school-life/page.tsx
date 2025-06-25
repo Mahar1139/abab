@@ -40,9 +40,7 @@ export default function SchoolLifePage() {
           <TabsContent value="gallery">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
               {galleryItems.map((item: SchoolEvent) => (
-                <div key={item.id} className="group">
-                  <GalleryImage item={item} />
-                </div>
+                <GalleryImage key={item.id} item={item} />
               ))}
             </div>
           </TabsContent>
@@ -50,9 +48,7 @@ export default function SchoolLifePage() {
           <TabsContent value="videos">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {videoItems.map((item: VideoItem) => (
-                 <div key={item.id} className="group">
-                  <NewsItem item={item} />
-                </div>
+                 <NewsItem key={item.id} item={item} />
               ))}
             </div>
           </TabsContent>
