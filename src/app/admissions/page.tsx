@@ -3,11 +3,24 @@
 
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import QuestionSuggester from "@/components/ai/QuestionSuggester";
 import { suggestAdmissionQuestions } from "@/ai/flows/suggest-admission-questions";
 import { fullAdmissionsText } from "./admission-content";
 import FloatingAIHelper from "@/components/ai/FloatingAIHelper";
 import AdmissionFormComponent from "@/components/admissions/AdmissionForm";
+import dynamic from 'next/dynamic';
+import { Skeleton } from '@/components/ui/skeleton';
+
+const QuestionSuggester = dynamic(() => import('@/components/ai/QuestionSuggester'), {
+  loading: () => (
+    <div className="my-8 p-4">
+      <Skeleton className="h-10 w-1/3 mb-4" />
+      <Skeleton className="h-6 w-2/3 mb-4" />
+      <Skeleton className="h-10 w-48" />
+    </div>
+  ),
+  ssr: false
+});
+
 
 export default function AdmissionsPage() {
   return (

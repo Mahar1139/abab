@@ -4,9 +4,22 @@
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import FacultyCard from "@/components/faculty/FacultyCard";
 import { facultyMembers } from "./faculty-data";
-import QuestionSuggester from "@/components/ai/QuestionSuggester";
 import { suggestFacultyQuestions } from "@/ai/flows/suggest-faculty-questions";
 import type { FacultyMember } from "@/types";
+import dynamic from 'next/dynamic';
+import { Skeleton } from '@/components/ui/skeleton';
+
+const QuestionSuggester = dynamic(() => import('@/components/ai/QuestionSuggester'), {
+  loading: () => (
+    <div className="my-8 p-4">
+      <Skeleton className="h-10 w-1/3 mb-4" />
+      <Skeleton className="h-6 w-2/3 mb-4" />
+      <Skeleton className="h-10 w-48" />
+    </div>
+  ),
+  ssr: false
+});
+
 
 export default function FacultyPage() {
   const director = facultyMembers.find(member => member.id === 'director-001');
