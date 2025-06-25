@@ -9,6 +9,7 @@ import ClassGallery from '@/components/classes/ClassGallery';
 
 const codingGalleryImages = [
   { src: '/Coding1.jpeg', alt: 'Students focused on coding projects', dataAiHint: 'students coding' },
+  { src: '/ROBOTICSIMG1.jpg', alt: 'Student assembling a robot', dataAiHint: 'student robot' },
 ];
 
 export default function CodingClassesPage() {

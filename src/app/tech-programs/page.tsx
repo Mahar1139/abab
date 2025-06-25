@@ -1,4 +1,3 @@
-
 'use client';
 
 import dynamic from 'next/dynamic';
@@ -33,14 +32,14 @@ const codingGalleryImages = [
     colSpan: 2 
   },
   { src: '/CodingIMG4.jpg', alt: 'Student focused on a coding task', dataAiHint: 'student coding' },
-  { src: '/CodingIMG3.jpg', alt: 'A group of students working on code together', dataAiHint: 'students collaboration' }
+  { src: '/CodingIMG3.jpg', alt: 'A group of students working on code together', dataAiHint: 'students collaboration' },
+  { src: '/ROBOTICSIMG1.jpg', alt: 'Student assembling a robot', dataAiHint: 'student robot' }
 ];
 
 const roboticsGalleryImages = [
   { src: '/ROBO7.jpg', alt: 'A custom-built robot navigating a course', dataAiHint: 'custom robot', colSpan: 2 },
   { src: '/ROBOTICSIMG3.jpg', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
   { src: '/ROBOTICSIMG5.jpg', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
-  { src: '/Robotics1.jpg', alt: 'Student working on a robotics project', dataAiHint: 'student robotics' },
   { src: '/ROBOTICSIMG1.jpg', alt: 'Student assembling a robot', dataAiHint: 'student robot' },
 ];
 
