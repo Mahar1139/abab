@@ -25,14 +25,7 @@ const ClassGallery = dynamic(() => import('@/components/classes/ClassGallery'), 
 
 const codingGalleryImages = [
   { src: '/GalleryImg.jpg', alt: 'Students in a tech program', dataAiHint: 'students tech' },
-  { src: '/All_Images/coding-classes/gallery-students-collaborating.png', alt: 'Students collaborating on code', dataAiHint: 'students collaborating' },
-  { src: '/All_Images/coding-classes/gallery-student-presenting.png', alt: 'Student presenting coding project', dataAiHint: 'student presentation' },
-  { src: '/All_Images/coding-classes/gallery-code-screen.png', alt: 'Close-up of code on a screen', dataAiHint: 'code screen' },
-  { src: '/All_Images/coding-classes/gallery-student-laptop.png', alt: 'Happy student with laptop', dataAiHint: 'student laptop' },
-  { src: '/All_Images/coding-classes/gallery-teacher-explaining.png', alt: 'Teacher explaining code to students', dataAiHint: 'teacher students' },
-  { src: '/All_Images/coding-classes/gallery-girls-coding.png', alt: 'Group of girls coding', dataAiHint: 'girls coding' },
-  { src: '/All_Images/coding-classes/gallery-diverse-students.png', alt: 'Diverse students in coding class', dataAiHint: 'diverse students' },
-  { src: '/All_Images/coding-classes/gallery-student-debugging.png', alt: 'Student debugging code', dataAiHint: 'student debugging' },
+  { src: '/CodingGallery2.jpg', alt: 'Students collaborating on a coding project', dataAiHint: 'students coding' },
 ];
 
 const roboticsGalleryImages = [
