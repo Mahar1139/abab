@@ -1,3 +1,4 @@
+
 'use client';
 
 import dynamic from 'next/dynamic';
@@ -31,7 +32,9 @@ const codingGalleryImages = [
     alt: 'A view of coding projects in the classroom', 
     dataAiHint: 'coding classroom',
     colSpan: 2 
-  }
+  },
+  { src: '/CodingIMG4.jpg', alt: 'Student focused on a coding task', dataAiHint: 'student coding' },
+  { src: '/CodingIMG3.jpg', alt: 'A group of students working on code together', dataAiHint: 'students collaboration' }
 ];
 
 const roboticsGalleryImages = [
