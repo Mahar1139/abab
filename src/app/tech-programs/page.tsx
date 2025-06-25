@@ -37,21 +37,16 @@ const codingGalleryImages = [
 ];
 
 const roboticsGalleryImages = [
-  { src: '/All_Images/robotics-classes/gallery-students-testing.png', alt: 'Students testing a robot', dataAiHint: 'students robot', colSpan: 2 },
+  { src: '/ROBO7.jpg', alt: 'A custom-built robot navigating a course', dataAiHint: 'custom robot', colSpan: 2 },
   { src: '/All_Images/robotics-classes/gallery-robotic-arm.png', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
   { src: '/All_Images/robotics-classes/gallery-student-soldering.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
   { src: '/All_Images/robotics-classes/gallery-robot-components.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
-  { src: '/ROBO7.jpg', alt: 'A custom-built robot navigating a course', dataAiHint: 'custom robot' },
-  { src: '/ROBO7.jpg', alt: 'Another view of a custom robot navigating a course', dataAiHint: 'custom robot' },
 ];
 
 const computerGalleryImages = [
   { src: '/All_Images/computer-classes/gallery-student-learning.png', alt: 'Student learning on a computer', dataAiHint: 'student computer' },
   { src: '/All_Images/computer-classes/gallery-digital-art.png', alt: 'Creating digital art on a tablet', dataAiHint: 'digital art' },
-  { src: '/All_Images/computer-classes/gallery-video-editing.png', alt: 'Interface of video editing software', dataAiHint: 'video editing' },
-  { src: '/All_Images/computer-classes/gallery-students-research.png', alt: 'Students researching online', dataAiHint: 'students research' },
   { src: '/All_Images/computer-classes/gallery-teacher-assisting.png', alt: 'Teacher assisting student at PC', dataAiHint: 'teacher student' },
-  { src: '/All_Images/computer-classes/gallery-group-project.png', alt: 'Students working on a group project on computer', dataAiHint: 'group project' },
 ];
 
 

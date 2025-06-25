@@ -8,12 +8,10 @@ import { ArrowRight, CheckCircle, Bot } from 'lucide-react';
 import ClassGallery from '@/components/classes/ClassGallery';
 
 const roboticsGalleryImages = [
-  { src: '/All_Images/robotics-classes/gallery-students-testing.png', alt: 'Students testing a robot', dataAiHint: 'students robot', colSpan: 2 },
+  { src: '/ROBO7.jpg', alt: 'A custom-built robot navigating a course', dataAiHint: 'custom robot', colSpan: 2 },
   { src: '/All_Images/robotics-classes/gallery-robotic-arm.png', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
   { src: '/All_Images/robotics-classes/gallery-student-soldering.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
   { src: '/All_Images/robotics-classes/gallery-robot-components.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
-  { src: '/ROBO7.jpg', alt: 'A custom-built robot navigating a course', dataAiHint: 'custom robot' },
-  { src: '/ROBO7.jpg', alt: 'Another view of a custom robot navigating a course', dataAiHint: 'custom robot' },
 ];
 
 export default function RoboticsClassesPage() {
@@ -28,7 +26,7 @@ export default function RoboticsClassesPage() {
             <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card group flex flex-col">
                 <div className="relative w-full aspect-video">
                     <Image
-                        src="/All_Images/robotics-classes/main-students-assembling.png"
+                        src="/ROBOTICSIMG1.jpg"
                         alt="Students assembling and programming a robot"
                         fill
                         data-ai-hint="students building robot"
