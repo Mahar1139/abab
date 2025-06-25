@@ -56,14 +56,14 @@ export default function PageHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-10 flex h-10 items-center justify-between border-b border-border bg-background/80 backdrop-blur-sm px-2 md:px-4">
+    <header className="sticky top-0 z-10 flex h-12 items-center justify-between border-b border-border bg-background/80 backdrop-blur-sm px-2 md:px-4">
       {/* Left section: Mobile trigger and School Logo/Name */}
       <div className="flex flex-shrink-0 items-center gap-2">
         <div className=""> 
           <SidebarTrigger />
         </div>
         <Link href="/" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors">
-          <Image src="https://placehold.co/100x32.png" alt="School Logo" width={100} height={32} data-ai-hint="school logo" className="h-8 w-auto object-contain" />
+          <Image src="https://placehold.co/40x40.png" alt="School Logo" width={40} height={40} data-ai-hint="school logo" className="h-10 w-10 object-contain" />
           <span className="font-headline hidden sm:inline">Himalaya Public School</span>
         </Link>
       </div>
