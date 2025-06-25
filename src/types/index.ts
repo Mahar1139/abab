@@ -21,8 +21,8 @@ export interface SchoolEvent {
 
 export interface VideoItem {
   id: string;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   videoUrl: string;
 }
 

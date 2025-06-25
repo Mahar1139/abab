@@ -147,74 +147,26 @@ export const galleryItems: SchoolEvent[] = [
 export const videoItems: VideoItem[] = [
   {
     id: 'v1',
-    title: 'School Annual Day Highlights',
-    description: 'A look back at the spectacular performances from our Annual Day.',
-    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+    videoUrl: 'https://www.youtube.com/embed/t1IZnQntfzY'
   },
   {
     id: 'v2',
-    title: 'Science Fair 2023 - Top Projects',
-    description: 'Explore the innovative projects showcased by our young scientists.',
-    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+    videoUrl: 'https://www.youtube.com/embed/EcqfevNh0vs'
   },
   {
     id: 'v3',
-    title: 'A Message from the Principal',
-    description: 'Our Principal shares a message with students and parents.',
-    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+    videoUrl: 'https://www.youtube.com/embed/1363wZQUbpE'
   },
   {
     id: 'v4',
-    title: 'Sports Day - A Day of Champions',
-    description: 'Relive the exciting moments from our annual sports meet.',
-    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+    videoUrl: 'https://www.youtube.com/embed/IBmtbc1JvPQ'
   },
   {
     id: 'v5',
-    title: 'Virtual Campus Tour',
-    description: 'Take a virtual walkthrough of the Himalaya Public School campus.',
-    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+    videoUrl: 'https://www.youtube.com/embed/6nbFCGO5dIE'
   },
   {
     id: 'v6',
-    title: 'Student-led Coding Workshop',
-    description: 'See our students in action, sharing their coding knowledge with peers.',
-    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
-  },
-  {
-    id: 'v7',
-    title: 'Cultural Fest 2023 Highlights',
-    description: 'A vibrant display of diverse cultures and talents.',
-    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
-  },
-  {
-    id: 'v8',
-    title: 'Robotics Club Showcase',
-    description: 'Our students demonstrate their latest robotic creations.',
-    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
-  },
-  {
-    id: 'v9',
-    title: 'Music Department Concert',
-    description: 'Enjoy the melodious performances from our school concert.',
-    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
-  },
-  {
-    id: 'v10',
-    title: 'Debate Competition Finals',
-    description: 'Witness the final round of our inter-house debate competition.',
-    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
-  },
-  {
-    id: 'v11',
-    title: 'Art Exhibition Walkthrough',
-    description: 'A virtual tour of the stunning artwork created by our students.',
-    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
-  },
-  {
-    id: 'v12',
-    title: 'HPS Morning Assembly',
-    description: 'Join us for a typical morning assembly at Himalaya Public School.',
-    videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
+    videoUrl: 'https://www.youtube.com/embed/zigp-sM8m04'
   }
 ];
