@@ -42,6 +42,7 @@ const roboticsGalleryImages = [
   { src: '/All_Images/robotics-classes/gallery-student-soldering.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
   { src: '/All_Images/robotics-classes/gallery-robot-components.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
   { src: '/ROBO7.jpg', alt: 'A custom-built robot navigating a course', dataAiHint: 'custom robot' },
+  { src: '/ROBO7.jpg', alt: 'Another view of a custom robot navigating a course', dataAiHint: 'custom robot' },
 ];
 
 const computerGalleryImages = [
