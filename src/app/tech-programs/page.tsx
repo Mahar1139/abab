@@ -1,4 +1,3 @@
-
 'use client';
 
 import dynamic from 'next/dynamic';
@@ -25,6 +24,7 @@ const ClassGallery = dynamic(() => import('@/components/classes/ClassGallery'), 
 });
 
 const codingGalleryImages = [
+  { src: '/GalleryImg.jpg', alt: 'Students in a tech program', dataAiHint: 'students tech' },
   { src: '/All_Images/coding-classes/gallery-students-collaborating.png', alt: 'Students collaborating on code', dataAiHint: 'students collaborating' },
   { src: '/All_Images/coding-classes/gallery-student-presenting.png', alt: 'Student presenting coding project', dataAiHint: 'student presentation' },
   { src: '/All_Images/coding-classes/gallery-code-screen.png', alt: 'Close-up of code on a screen', dataAiHint: 'code screen' },
