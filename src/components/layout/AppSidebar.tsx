@@ -4,7 +4,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import Image from 'next/image';
 import {
   Sidebar,
   SidebarHeader,
@@ -28,7 +27,8 @@ import {
   Library,
   Settings,
   Code,
-  TrendingUp
+  TrendingUp,
+  School
 } from 'lucide-react';
 
 export default function AppSidebar() {
@@ -55,26 +55,13 @@ export default function AppSidebar() {
     <>
       <Sidebar collapsible="icon">
         <SidebarHeader className="p-4 flex items-center justify-center border-b group-data-[collapsible=icon]:py-2">
-          <div className="flex items-center gap-2 group-data-[collapsible=icon]:hidden">
-            <Image
-              src="/HPS_Logo.png"
-              alt="Himalaya Public School Logo"
-              width={160}
-              height={30}
-              className="w-40 h-auto rounded-md"
-              priority
-            />
-          </div>
-          <div className="hidden group-data-[collapsible=icon]:flex">
-            <Image
-              src="/HPS_Logo.png"
-              alt="Himalaya Public School Logo"
-              width={40}
-              height={40}
-              className="h-8 w-8 rounded-md"
-              priority
-            />
-          </div>
+            <Link href="/" className="flex items-center gap-2 group-data-[collapsible=icon]:hidden">
+                <School className="w-8 h-8 text-sidebar-foreground" />
+                <span className="text-xl font-bold text-sidebar-foreground">Himalaya Public School</span>
+            </Link>
+            <Link href="/" className="hidden group-data-[collapsible=icon]:flex">
+                <School className="w-8 h-8 text-sidebar-foreground" />
+            </Link>
         </SidebarHeader>
         <SidebarContent>
           <SidebarMenu>

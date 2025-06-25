@@ -4,7 +4,6 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
-import Image from 'next/image';
 import { 
   Home, 
   BookOpen, 
@@ -16,7 +15,8 @@ import {
   Award, 
   Library,
   Code,
-  TrendingUp
+  TrendingUp,
+  School
 } from 'lucide-react';
 
 const navItems = [
@@ -63,14 +63,7 @@ export default function PageHeader() {
           <SidebarTrigger />
         </div>
         <Link href="/" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors">
-          <Image
-            src="/HPS_Logo.png"
-            alt="Himalaya Public School Logo"
-            width={32}
-            height={32}
-            className="h-8 w-8 rounded-sm"
-            priority
-          />
+          <School className="h-6 w-6" />
           <span className="font-headline hidden sm:inline">Himalaya Public School</span>
         </Link>
       </div>
