@@ -26,8 +26,7 @@ const ClassGallery = dynamic(() => import('@/components/classes/ClassGallery'), 
 const codingGalleryImages = [
   { src: '/GalleryImg.jpg', alt: 'Students in a tech program', dataAiHint: 'students tech' },
   { src: '/CodingGallery2.jpg', alt: 'Students collaborating on a coding project', dataAiHint: 'students coding' },
-  { src: '/CodingGallery.png', alt: 'Student presenting coding project', dataAiHint: 'student presentation' },
-  { src: 'https://placehold.co/400x400.png', alt: 'Close-up of code on a screen', dataAiHint: 'code screen' },
+  { src: 'https://placehold.co/400x400.png', alt: 'A new photo description.', dataAiHint: 'new photo' }
 ];
 
 const roboticsGalleryImages = [
