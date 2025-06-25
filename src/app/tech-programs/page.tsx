@@ -1,13 +1,28 @@
 
 'use client';
 
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle, Code2, Bot, Laptop } from 'lucide-react';
-import ClassGallery from '@/components/classes/ClassGallery';
+import { Skeleton } from '@/components/ui/skeleton';
+
+// Dynamically import ClassGallery to prevent chunk loading errors
+const ClassGallery = dynamic(() => import('@/components/classes/ClassGallery'), {
+  loading: () => (
+    <SectionWrapper title="Glimpses from Our Classes" className="mt-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {Array.from({ length: 6 }).map((_, index) => (
+                <Skeleton key={index} className="aspect-square rounded-lg" />
+            ))}
+        </div>
+    </SectionWrapper>
+  ),
+  ssr: false,
+});
 
 const codingGalleryImages = [
   { src: '/All_Images/coding-classes/gallery-students-collaborating.png', alt: 'Students collaborating on code', dataAiHint: 'students collaborating' },
