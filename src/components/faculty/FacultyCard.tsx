@@ -22,52 +22,50 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
 
     const toggleExpand = () => setIsExpanded(!isExpanded);
 
-    const displayedBio = isLongBio && !isExpanded 
+    const displayedBio = isLongBio && !isExpanded
       ? `${member.bio.substring(0, characterLimit)}...`
       : member.bio;
 
     // Special layout for members with an image (currently, only Director)
     return (
-      <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group bg-card text-card-foreground">
-        <div className="flex flex-col items-center">
-          {/* Image Container - Simplified structure to fix parsing error */}
-          <div className="p-4 sm:p-6 md:p-8">
-            <div
-              className={cn(
-                "relative overflow-hidden border-4 border-primary p-1 bg-border shadow-md",
-                "w-64 sm:w-72 md:w-80 lg:w-96", 
-                imageAspectRatio === 'landscape' ? 'aspect-video' : 'aspect-square'
-              )}
-            >
-              <Image
-                src={member.imageUrl}
-                alt={member.name}
-                fill
-                data-ai-hint={member.dataAiHint || "faculty member"}
-                className="object-cover border-2 border-card"
-                sizes="(min-width: 1024px) 384px, (min-width: 768px) 320px, (min-width: 640px) 288px, 256px"
-              />
-            </div>
-          </div>
-
-          {/* Text Content Container */}
-          <div className="flex-grow p-4 md:p-6 pt-0 text-center">
-            <CardHeader className="p-0 mb-2">
-              <CardTitle className="text-xl md:text-2xl text-primary group-hover:text-accent transition-colors">{member.name}</CardTitle>
-              <CardDescription className="text-md md:text-lg text-accent font-semibold">{member.title}</CardDescription>
-            </CardHeader>
-            <CardContent className="p-0">
-              <p className="text-sm md:text-base text-foreground/80 leading-relaxed whitespace-pre-line text-left">
-                {displayedBio}
-              </p>
-              {isLongBio && (
-                <Button onClick={toggleExpand} variant="link" className="mt-2 text-accent">
-                  {isExpanded ? 'Read Less' : 'Read More'}
-                </Button>
-              )}
-            </CardContent>
+      <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group bg-card text-card-foreground text-center">
+        {/* The image is now a direct child of the card, not inside other components */}
+        <div className="p-4 sm:p-6 md:p-8">
+          <div
+            className={cn(
+              "relative mx-auto overflow-hidden border-4 border-primary p-1 bg-border shadow-md",
+              "w-64 sm:w-72 md:w-80 lg:w-96",
+              imageAspectRatio === 'landscape' ? 'aspect-video' : 'aspect-square'
+            )}
+          >
+            <Image
+              src={member.imageUrl}
+              alt={member.name}
+              fill
+              data-ai-hint={member.dataAiHint || "faculty member"}
+              className="object-cover border-2 border-card"
+              sizes="(min-width: 1024px) 384px, (min-width: 768px) 320px, (min-width: 640px) 288px, 256px"
+            />
           </div>
         </div>
+
+        <CardHeader className="pt-0">
+          <CardTitle className="text-xl md:text-2xl text-primary group-hover:text-accent transition-colors">{member.name}</CardTitle>
+          <CardDescription className="text-md md:text-lg text-accent font-semibold">{member.title}</CardDescription>
+        </CardHeader>
+        
+        <CardContent className="p-4 pt-0 md:p-6 md:pt-0">
+          <p className="text-sm md:text-base text-foreground/80 leading-relaxed whitespace-pre-line text-left">
+            {displayedBio}
+          </p>
+          {isLongBio && (
+            <div className="text-center">
+              <Button onClick={toggleExpand} variant="link" className="mt-2 text-accent">
+                {isExpanded ? 'Read Less' : 'Read More'}
+              </Button>
+            </div>
+          )}
+        </CardContent>
       </Card>
     );
   }
@@ -87,4 +85,3 @@ export default function FacultyCard({ member, imageAspectRatio = 'square' }: Fac
     </Card>
   );
 }
-    
