@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -11,9 +12,14 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { generateQuizQuestion, type GenerateQuizQuestionOutput, type GenerateQuizQuestionInput } from "@/ai/flows/generate-quiz-question-flow";
-import { explainQuizAnswer, type ExplainQuizAnswerInput, type ExplainQuizAnswerOutput } from "@/ai/flows/explain-quiz-answer-flow";
-import { regenerateQuizOptions, type RegenerateQuizOptionsInput } from "@/ai/flows/regenerate-quiz-options-flow";
+import { 
+  generateQuizQuestionAction as generateQuizQuestion, 
+  explainQuizAnswerAction as explainQuizAnswer,
+  regenerateQuizOptionsAction as regenerateQuizOptions
+} from "@/app/ai-actions";
+import type { GenerateQuizQuestionOutput, GenerateQuizQuestionInput } from "@/ai/flows/generate-quiz-question-flow";
+import type { ExplainQuizAnswerInput, ExplainQuizAnswerOutput } from "@/ai/flows/explain-quiz-answer-flow";
+import type { RegenerateQuizOptionsInput } from "@/ai/flows/regenerate-quiz-options-flow";
 import { Brain, CheckCircle, XCircle, Award, RotateCcw, Loader2, Info, HelpCircle, Lightbulb, Target } from "lucide-react";
 
 type QuizState = "selecting_topic_difficulty" | "in_progress" | "finished";

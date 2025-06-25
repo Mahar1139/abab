@@ -3,7 +3,6 @@
 
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import FacultyCard from "@/components/faculty/FacultyCard";
-import type { suggestFacultyQuestions } from "@/ai/flows/suggest-faculty-questions";
 import type { FacultyMember } from "@/types";
 import dynamic from 'next/dynamic';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -21,11 +20,10 @@ const QuestionSuggester = dynamic(() => import('@/components/ai/QuestionSuggeste
 
 interface FacultyPageClientProps {
     facultyMembers: FacultyMember[];
-    suggestionFn: typeof suggestFacultyQuestions;
     facultyProfilesTextForAI: string;
 }
 
-export default function FacultyPageClient({ facultyMembers, suggestionFn, facultyProfilesTextForAI }: FacultyPageClientProps) {
+export default function FacultyPageClient({ facultyMembers, facultyProfilesTextForAI }: FacultyPageClientProps) {
   const director = facultyMembers.find(member => member.id === 'director-001');
   const otherFaculty = facultyMembers.filter(member => member.id !== 'director-001');
 
@@ -57,8 +55,7 @@ export default function FacultyPageClient({ facultyMembers, suggestionFn, facult
 
         <QuestionSuggester
           contentToAnalyze={facultyProfilesTextForAI}
-          suggestionFn={suggestionFn}
-          inputKey="facultyProfilesText"
+          suggestionType="faculty"
           title="Thinking of Questions to Ask?"
           description="After reviewing our faculty, here are some questions you might consider asking."
         />

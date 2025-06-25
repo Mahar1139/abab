@@ -6,19 +6,18 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader2, Lightbulb } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { suggestAdmissionQuestionsAction, suggestFacultyQuestionsAction } from '@/app/ai-actions';
 
 interface QuestionSuggesterProps {
   contentToAnalyze: string;
-  suggestionFn: (input: any) => Promise<{ questions?: string[], suggestedQuestions?: string[] }>; // Adjusted to match AI flow output
-  inputKey: string;
+  suggestionType: 'admissions' | 'faculty';
   title?: string;
   description?: string;
 }
 
 export default function QuestionSuggester({
   contentToAnalyze,
-  suggestionFn,
-  inputKey,
+  suggestionType,
   title = "Need Some Ideas?",
   description = "Let our AI suggest some relevant questions you might have."
 }: QuestionSuggesterProps) {
@@ -31,9 +30,13 @@ export default function QuestionSuggester({
     setError(null);
     setQuestions([]);
     try {
-      const input = { [inputKey]: contentToAnalyze };
-      const result = await suggestionFn(input);
-      // The AI flow might return questions under 'questions' or 'suggestedQuestions' key
+      let result;
+      if (suggestionType === 'admissions') {
+        result = await suggestAdmissionQuestionsAction({ admissionsInfo: contentToAnalyze });
+      } else { // 'faculty'
+        result = await suggestFacultyQuestionsAction({ facultyProfilesText: contentToAnalyze });
+      }
+      
       const suggested = result.questions || result.suggestedQuestions;
       if (suggested && Array.isArray(suggested)) {
         setQuestions(suggested);

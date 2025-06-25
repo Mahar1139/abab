@@ -9,7 +9,8 @@ import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetFooter, SheetDescription } from '@/components/ui/sheet';
 import { Send, User, Loader2, BrainCircuit, ShieldBan } from 'lucide-react';
-import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
+import { askSchoolAI } from '@/app/ai-actions';
+import type { SchoolInformationInput, SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 import { cn } from '@/lib/utils';
 import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { useLanguage } from '@/context/LanguageContext';
@@ -168,7 +169,7 @@ export default function FloatingAIHelper() {
         unrestrictedMode: isUnrestrictedMode,
         language: language,
       };
-      const result: SchoolInformationOutput = await getSchoolInformation(input);
+      const result: SchoolInformationOutput = await askSchoolAI(input);
       
       let aiResponseText = result.answer;
       let safetyBlocked = result.safetyBlocked;

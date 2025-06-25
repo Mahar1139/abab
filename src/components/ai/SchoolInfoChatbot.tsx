@@ -9,7 +9,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Loader2, BrainCircuit, HelpCircle, Zap, ArrowLeftCircle, ShieldBan } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { getSchoolInformation, type SchoolInformationInput, type SchoolInformationOutput } from '@/ai/flows/school-info-flow';
+import { askSchoolAI } from '@/app/ai-actions';
+import type { SchoolInformationInput, SchoolInformationOutput } from '@/ai/flows/school-info-flow';
 import { useLanguage } from '@/context/LanguageContext';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -142,7 +143,7 @@ export default function SchoolInfoChatbot() {
     scrollToBottom();
   }, [isLoading, error, answer, scrollToBottom]);
 
-  const fetchAnswer = async (currentQuestion: string, unrestricted: boolean) => {
+  const fetchAnswer = useCallback(async (currentQuestion: string, unrestricted: boolean) => {
     if (!currentQuestion.trim() || isOnCooldown) return;
     setIsLoading(true);
     setError(null);
@@ -154,7 +155,7 @@ export default function SchoolInfoChatbot() {
         unrestrictedMode: unrestricted,
         language: language,
       };
-      const result: SchoolInformationOutput = await getSchoolInformation(input);
+      const result: SchoolInformationOutput = await askSchoolAI(input);
       
       // Handle action first
       if (result.action) {
@@ -205,7 +206,7 @@ export default function SchoolInfoChatbot() {
     }
     setIsLoading(false);
     setIsAutoSubmitting(false);
-  };
+  }, [abuseStrikeCount, language, router, setTheme, isOnCooldown]);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -12,7 +12,8 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Loader2, BookOpen, Lightbulb, AlertCircle, PencilLine, LogOut } from "lucide-react";
-import { generateTeacherMaterial, type TeacherConduitInput, type TeacherConduitOutput } from "@/ai/flows/teacher-conduit-flow";
+import { generateTeacherMaterialAction as generateTeacherMaterial } from "@/app/ai-actions";
+import type { TeacherConduitInput, TeacherConduitOutput } from "@/ai/flows/teacher-conduit-flow";
 
 const classes = [
   "Nursery", "LKG", "UKG", 

@@ -3,7 +3,6 @@
 
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import type { suggestAdmissionQuestions } from "@/ai/flows/suggest-admission-questions";
 import AdmissionFormComponent from "@/components/admissions/AdmissionForm";
 import dynamic from 'next/dynamic';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -23,10 +22,9 @@ const FloatingAIHelper = dynamic(() => import('@/components/ai/FloatingAIHelper'
 
 interface AdmissionsPageClientProps {
   fullAdmissionsText: string;
-  suggestionFn: typeof suggestAdmissionQuestions;
 }
 
-export default function AdmissionsPageClient({ fullAdmissionsText, suggestionFn }: AdmissionsPageClientProps) {
+export default function AdmissionsPageClient({ fullAdmissionsText }: AdmissionsPageClientProps) {
   return (
     <div className="container mx-auto py-8">
       <SectionWrapper title="Admissions">
@@ -43,8 +41,7 @@ export default function AdmissionsPageClient({ fullAdmissionsText, suggestionFn 
 
       <QuestionSuggester
         contentToAnalyze={fullAdmissionsText}
-        suggestionFn={suggestionFn}
-        inputKey="admissionsInfo"
+        suggestionType="admissions"
         title="Have Questions?"
         description="Based on the admissions info, you might want to ask..."
       />

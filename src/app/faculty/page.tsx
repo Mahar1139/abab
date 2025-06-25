@@ -1,6 +1,5 @@
 
 import { facultyMembers } from "./faculty-data";
-import { suggestFacultyQuestions } from "@/ai/flows/suggest-faculty-questions";
 import FacultyPageClient from "@/components/faculty/FacultyPageClient";
 
 export default function FacultyPage() {
@@ -11,7 +10,6 @@ export default function FacultyPage() {
   return (
     <FacultyPageClient
       facultyMembers={facultyMembers}
-      suggestionFn={suggestFacultyQuestions}
       facultyProfilesTextForAI={facultyProfilesTextForAI}
     />
   );
