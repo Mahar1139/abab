@@ -32,7 +32,6 @@ const codingGalleryImages = [
     dataAiHint: 'coding classroom',
     colSpan: 2 
   },
-  { src: '/CodingGallery2.jpg', alt: 'Students collaborating on a coding project', dataAiHint: 'students coding' },
   { src: '/CodingIMG4.jpg', alt: 'Student focused on a coding task', dataAiHint: 'student coding' },
   { src: '/CodingIMG3.jpg', alt: 'A group of students working on code together', dataAiHint: 'students collaboration' }
 ];
@@ -177,7 +176,7 @@ export default function TechProgramsPage() {
                 "Understanding actuators and motor control.",
                 "Team-based projects and robotics competition preparation."
               ]}
-              imageUrl="/Robotics1.jpg"
+              imageUrl="/ROBOTICSIMG1.jpg"
               imageAlt="Students assembling and programming a robot"
               imageHint="students building robot"
               inquireLink="/admissions"
