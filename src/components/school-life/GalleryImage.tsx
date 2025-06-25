@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { SchoolEvent } from '@/types';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
 
 interface GalleryImageProps {
   item: SchoolEvent;
@@ -29,21 +29,16 @@ export default function GalleryImage({ item }: GalleryImageProps) {
           </CardFooter>
         </Card>
       </DialogTrigger>
-      <DialogContent className="max-w-2xl p-2 sm:p-4">
-        <DialogHeader className="sr-only">
-          <DialogTitle>{item.title}</DialogTitle>
-          <DialogDescription>{item.description}</DialogDescription>
-        </DialogHeader>
-        <div className="relative w-full" style={{ paddingTop: '66.66%' }}>
-          <Image 
-            src={item.imageUrl} 
-            alt={item.title} 
-            fill
-            className="object-contain"
-            sizes="90vw"
-            data-ai-hint={item.dataAiHint || "school event"}
-          />
-        </div>
+      <DialogContent className="max-w-4xl w-auto p-0 bg-transparent border-none shadow-none">
+        <Image
+          src={item.imageUrl}
+          alt={item.title}
+          width={1200}
+          height={800}
+          className="w-full h-auto max-h-[85vh] object-contain rounded-lg"
+          sizes="90vw"
+          data-ai-hint={item.dataAiHint || "school event"}
+        />
       </DialogContent>
     </Dialog>
   );

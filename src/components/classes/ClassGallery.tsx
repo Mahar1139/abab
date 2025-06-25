@@ -37,17 +37,16 @@ export default function ClassGallery({ images, galleryTitle = "Glimpses from Our
                 />
               </div>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl p-2 sm:p-4">
-              <div className="relative w-full" style={{ paddingTop: '66.66%' }}>
-                <Image 
-                  src={image.src} 
-                  alt={image.alt} 
-                  fill
-                  className="object-contain"
-                  sizes="90vw"
-                  data-ai-hint={image.dataAiHint}
-                />
-              </div>
+            <DialogContent className="max-w-4xl w-auto p-0 bg-transparent border-none shadow-none">
+              <Image
+                src={image.src}
+                alt={image.alt}
+                width={1200}
+                height={800}
+                className="w-full h-auto max-h-[85vh] object-contain rounded-lg"
+                sizes="90vw"
+                data-ai-hint={image.dataAiHint}
+              />
             </DialogContent>
           </Dialog>
         ))}
