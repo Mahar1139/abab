@@ -4,13 +4,13 @@
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   Home, 
   BookOpen, 
   Users, 
   Image as ImageIcon, 
   Cpu, 
-  School, 
   Brain,
   CalendarDays, 
   Award, 
@@ -63,7 +63,14 @@ export default function PageHeader() {
           <SidebarTrigger />
         </div>
         <Link href="/" className="flex items-center gap-2 text-base font-semibold text-foreground hover:text-primary transition-colors">
-          <School className="h-6 w-6 text-accent" />
+          <Image
+            src="https://placehold.co/40x40.png"
+            alt="Himalaya Public School Logo"
+            width={32}
+            height={32}
+            className="h-8 w-8 rounded-sm"
+            data-ai-hint="school logo"
+          />
           <span className="font-headline hidden sm:inline">Himalaya Public School</span>
         </Link>
       </div>

@@ -4,6 +4,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
+import Image from 'next/image';
 import {
   Sidebar,
   SidebarHeader,
@@ -21,7 +22,6 @@ import {
   Users, 
   Image as ImageIcon, 
   Cpu, 
-  School, 
   Brain,
   CalendarDays, 
   Award, 
@@ -56,13 +56,27 @@ export default function AppSidebar() {
       <Sidebar collapsible="icon">
         <SidebarHeader className="p-4 flex items-center justify-center border-b group-data-[collapsible=icon]:py-2">
           <div className="flex items-center gap-2 group-data-[collapsible=icon]:hidden">
-            <School className="w-6 h-6 text-sidebar-foreground" /> 
+            <Image
+              src="https://placehold.co/40x40.png"
+              alt="Himalaya Public School Logo"
+              width={28}
+              height={28}
+              className="h-7 w-7 rounded-sm"
+              data-ai-hint="school logo"
+            />
             <h2 className="text-lg font-bold text-sidebar-foreground">
               Himalaya Public School
             </h2>
           </div>
           <div className="hidden group-data-[collapsible=icon]:flex">
-             <School className="w-6 h-6 text-sidebar-foreground" />
+            <Image
+              src="https://placehold.co/40x40.png"
+              alt="Himalaya Public School Logo"
+              width={28}
+              height={28}
+              className="h-7 w-7 rounded-sm"
+              data-ai-hint="school logo"
+            />
           </div>
         </SidebarHeader>
         <SidebarContent>
