@@ -34,63 +34,63 @@ export const galleryItems: SchoolEvent[] = [
     id: 'g5',
     title: 'Morning Assembly',
     description: 'Starting the day with prayers and thoughts.',
-    imageUrl: 'https://placehold.co/400x400.png',
+    imageUrl: '/A2.JPG',
     dataAiHint: 'school assembly'
   },
   {
     id: 'g6',
     title: 'Library Reading Time',
     description: 'Students engrossed in the world of books.',
-    imageUrl: 'https://placehold.co/400x400.png',
+    imageUrl: '/A3.JPG',
     dataAiHint: 'students library'
   },
   {
     id: 'g7',
     title: 'Computer Lab Session',
     description: 'Learning digital skills in our tech lab.',
-    imageUrl: 'https://placehold.co/400x400.png',
+    imageUrl: '/A4.JPG',
     dataAiHint: 'computer lab'
   },
   {
     id: 'g8',
     title: 'Annual Day Function',
     description: 'Spectacular performances by our talented students.',
-    imageUrl: 'https://placehold.co/400x400.png',
+    imageUrl: '/A5.JPG',
     dataAiHint: 'stage performance'
   },
   {
     id: 'g9',
     title: 'Tree Plantation Drive',
     description: 'Contributing to a greener environment.',
-    imageUrl: 'https://placehold.co/400x400.png',
+    imageUrl: '/A6.JPG',
     dataAiHint: 'tree plantation'
   },
   {
     id: 'g10',
     title: 'Yoga and Meditation',
     description: 'Promoting mental and physical well-being.',
-    imageUrl: 'https://placehold.co/400x400.png',
+    imageUrl: '/A7.JPG',
     dataAiHint: 'students yoga'
   },
   {
     id: 'g11',
     title: 'Classroom Interaction',
     description: 'Engaging discussions in a classroom.',
-    imageUrl: 'https://placehold.co/400x400.png',
+    imageUrl: '/A8.JPG',
     dataAiHint: 'classroom interaction'
   },
   {
     id: 'g12',
     title: 'Music Class',
     description: 'Students learning musical instruments.',
-    imageUrl: 'https://placehold.co/400x400.png',
+    imageUrl: '/A9.JPG',
     dataAiHint: 'music class'
   },
   {
     id: 'g13',
     title: 'School Choir',
     description: 'The school choir performing in harmony.',
-    imageUrl: 'https://placehold.co/400x400.png',
+    imageUrl: '/A10.jpg',
     dataAiHint: 'school choir'
   },
   {
@@ -260,5 +260,6 @@ export const videoItems: VideoItem[] = [
     videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
   }
 ];
+
 
 
