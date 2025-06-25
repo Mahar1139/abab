@@ -8,11 +8,10 @@ import { ArrowRight, CheckCircle, Bot } from 'lucide-react';
 import ClassGallery from '@/components/classes/ClassGallery';
 
 const roboticsGalleryImages = [
+  { src: '/All_Images/robotics-classes/gallery-students-testing.png', alt: 'Students testing a robot', dataAiHint: 'students robot', colSpan: 2 },
   { src: '/All_Images/robotics-classes/gallery-robotic-arm.png', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
-  { src: '/All_Images/robotics-classes/gallery-students-testing.png', alt: 'Students testing a robot', dataAiHint: 'students robot' },
   { src: '/All_Images/robotics-classes/gallery-robot-components.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
   { src: '/All_Images/robotics-classes/gallery-student-soldering.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
-  { src: '/All_Images/robotics-classes/gallery-team-celebrating.png', alt: 'Team celebrating robot success', dataAiHint: 'team celebration' },
   { src: 'https://placehold.co/400x400.png', alt: 'New robotics placeholder', dataAiHint: 'robotics project' },
 ];
 

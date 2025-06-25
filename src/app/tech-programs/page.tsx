@@ -26,20 +26,20 @@ const ClassGallery = dynamic(() => import('@/components/classes/ClassGallery'), 
 
 const codingGalleryImages = [
   { src: '/GalleryImg.jpg', alt: 'Students in a tech program', dataAiHint: 'students tech' },
-  { src: '/CodingGallery2.jpg', alt: 'Students collaborating on a coding project', dataAiHint: 'students coding' },
   { 
     src: '/CodingGallery.png', 
     alt: 'A view of coding projects in the classroom', 
     dataAiHint: 'coding classroom',
     colSpan: 2 
   },
+  { src: '/CodingGallery2.jpg', alt: 'Students collaborating on a coding project', dataAiHint: 'students coding' },
   { src: '/CodingIMG4.jpg', alt: 'Student focused on a coding task', dataAiHint: 'student coding' },
   { src: '/CodingIMG3.jpg', alt: 'A group of students working on code together', dataAiHint: 'students collaboration' }
 ];
 
 const roboticsGalleryImages = [
-  { src: '/All_Images/robotics-classes/gallery-robotic-arm.png', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
   { src: '/All_Images/robotics-classes/gallery-students-testing.png', alt: 'Students testing a robot', dataAiHint: 'students robot', colSpan: 2 },
+  { src: '/All_Images/robotics-classes/gallery-robotic-arm.png', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
   { src: '/All_Images/robotics-classes/gallery-robot-components.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
   { src: '/All_Images/robotics-classes/gallery-student-soldering.png', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
   { src: 'https://placehold.co/400x400.png', alt: 'New robotics placeholder', dataAiHint: 'robotics project' },
