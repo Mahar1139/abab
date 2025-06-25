@@ -95,94 +95,73 @@ export const galleryItems: SchoolEvent[] = [
   },
   {
     id: 'g14',
-    title: 'Parent-Teacher Meeting',
-    description: 'Collaborative discussions for student growth.',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'parent teacher'
+    title: 'Sports Day Victory',
+    description: 'Celebrating a win during sports day.',
+    imageUrl: '/A11.jpeg',
+    dataAiHint: 'students sports victory'
   },
   {
     id: 'g15',
-    title: 'Graduation Ceremony',
-    description: 'Celebrating the achievements of our graduates.',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'graduation ceremony'
+    title: 'Dance Performance',
+    description: 'Students performing a traditional dance.',
+    imageUrl: '/A12.jpeg',
+    dataAiHint: 'students dancing'
   },
   {
     id: 'g16',
-    title: 'Charity Bake Sale',
-    description: 'Students raising funds for a local charity.',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'bake sale'
+    title: 'Award Ceremony',
+    description: 'Recognizing student achievements.',
+    imageUrl: '/A13.jpeg',
+    dataAiHint: 'award ceremony'
   },
   {
     id: 'g17',
-    title: 'Inter-School Chess Tournament',
-    description: 'Concentration and strategy on display.',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'chess tournament'
+    title: 'Group Photo',
+    description: 'A memorable group photo of students.',
+    imageUrl: '/A14.jpeg',
+    dataAiHint: 'students group photo'
   },
   {
     id: 'g18',
-    title: 'Field Trip to Museum',
-    description: 'Learning beyond the classroom walls.',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'museum trip'
+    title: 'School Event',
+    description: 'Students participating in a school event.',
+    imageUrl: '/A15.jpeg',
+    dataAiHint: 'school event'
   },
   {
     id: 'g19',
-    title: 'Guest Lecture Series',
-    description: 'Industry experts sharing their knowledge.',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'guest lecture'
+    title: 'Class Activity',
+    description: 'Engaging in a hands-on class activity.',
+    imageUrl: '/A16.jpg',
+    dataAiHint: 'class activity'
   },
   {
     id: 'g20',
-    title: 'Annual Fete',
-    description: 'A day of fun, games, and community bonding.',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'school fete'
+    title: 'Students with Trophies',
+    description: 'Proud students with their trophies.',
+    imageUrl: '/A17.jpeg',
+    dataAiHint: 'students trophies'
   },
   {
     id: 'g21',
-    title: 'Model United Nations',
-    description: 'Students debating global issues.',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'model un'
+    title: 'Cultural Program',
+    description: 'A colorful cultural program performance.',
+    imageUrl: '/A18.jpeg',
+    dataAiHint: 'cultural program'
   },
   {
     id: 'g22',
-    title: 'Pottery Workshop',
-    description: 'Hands-on creativity with clay.',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'pottery workshop'
+    title: 'School Band',
+    description: 'The school band performing.',
+    imageUrl: '/A19.jpg',
+    dataAiHint: 'school band'
   },
   {
     id: 'g23',
-    title: 'School Orchestra Performance',
-    description: 'A melodious evening with our school orchestra.',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'school orchestra'
-  },
-  {
-    id: 'g24',
-    title: 'Scouts and Guides Camp',
-    description: 'Learning survival skills and teamwork.',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'scouts camp'
-  },
-  {
-    id: 'g25',
-    title: 'Coding Hackathon',
-    description: '24 hours of innovation and coding.',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'coding hackathon'
-  },
-  {
-    id: 'g26',
-    title: 'New Photo Title',
-    description: 'A new photo description.',
-    imageUrl: 'https://placehold.co/400x400.png',
-    dataAiHint: 'new photo'
+    title: 'Prize Distribution',
+    description: 'Prize distribution ceremony.',
+    imageUrl: '/A20.jpeg',
+    dataAiHint: 'prize distribution'
   }
 ];
 
@@ -260,6 +239,7 @@ export const videoItems: VideoItem[] = [
     videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
   }
 ];
+
 
 
 
