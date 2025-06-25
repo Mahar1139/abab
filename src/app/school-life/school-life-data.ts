@@ -183,6 +183,13 @@ export const galleryItems: SchoolEvent[] = [
     description: 'A new photo description.',
     imageUrl: 'https://placehold.co/400x400.png',
     dataAiHint: 'new photo'
+  },
+  {
+    id: 'g27',
+    title: 'School Campus View',
+    description: 'A view of the Himalaya Public School campus.',
+    imageUrl: '/A1.JPG',
+    dataAiHint: 'school campus'
   }
 ];
 
@@ -260,3 +267,4 @@ export const videoItems: VideoItem[] = [
     videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
   }
 ];
+
