@@ -59,14 +59,11 @@ export default function AppSidebar() {
             <Image
               src="/HPS_Logo.png"
               alt="Himalaya Public School Logo"
-              width={128}
-              height={32}
-              className="h-8 w-auto rounded-md"
+              width={160}
+              height={30}
+              className="w-40 h-auto rounded-md"
               priority
             />
-            <h2 className="text-lg font-bold text-sidebar-foreground">
-              Himalaya Public School
-            </h2>
           </div>
           <div className="hidden group-data-[collapsible=icon]:flex">
             <Image
