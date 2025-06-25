@@ -26,7 +26,7 @@ export default function RoboticsClassesPage() {
             <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card group flex flex-col">
                 <div className="relative w-full aspect-video">
                     <Image
-                        src="/ROBOTICSIMG1.jpg"
+                        src="/All_Images/robotics-classes/main-students-assembling.png"
                         alt="Students assembling and programming a robot"
                         fill
                         data-ai-hint="students building robot"
