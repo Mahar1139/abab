@@ -15,7 +15,6 @@ const roboticsGalleryImages = [
   { src: '/All_Images/robotics-classes/gallery-team-celebrating.png', alt: 'Team celebrating robot success', dataAiHint: 'team celebration' },
   { src: '/All_Images/robotics-classes/gallery-robot-competition.png', alt: 'Robots in a competition setting', dataAiHint: 'robot competition' },
   { src: '/All_Images/robotics-classes/gallery-robot-obstacle.png', alt: 'Robot navigating an obstacle course', dataAiHint: 'robot obstacle' },
-  { src: '/All_Images/robotics-classes/gallery-student-programming.png', alt: 'Student programming robot', dataAiHint: 'student programming' },
 ];
 
 export default function RoboticsClassesPage() {
