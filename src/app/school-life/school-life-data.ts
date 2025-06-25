@@ -73,27 +73,6 @@ export const galleryItems: SchoolEvent[] = [
     dataAiHint: 'school choir'
   },
   {
-    id: 'g2',
-    title: 'Science Fair Exhibition',
-    description: 'Innovative projects by our young scientists.',
-    imageUrl: '/All_Images/school-life/gallery/science-fair.png',
-    dataAiHint: 'science fair'
-  },
-  {
-    id: 'g3',
-    title: 'Cultural Fest Celebrations',
-    description: 'A vibrant display of diverse cultures and talents.',
-    imageUrl: '/All_Images/school-life/gallery/cultural-fest.png',
-    dataAiHint: 'cultural event students'
-  },
-  {
-    id: 'g4',
-    title: 'Art Workshop',
-    description: 'Students exploring their creativity with colors.',
-    imageUrl: '/All_Images/school-life/gallery/art-workshop.png',
-    dataAiHint: 'art workshop children'
-  },
-  {
     id: 'g14',
     title: 'Sports Day Victory',
     description: 'Celebrating a win during sports day.',
@@ -239,8 +218,3 @@ export const videoItems: VideoItem[] = [
     videoUrl: 'https://www.youtube.com/embed/5qap5aO4i9A'
   }
 ];
-
-
-
-
-
