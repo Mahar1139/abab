@@ -41,6 +41,7 @@ const roboticsGalleryImages = [
   { src: '/ROBOTICSIMG3.jpg', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
   { src: '/ROBOTICSIMG5.jpg', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
   { src: '/Robotics1.jpg', alt: 'Student working on a robotics project', dataAiHint: 'student robotics' },
+  { src: '/ROBOTICSIMG1.jpg', alt: 'Student assembling a robot', dataAiHint: 'student robot' },
 ];
 
 

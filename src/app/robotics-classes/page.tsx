@@ -12,6 +12,7 @@ const roboticsGalleryImages = [
   { src: '/ROBOTICSIMG3.jpg', alt: 'Robotic arm in action', dataAiHint: 'robotic arm' },
   { src: '/ROBOTICSIMG5.jpg', alt: 'Student soldering robot parts', dataAiHint: 'student soldering' },
   { src: '/All_Images/robotics-classes/gallery-robot-components.png', alt: 'Close-up of robot components', dataAiHint: 'robot parts' },
+  { src: '/ROBOTICSIMG1.jpg', alt: 'Student assembling a robot', dataAiHint: 'student robot' },
 ];
 
 export default function RoboticsClassesPage() {
