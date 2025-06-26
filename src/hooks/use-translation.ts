@@ -14,7 +14,7 @@ const translations = {
     'nav.events': 'Events Calendar',
     'nav.quiz': 'AI Quiz Challenge',
     'nav.trackPerformance': 'Track Performance',
-    'nav.mandatoryDisclosure': 'Mandatory Disclosure',
+    'nav.teacherConduit': 'Teacher Conduit',
     
     // Settings
     'settings.title': 'Website Settings',
@@ -39,7 +39,7 @@ const translations = {
     'nav.events': 'कार्यक्रम कैलेंडर',
     'nav.quiz': 'एआई प्रश्नोत्तरी',
     'nav.trackPerformance': 'प्रगति ट्रैक करें',
-    'nav.mandatoryDisclosure': 'अनिवार्य प्रकटीकरण',
+    'nav.teacherConduit': 'शिक्षक माध्यम',
 
     // Settings
     'settings.title': 'वेबसाइट सेटिंग्स',

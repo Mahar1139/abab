@@ -25,7 +25,6 @@ import {
   CalendarDays, 
   FileText,
   Settings,
-  Code,
   TrendingUp,
   School
 } from 'lucide-react';
@@ -42,9 +41,9 @@ export default function AppSidebar() {
     { href: '/faculty', label: t('nav.faculty'), icon: Users },
     { href: '/school-life', label: t('nav.schoolLife'), icon: ImageIcon },
     { href: '/events-calendar', label: t('nav.events'), icon: CalendarDays },
-    { href: '/mandatory-disclosure', label: t('nav.mandatoryDisclosure'), icon: FileText },
     { href: '/quiz', label: t('nav.quiz'), icon: Brain },
     { href: '/track-performance', label: t('nav.trackPerformance'), icon: TrendingUp },
+    { href: '/teacher-conduit', label: t('nav.teacherConduit'), icon: FileText },
   ];
 
   const displayedNavItems = navItems.filter(item => item.href !== '/developed-by');

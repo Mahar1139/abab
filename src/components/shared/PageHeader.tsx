@@ -25,9 +25,9 @@ const navItems = [
   { href: '/faculty', label: 'Faculty Directory', icon: Users },
   { href: '/school-life', label: 'School Life', icon: ImageIcon },
   { href: '/events-calendar', label: 'Events Calendar', icon: CalendarDays },
-  { href: '/mandatory-disclosure', label: 'Mandatory Disclosure', icon: FileText },
   { href: '/quiz', label: 'AI Quiz Challenge', icon: Brain },
   { href: '/track-performance', label: 'Track Performance', icon: TrendingUp },
+  { href: '/teacher-conduit', label: 'Teacher Conduit', icon: FileText },
   { href: '/developed-by', label: 'Developed By', icon: Code },
 ];
 
