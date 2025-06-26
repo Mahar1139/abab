@@ -1,8 +1,10 @@
 
 'use client';
 
+import { useState } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import SectionWrapper from '@/components/shared/SectionWrapper';
 import { User, Target, CheckCircle, TrendingUp, BookCopy, AlertTriangle, Star, Activity, ListChecks, Lightbulb } from 'lucide-react';
 
@@ -39,7 +41,35 @@ const mockPerformanceData = {
 };
 
 export default function TrackPerformancePage() {
+  const [showDashboard, setShowDashboard] = useState(false);
   const { summary, performanceByTopic, performanceOverTime, strengths, areasForImprovement, aiRecommendations } = mockPerformanceData;
+
+  if (!showDashboard) {
+    return (
+      <div className="container mx-auto py-8">
+        <SectionWrapper title="Track Performance">
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <Card className="w-full max-w-md text-center p-6 md:p-8 shadow-2xl">
+              <CardHeader>
+                <div className="w-16 h-16 bg-primary/10 rounded-full mx-auto flex items-center justify-center mb-4">
+                  <TrendingUp className="w-8 h-8 text-primary" />
+                </div>
+                <CardTitle className="text-2xl">Check Student Progress</CardTitle>
+                <CardDescription>
+                  View detailed performance analytics and AI-powered recommendations from the Quiz Challenge.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button size="lg" onClick={() => setShowDashboard(true)} className="w-full">
+                  Check Your Child's Progress
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </SectionWrapper>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto py-8">
