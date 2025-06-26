@@ -13,7 +13,7 @@ import {
   Cpu, 
   Brain,
   CalendarDays, 
-  Award, 
+  ShieldCheck, 
   Library,
   Code,
   TrendingUp
@@ -26,7 +26,7 @@ const navItems = [
   { href: '/faculty', label: 'Faculty Directory', icon: Users },
   { href: '/school-life', label: 'School Life', icon: ImageIcon },
   { href: '/events-calendar', label: 'Events Calendar', icon: CalendarDays },
-  { href: '/student-achievements', label: 'Student Achievements', icon: Award },
+  { href: '/parent-portal', label: 'Parent Portal', icon: ShieldCheck },
   { href: '/library', label: 'Library', icon: Library },
   { href: '/quiz', label: 'AI Quiz Challenge', icon: Brain },
   { href: '/track-performance', label: 'Track Performance', icon: TrendingUp },

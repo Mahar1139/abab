@@ -62,9 +62,6 @@ Test your knowledge with our AI-powered quiz. It's a fun way to engage with vari
 Events Calendar:
 The 'Events Calendar' page on our website lists upcoming school events, holidays, examination schedules, and other important dates for the academic year.
 
-Student Achievements:
-The 'Student Achievements' page is where we proudly showcase the accomplishments of our students in various fields, including academics, sports, arts, and other competitions.
-
 Library:
 Our school library resources, services, and usage guidelines for students are detailed on the 'Library' page, accessible via the sidebar menu.
 
@@ -161,7 +158,7 @@ IMPORTANT SAFETY RULE: If the user's question explicitly requests content that i
 
 ACTION TRIGGERING: If the user's request implies a direct action on the website, you MUST populate the \`action\` field.
 *   **Navigation:** If the user says "go to admissions", "open faculty page", "take me to the quiz", etc., set \`action\` to \`{ "type": "navigate", "payload": "/admissions" }\`.
-    *   Valid navigation payloads are: \`/\`, \`/admissions\`, \`/tech-programs\`, \`/faculty\`, \`/school-life\`, \`/events-calendar\`, \`/student-achievements\`, \`/library\`, \`/quiz\`, \`/developed-by\`, \`/academic-programs\`, \`/coding-classes\`, \`/robotics-classes\`, \`/mandatory-disclosure\`, \`/parent-portal\`, \`/ai-assistant\`, \`/teacher-conduit\`.
+    *   Valid navigation payloads are: \`/\`, \`/admissions\`, \`/tech-programs\`, \`/faculty\`, \`/school-life\`, \`/events-calendar\`, \`/library\`, \`/quiz\`, \`/developed-by\`, \`/academic-programs\`, \`/coding-classes\`, \`/robotics-classes\`, \`/mandatory-disclosure\`, \`/parent-portal\`, \`/ai-assistant\`, \`/teacher-conduit\`.
 *   **Theme Change:** If the user says "change the theme to dark", "make it light mode", "switch to forest theme", etc., set \`action\` to \`{ "type": "set_theme", "payload": "dark" }\`.
     *   Valid theme payloads are: \`light\`, \`dark\`, \`forest\`.
 In all cases, *also* provide a natural, conversational response in the \`answer\` field (e.g., "Certainly, switching to dark mode now." or "Of course, heading to the Faculty page."). If no direct action is commanded, the \`action\` field MUST be null.
@@ -183,7 +180,7 @@ GENERAL RULES (apply if no action and no special instructions match):
 
 4.  If the user asks about 'Coding Classes', 'Robotics Classes', or 'Tech Programs' in general, you can briefly describe them using the School Information Context and inform the user that detailed information for each can be found on their specific pages ('Coding Classes', 'Robotics Classes'), which are accessible from the 'Tech Programs' link in the sidebar navigation menu.
 
-5.  If the question is about Himalaya Public School and can be reasonably answered using the "School Information Context" (and is not covered by other rules), provide a concise and helpful answer based *strictly* on that information. If the context mentions that more details are available on a specific page (e.g., 'Admissions page', 'Academic Programs page', 'Faculty Directory', 'School Life', 'Resources', 'Mandatory Disclosure', 'Parent Portal', 'Events Calendar', 'Student Achievements', 'Library'), you can refer the user to that page for further information. Your answer should be focused and directly address the school-related query.
+5.  If the question is about Himalaya Public School and can be reasonably answered using the "School Information Context" (and is not covered by other rules), provide a concise and helpful answer based *strictly* on that information. If the context mentions that more details are available on a specific page (e.g., 'Admissions page', 'Academic Programs page', 'Faculty Directory', 'School Life', 'Resources', 'Mandatory Disclosure', 'Parent Portal', 'Events Calendar', 'Library'), you can refer the user to that page for further information.
 
 6.  If the user asks "what is this", "explain this", "tell me more about this", or similar phrases, followed by a direct quote or a very close paraphrase of a short piece of text that appears to be from the "School Information Context" (e.g., "what is this: Clubs & Events: Diverse clubs..."), attempt to locate the essence of the provided snippet within your full "School Information Context". Then, provide a brief, helpful clarification or elaboration based on the surrounding details for that snippet in your context. Do NOT simply repeat the snippet. Add value by expanding slightly or rephrasing for clarity. If the snippet is too short, too vague, or cannot be confidently matched to your context, then you can ask for clarification or state that you need more specific information to elaborate on that particular point.
 
@@ -256,5 +253,3 @@ const schoolInformationFlow = ai.defineFlow(
     };
   }
 );
-
-    

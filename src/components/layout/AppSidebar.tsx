@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from 'next/link';
@@ -22,7 +23,7 @@ import {
   Cpu, 
   Brain,
   CalendarDays, 
-  Award, 
+  ShieldCheck, 
   Library,
   Settings,
   Code,
@@ -42,7 +43,7 @@ export default function AppSidebar() {
     { href: '/faculty', label: t('nav.faculty'), icon: Users },
     { href: '/school-life', label: t('nav.schoolLife'), icon: ImageIcon },
     { href: '/events-calendar', label: t('nav.events'), icon: CalendarDays },
-    { href: '/student-achievements', label: t('nav.achievements'), icon: Award },
+    { href: '/parent-portal', label: t('nav.parentPortal'), icon: ShieldCheck },
     { href: '/library', label: t('nav.library'), icon: Library },
     { href: '/quiz', label: t('nav.quiz'), icon: Brain },
     { href: '/track-performance', label: t('nav.trackPerformance'), icon: TrendingUp },
