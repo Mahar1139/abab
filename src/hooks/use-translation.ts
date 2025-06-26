@@ -12,10 +12,9 @@ const translations = {
     'nav.faculty': 'Faculty',
     'nav.schoolLife': 'School Life',
     'nav.events': 'Events Calendar',
-    'nav.parentPortal': 'Parent Portal',
-    'nav.library': 'Library',
     'nav.quiz': 'AI Quiz Challenge',
-    'nav.trackPerformance': 'Track Your Child Progress',
+    'nav.trackPerformance': 'Track Performance',
+    'nav.mandatoryDisclosure': 'Mandatory Disclosure',
     
     // Settings
     'settings.title': 'Website Settings',
@@ -38,10 +37,9 @@ const translations = {
     'nav.faculty': 'शिक्षक',
     'nav.schoolLife': 'स्कूल जीवन',
     'nav.events': 'कार्यक्रम कैलेंडर',
-    'nav.parentPortal': 'अभिभावक पोर्टल',
-    'nav.library': 'पुस्तकालय',
     'nav.quiz': 'एआई प्रश्नोत्तरी',
-    'nav.trackPerformance': 'बच्चे की प्रगति ट्रैक करें',
+    'nav.trackPerformance': 'प्रगति ट्रैक करें',
+    'nav.mandatoryDisclosure': 'अनिवार्य प्रकटीकरण',
 
     // Settings
     'settings.title': 'वेबसाइट सेटिंग्स',
