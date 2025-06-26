@@ -1,12 +1,14 @@
 
 'use client';
 
+import { useState } from 'react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import SectionWrapper from '@/components/shared/SectionWrapper';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { User, Target, CheckCircle, TrendingUp, BookCopy, AlertTriangle, Star, Activity, ListChecks, Lightbulb, ExternalLink } from 'lucide-react';
+import { Label } from '@/components/ui/label';
+import { User, Target, CheckCircle, TrendingUp, BookCopy, AlertTriangle, Star, Activity, ListChecks, Lightbulb, ExternalLink, ArrowLeft } from 'lucide-react';
 
 const mockPerformanceData = {
   summary: {
@@ -41,42 +43,72 @@ const mockPerformanceData = {
 };
 
 export default function TrackPerformancePage() {
+  const [showDashboard, setShowDashboard] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState<string | null>(null);
+
   const { summary, performanceByTopic, performanceOverTime, strengths, areasForImprovement, aiRecommendations } = mockPerformanceData;
 
-  return (
-    <div className="container mx-auto py-8">
-      <SectionWrapper title="Track Your Child & Check Student Progress">
-        <p className="text-center text-lg text-foreground/80 mb-10 max-w-3xl mx-auto">
-          Monitor your child's academic journey, view quiz results, and gain insights into their learning patterns.
-        </p>
-        
-        {/* Student Selector Card */}
-        <Card className="mb-8 shadow-lg">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-3 text-xl text-primary">
-              <User className="w-6 h-6" />
-              Student Profile
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col sm:flex-row items-center gap-4">
-            <div className="w-full sm:w-auto sm:flex-1">
-                <Select defaultValue="student1">
-                  <SelectTrigger id="student-select" aria-label="Select Student">
-                    <SelectValue placeholder="Select student..." />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="student1">Aarav Sharma (Class 8)</SelectItem>
-                    <SelectItem value="student2" disabled>Isha Singh (Class 5) - No data yet</SelectItem>
-                  </SelectContent>
-                </Select>
+  const handleViewPerformance = () => {
+    if (selectedStudent) {
+      setShowDashboard(true);
+    }
+  };
+
+  const handleGoBack = () => {
+    setShowDashboard(false);
+    setSelectedStudent(null);
+  };
+
+  if (!showDashboard) {
+    return (
+      <div className="container mx-auto py-8 flex flex-col items-center justify-center min-h-[calc(100vh-10rem)]">
+        <Card className="w-full max-w-lg shadow-2xl bg-card">
+          <CardHeader className="text-center p-8">
+            <div className="mx-auto bg-primary/10 p-4 rounded-full w-fit mb-4">
+              <TrendingUp className="w-12 h-12 text-primary" />
             </div>
-            <p className="text-sm text-muted-foreground whitespace-nowrap">Last Synced: Just now</p>
-            <Button>
-                View Full Report Card <ExternalLink className="ml-2 h-4 w-4" />
+            <CardTitle className="text-3xl text-primary">Track Performance</CardTitle>
+            <CardDescription className="text-lg text-foreground/80">
+              Select your child to view their detailed academic progress and quiz results.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6 px-8 pb-8">
+            <div className="space-y-2">
+              <Label htmlFor="student-select-initial" className="text-md font-semibold">Student Name</Label>
+              <Select onValueChange={setSelectedStudent} value={selectedStudent || ''}>
+                <SelectTrigger id="student-select-initial" className="py-6 text-lg" aria-label="Select Student">
+                  <SelectValue placeholder="Select a student..." />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="student1" className="text-lg">Aarav Sharma (Class 8)</SelectItem>
+                  <SelectItem value="student2" disabled className="text-lg">Isha Singh (Class 5) - No data yet</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <Button onClick={handleViewPerformance} size="lg" className="w-full text-lg py-6" disabled={!selectedStudent}>
+              Check Your Child's Performance
             </Button>
           </CardContent>
         </Card>
+      </div>
+    );
+  }
 
+  return (
+    <div className="container mx-auto py-8">
+      <SectionWrapper title="Student Progress Dashboard">
+         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
+            <div className="flex items-center gap-3">
+                <User className="w-8 h-8 text-primary" />
+                <h2 className="text-2xl font-bold text-foreground">
+                    Showing results for: <span className="text-primary">Aarav Sharma (Class 8)</span>
+                </h2>
+            </div>
+            <Button variant="outline" onClick={handleGoBack}>
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Select Another Student
+            </Button>
+        </div>
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
