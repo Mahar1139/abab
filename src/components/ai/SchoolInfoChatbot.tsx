@@ -271,9 +271,7 @@ export default function SchoolInfoChatbot() {
           {isUnrestrictedMode ? 'General AI Assistant' : 'HPS AI Assistant'}
         </CardTitle>
         <CardDescription className="text-primary-foreground/80">
-          {isUnrestrictedMode 
-            ? 'You can ask me anything! To return to school-specific info, type "#10x10" again.' 
-            : 'Ask me anything about Himalaya Public School.'}
+          {isUnrestrictedMode ? 'You can ask me anything! To return to school-specific info, type "#10x10" again.' : 'Ask me anything about Himalaya Public School.'}
         </CardDescription>
       </CardHeader>
       <CardContent 

@@ -43,7 +43,6 @@ export default function AppSidebar() {
     { href: '/events-calendar', label: t('nav.events'), icon: CalendarDays },
     { href: '/quiz', label: t('nav.quiz'), icon: Brain },
     { href: '/track-performance', label: t('nav.trackPerformance'), icon: TrendingUp },
-    { href: '/teacher-conduit', label: t('nav.teacherConduit'), icon: FileText },
   ];
 
   const displayedNavItems = navItems.filter(item => item.href !== '/developed-by');

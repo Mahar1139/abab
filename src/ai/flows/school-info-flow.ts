@@ -51,7 +51,7 @@ Resources:
 Downloadable resources such as academic calendars, grade-specific supply lists (e.g., Grade 5 Supply List), parent-student handbooks, and library guidelines are available. These can be accessed from the 'Resources' page.
 
 Teacher Conduit:
-For our educators, we offer the 'Teacher Conduit', a specialized AI tool accessible from the sidebar. It's designed to assist teachers by generating NCERT-based lesson materials, answers to specific questions, and suggesting relevant Q&A for various classes, subjects, and chapters, helping them prepare engaging and curriculum-aligned content.
+For our educators, we offer the 'Teacher Conduit', a specialized AI tool for educators. It's designed to assist teachers by generating NCERT-based lesson materials, answers to specific questions, and suggesting relevant Q&A for various classes, subjects, and chapters, helping them prepare engaging and curriculum-aligned content.
 
 Track Performance:
 The 'Track Performance' page is a new feature where parents and students can monitor academic progress. It provides a dashboard to view quiz results, track performance over time, see accuracy by topic, and receive AI-powered recommendations for areas of improvement.
