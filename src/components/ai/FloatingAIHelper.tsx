@@ -251,7 +251,7 @@ export default function FloatingAIHelper() {
                 {isUnrestrictedMode ? 'General AI Assistant' : 'HPS AI Assistant'}
               </SheetTitle>
               <SheetDescription className="text-xs">
-                {isUnrestrictedMode ? 'You can ask me anything! To return to school-specific info, type "#10x10" again.' : 'Ask me anything about Himalaya Public School. For general queries, type "#10x10" to enter unrestricted mode.'}
+                {isUnrestrictedMode ? 'You can ask me anything! To return to school-specific info, type "#10x10" again.' : 'Ask me anything about Himalaya Public School.'}
               </SheetDescription>
             </SheetHeader>
             

@@ -273,7 +273,7 @@ export default function SchoolInfoChatbot() {
         <CardDescription className="text-primary-foreground/80">
           {isUnrestrictedMode 
             ? 'You can ask me anything! To return to school-specific info, type "#10x10" again.' 
-            : 'Ask me anything about Himalaya Public School. For general queries, type "#10x10" to enter unrestricted mode.'}
+            : 'Ask me anything about Himalaya Public School.'}
         </CardDescription>
       </CardHeader>
       <CardContent 
