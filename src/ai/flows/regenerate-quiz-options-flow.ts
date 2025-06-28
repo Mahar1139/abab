@@ -75,6 +75,11 @@ If the question is valid and your \`[Calculated Answer]\` is NOT found within th
 **CRITICAL INSTRUCTION FOR 'correctAnswer' FIELD (in Case C):**
 The 'correctAnswer' field in your JSON output MUST be the exact full text of the correct option string you've placed in the 'options' array.
 
+**CRITICAL FORMATTING RULE:** The final JSON response you provide must strictly adhere to one of the two valid structures based on your analysis:
+1.  If regeneration is NOT needed (Cases A or B): Your JSON output must contain ONLY the "message" key. Example: \`{"message": "Sorry but the options given are correct..."}\`
+2.  If regeneration IS needed (Case C): Your JSON output must contain ONLY the "options" and "correctAnswer" keys. Example: \`{"options": ["New Option 1", "New Option 2", "New Option 3", "New Option 4"], "correctAnswer": "New Correct Answer"}\`
+Do NOT return an empty object, a mix of these keys, or any other format.
+
 Output the result in the specified JSON format based on the cases above.
   `,
   config: {
