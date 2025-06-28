@@ -19,6 +19,7 @@ const RegenerateQuizOptionsInputSchema = z.object({
 });
 export type RegenerateQuizOptionsInput = z.infer<typeof RegenerateQuizOptionsInputSchema>;
 
+// This is the schema the CLIENT receives. It remains unchanged.
 const RegenerateQuizOptionsOutputSchema = z.object({
   options: z.array(z.string()).length(4).optional().describe('A new array of four unique answer options, if regeneration was needed.'),
   correctAnswer: z.string().optional().describe('The re-calculated correct answer, if regeneration was needed.'),
@@ -31,10 +32,19 @@ export async function regenerateQuizOptions(input: RegenerateQuizOptionsInput): 
   return regenerateQuizOptionsFlow(input);
 }
 
+// NEW INTERNAL SCHEMA for the prompt's output to make it more reliable
+const InternalPromptOutputSchema = z.object({
+  regenerationNeeded: z.boolean().describe("Set to true if new options were generated. Set to false if not."),
+  reasoning: z.string().describe("Brief reasoning for the decision. E.g., 'Correct answer was not in options.' or 'Options are valid.'"),
+  messageForUser: z.string().describe("If regenerationNeeded is false, this field contains the message to show the user (e.g., 'Sorry, the options given are correct...'). If regenerationNeeded is true, this MUST be an empty string."),
+  newOptions: z.array(z.string()).describe("If regenerationNeeded is true, this is the new array of four options. If false, this MUST be an empty array."),
+  newCorrectAnswer: z.string().describe("If regenerationNeeded is true, this is the new correct answer. If false, this MUST be an empty string."),
+});
+
 const prompt = ai.definePrompt({
   name: 'regenerateQuizOptionsPrompt',
   input: {schema: RegenerateQuizOptionsInputSchema},
-  output: {schema: RegenerateQuizOptionsOutputSchema},
+  output: {schema: InternalPromptOutputSchema}, // Use the new internal schema
   prompt: `You are a meticulous quiz question validator and regenerator. Your task is to take an existing quiz question and its current options, re-solve the question from scratch to find the correct answer, and then determine if a regeneration is necessary.
 
 **Step 1: Analyze and Re-Solve the Question**
@@ -52,35 +62,41 @@ Current Options: {{#each currentOptions}}
 
 
 **Step 2: Validate and Respond**
-Now, based on your analysis, choose EXACTLY one of the following three cases for your response.
+Now, based on your analysis, you MUST populate all fields of the required JSON output structure. Follow EXACTLY one of the three cases below for how to fill the fields.
 
 ---
 **Case A: The question is flawed or unsolvable.**
-If you determine that the question itself is ambiguous, contains a typo, or is impossible to answer correctly from the given information, your response MUST set the 'message' field with the following exact text: "Sorry, the question appears to be flawed, which is why a correct answer wasn't available. We have noted this for review." The 'options' and 'correctAnswer' fields MUST be omitted from your JSON response.
+If you determine that the question itself is ambiguous, contains a typo, or is impossible to answer, you MUST respond with:
+- \`regenerationNeeded\`: false
+- \`reasoning\`: "The question is flawed and cannot be solved."
+- \`messageForUser\`: "Sorry, the question appears to be flawed, which is why a correct answer wasn't available. We have noted this for review."
+- \`newOptions\`: [] (an empty array)
+- \`newCorrectAnswer\`: "" (an empty string)
 
 ---
 **Case B: The correct answer IS ALREADY in the options.**
-If the question is valid and your \`[Calculated Answer]\` IS found within the \`currentOptions\` array, it means the original options were valid. In this case, your response MUST set the 'message' field with the following exact text: "Sorry but the options given are correct. If you have any doubt with the question, you can ask the HPS AI Assistant for an explanation." The 'options' and 'correctAnswer' fields MUST be omitted from your JSON response.
+If the question is valid and your \`[Calculated Answer]\` IS found within the \`currentOptions\` array, you MUST respond with:
+- \`regenerationNeeded\`: false
+- \`reasoning\`: "The calculated answer is already present in the current options."
+- \`messageForUser\`: "Sorry but the options given are correct. If you have any doubt with the question, you can ask the HPS AI Assistant for an explanation."
+- \`newOptions\`: [] (an empty array)
+- \`newCorrectAnswer\`: "" (an empty string)
 
 ---
 **Case C: The correct answer IS NOT in the options (Regeneration needed).**
-If the question is valid and your \`[Calculated Answer]\` is NOT found within the \`currentOptions\` array, then you MUST generate a new set of options.
-1.  Create a new set of **exactly four** multiple-choice options.
-2.  One of these new options **MUST** be your \`[Calculated Answer]\`.
-3.  The other three options must be plausible but incorrect distractors.
-4.  The 'message' field in your response MUST be omitted or null. Your response must only contain the 'options' and 'correctAnswer' fields.
+If the question is valid and your \`[Calculated Answer]\` is NOT found within the \`currentOptions\` array, then you MUST generate a new set of options and respond with:
+- \`regenerationNeeded\`: true
+- \`reasoning\`: "The calculated correct answer was not in the original options."
+- \`messageForUser\`: "" (an empty string)
+- \`newOptions\`: A new array of **exactly four** plausible options, one of which **MUST** be your \`[Calculated Answer]\`.
+- \`newCorrectAnswer\`: Your \`[Calculated Answer]\`. This **MUST** exactly match one of the strings in the \`newOptions\` array.
 
 ---
 
-**CRITICAL INSTRUCTION FOR 'correctAnswer' FIELD (in Case C):**
-The 'correctAnswer' field in your JSON output MUST be the exact full text of the correct option string you've placed in the 'options' array.
+**CRITICAL INSTRUCTION:**
+You MUST ALWAYS return a JSON object with all five fields: \`regenerationNeeded\`, \`reasoning\`, \`messageForUser\`, \`newOptions\`, and \`newCorrectAnswer\`. Do not omit any fields. Populate them according to the cases described above.
 
-**CRITICAL FORMATTING RULE:** The final JSON response you provide must strictly adhere to one of the two valid structures based on your analysis:
-1.  If regeneration is NOT needed (Cases A or B): Your JSON output must contain ONLY the "message" key. Example: \`{"message": "Sorry but the options given are correct..."}\`
-2.  If regeneration IS needed (Case C): Your JSON output must contain ONLY the "options" and "correctAnswer" keys. Example: \`{"options": ["New Option 1", "New Option 2", "New Option 3", "New Option 4"], "correctAnswer": "New Correct Answer"}\`
-Do NOT return an empty object, a mix of these keys, or any other format.
-
-Output the result in the specified JSON format based on the cases above.
+Output the result in the specified JSON format.
   `,
   config: {
     safetySettings: [
@@ -96,41 +112,37 @@ const regenerateQuizOptionsFlow = ai.defineFlow(
   {
     name: 'regenerateQuizOptionsFlow',
     inputSchema: RegenerateQuizOptionsInputSchema,
-    outputSchema: RegenerateQuizOptionsOutputSchema,
+    outputSchema: RegenerateQuizOptionsOutputSchema, // The flow still outputs the client-facing schema
   },
-  async (input) => {
-    const {output} = await prompt(input);
+  async (input): Promise<RegenerateQuizOptionsOutput> => {
+    const {output: internalOutput} = await prompt(input);
     
-    if (!output) {
+    if (!internalOutput) {
       throw new Error("AI failed to generate a response for option regeneration.");
     }
-
-    // Validate the output based on the two possible cases
-    if (output.message) {
-      // Case A or B: A message was returned, so options/correctAnswer should be missing.
-      if (output.options || output.correctAnswer) {
-        // This is a safety check; the prompt now forbids this state.
-        console.error("AI returned a message but also included regenerated options, which is an invalid state.", output);
-        throw new Error("AI returned a message but also included regenerated options, which is an invalid state.");
-      }
-      return output;
-    } else if (output.options && output.correctAnswer) {
-      // Case C: Options were returned, so they must be valid.
-      if (output.options.length !== 4) {
-        console.error("AI regenerated an invalid number of options.", output);
-        throw new Error(`AI regenerated an invalid number of options (${output.options.length}). Expected 4.`);
-      }
-      if (!output.options.includes(output.correctAnswer)) {
-        console.error("AI regenerated a correct answer that is not in the new options list.", output);
-        throw new Error(`AI regenerated a correct answer ("${output.correctAnswer}") that is not in the new options list.`);
-      }
-      return output;
+    
+    if (internalOutput.regenerationNeeded) {
+        // Regeneration happened, validate the output
+        if (!internalOutput.newOptions || internalOutput.newOptions.length !== 4) {
+             throw new Error(`AI regenerated an invalid number of options (${internalOutput.newOptions?.length || 0}). Expected 4.`);
+        }
+        if (!internalOutput.newCorrectAnswer || !internalOutput.newOptions.includes(internalOutput.newCorrectAnswer)) {
+            throw new Error(`AI regenerated a correct answer ("${internalOutput.newCorrectAnswer}") that is not present in the new options list.`);
+        }
+        // Return only the relevant fields to the client in the expected format
+        return {
+            options: internalOutput.newOptions,
+            correctAnswer: internalOutput.newCorrectAnswer,
+        };
     } else {
-      // Neither case was met, which is an error.
-      console.error("AI response for option regeneration was incomplete. It must provide either a message or a valid set of new options and a correct answer.", output);
-      throw new Error("AI response for option regeneration was incomplete. It must provide either a message or a valid set of new options and a correct answer.");
+        // No regeneration needed, validate the message
+        if (!internalOutput.messageForUser) {
+             throw new Error("AI indicated no regeneration was needed but failed to provide a message for the user.");
+        }
+        // Return only the relevant fields to the client in the expected format
+        return {
+            message: internalOutput.messageForUser,
+        };
     }
   }
 );
-
-    
