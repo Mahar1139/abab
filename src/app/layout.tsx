@@ -25,10 +25,10 @@ export const metadata: Metadata = {
   title: 'Himalaya Public School Hub',
   description: 'Welcome to Himalaya Public School',
   icons: {
-    icon: [
-      { url: '/favicon.ico', type: 'image/x-icon', sizes: 'any' },
-      { url: '/icon.png', type: 'image/png', sizes: '32x32' },
-    ],
+    icon: {
+      url: "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIATgCHAMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAAEAAIDBQYBBwj/xABBEAACAQMDAgQEAwcEAgIBAwUBAgMABBEFEiExQRMiUWEGFHGBMpGhFSNCscHR8DNS4fEkYgeCchZDoiU0Y4OS/8QAGgEAAwEBAQEAAAAAAAAAAAAAAAECAwQFBv/EACoRAAICAgIBBAICAQUAAAAAAAABAhESIQMxQQQTFFEiYUJxgQUykbHw/aD/pSpUANJRx613zDtxSpUAOhsdK74uBjFKlQA3JbkVwRs3OaVKmA8RYHm5NO2iuUqAOqide9MMeT0pUqBCMWOSQKhMYrlKgBCANTxbLjmlSoAfHBGvB5qXCr0FKlSGc3LnGK62KVKmBwjIwBUTw56jJpUqAGm2B7ZprwAcYrlKkAJJYoxJIoVtMDEjjH0pUqdsVHBp6KMYJNSizULg4ApUqLYUMa3VBhcfWhXijXLZyx7UqVNCYLcPt/COlVd0HcE4pUqszZjtdSeS68IKxbooxVVJpl0ZW/wAGd+BzilSqRpHJdCu7YIZY0wecZ5oOa38MlZUZGPJUiuUqloENii4JxxjHFX3wrpk15e4SLpzuYcClSpJFNnp1vYPbwqI3UMvqvWpIm23CtKoyOCcdqVKqGXGI5UwmMY6ipILAL5q5SqCgxhhMdhUShiTt4xSpUAAMlfZkk5NBSvujJb8qVKqQmPgKE5HDd8GraKMGMY64rlKh9gjpZgcba71HNKlSGROAelMXKmlSpASli/8AapEjVMkjHrSpUAJZB2HSunnljSpUwInuFUkdvWow7SDG0AdaVKgBjoR7UhkKMZzSpUgGi4IfYRuP0p5mA6jFKlRYH//Z",
+      type: 'image/jpeg',
+    },
     apple: '/apple-touch-icon.png',
   },
 };
