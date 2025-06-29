@@ -6,7 +6,7 @@ import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Mail, Briefcase, DollarSign, Users, Sparkles, Cpu, Palette, Server, Phone, Info, Contact } from "lucide-react";
+import { Mail, Briefcase, DollarSign, Users, Sparkles, Cpu, Palette, Server, Phone, Info, Contact, Wrench } from "lucide-react";
 
 export default function DevelopedByPage() {
   const [showContactDetails, setShowContactDetails] = useState(false);
@@ -71,7 +71,7 @@ export default function DevelopedByPage() {
 
             <div>
               <h3 className="text-2xl font-semibold text-secondary mb-6 text-center">Our Services</h3>
-              <div className="grid md:grid-cols-2 gap-8 text-center">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 text-center">
                 <Card className="hover:shadow-lg transition-shadow duration-300">
                   <CardHeader>
                     <CardTitle className="flex items-center justify-center gap-3 text-xl text-accent">
@@ -95,6 +95,19 @@ export default function DevelopedByPage() {
                     <p className="font-bold text-2xl text-primary">₹15,000</p>
                     <p className="text-sm text-foreground/80">
                       Top-tier custom development with premium design, advanced GenAI capabilities, and ongoing support.
+                    </p>
+                  </CardContent>
+                </Card>
+                <Card className="hover:shadow-lg transition-shadow duration-300">
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-center gap-3 text-xl text-accent">
+                      <Wrench className="w-6 h-6" /> Full Customization
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    <p className="font-bold text-2xl text-primary">₹30,000 - ₹50,000+</p>
+                    <p className="text-sm text-foreground/80">
+                      Bespoke solutions for complex needs, including unique designs, custom features, and enterprise-level integrations.
                     </p>
                   </CardContent>
                 </Card>
