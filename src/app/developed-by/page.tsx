@@ -71,47 +71,37 @@ export default function DevelopedByPage() {
 
             <div>
               <h3 className="text-2xl font-semibold text-secondary mb-6 text-center">Our Services</h3>
-              <div className="grid md:grid-cols-1 gap-6 lg:gap-8 max-w-2xl mx-auto">
-                <Card className="hover:shadow-lg transition-shadow duration-300 flex flex-col">
+              <div className="grid md:grid-cols-2 gap-8 text-center">
+                <Card className="hover:shadow-lg transition-shadow duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-3 text-xl text-accent">
+                    <CardTitle className="flex items-center justify-center gap-3 text-xl text-accent">
                       <Briefcase className="w-6 h-6" /> Standard Web Solutions
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-2 flex-grow">
+                  <CardContent className="space-y-3">
+                    <p className="font-bold text-2xl text-primary">₹5,000</p>
                     <p className="text-sm text-foreground/80">
                       Ideal for personal portfolios, small businesses, or dynamic landing pages. Includes responsive design and essential features.
                     </p>
-                    <ul className="list-disc list-inside text-xs text-foreground/70 pl-1 space-y-1">
-                      <li>Up to 10-12 pages</li>
-                      <li>Responsive Design & SEO</li>
-                      <li>Database Integration</li>
-                      <li>Admin Panels</li>
-                    </ul>
                   </CardContent>
                 </Card>
-                <Card className="hover:shadow-lg transition-shadow duration-300 flex flex-col">
+                <Card className="hover:shadow-lg transition-shadow duration-300">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-3 text-xl text-accent">
+                    <CardTitle className="flex items-center justify-center gap-3 text-xl text-accent">
                       <Sparkles className="w-6 h-6" /> Advanced AI-Powered Applications
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-2 flex-grow">
+                  <CardContent className="space-y-3">
+                    <p className="font-bold text-2xl text-primary">₹15,000</p>
                     <p className="text-sm text-foreground/80">
-                      Top-tier custom development with premium design, advanced GenAI capabilities (custom Genkit flows, sophisticated chatbots, API integrations), and dedicated ongoing support.
+                      Top-tier custom development with premium design, advanced GenAI capabilities, and ongoing support.
                     </p>
-                     <ul className="list-disc list-inside text-xs text-foreground/70 pl-1 space-y-1">
-                      <li>Premium, Custom Design</li>
-                      <li>Advanced AI Integration & Custom Flows</li>
-                      <li>Scalable Architecture</li>
-                      <li>Priority & Ongoing Support</li>
-                    </ul>
                   </CardContent>
                 </Card>
               </div>
               <p className="text-sm text-muted-foreground mt-6 text-center flex items-center justify-center gap-1">
                 <Info className="w-3.5 h-3.5" />
-                Please use the contact details above for a quote based on your specific requirements.
+                These are example prices. Please use the contact details above for a custom quote.
               </p>
             </div>
           </CardContent>
@@ -120,8 +110,3 @@ export default function DevelopedByPage() {
     </div>
   );
 }
-    
-
-    
-
-    
