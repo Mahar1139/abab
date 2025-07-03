@@ -49,7 +49,7 @@ const prompt = ai.definePrompt({
   Given the following admissions information:
   {{admissionsInfo}}
 
-  Generate a list of questions that a prospective student might have. Focus on questions that address potential concerns, knowledge gaps, or areas where clarification is needed.  Return the questions as a JSON array of strings.
+  Generate a list of questions that a prospective student might have. Focus on questions that address potential concerns, knowledge gaps, or areas where clarification is needed. Only suggest questions for which you can provide a relevant answer based on the information provided or your general knowledge about school admissions. Return the questions as a JSON array of strings.
   `,
 });
 
