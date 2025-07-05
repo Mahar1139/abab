@@ -379,7 +379,7 @@ export default function HomePage() {
               <div>
                 <h3 className="text-xl font-bold text-secondary mb-5 font-headline">Explore</h3>
                 <ul className="space-y-2.5">
-                  <li><Link href="/tech-programs" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />Academic Programs</Link></li>
+                  <li><Link href="/tech-programs" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />Tech Programs</Link></li>
                   <li><Link href="/admissions" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />Admissions</Link></li>
                   <li><Link href="/faculty" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />Faculty</Link></li>
                   <li><Link href="/school-life" className="text-base font-medium text-primary-foreground/90 hover:text-white hover:underline transition-colors flex items-center group"><ChevronRight className="w-4 h-4 mr-1.5 text-accent group-hover:text-white transition-colors" />School Life</Link></li>
@@ -428,5 +428,7 @@ export default function HomePage() {
     </div>
   );
 }
+
+    
 
     
