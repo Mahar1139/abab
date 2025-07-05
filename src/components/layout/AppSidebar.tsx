@@ -37,7 +37,6 @@ export default function AppSidebar() {
 
   const navItems = [
     { href: '/', label: t('nav.home'), icon: Home }, // Home
-    { href: '/academic-programs', label: t('nav.academicPrograms'), icon: BookCopy },
     { href: '/admissions', label: t('nav.admissions'), icon: BookOpen }, // Admissions
     { href: '/tech-programs', label: t('nav.tech'), icon: Cpu }, // Existing Tech Programs link
     { href: '/faculty', label: t('nav.faculty'), icon: Users },

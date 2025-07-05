@@ -232,7 +232,7 @@ export default function HomePage() {
                 size="lg"
                 className="w-full sm:w-auto px-10 py-7 text-lg font-semibold shadow-xl hover:scale-105 transition-transform duration-300 bg-primary hover:bg-primary/90 text-primary-foreground"
               >
-                <Link href="/academic-programs">Explore Programs</Link>
+                <Link href="/tech-programs">Explore Programs</Link>
               </Button>
               <Button
                 asChild
