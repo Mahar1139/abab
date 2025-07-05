@@ -1,22 +1,11 @@
-
 'use client';
 
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import FacultyCard from "@/components/faculty/FacultyCard";
 import type { FacultyMember } from "@/types";
-import dynamic from 'next/dynamic';
-import { Skeleton } from '@/components/ui/skeleton';
-
-const QuestionSuggester = dynamic(() => import('@/components/ai/QuestionSuggester'), {
-  loading: () => (
-    <div className="my-8 p-4">
-      <Skeleton className="h-10 w-1/3 mb-4" />
-      <Skeleton className="h-6 w-2/3 mb-4" />
-      <Skeleton className="h-10 w-48" />
-    </div>
-  ),
-  ssr: false
-});
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { ArrowRight, Lightbulb } from 'lucide-react';
 
 interface FacultyPageClientProps {
     facultyMembers: FacultyMember[];
@@ -28,12 +17,10 @@ export default function FacultyPageClient({ facultyMembers, facultyProfilesTextF
   const otherFaculty = facultyMembers.filter(member => member.id !== 'director-001');
 
   return (
-    // Removed faculty-directory-light-theme class to adopt global theme
     <div className="bg-background text-foreground min-h-full">
       <div className="container mx-auto py-8 px-4">
         {director && (
           <SectionWrapper title="Message from the Manager" titleClassName="text-2xl sm:text-3xl md:text-4xl mb-6">
-            {/* Responsive container for the Director's card */}
             <div className="flex justify-center mb-8 md:mb-10">
               <div className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:max-w-3xl">
                 <FacultyCard member={director} />
@@ -53,12 +40,28 @@ export default function FacultyPageClient({ facultyMembers, facultyProfilesTextF
           </div>
         </SectionWrapper>
 
-        <QuestionSuggester
-          contentToAnalyze={facultyProfilesTextForAI}
-          suggestionType="faculty"
-          title="Thinking of Questions to Ask?"
-          description="After reviewing our faculty, here are some questions you might consider asking."
-        />
+        <SectionWrapper>
+          <div className="max-w-2xl mx-auto text-center bg-card p-8 rounded-lg shadow-lg">
+            <Lightbulb className="w-12 h-12 text-primary mx-auto mb-4" />
+            <h3 className="text-2xl font-bold text-primary mb-3">Inspired by Our Team?</h3>
+            <p className="text-lg text-foreground/80 mb-6">
+              Our faculty's dedication is a testament to the quality of education we provide. Take the next step in your journey with us.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button asChild size="lg">
+                <Link href="/tech-programs">
+                  Explore Our Tech Programs
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="secondary">
+                <Link href="/admissions">
+                  Apply for Admission
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </SectionWrapper>
       </div>
     </div>
   );

@@ -1,22 +1,10 @@
-
 'use client';
 
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import AdmissionFormComponent from "@/components/admissions/AdmissionForm";
 import dynamic from 'next/dynamic';
-import { Skeleton } from '@/components/ui/skeleton';
-
-const QuestionSuggester = dynamic(() => import('@/components/ai/QuestionSuggester'), {
-  loading: () => (
-    <div className="my-8 p-4">
-      <Skeleton className="h-10 w-1/3 mb-4" />
-      <Skeleton className="h-6 w-2/3 mb-4" />
-      <Skeleton className="h-10 w-48" />
-    </div>
-  ),
-  ssr: false
-});
+import { BrainCircuit } from "lucide-react";
 
 const FloatingAIHelper = dynamic(() => import('@/components/ai/FloatingAIHelper'), { ssr: false });
 
@@ -39,12 +27,24 @@ export default function AdmissionsPageClient({ fullAdmissionsText }: AdmissionsP
         </Card>
       </SectionWrapper>
 
-      <QuestionSuggester
-        contentToAnalyze={fullAdmissionsText}
-        suggestionType="admissions"
-        title="Have Questions?"
-        description="Based on the admissions info, you might want to ask..."
-      />
+      <div className="my-8">
+        <Card className="bg-secondary/20 border-secondary/30">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-3">
+              <BrainCircuit className="w-8 h-8 text-secondary" />
+              <span>Have Questions About the Form?</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-lg text-foreground/80">
+              Our AI Assistant is here to help! If you have any questions about the admission process or are unsure about any of the fields in this form, just click the AI icon in the bottom-right corner of your screen.
+            </p>
+             <p className="text-sm text-muted-foreground mt-2 flex items-center">
+              You can ask things like "What documents do I need?" or "What is the age criteria for Class 1?".
+            </p>
+          </CardContent>
+        </Card>
+      </div>
 
       <FloatingAIHelper />
     </div>
