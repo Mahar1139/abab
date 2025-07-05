@@ -37,8 +37,15 @@ export default function QuestionSuggester({
         result = await suggestFacultyQuestionsAction({ facultyProfilesText: contentToAnalyze });
       }
       
-      const suggested = result.questions || result.suggestedQuestions;
-      if (suggested && Array.isArray(suggested)) {
+      let suggested: string[] | undefined;
+      if (result && typeof result === 'object' && 'questions' in result && Array.isArray(result.questions)) {
+ suggested = result.questions as string[];
+      } else if (result && typeof result === 'object' && 'suggestedQuestions' in result && Array.isArray(result.suggestedQuestions)) {
+ suggested = result.suggestedQuestions as string[];
+      }
+
+
+      if (suggested && suggested.length > 0) {
         setQuestions(suggested);
       } else {
         setError("Could not retrieve valid questions. The AI response might be in an unexpected format.");

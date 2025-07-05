@@ -39,21 +39,21 @@ Thank you and God Bless You!`,
   },
   {
     id: '4',
-    name: 'Mr. Sameer Khan',
-    title: 'English Department Head, MA English Literature',
-    bio: 'Mr. Khan inspires a love for literature and critical thinking. He organizes the school\'s debate club and annual literary festival.',
+    name: 'Mr. Prakash Kandpal',
+    title: 'Hindi Faculty Head',
+    bio: 'Mr. Prakash Kandpal is a devoted Hindi teacher whose love for language and literature resonates in every classroom he enters. With a deep respect for Indias rich linguistic heritage, he inspires students to connect with Hindi not just as a subject, but as a powerful medium of expression and identity. His teaching blends tradition with thoughtful guidance, nurturing clarity, confidence, and cultural pride among learners.',
   },
    {
     id: '5',
-    name: 'Mrs. Sunita Patel',
-    title: 'Arts & Crafts Coordinator, B.F.A.',
-    bio: 'Mrs. Patel believes in nurturing creativity and self-expression through various art forms. Her students regularly win accolades at inter-school art competitions.',
+    name: 'Mrs. Priti Joshi',
+    title: 'Science Faculty Head',
+    bio: 'Mrs. Pritty Joshi is a passionate and dynamic Science teacher who brings curiosity to life through her engaging lessons and hands-on approach. With a talent for simplifying complex concepts, she inspires students to explore, question, and understand the world around them. Her dedication to nurturing scientific thinking and innovation makes her a valued mentor and an integral part of our academic team.',
   },
   {
     id: '6',
-    name: 'Mr. Arjun Reddy',
-    title: 'Physical Education Director, M.P.Ed.',
-    bio: 'Mr. Reddy is dedicated to promoting physical fitness and sportsmanship among students. He coaches multiple school sports teams, leading them to numerous victories.',
+    name: 'Mrs Pooja Pant',
+    title: 'SST faculty Head',
+    bio: 'Ms. Pooja Pant is not just a teacher of Social Science—she is a storyteller of civilizations, a guide through the corridors of history, and a mentor shaping tomorrow’s responsible citizens. With a thoughtful blend of knowledge and empathy, she inspires students to explore the world beyond textbooks—encouraging curiosity, critical thinking, and a deep understanding of society and self. Her classroom is a place where the past meets the future, and every lesson builds a bridge of awareness, integrity, and purpose.',
   }
 ];
     
