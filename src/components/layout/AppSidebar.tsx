@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from 'next/link';
@@ -27,7 +26,8 @@ import {
   Settings,
   TrendingUp,
   School,
-  BookCopy
+  BookCopy,
+  GraduationCap
 } from 'lucide-react';
 
 export default function AppSidebar() {
@@ -39,6 +39,7 @@ export default function AppSidebar() {
     { href: '/', label: t('nav.home'), icon: Home }, // Home
     { href: '/admissions', label: t('nav.admissions'), icon: BookOpen }, // Admissions
     { href: '/tech-programs', label: t('nav.tech'), icon: Cpu }, // Existing Tech Programs link
+    { href: '/extramarks', label: t('nav.extramarks'), icon: GraduationCap },
     { href: '/faculty', label: t('nav.faculty'), icon: Users },
     { href: '/school-life', label: t('nav.schoolLife'), icon: ImageIcon },
     { href: '/events-calendar', label: t('nav.events'), icon: CalendarDays },

@@ -1,4 +1,3 @@
-
 'use client';
 
 import Link from 'next/link'
@@ -309,7 +308,7 @@ export default function HomePage() {
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { title: "Extramarks Partnership", description: "Extramarks is now available, offering comprehensive digital learning resources to supplement classroom teaching.", icon: GraduationCap, href: "/admissions" },
+              { title: "Extramarks Partnership", description: "Extramarks is now available, offering comprehensive digital learning resources to supplement classroom teaching.", icon: GraduationCap, href: "/extramarks" },
               { title: "AI-Powered Learning", description: "Engage with our unique AI Quiz Challenge and AI Assistant for a personalized learning journey.", icon: Brain, href: "/quiz" },
               { title: "Advanced Tech Labs", description: "Gain hands-on experience in our fully equipped labs for Coding, Robotics and AI.", icon: Cpu, href: "/tech-programs" },
               { title: "Holistic Development", description: "We focus on all-round development, including arts, sports, and vital life skills.", icon: Leaf, href: "/school-life" },
@@ -428,7 +427,3 @@ export default function HomePage() {
     </div>
   );
 }
-
-    
-
-    

@@ -1,4 +1,3 @@
-
 "use client";
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
@@ -15,13 +14,15 @@ import {
   CalendarDays, 
   FileText,
   Code,
-  TrendingUp
+  TrendingUp,
+  GraduationCap
 } from 'lucide-react';
 
 const navItems = [
   { href: '/', label: 'School Overview', icon: Home },
   { href: '/admissions', label: 'Admissions', icon: BookOpen },
   { href: '/tech-programs', label: 'Tech Programs', icon: Cpu },
+  { href: '/extramarks', label: 'Extramarks Partnership', icon: GraduationCap },
   { href: '/faculty', label: 'Faculty Directory', icon: Users },
   { href: '/school-life', label: 'School Life', icon: ImageIcon },
   { href: '/events-calendar', label: 'Events Calendar', icon: CalendarDays },

@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useLanguage } from '@/context/LanguageContext';
@@ -8,8 +7,8 @@ const translations = {
     // Nav
     'nav.home': 'Home',
     'nav.admissions': 'Admissions',
-    'nav.academicPrograms': 'Academic Programs',
     'nav.tech': 'Tech Programs',
+    'nav.extramarks': 'Extramarks',
     'nav.faculty': 'Faculty',
     'nav.schoolLife': 'School Life',
     'nav.events': 'Events Calendar',
@@ -33,8 +32,8 @@ const translations = {
     // Nav
     'nav.home': 'होम',
     'nav.admissions': 'प्रवेश',
-    'nav.academicPrograms': 'शैक्षणिक कार्यक्रम',
     'nav.tech': 'टेक प्रोग्राम',
+    'nav.extramarks': 'एक्स्ट्रामार्क्स',
     'nav.faculty': 'शिक्षक',
     'nav.schoolLife': 'स्कूल जीवन',
     'nav.events': 'कार्यक्रम कैलेंडर',
