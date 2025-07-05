@@ -19,14 +19,15 @@ import {
   Home, 
   BookOpen, 
   Users, 
-  Image as ImageIcon, 
+  ImageIcon, 
   Cpu, 
   Brain,
   CalendarDays, 
   FileText,
   Settings,
   TrendingUp,
-  School
+  School,
+  BookCopy
 } from 'lucide-react';
 
 export default function AppSidebar() {
@@ -35,14 +36,15 @@ export default function AppSidebar() {
   const { t } = useTranslation();
 
   const navItems = [
- { href: '/', label: t('nav.home'), icon: Home }, // Home
- { href: '/admissions', label: t('nav.admissions'), icon: BookOpen }, // Admissions
- { href: '/tech-programs', label: t('nav.tech'), icon: Cpu }, // Existing Tech Programs link
- { href: '/faculty', label: t('nav.faculty'), icon: Users },
- { href: '/school-life', label: t('nav.schoolLife'), icon: ImageIcon },
- { href: '/events-calendar', label: t('nav.events'), icon: CalendarDays },
- { href: '/quiz', label: t('nav.quiz'), icon: Brain },
- { href: '/track-performance', label: t('nav.trackPerformance'), icon: TrendingUp },
+    { href: '/', label: t('nav.home'), icon: Home }, // Home
+    { href: '/academic-programs', label: t('nav.academicPrograms'), icon: BookCopy },
+    { href: '/admissions', label: t('nav.admissions'), icon: BookOpen }, // Admissions
+    { href: '/tech-programs', label: t('nav.tech'), icon: Cpu }, // Existing Tech Programs link
+    { href: '/faculty', label: t('nav.faculty'), icon: Users },
+    { href: '/school-life', label: t('nav.schoolLife'), icon: ImageIcon },
+    { href: '/events-calendar', label: t('nav.events'), icon: CalendarDays },
+    { href: '/quiz', label: t('nav.quiz'), icon: Brain },
+    { href: '/track-performance', label: t('nav.trackPerformance'), icon: TrendingUp },
   ];
 
   const displayedNavItems = navItems.filter(item => item.href !== '/developed-by'); // Keep this filter if /developed-by should not be in the sidebar
