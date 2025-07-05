@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { SchoolEvent } from '@/types';
 import { Card, CardContent } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 interface GalleryImageProps {
   item: SchoolEvent;
@@ -27,6 +27,10 @@ export default function GalleryImage({ item }: GalleryImageProps) {
         </Card>
       </DialogTrigger>
       <DialogContent className="max-w-4xl w-auto p-0 bg-transparent border-none shadow-none">
+        <DialogHeader className="sr-only">
+          <DialogTitle>{item.title}</DialogTitle>
+          <DialogDescription>{item.description}</DialogDescription>
+        </DialogHeader>
         <Image
           src={item.imageUrl}
           alt={item.title}

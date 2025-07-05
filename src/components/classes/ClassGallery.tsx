@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import SectionWrapper from '@/components/shared/SectionWrapper';
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 
 interface ClassGalleryItem {
@@ -51,6 +51,9 @@ export default function ClassGallery({ images, galleryTitle = "Glimpses from Our
                 </div>
               </DialogTrigger>
               <DialogContent className="max-w-4xl w-auto p-0 bg-transparent border-none shadow-none">
+                <DialogHeader className="sr-only">
+                  <DialogTitle>{image.alt}</DialogTitle>
+                </DialogHeader>
                 <Image
                   src={image.src}
                   alt={image.alt}
