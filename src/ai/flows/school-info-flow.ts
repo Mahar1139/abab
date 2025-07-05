@@ -67,7 +67,7 @@ Our Privacy Policy and Terms & Conditions documents are available and can be acc
 
 Contact Information:
 Address: Near Sports Stadium, Pithoragarh
-Phone: 9897089880, 7055840794, 9760042208
+Phone: +91-9897089880, +91-7055840794, +91-9760042208
 Email: hps_pithoragarh@rediffmail.com
 Office Hours: Monday - Friday: 8:00 AM - 4:00 PM; Saturday: 9:00 AM - 1:00 PM (Admissions Office Only); Sunday: Closed.
 The 'Admissions' page is the primary contact point for inquiries.

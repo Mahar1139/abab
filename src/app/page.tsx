@@ -397,9 +397,9 @@ export default function HomePage() {
                   <li className="flex items-center">
                     <Phone className="w-4 h-4 mr-3 text-primary-foreground shrink-0" />
                     <div>
-                      <a href="tel:9897089880" className="hover:text-white hover:underline transition-colors block">9897089880</a>
-                      <a href="tel:7055840794" className="hover:text-white hover:underline transition-colors block">7055840794</a>
-                      <a href="tel:9760042208" className="hover:text-white hover:underline transition-colors block">9760042208</a>
+                      <a href="tel:+919897089880" className="hover:text-white hover:underline transition-colors block">+91-9897089880</a>
+                      <a href="tel:+917055840794" className="hover:text-white hover:underline transition-colors block">+91-7055840794</a>
+                      <a href="tel:+919760042208" className="hover:text-white hover:underline transition-colors block">+91-9760042208</a>
                     </div>
                   </li>
                   <li className="flex items-center">

@@ -279,7 +279,7 @@ export default function TermsConditionsDialog() {
             <p>If you have any questions about these Terms and Conditions, you can contact us:</p>
             <ul>
               <li>By email: hps_pithoragarh@rediffmail.com</li>
-              <li>By phone: +91-6398998621 or +91-7351840980</li>
+              <li>By phone: +91-9897089880, +91-7055840794, +91-9760042208</li>
               <li>By visiting our admissions office: Near Sports Stadium, Pithoragarh</li>
             </ul>
           </div>
