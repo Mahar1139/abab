@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import SectionWrapper from '@/components/shared/SectionWrapper';
-import { BookOpenCheck, Leaf, Users, Telescope, ArrowRight, TrendingUp, Zap, ShieldCheck, GraduationCap, Palette, Activity, School, MapPin, Phone, Mail, ChevronRight } from 'lucide-react';
+import { Leaf, Users, Telescope, ArrowRight, GraduationCap, Palette, Activity, School, MapPin, Phone, Mail, ChevronRight, Cpu, Brain } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import PrivacyPolicyDialog from '@/components/layout/PrivacyPolicyDialog';
 import TermsConditionsDialog from '@/components/layout/TermsConditionsDialog';
@@ -302,32 +302,32 @@ export default function HomePage() {
           </div>
         </SectionWrapper>
 
-        {/* Our Programs Teaser Section */}
-        <SectionWrapper title="Our Programs" className="bg-card text-foreground py-16 md:py-24">
+        {/* Our Core Features Section */}
+        <SectionWrapper title="Our Core Features" className="bg-card text-foreground py-16 md:py-24">
           <p className="text-center text-lg text-foreground/80 mb-12 max-w-2xl mx-auto">
-            From foundational learning to advanced specialization, our programs are designed for every stage of your child's educational journey.
+            We provide a modern educational experience with state-of-the-art tools and a focus on comprehensive student growth.
           </p>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { title: "Primary School", description: "Grades 1-5. Building strong foundations in a nurturing environment.", icon: BookOpenCheck, href: "/academic-programs#primary", dataAiHint: "children classroom" },
-              { title: "Middle School", description: "Grades 6-8. Fostering critical thinking and deeper subject understanding.", icon: TrendingUp, href: "/academic-programs#middle", dataAiHint: "students science" },
-              { title: "High School", description: "Grades 9-12. Preparing for board exams and future career paths.", icon: ShieldCheck, href: "/academic-programs#high", dataAiHint: "teenagers studying" },
-              { title: "Tech Programs", description: "Specialized courses in Coding, Robotics, and Computer Literacy.", icon: Zap, href: "/tech-programs", dataAiHint: "robotics coding" },
-            ].map((program) => (
-              <Card key={program.title} className="group overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full bg-background hover:border-accent/50">
+              { title: "Extramarks Partnership", description: "Extramarks is now available, offering comprehensive digital learning resources to supplement classroom teaching.", icon: GraduationCap, href: "/admissions" },
+              { title: "AI-Powered Learning", description: "Engage with our unique AI Quiz Challenge and AI Assistant for a personalized learning journey.", icon: Brain, href: "/quiz" },
+              { title: "Advanced Tech Labs", description: "Gain hands-on experience in our fully equipped labs for Coding, Robotics and AI.", icon: Cpu, href: "/tech-programs" },
+              { title: "Holistic Development", description: "We focus on all-round development, including arts, sports, and vital life skills.", icon: Leaf, href: "/school-life" },
+            ].map((feature) => (
+              <Card key={feature.title} className="group overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col h-full bg-background hover:border-accent/50">
                 <CardHeader className="items-center text-center p-4">
                   <div className="p-3 bg-accent/10 rounded-full mb-3 inline-block group-hover:bg-accent transition-colors duration-300">
-                    <program.icon className="w-8 h-8 text-accent group-hover:text-accent-foreground transition-colors duration-300" />
+                    <feature.icon className="w-8 h-8 text-accent group-hover:text-accent-foreground transition-colors duration-300" />
                   </div>
-                  <CardTitle className="text-xl text-primary group-hover:text-accent transition-colors font-headline">{program.title}</CardTitle>
+                  <CardTitle className="text-xl text-primary group-hover:text-accent transition-colors font-headline">{feature.title}</CardTitle>
                 </CardHeader>
                 <CardContent className="flex-grow text-center p-4">
-                  <CardDescription className="text-foreground/80">{program.description}</CardDescription>
+                  <CardDescription className="text-foreground/80">{feature.description}</CardDescription>
                 </CardContent>
                 <CardContent className="text-center p-4">
                   <Button asChild variant="outline" className="text-accent border-accent hover:bg-accent hover:text-accent-foreground transition-colors">
-                    <Link href={program.href}>
-                      Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                    <Link href={feature.href}>
+                      Explore More <ArrowRight className="ml-2 w-4 h-4" />
                     </Link>
                   </Button>
                 </CardContent>
