@@ -216,7 +216,7 @@ export default function HomePage() {
             className="object-cover z-0"
             data-ai-hint="school building"
           />
-          <div className="absolute inset-0 bg-black/50 z-10" />
+          <div className="absolute inset-0 bg-black/40 z-10" />
           <div className="relative z-20 p-4 md:p-8 max-w-4xl mx-auto">
             <div className={isClient ? 'animate-fade-in-up' : 'opacity-0'}>
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 font-headline text-white" style={{ textShadow: '2px 2px 4px rgba(0, 0, 0, 0.7)' }}>
