@@ -10,8 +10,8 @@ import ClassGallery from '@/components/classes/ClassGallery';
 const extramarksGalleryImages = [
   { src: '/ExtraAnywhere.jpeg', alt: 'Extramarks available on multiple devices', dataAiHint: 'learning devices' },
   { src: '/Extra.JPG', alt: 'Extramarks digital interface on a screen', dataAiHint: 'elearning interface', colSpan: 2 },
-  { src: 'https://placehold.co/600x400.png', alt: 'A teacher guiding a student with a digital lesson', dataAiHint: 'teacher student digital' },
-  { src: 'https://placehold.co/600x400.png', alt: 'Interactive learning session in a smart classroom', dataAiHint: 'smart classroom' },
+  { src: '/EXMARKS.jpeg', alt: 'A teacher guiding a student with a digital lesson', dataAiHint: 'teacher student digital' },
+  { src: '/Extra123.jpeg', alt: 'Interactive learning session in a smart classroom', dataAiHint: 'smart classroom' },
 ];
 
 export default function ExtramarksPage() {
