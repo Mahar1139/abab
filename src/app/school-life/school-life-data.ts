@@ -27,7 +27,7 @@ export const galleryItems: SchoolEvent[] = [
     id: 'g7',
     title: 'Computer Lab Session',
     description: 'Learning digital skills in our tech lab.',
-    imageUrl: '/A4.JPG',
+    imageUrl: '/COmputerLab.JPG',
     dataAiHint: 'computer lab'
   },
   {
