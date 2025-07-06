@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 import SectionWrapper from "@/components/shared/SectionWrapper";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -25,7 +26,7 @@ export default function ExtramarksPage() {
           <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card group flex flex-col">
             <div className="relative w-full aspect-video">
                 <Image
-                src="https://placehold.co/800x450.png"
+                src="/Extramarks2.png"
                 alt="Extramarks Learning Platform"
                 fill
                 data-ai-hint="digital learning"

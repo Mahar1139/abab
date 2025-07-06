@@ -45,9 +45,9 @@ Thank you and God Bless You!`,
   },
    {
     id: '5',
-    name: 'Mrs. Priti Joshi',
+    name: 'Ms. Priti Joshi',
     title: 'Science Faculty Head',
-    bio: 'Mrs. Pritty Joshi is a passionate and dynamic Science teacher who brings curiosity to life through her engaging lessons and hands-on approach. With a talent for simplifying complex concepts, she inspires students to explore, question, and understand the world around them. Her dedication to nurturing scientific thinking and innovation makes her a valued mentor and an integral part of our academic team.',
+    bio: 'Ms. Pritty Joshi is a passionate and dynamic Science teacher who brings curiosity to life through her engaging lessons and hands-on approach. With a talent for simplifying complex concepts, she inspires students to explore, question, and understand the world around them. Her dedication to nurturing scientific thinking and innovation makes her a valued mentor and an integral part of our academic team.',
   },
   {
     id: '6',
