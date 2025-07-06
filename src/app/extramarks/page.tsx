@@ -36,19 +36,19 @@ export default function ExtramarksPage() {
                   />
               </div>
               {/* Text Container */}
-              <div className="lg:w-1/2 p-6 flex flex-col flex-grow justify-center">
+              <div className="lg:w-1/2 p-6 flex flex-col flex-grow justify-center bg-primary">
                 <CardHeader className="p-0 mb-4">
                     <div className="flex items-center gap-3">
-                        <GraduationCap className="w-8 h-8 text-primary" />
-                        <CardTitle className="text-2xl text-primary">Extramarks: The Total Learning™ App</CardTitle>
+                        <GraduationCap className="w-8 h-8 text-primary-foreground" />
+                        <CardTitle className="text-2xl text-primary-foreground">Extramarks: The Total Learning™ App</CardTitle>
                     </div>
                 </CardHeader>
                 <CardContent className="p-0 space-y-4 flex-grow">
-                    <CardDescription className="text-foreground/90 text-base leading-relaxed">
+                    <CardDescription className="text-primary-foreground/90 text-base leading-relaxed">
                       Extramarks combines the best of technology and pedagogy to create an engaging, child-centric learning environment. The platform offers a multi-layered ecosystem with a learning app for students, a school-based solution, and a specialized app for teachers.
                     </CardDescription>
                     <div>
-                      <h4 className="font-semibold text-lg text-secondary mb-3">Key Features:</h4>
+                      <h4 className="font-semibold text-lg text-primary-foreground mb-3">Key Features:</h4>
                       <ul className="space-y-2.5">
                         {[
                           "Comprehensive curriculum-mapped learning modules.",
@@ -58,8 +58,8 @@ export default function ExtramarksPage() {
                           "In-depth performance reports and analytics for students and parents."
                         ].map((point, index) => (
                           <li key={index} className="flex items-start">
-                            <CheckCircle className="w-5 h-5 text-primary mr-2.5 mt-0.5 shrink-0" />
-                            <span className="text-foreground/80">{point}</span>
+                            <CheckCircle className="w-5 h-5 text-accent mr-2.5 mt-0.5 shrink-0" />
+                            <span className="text-primary-foreground/80">{point}</span>
                           </li>
                         ))}
                       </ul>
