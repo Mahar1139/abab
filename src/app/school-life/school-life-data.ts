@@ -1,4 +1,3 @@
-
 import type { SchoolEvent, VideoItem } from '@/types';
 
 export const galleryItems: SchoolEvent[] = [
@@ -20,8 +19,8 @@ export const galleryItems: SchoolEvent[] = [
     id: 'g6',
     title: 'Library Reading Time',
     description: 'Students engrossed in the world of books.',
-    imageUrl: '/A3.JPG',
-    dataAiHint: 'students library'
+    imageUrl: '/COmputerLab.JPG',
+    dataAiHint: 'students computer'
   },
   {
     id: 'g7',
