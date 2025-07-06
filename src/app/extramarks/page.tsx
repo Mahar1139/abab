@@ -26,7 +26,7 @@ export default function ExtramarksPage() {
           <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card group">
             <div className="lg:flex lg:flex-row">
               {/* Image Container */}
-              <div className="lg:w-1/2 relative w-full aspect-video lg:min-h-[500px] bg-muted/50 p-4">
+              <div className="lg:w-1/2 relative w-full aspect-video lg:min-h-[500px] p-4 bg-gradient-to-b from-purple-600 via-blue-900 to-orange-500 bg-[length:100%_300%] animate-gradient-flow-y">
                   <Image
                       src="/Extramarks2.png"
                       alt="Extramarks Learning Platform"

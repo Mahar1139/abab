@@ -121,6 +121,10 @@ export default {
           '66%': { transform: 'translate(50vw, 40vh) scale(0.7)' },
           '100%': { transform: 'translate(0px, 0px) scale(1)' },
         },
+        'gradient-flow-y': {
+          '0%, 100%': { 'background-position': '50% 0%' },
+          '50%': { 'background-position': '50% 100%' },
+        },
       },
       animation: {
         'fade-in-up': 'fade-in-up 0.8s ease-out both',
@@ -131,6 +135,7 @@ export default {
         'blob-2': 'blob-2 8s infinite ease-in-out -3s',
         'blob-3': 'blob-3 9s infinite ease-in-out -1s',
         'blob-4': 'blob-4 10s infinite ease-in-out -4s',
+        'gradient-flow-y': 'gradient-flow-y 10s ease infinite',
       },
     },
   },
