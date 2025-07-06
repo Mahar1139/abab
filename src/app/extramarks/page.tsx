@@ -30,7 +30,7 @@ export default function ExtramarksPage() {
                 alt="Extramarks Learning Platform"
                 fill
                 data-ai-hint="digital learning"
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                className="object-contain transition-transform duration-300 group-hover:scale-105"
                 />
             </div>
 
