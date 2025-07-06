@@ -8,7 +8,7 @@ import { ArrowRight, CheckCircle, GraduationCap } from 'lucide-react';
 import ClassGallery from '@/components/classes/ClassGallery';
 
 const extramarksGalleryImages = [
-  { src: 'https://placehold.co/600x400.png', alt: 'Students using tablets for e-learning', dataAiHint: 'students tablets' },
+  { src: '/ExtraAnywhere.jpeg', alt: 'Extramarks available on multiple devices', dataAiHint: 'learning devices' },
   { src: 'https://placehold.co/800x400.png', alt: 'Extramarks digital interface on a screen', dataAiHint: 'elearning interface', colSpan: 2 },
   { src: 'https://placehold.co/600x400.png', alt: 'A teacher guiding a student with a digital lesson', dataAiHint: 'teacher student digital' },
   { src: 'https://placehold.co/600x400.png', alt: 'Interactive learning session in a smart classroom', dataAiHint: 'smart classroom' },
@@ -28,10 +28,10 @@ export default function ExtramarksPage() {
               {/* Image Container */}
               <div className="lg:w-1/2 relative w-full aspect-video lg:min-h-[500px] p-4 bg-gradient-to-b from-purple-600 via-blue-900 to-orange-500 bg-[length:100%_300%] animate-gradient-flow-y">
                   <Image
-                      src="/ExtraAnywhere.jpeg"
-                      alt="Extramarks available on multiple devices"
+                      src="/Extramarks2.png"
+                      alt="Extramarks Learning Platform"
                       fill
-                      data-ai-hint="learning devices"
+                      data-ai-hint="elearning platform"
                       className="object-contain transition-transform duration-300 group-hover:scale-105"
                   />
               </div>
