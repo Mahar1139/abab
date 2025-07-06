@@ -28,10 +28,10 @@ export default function ExtramarksPage() {
               {/* Image Container */}
               <div className="lg:w-1/2 relative w-full aspect-video lg:min-h-[500px] p-4 bg-gradient-to-b from-purple-600 via-blue-900 to-orange-500 bg-[length:100%_300%] animate-gradient-flow-y">
                   <Image
-                      src="/Extramarks2.png"
-                      alt="Extramarks Learning Platform"
+                      src="/ExtraAnywhere.jpeg"
+                      alt="Extramarks available on multiple devices"
                       fill
-                      data-ai-hint="digital learning"
+                      data-ai-hint="learning devices"
                       className="object-contain transition-transform duration-300 group-hover:scale-105"
                   />
               </div>
