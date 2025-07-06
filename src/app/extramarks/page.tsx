@@ -22,15 +22,15 @@ export default function ExtramarksPage() {
           We are proud to partner with Extramarks to provide a comprehensive digital learning platform, revolutionizing education with cutting-edge technology and rich media content.
         </p>
         
-        <div className="max-w-3xl mx-auto">
+        <div className="max-w-4xl mx-auto">
           <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300 bg-card group flex flex-col">
-            <div className="relative w-full aspect-video">
+            <div className="relative w-full aspect-[4/3] bg-muted/50 p-4">
                 <Image
                     src="/Extramarks2.png"
                     alt="Extramarks Learning Platform"
                     fill
                     data-ai-hint="digital learning"
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    className="object-contain transition-transform duration-300 group-hover:scale-105"
                 />
             </div>
             <div className="p-6 flex flex-col flex-grow">
