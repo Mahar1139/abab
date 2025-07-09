@@ -37,6 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${playfairDisplay.variable} ${ptSans.variable}`} suppressHydrationWarning>
+      <meta name="google-site-verification" content="LrexUqBTobg0liV9GzThyXMtkg1qqJkwT2g9RBPAn18" />
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
